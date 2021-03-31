@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GpsNotepad.Views.SignUpPage"
+             Title="SignUp">
+    <ContentPage.Content>
+        
+        <StackLayout Padding="40, 40, 40, 50">
+
+            <StackLayout VerticalOptions="CenterAndExpand">
+
+                <Entry Placeholder="Name" 
+                       Text="{Binding Name}"/>
+                
+                <Entry Placeholder="E-mail" 
+                       Text="{Binding Email}"/>
+                
+                <Entry Placeholder="Password" 
+                       IsPassword="True" 
+                       Text="{Binding Password}"/>
+                
+                <Entry Placeholder="Confirm Password" 
+                       IsPassword="True" 
+                       Text="{Binding ConfirmPassword}"/>
+
+            </StackLayout>
+
+            <StackLayout VerticalOptions="EndAndExpand">
+
+                <Button Text="SignUp"
+                        Command="{Binding SignUpTapCommand}"/>
+
+            </StackLayout>
+            
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>
