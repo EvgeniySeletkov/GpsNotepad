@@ -1,4 +1,5 @@
 ﻿using GpsNotepad.Services.Authorization;
+using GpsNotepad.Services.Settings;
 using GpsNotepad.Views;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -37,11 +38,34 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref password, value);
         }
 
+        private bool isButtonEnable = false;
+        public bool IsButtonEnable
+        {
+            get => isButtonEnable;
+            set => SetProperty(ref isButtonEnable, value);
+        }
+
         public ICommand SignInTapCommand => new Command(OnSignInTap);
         public ICommand SignUpTapCommand => new Command(OnSignUpTap);
 
         #endregion
 
+        #region --- Private Methods ---
+
+        private void CheckEntries()
+        {
+            if (string.IsNullOrWhiteSpace(Email) ||
+                string.IsNullOrWhiteSpace(Password))
+            {
+                IsButtonEnable = false;
+            }
+            else
+            {
+                IsButtonEnable = true;
+            }
+        }
+
+        #endregion
 
         #region --- Private Helpers ---
 

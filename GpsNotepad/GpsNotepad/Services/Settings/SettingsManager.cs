@@ -12,5 +12,10 @@ namespace GpsNotepad.Services.Settings
             get => Preferences.Get(nameof(UserId), 0);
             set => Preferences.Set(nameof(UserId), value);
         }
+        public string Culture
+        {
+            get => Preferences.Get(nameof(Culture), "en");
+            set => Preferences.Set(nameof(Culture), value);
+        }
     }
 }

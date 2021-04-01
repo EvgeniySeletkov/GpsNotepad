@@ -10,6 +10,6 @@ namespace GpsNotepad.Services.Authorization
     {
         bool IsAuthorized { get; }
         Task<bool> SignInAsync(string email, string password);
-        Task SignUp(UserModel userModel);
+        Task<bool> SignUp(UserModel userModel);
     }
 }

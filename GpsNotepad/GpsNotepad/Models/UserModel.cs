@@ -8,9 +8,10 @@ namespace GpsNotepad.Models
     [Table("Users")]
     class UserModel : IEntityBase
     {
-        [PrimaryKey, AutoIncrement, Unique]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; }
+        [Unique]
         public string Email { get; set; }
         public string Password { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using GpsNotepad.Models;
 using GpsNotepad.Services.Authorization;
+using GpsNotepad.Validation;
 using GpsNotepad.Views;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -27,28 +28,51 @@ namespace GpsNotepad.ViewModels
         public string Name
         {
             get => name;
-            set => SetProperty(ref name, value);
+            set
+            {
+                SetProperty(ref name, value);
+                CheckEntries();
+            }
         }
 
         private string email;
         public string Email
         {
             get => email;
-            set => SetProperty(ref email, value);
+            set
+            {
+                SetProperty(ref email, value);
+                CheckEntries();
+            }
         }
 
         private string password;
         public string Password
         {
             get => password;
-            set => SetProperty(ref password, value);
+            set
+            {
+                SetProperty(ref password, value);
+                CheckEntries();
+            }
         }
 
         private string confirmPassword;
         public string ConfirmPassword
         {
             get => confirmPassword;
-            set => SetProperty(ref confirmPassword, value);
+            set
+            {
+                SetProperty(ref confirmPassword, value);
+                CheckEntries();
+            }
+        }
+
+        private bool isButtonEnable = false;
+        public bool IsButtonEnable
+        {
+            get => isButtonEnable;
+            set => SetProperty(ref isButtonEnable, value);
         }
 
         public ICommand SignUpTapCommand => new Command(OnSignUpTap);
@@ -57,16 +81,91 @@ namespace GpsNotepad.ViewModels
 
         #region --- Private Methods ---
 
+        private void CheckEntries()
+        {
+            if (string.IsNullOrWhiteSpace(Name) ||
+                string.IsNullOrWhiteSpace(Email) ||
+                string.IsNullOrWhiteSpace(Password) ||
+                string.IsNullOrWhiteSpace(ConfirmPassword))
+            {
+                IsButtonEnable = false;
+            }
+            else
+            {
+                IsButtonEnable = true;
+            }
+        }
+
+        private void ClearEntries()
+        {
+            Name = string.Empty;
+            Email = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+        }
+
+        private bool HasValidName()
+        {
+            if (Validator.HasFirstDigitalSymbol(Name))
+            {
+                ClearEntries();
+                return false;
+            }
+            if (!Validator.HasValidLength(Name, 4))
+            {
+                ClearEntries();
+                return false;
+            }
+            return true;
+        }
+
+        private bool HasValidEmail()
+        {
+            if (!Validator.HasValidEmail(Email))
+            {
+                ClearEntries();
+                return false;
+            }
+            return true;
+        }
+
+        private bool HasValidPassword()
+        {
+            if (!Validator.HasValidPassword(Password))
+            {
+                ClearEntries();
+                return false;
+            }
+            if (!Validator.HasValidLength(Password, 6))
+            {
+                ClearEntries();
+                return false;
+            }
+            if (!Validator.HasEqualPasswords(Password, ConfirmPassword))
+            {
+                ClearEntries();
+                return false;
+            }
+            return true;
+        }
+
         private UserModel CreateUser()
         {
             UserModel userModel = null;
 
-            userModel = new UserModel()
+            if (!Password.Equals(Name))
             {
-                Name = Name,
-                Email = Email,
-                Password = Password
-            };
+                userModel = new UserModel()
+                {
+                    Name = Name,
+                    Email = Email,
+                    Password = Password
+                };
+            }
+            else
+            {
+                ClearEntries();
+            }
 
             return userModel;
         }
@@ -77,11 +176,23 @@ namespace GpsNotepad.ViewModels
 
         private async void OnSignUpTap(object obj)
         {
-            var userModel = CreateUser();
-            if (userModel != null)
+            if (HasValidName() &&
+                HasValidEmail() &&
+                HasValidPassword())
             {
-                await _authorizationService.SignUp(userModel);
-                await _navigationService.GoBackAsync();
+                var userModel = CreateUser();
+                if (userModel != null)
+                {
+                    var isAutorized = await _authorizationService.SignUp(userModel);
+                    if (isAutorized)
+                    {
+                        await _navigationService.GoBackAsync();
+                    }
+                    else
+                    {
+                        ClearEntries();
+                    }
+                }
             }
         }
 

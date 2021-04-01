@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GpsNotepad.Views.SettingsPage">
+             xmlns:resource="clr-namespace:GpsNotepad.Resources"
+             x:Class="GpsNotepad.Views.SettingsPage"
+             Title="{x:Static resource:Resource.SettingsPageTitle}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="ic_save.png" 
@@ -11,15 +13,19 @@
     <ContentPage.Content>
 
         <StackLayout Padding="40, 40, 40, 50">
-            
-            <Label Text="Theme" VerticalTextAlignment="Center"/>
-            <RadioButton Content="Light" GroupName="Theme" IsChecked="True" />
-            <RadioButton Content="Dark" GroupName="Theme" />
-            
-            <Label Text="Language" VerticalTextAlignment="Center"/>
-            <RadioButton Content="English" GroupName="Language" />
-            <RadioButton Content="Russian" GroupName="Language" />
-            
+
+            <StackLayout RadioButtonGroup.GroupName="Theme" RadioButtonGroup.SelectedValue="{Binding SelectedTheme}">
+                <Label Text="{x:Static resource:Resource.ThemeOptions}" VerticalTextAlignment="Center" />
+                <RadioButton Content="{x:Static resource:Resource.LightTheme}" Value="Light" />
+                <RadioButton Content="{x:Static resource:Resource.DarkTheme}" Value="Dark" />
+            </StackLayout>
+
+            <StackLayout RadioButtonGroup.GroupName="Language" RadioButtonGroup.SelectedValue="{Binding SelectedLang}">
+                <Label Text="{x:Static resource:Resource.LanguageOptions}" VerticalTextAlignment="Center"/>
+                <RadioButton Content="{x:Static resource:Resource.EnglishLanguage}" Value="en" />
+                <RadioButton Content="{x:Static resource:Resource.RussianLanguage}" Value="ru" />
+            </StackLayout>
+
         </StackLayout>
         
         

@@ -38,9 +38,18 @@ namespace GpsNotepad.Services.Authorization
             return user != null;
         }
 
-        public async Task SignUp(UserModel userModel)
+        public async Task<bool> SignUp(UserModel userModel)
         {
-            await repository.InsertAsync(userModel);
+            var users = await repository.GetAllAsync<UserModel>();
+            var user = users.FirstOrDefault(u => u.Email == userModel.Email);
+
+            if (user == null)
+            {
+                await repository.InsertAsync(userModel);
+                return true;
+            }
+
+            return false;
         }
     }
 }

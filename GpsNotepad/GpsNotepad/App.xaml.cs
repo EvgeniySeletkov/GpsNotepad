@@ -1,4 +1,5 @@
 ﻿using GpsNotepad.Services.Authorization;
+using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Repository;
 using GpsNotepad.Services.Settings;
 using GpsNotepad.ViewModels;
@@ -15,9 +16,14 @@ namespace GpsNotepad
     {
         public App() { }
 
+        private ILocalizationService _localizationService;
+        private ILocalizationService LocalizationService =>
+            _localizationService ??= Container.Resolve<ILocalizationService>();
+
         private IAuthorizationService _authorizationService;
         private IAuthorizationService AuthorizationService =>
             _authorizationService ??= Container.Resolve<IAuthorizationService>();
+        
 
         #region --- Overrides ---
 
@@ -27,6 +33,7 @@ namespace GpsNotepad
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterInstance<ILocalizationService>(Container.Resolve<LocalizationService>());
 
             // Navigations
             containerRegistry.RegisterForNavigation<NavigationPage>();
@@ -42,6 +49,8 @@ namespace GpsNotepad
         {
             InitializeComponent();
 
+            LocalizationService.SetLocalization();
+
             if (AuthorizationService.IsAuthorized)
             {
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapPage)}");
@@ -50,6 +59,7 @@ namespace GpsNotepad
             {
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
             }
+
         }
 
         protected override void OnStart()

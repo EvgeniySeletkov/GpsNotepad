@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resource="clr-namespace:GpsNotepad.Resources"
              x:Class="GpsNotepad.Views.SignUpPage"
-             Title="SignUp">
+             Title="{x:Static resource:Resource.SignUpPageTitle}">
     <ContentPage.Content>
         
         <StackLayout Padding="40, 40, 40, 50">
@@ -12,7 +13,7 @@
                 <Entry Placeholder="Name" 
                        Text="{Binding Name}"/>
                 
-                <Entry Placeholder="E-mail" 
+                <Entry Placeholder="Email" 
                        Text="{Binding Email}"/>
                 
                 <Entry Placeholder="Password" 
@@ -27,8 +28,9 @@
 
             <StackLayout VerticalOptions="EndAndExpand">
 
-                <Button Text="SignUp"
-                        Command="{Binding SignUpTapCommand}"/>
+                <Button Text="{x:Static resource:Resource.SignUpButton}"
+                        Command="{Binding SignUpTapCommand}"
+                        IsEnabled="{Binding IsButtonEnable}" />
 
             </StackLayout>
             
