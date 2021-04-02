@@ -28,14 +28,22 @@ namespace GpsNotepad.ViewModels
         public string Email
         {
             get => email;
-            set => SetProperty(ref email, value);
+            set
+            {
+                SetProperty(ref email, value);
+                CheckEntries();
+            }
         }
 
         private string password;
         public string Password
         {
             get => password;
-            set => SetProperty(ref password, value);
+            set
+            {
+                SetProperty(ref password, value);
+                CheckEntries();
+            }
         }
 
         private bool isButtonEnable = false;
