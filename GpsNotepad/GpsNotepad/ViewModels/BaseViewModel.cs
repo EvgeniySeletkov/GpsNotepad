@@ -6,11 +6,11 @@ using System.Text;
 
 namespace GpsNotepad.ViewModels
 {
-    class ViewModelBase : BindableBase, IInitialize
+    class BaseViewModel : BindableBase, IInitialize
     {
         protected INavigationService _navigationService { get; set; }
 
-        public ViewModelBase(INavigationService navigationService)
+        public BaseViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
         }

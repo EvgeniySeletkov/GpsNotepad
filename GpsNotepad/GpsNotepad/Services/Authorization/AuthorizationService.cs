@@ -20,6 +20,7 @@ namespace GpsNotepad.Services.Authorization
             this.repository = repository;
             this.settingsManager = settingsManager;
         }
+
         public bool IsAuthorized
         {
             get => settingsManager.UserId != 0;

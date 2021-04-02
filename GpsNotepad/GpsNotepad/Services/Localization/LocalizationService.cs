@@ -16,13 +16,6 @@ namespace GpsNotepad.Services.Localization
             _settingsManager = settingsManager;
         }
 
-        //public string GetLocalization()
-        //{
-        //    //var lang = _settingsManager.Culture;
-        //    var lang = "en";
-        //    return lang;
-        //}
-
         public void SetLocalization()
         {
             var cultureInfo = new CultureInfo(_settingsManager.Culture, false);

@@ -6,7 +6,6 @@ namespace GpsNotepad.Services.Localization
 {
     interface ILocalizationService
     {
-        //string GetLocalization();
         void SetLocalization();
     }
 }

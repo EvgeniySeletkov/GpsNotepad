@@ -1,4 +1,6 @@
-﻿using GpsNotepad.Models;
+﻿using Acr.UserDialogs;
+using GpsNotepad.Models;
+using GpsNotepad.Resources;
 using GpsNotepad.Services.Authorization;
 using GpsNotepad.Validation;
 using GpsNotepad.Views;
@@ -12,7 +14,7 @@ using Xamarin.Forms;
 
 namespace GpsNotepad.ViewModels
 {
-    class SignUpPageViewModel : ViewModelBase
+    class SignUpPageViewModel : BaseViewModel
     {
         private IAuthorizationService _authorizationService;
 
@@ -104,15 +106,22 @@ namespace GpsNotepad.ViewModels
             ConfirmPassword = string.Empty;
         }
 
+        private void ShowAlert(string msg)
+        {
+            UserDialogs.Instance.Alert(msg, Resource.Alert, "OK");
+        }
+
         private bool HasValidName()
         {
             if (Validator.HasFirstDigitalSymbol(Name))
             {
+                ShowAlert(Resource.HasFirstDigitalSymbol);
                 ClearEntries();
                 return false;
             }
             if (!Validator.HasValidLength(Name, 4))
             {
+                ShowAlert(Resource.HasNameValidLength);
                 ClearEntries();
                 return false;
             }
@@ -123,6 +132,7 @@ namespace GpsNotepad.ViewModels
         {
             if (!Validator.HasValidEmail(Email))
             {
+                ShowAlert(Resource.HasValidEmail);
                 ClearEntries();
                 return false;
             }
@@ -133,16 +143,19 @@ namespace GpsNotepad.ViewModels
         {
             if (!Validator.HasValidPassword(Password))
             {
+                ShowAlert(Resource.HasValidPassword);
                 ClearEntries();
                 return false;
             }
             if (!Validator.HasValidLength(Password, 6))
             {
+                ShowAlert(Resource.HasPasswordValidLength);
                 ClearEntries();
                 return false;
             }
             if (!Validator.HasEqualPasswords(Password, ConfirmPassword))
             {
+                ShowAlert(Resource.HasEqualPasswords);
                 ClearEntries();
                 return false;
             }
@@ -164,6 +177,7 @@ namespace GpsNotepad.ViewModels
             }
             else
             {
+                ShowAlert(Resource.HasEqualNameAndPassword);
                 ClearEntries();
             }
 
@@ -190,6 +204,7 @@ namespace GpsNotepad.ViewModels
                     }
                     else
                     {
+                        ShowAlert(Resource.HasBusyEmail);
                         ClearEntries();
                     }
                 }

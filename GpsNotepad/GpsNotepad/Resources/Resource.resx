@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm Password</value>
   </data>
@@ -125,6 +128,30 @@
   </data>
   <data name="EnglishLanguage" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="HasBusyEmail" xml:space="preserve">
+    <value>This email used by another user!</value>
+  </data>
+  <data name="HasEqualNameAndPassword" xml:space="preserve">
+    <value>Name and password don`t have to be equals!</value>
+  </data>
+  <data name="HasEqualPasswords" xml:space="preserve">
+    <value>Password and confirm password must equals!</value>
+  </data>
+  <data name="HasFirstDigitalSymbol" xml:space="preserve">
+    <value>First simbol doesn`t have to be digit in name!</value>
+  </data>
+  <data name="HasNameValidLength" xml:space="preserve">
+    <value>Number of characters in name less than 4 or more than 16!</value>
+  </data>
+  <data name="HasPasswordValidLength" xml:space="preserve">
+    <value>Number of characters in password less than 6 or more than 16!</value>
+  </data>
+  <data name="HasValidEmail" xml:space="preserve">
+    <value>Please enter corrected email!</value>
+  </data>
+  <data name="HasValidPassword" xml:space="preserve">
+    <value>Pasword must have a number, uppercase and lowercase letters!</value>
   </data>
   <data name="LanguageOptions" xml:space="preserve">
     <value>Language</value>

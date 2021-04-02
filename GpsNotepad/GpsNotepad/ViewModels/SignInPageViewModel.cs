@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace GpsNotepad.ViewModels
 {
-    class SignInPageViewModel : ViewModelBase
+    class SignInPageViewModel : BaseViewModel
     {
         private IAuthorizationService _authorizationService;
 

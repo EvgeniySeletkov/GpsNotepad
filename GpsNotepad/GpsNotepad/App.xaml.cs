@@ -51,16 +51,16 @@ namespace GpsNotepad
 
             LocalizationService.SetLocalization();
 
-            //if (AuthorizationService.IsAuthorized)
-            //{
-            //    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapPage)}");
-            //}
-            //else
-            //{
-            //    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
-            //}
+            if (AuthorizationService.IsAuthorized)
+            {
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapPage)}");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
+            }
 
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapPage)}");
+            //await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapPage)}");
 
         }
 

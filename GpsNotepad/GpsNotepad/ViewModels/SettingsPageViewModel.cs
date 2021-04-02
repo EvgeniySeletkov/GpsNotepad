@@ -1,4 +1,5 @@
-﻿using GpsNotepad.Services.Localization;
+﻿using GpsNotepad.Constants;
+using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -11,7 +12,7 @@ using Xamarin.Forms;
 
 namespace GpsNotepad.ViewModels
 {
-    class SettingsPageViewModel : ViewModelBase
+    class SettingsPageViewModel : BaseViewModel
     {
         private ISettingsManager _settingsManager;
         private ILocalizationService _localizationService;
@@ -53,11 +54,11 @@ namespace GpsNotepad.ViewModels
 
             switch (_settingsManager.Culture)
             {
-                case "en":
-                    SelectedLang = "en";
+                case Constant.ENGLISH_LANGUAGE:
+                    SelectedLang = Constant.ENGLISH_LANGUAGE;
                     break;
-                case "ru":
-                    SelectedLang = "ru";
+                case Constant.RUSSIAN_LANGUAGE:
+                    SelectedLang = Constant.RUSSIAN_LANGUAGE;
                     break;
             }
 
