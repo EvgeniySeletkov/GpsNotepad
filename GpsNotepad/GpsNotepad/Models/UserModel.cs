@@ -5,10 +5,10 @@ using System.Text;
 
 namespace GpsNotepad.Models
 {
-    [Table("Users")]
+    [Table(nameof(UserModel))]
     class UserModel : IEntityBase
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement, Unique]
         public int Id { get; set; }
         public string Name { get; set; }
         [Unique]

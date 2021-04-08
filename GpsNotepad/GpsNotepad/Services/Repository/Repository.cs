@@ -20,6 +20,7 @@ namespace GpsNotepad.Services.Repository
                 var database = new SQLiteAsyncConnection(path);
 
                 database.CreateTableAsync<UserModel>().Wait();
+                database.CreateTableAsync<PinModel>().Wait();
 
                 return database;
             });

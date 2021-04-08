@@ -1,5 +1,6 @@
 ﻿using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
+using GpsNotepad.Services.Pin;
 using GpsNotepad.Services.Repository;
 using GpsNotepad.Services.Settings;
 using GpsNotepad.ViewModels;
@@ -33,6 +34,7 @@ namespace GpsNotepad
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
             containerRegistry.RegisterInstance<ILocalizationService>(Container.Resolve<LocalizationService>());
 
             // Navigations
@@ -51,16 +53,16 @@ namespace GpsNotepad
 
             LocalizationService.SetLocalization();
 
-            //if (AuthorizationService.IsAuthorized)
-            //{
-            //    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapPage)}");
-            //}
-            //else
-            //{
-            //    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
-            //}
+            if (AuthorizationService.IsAuthorized)
+            {
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
+            }
 
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+            //await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
 
         }
 
