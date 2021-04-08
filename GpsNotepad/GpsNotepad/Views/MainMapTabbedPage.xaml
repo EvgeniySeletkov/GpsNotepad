@@ -2,7 +2,7 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GpsNotepad.Views"
-             x:Class="GpsNotepad.Views.MainMapPage">
+             x:Class="GpsNotepad.Views.MainMapTabbedPage">
     
     <TabbedPage.ToolbarItems>
         <ToolbarItem IconImageSource="ic_exit_to_app.png" 
@@ -12,8 +12,8 @@
     </TabbedPage.ToolbarItems>
 
     <TabbedPage.Children>
-        <local:MapPage Title="Map" />
-        <local:PinsListPage Title="Pins" />
+        <local:MapTabPage Title="Map" />
+        <local:PinsListTabPage Title="Pins" />
     </TabbedPage.Children>
 
 </TabbedPage>

@@ -5,16 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.GoogleMaps;
 using Xamarin.Forms.Xaml;
 
 namespace GpsNotepad.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MapPage : ContentPage
+    public partial class MapTabPage : ContentPage
     {
-        public MapPage()
+        public MapTabPage()
         {
             InitializeComponent();
         }
+
     }
 }

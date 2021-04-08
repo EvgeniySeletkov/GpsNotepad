@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace GpsNotepad.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PinsListPage : ContentPage
+    public partial class MainMapTabbedPage : TabbedPage
     {
-        public PinsListPage()
+        public MainMapTabbedPage()
         {
             InitializeComponent();
         }

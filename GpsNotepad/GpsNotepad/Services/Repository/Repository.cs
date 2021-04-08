@@ -18,6 +18,9 @@ namespace GpsNotepad.Services.Repository
             {
                 var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gpsnotepad.db3");
                 var database = new SQLiteAsyncConnection(path);
+
+                database.CreateTableAsync<UserModel>().Wait();
+
                 return database;
             });
         }
@@ -29,13 +32,11 @@ namespace GpsNotepad.Services.Repository
 
         public async Task<List<T>> GetAllAsync<T>() where T : IEntityBase, new()
         {
-            await _database.Value.CreateTableAsync<T>();
             return await _database.Value.Table<T>().ToListAsync();
         }
 
         public async Task<int> InsertAsync<T>(T entity) where T : IEntityBase, new()
         {
-            await _database.Value.CreateTableAsync<T>();
             return await _database.Value.InsertAsync(entity);
         }
 

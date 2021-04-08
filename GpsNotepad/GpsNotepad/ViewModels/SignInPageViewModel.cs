@@ -82,7 +82,7 @@ namespace GpsNotepad.ViewModels
             var isAuthorized = await _authorizationService.SignInAsync(email, password);
             if (isAuthorized)
             {
-                await _navigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapPage)}");
+                await _navigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
             }
         }
 

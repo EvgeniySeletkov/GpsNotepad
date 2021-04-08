@@ -10,11 +10,11 @@ using Xamarin.Forms;
 
 namespace GpsNotepad.ViewModels
 {
-    class MainMapPageViewModel : BaseViewModel
+    class MainMapTabbedPageViewModel : BaseViewModel
     {
         private ISettingsManager _settingsManager;
 
-        public MainMapPageViewModel(INavigationService navigationService,
+        public MainMapTabbedPageViewModel(INavigationService navigationService,
                                     ISettingsManager settingsManager) : base(navigationService)
         {
             _navigationService = navigationService;

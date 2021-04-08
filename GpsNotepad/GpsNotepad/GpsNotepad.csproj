@@ -27,23 +27,35 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\MainMapTabbedPage.xaml.cs">
+      <DependentUpon>MainMapTabbedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MapTabPage.xaml.cs">
+      <DependentUpon>MapTabPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PinsListTabPage.xaml.cs">
+      <DependentUpon>PinsListTabPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Controls\CustomMapPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MainMapPage.xaml">
+    <EmbeddedResource Update="Views\MainMapTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MapPage.xaml">
+    <EmbeddedResource Update="Views\MapTabPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MapTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\PinsListPage.xaml">
+    <EmbeddedResource Update="Views\PinsListTabPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SettingsPage.xaml">
