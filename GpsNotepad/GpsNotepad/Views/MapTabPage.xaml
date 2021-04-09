@@ -23,15 +23,6 @@
 
             <Button Command="{Binding MapTypeChangeCommand}" Grid.Row="1"/>
 
-            <!--<maps:Map x:Name="map"
-                      BindingContext="{Binding Map}"
-                      VerticalOptions="FillAndExpand"
-                      HasZoomEnabled="True">-->
-                <!--<maps:Map.Behaviors>
-                    <prism:EventToCommandBehavior Command="{Binding MapTapCommand}" EventArgsParameterPath="Point"/>
-                </maps:Map.Behaviors>-->
-            <!--</maps:Map>-->
-            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

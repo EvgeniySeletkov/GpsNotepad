@@ -12,8 +12,10 @@
     </TabbedPage.ToolbarItems>
 
     <TabbedPage.Children>
+
         <local:MapTabPage Title="Map" />
         <local:PinsListTabPage Title="Pins" />
+
     </TabbedPage.Children>
 
 </TabbedPage>

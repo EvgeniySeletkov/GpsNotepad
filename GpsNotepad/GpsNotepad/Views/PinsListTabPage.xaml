@@ -1,12 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Name="pin"
              x:Class="GpsNotepad.Views.PinsListTabPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Pins List"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+                <ListView ItemsSource="{Binding Pins}"
+                          SelectedItem=""
+                          HasUnevenRows="True"
+                          SelectionMode="None">
+                    
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Edit" />
+                                    <MenuItem Text="Delete" />
+                                </ViewCell.ContextActions>
+
+                                <ViewCell.View>
+                                    
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="FillAndExpand">
+
+                                        <ImageButton HeightRequest="50"
+                                               WidthRequest="50"
+                                               Margin="10, 0, 0, 0"
+                                               BackgroundColor="Transparent"
+                                               Source="{Binding Image}"
+                                               Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
+                                                                 Source={x:Reference pin}}"
+                                               CommandParameter="{Binding .}" />
+
+                                        <StackLayout VerticalOptions="Center" 
+                                                     Margin="10, 0, 0, 0">
+                                            
+                                            <Label FontAttributes="Bold"
+                                                   Text="{Binding Label}" />
+                                            <Label Text="{Binding Latitude}" />
+                                            <Label Text="{Binding Longitude}" />
+                                            
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </ViewCell.View>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+
+            <!--<Label Style="{StaticResource TextStyle}" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Text="No profiles added"
+                   IsVisible="{Binding HaveNoProfiles}" />-->
+
+            <ImageButton Grid.Row="0" WidthRequest="85"
+                         HorizontalOptions="End" VerticalOptions="End"
+                         BorderWidth="10" CornerRadius="100"
+                         Margin="0,0,20,40" Padding="30"
+                         Scale="0.8" BorderColor="#2B3C3C"
+                         BackgroundColor="#1E90FF"
+                         Source="ic_add.png" />
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

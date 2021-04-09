@@ -53,7 +53,8 @@ namespace GpsNotepad.ViewModels
             Pin pin = new Pin()
             {
                 Label = "Test",
-                Position = pos
+                Position = pos,
+                IsVisible = true
             };
 
             return pin;
@@ -76,7 +77,8 @@ namespace GpsNotepad.ViewModels
                 Label = pin.Label,
                 Latitude = pin.Position.Latitude,
                 Longitude = pin.Position.Longitude,
-                Address = pin.Address
+                Address = pin.Address,
+                IsVisible = pin.IsVisible
             };
 
             await _pinService.SavePinAsync(pinModel);
@@ -94,6 +96,7 @@ namespace GpsNotepad.ViewModels
                 pin.Label = pinModel.Label;
                 pin.Position = new Position(pinModel.Latitude, pinModel.Longitude);
                 pin.Address = pinModel.Address;
+                pin.IsVisible = pinModel.IsVisible;
                 pinList.Add(pin);
             }
 

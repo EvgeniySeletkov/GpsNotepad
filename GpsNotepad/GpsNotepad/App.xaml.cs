@@ -43,7 +43,7 @@ namespace GpsNotepad
             containerRegistry.RegisterForNavigation<SignUpPage, SignUpPageViewModel>();
             containerRegistry.RegisterForNavigation<MainMapTabbedPage, MainMapTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<MapTabPage, MapTabPageViewModel>();
-            containerRegistry.RegisterForNavigation<PinsListTabPage>();
+            containerRegistry.RegisterForNavigation<PinsListTabPage, PinsListTabPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
         }
 
