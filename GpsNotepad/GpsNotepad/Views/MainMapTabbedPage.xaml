@@ -2,7 +2,12 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GpsNotepad.Views"
+             xmlns:behaviors="clr-namespace:GpsNotepad.Behaviors"
              x:Class="GpsNotepad.Views.MainMapTabbedPage">
+
+    <TabbedPage.Behaviors>
+        <behaviors:TabbedPageNavigationBehavior />
+    </TabbedPage.Behaviors>
     
     <TabbedPage.ToolbarItems>
         <ToolbarItem IconImageSource="ic_exit_to_app.png" 

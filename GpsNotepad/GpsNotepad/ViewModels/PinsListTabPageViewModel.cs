@@ -35,31 +35,31 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref pins, value);
         }
 
-        public ICommand PinVisibleChangeTapCommand => new Command<PinViewModel>(OnPinVisiblechangeTap);
+        public ICommand PinVisibleChangeTapCommand => new Command<PinViewModel>(OnPinVisibleChangeTap);
         public ICommand AddPinTapCommand => new Command(OnAddPinTap);
 
-        private async void OnPinVisiblechangeTap(PinViewModel pin)
+        private async void OnPinVisibleChangeTap(PinViewModel pinViewModel)
         {
-            if (pin.IsVisible)
+            if (pinViewModel.IsVisible)
             {
-                pin.IsVisible = false;
-                pin.Image = "closed_eye.png";
+                pinViewModel.IsVisible = false;
+                pinViewModel.Image = "closed_eye.png";
             }
             else
             {
-                pin.IsVisible = true;
-                pin.Image = "eye.png";
+                pinViewModel.IsVisible = true;
+                pinViewModel.Image = "eye.png";
             }
 
             var pinModel = new PinModel()
             {
-                Id = pin.PinId,
-                Label = pin.Label,
-                Latitude = pin.Latitude,
-                Longitude = pin.Longitude,
-                Address = pin.Address,
-                IsVisible = pin.IsVisible,
-                UserId = pin.UserId
+                Id = pinViewModel.PinId,
+                Label = pinViewModel.Label,
+                Latitude = pinViewModel.Latitude,
+                Longitude = pinViewModel.Longitude,
+                Address = pinViewModel.Address,
+                IsVisible = pinViewModel.IsVisible,
+                UserId = pinViewModel.UserId
             };
 
             await _pinService.SavePinAsync(pinModel);
@@ -99,5 +99,27 @@ namespace GpsNotepad.ViewModels
 
             Pins = new ObservableCollection<PinViewModel>(pinList);
         }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            int count = 0;
+            foreach (var pinViewModel in Pins)
+            {
+                var pin = new Pin();
+                pin.Label = pinViewModel.Label;
+                pin.Position = new Position(pinViewModel.Latitude, pinViewModel.Longitude);
+                pin.IsVisible = pinViewModel.IsVisible;
+                parameters.Add($"{nameof(pin)}{count}", pin);
+                count++;
+            }
+            
+            
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            
+        }
+
     }
 }

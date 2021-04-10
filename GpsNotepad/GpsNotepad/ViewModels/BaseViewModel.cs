@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GpsNotepad.ViewModels
 {
-    class BaseViewModel : BindableBase, IInitialize
+    class BaseViewModel : BindableBase, IInitialize, INavigationAware
     {
         protected INavigationService _navigationService { get; set; }
 
@@ -16,7 +16,19 @@ namespace GpsNotepad.ViewModels
         }
 
         public virtual void Initialize(INavigationParameters parameters)
-        {         
+        {
+        }
+
+        public virtual void OnNavigatedFrom(INavigationParameters parameters)
+        {
+        }
+
+        public virtual void OnNavigatedTo(INavigationParameters parameters)
+        {
+        }
+
+        public virtual void OnNavigatingTo(INavigationParameters parameters)
+        {
         }
     }
 }

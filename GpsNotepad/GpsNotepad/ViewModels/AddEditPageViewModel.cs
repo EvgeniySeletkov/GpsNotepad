@@ -2,6 +2,7 @@
 using GpsNotepad.Models;
 using GpsNotepad.Resources;
 using GpsNotepad.Services.Pin;
+using GpsNotepad.Views;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -165,7 +166,7 @@ namespace GpsNotepad.ViewModels
                         EditPinModel();
                     }
                     await _pinService.SavePinAsync(_pinModel);
-                    await _navigationService.GoBackAsync();
+                    await _navigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
                 }
                 else
                 {

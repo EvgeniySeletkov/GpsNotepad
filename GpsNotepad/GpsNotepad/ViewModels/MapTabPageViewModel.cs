@@ -1,16 +1,7 @@
-﻿using Acr.UserDialogs;
-using GpsNotepad.Models;
-using GpsNotepad.Services.Pin;
-using Prism.Commands;
-using Prism.Mvvm;
+﻿using GpsNotepad.Services.Pin;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Threading;
-using System.Windows.Input;
-using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.ViewModels
@@ -55,6 +46,23 @@ namespace GpsNotepad.ViewModels
             }
 
             Pins = pinList;
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            var pinList = new List<Pin>();
+            int count = 0;
+            foreach (var parameter in parameters)
+            {
+                if (parameters.TryGetValue<Pin>($"pin{count}", out var newValue))
+                {
+                    pinList.Add(newValue);
+                    count++;
+                }
+            }
+
+            Pins = pinList;
+
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
