@@ -73,7 +73,8 @@
                          Margin="0,0,20,40" Padding="30"
                          Scale="0.8" BorderColor="#2B3C3C"
                          BackgroundColor="#1E90FF"
-                         Source="ic_add.png" />
+                         Source="ic_add.png" 
+                         Command="{Binding AddPinTapCommand}"/>
 
         </Grid>
     </ContentPage.Content>

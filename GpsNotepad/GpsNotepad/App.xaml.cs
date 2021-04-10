@@ -45,6 +45,7 @@ namespace GpsNotepad
             containerRegistry.RegisterForNavigation<MapTabPage, MapTabPageViewModel>();
             containerRegistry.RegisterForNavigation<PinsListTabPage, PinsListTabPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
+            containerRegistry.RegisterForNavigation<AddEditPage, AddEditPageViewModel>();
         }
 
         protected async override void OnInitialized()

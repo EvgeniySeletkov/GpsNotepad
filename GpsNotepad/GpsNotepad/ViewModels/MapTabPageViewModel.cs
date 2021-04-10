@@ -38,52 +38,6 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref pins, value);
         }
 
-        private MapType mapType;
-        public MapType MapType
-        {
-            get => mapType;
-            set => SetProperty(ref mapType, value);
-        }
-
-        public ICommand MapTapCommand => new Command<object>(OnMapTap);
-        public ICommand MapTypeChangeCommand => new Command(OnMapTypeChangeTap);
-
-        private Pin CreatePin(Position pos)
-        {
-            Pin pin = new Pin()
-            {
-                Label = "Test",
-                Position = pos,
-                IsVisible = true
-            };
-
-            return pin;
-        }
-
-        private void OnMapTypeChangeTap()
-        {
-            MapType = MapType.Satellite;
-        }
-
-        private async void OnMapTap(object obj)
-        {
-            var pin = CreatePin((Position)obj);
-            var pinsTest = new List<Pin>();
-            pinsTest.Add(pin);
-            Pins = pinsTest;
-
-            var pinModel = new PinModel()
-            {
-                Label = pin.Label,
-                Latitude = pin.Position.Latitude,
-                Longitude = pin.Position.Longitude,
-                Address = pin.Address,
-                IsVisible = pin.IsVisible
-            };
-
-            await _pinService.SavePinAsync(pinModel);
-        }
-
         public override async void Initialize(INavigationParameters parameters)
         {
             var pinModelList = await _pinService.GetAllPinsAsync();

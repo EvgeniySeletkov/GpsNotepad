@@ -2,6 +2,7 @@
 using GpsNotepad.Models;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.ViewModels.ExtendedViewModels;
+using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -35,6 +36,8 @@ namespace GpsNotepad.ViewModels
         }
 
         public ICommand PinVisibleChangeTapCommand => new Command<PinViewModel>(OnPinVisiblechangeTap);
+        public ICommand AddPinTapCommand => new Command(OnAddPinTap);
+
         private async void OnPinVisiblechangeTap(PinViewModel pin)
         {
             if (pin.IsVisible)
@@ -60,6 +63,11 @@ namespace GpsNotepad.ViewModels
             };
 
             await _pinService.SavePinAsync(pinModel);
+        }
+
+        private async void OnAddPinTap()
+        {
+            await _navigationService.NavigateAsync($"{nameof(AddEditPage)}");
         }
 
         public override async void Initialize(INavigationParameters parameters)

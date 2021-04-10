@@ -21,7 +21,6 @@ namespace GpsNotepad.ViewModels
                                      ISettingsManager settingsManager,
                                      ILocalizationService localizationService) : base(navigationService)
         {
-            _navigationService = navigationService;
             _settingsManager = settingsManager;
             _localizationService = localizationService;
         }

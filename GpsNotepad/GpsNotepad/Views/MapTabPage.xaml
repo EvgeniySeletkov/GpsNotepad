@@ -11,17 +11,17 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <controls:CustomMap MapPins="{Binding Pins}" CustomMapType="{Binding MapType}" Grid.Row="0">
-                <controls:CustomMap.Behaviors>
-                    
-                    <prism:EventToCommandBehavior EventName="MapClicked" 
+            <controls:CustomMap MapPins="{Binding Pins}" />
+            <!--<controls:CustomMap.Behaviors>
+
+                <prism:EventToCommandBehavior EventName="MapClicked" 
                                                   Command="{Binding MapTapCommand}" 
                                                   EventArgsParameterPath="Point"/>
-                    
-                </controls:CustomMap.Behaviors>
-            </controls:CustomMap>
 
-            <Button Command="{Binding MapTypeChangeCommand}" Grid.Row="1"/>
+            </controls:CustomMap.Behaviors>-->
+
+
+            <!--<Button Command="{Binding MapTypeChangeCommand}" Grid.Row="1"/>-->
 
         </Grid>
     </ContentPage.Content>

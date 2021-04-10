@@ -24,6 +24,7 @@ namespace GpsNotepad.Controls
         private static void MapPinsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var customMap = (CustomMap)bindable;
+            customMap.Pins.Clear();
             if ((List<Pin>)newValue != null)
             {
                 foreach (var pin in (List<Pin>)newValue)

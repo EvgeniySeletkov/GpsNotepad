@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:GpsNotepad.Controls"
+             xmlns:prism="http://prismlibrary.com"
+             x:Class="GpsNotepad.Views.AddEditPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="ic_save.png" 
+                     Command="{Binding SavePinTapCommand}" 
+                     IsEnabled="{Binding IsSaveButtonEnabled}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Margin="20, 20, 20, 20" Grid.Row="0">
+
+                <Entry Placeholder="Label"
+                       Text="{Binding LabelEntry}" />
+                <Entry Placeholder="Latitude"
+                       Keyboard="Numeric"
+                       Text="{Binding LatitudeEntry}" />
+                <Entry Placeholder="Longitude"
+                       Keyboard="Numeric"
+                       Text="{Binding LongitudeEntry}" />
+                <Editor HeightRequest="170"
+                        Placeholder="Description"
+                        Text="{Binding DescriptionEntry}" />
+
+            </StackLayout>
+
+            <controls:CustomMap MapPins="{Binding Pins}" Grid.Row="1">
+                <controls:CustomMap.Behaviors>
+
+                    <prism:EventToCommandBehavior EventName="MapClicked" 
+                                                  Command="{Binding MapTapCommand}" 
+                                                  EventArgsParameterPath="Point"/>
+
+                </controls:CustomMap.Behaviors>
+            </controls:CustomMap>
+
+        </Grid>
+        
+    </ContentPage.Content>
+  
+</ContentPage>

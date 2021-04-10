@@ -17,7 +17,6 @@ namespace GpsNotepad.ViewModels
         public MainMapTabbedPageViewModel(INavigationService navigationService,
                                     ISettingsManager settingsManager) : base(navigationService)
         {
-            _navigationService = navigationService;
             _settingsManager = settingsManager;
         }
 
