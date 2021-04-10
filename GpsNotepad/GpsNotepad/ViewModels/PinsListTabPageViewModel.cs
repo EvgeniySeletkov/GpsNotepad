@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using GpsNotepad.Extensions;
 using GpsNotepad.Models;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.ViewModels.ExtendedViewModels;
@@ -51,16 +52,7 @@ namespace GpsNotepad.ViewModels
                 pinViewModel.Image = "eye.png";
             }
 
-            var pinModel = new PinModel()
-            {
-                Id = pinViewModel.PinId,
-                Label = pinViewModel.Label,
-                Latitude = pinViewModel.Latitude,
-                Longitude = pinViewModel.Longitude,
-                Address = pinViewModel.Address,
-                IsVisible = pinViewModel.IsVisible,
-                UserId = pinViewModel.UserId
-            };
+            var pinModel = pinViewModel.GetPinModel();
 
             await _pinService.SavePinAsync(pinModel);
         }
@@ -78,14 +70,7 @@ namespace GpsNotepad.ViewModels
 
             foreach (var pinModel in pinModelList)
             {
-                var pinViewModel = new PinViewModel();
-                pinViewModel.PinId = pinModel.Id;
-                pinViewModel.Label = pinModel.Label;
-                pinViewModel.Latitude = pinModel.Latitude;
-                pinViewModel.Longitude = pinModel.Longitude;
-                pinViewModel.Address = pinViewModel.Address;
-                pinViewModel.IsVisible = pinModel.IsVisible;
-                pinViewModel.UserId = pinModel.UserId;
+                var pinViewModel = pinModel.GetPinViewModel();
                 if (pinViewModel.IsVisible)
                 {
                     pinViewModel.Image = "eye.png";
@@ -105,19 +90,11 @@ namespace GpsNotepad.ViewModels
             int count = 0;
             foreach (var pinViewModel in Pins)
             {
-                var pin = new Pin();
-                pin.Label = pinViewModel.Label;
-                pin.Position = new Position(pinViewModel.Latitude, pinViewModel.Longitude);
-                pin.IsVisible = pinViewModel.IsVisible;
+                var pin = pinViewModel.GetPin();
                 parameters.Add($"{nameof(pin)}{count}", pin);
                 count++;
             }
             
-            
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
             
         }
 

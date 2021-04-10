@@ -1,4 +1,5 @@
-﻿using GpsNotepad.Services.Pin;
+﻿using GpsNotepad.Extensions;
+using GpsNotepad.Services.Pin;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,8 @@ namespace GpsNotepad.ViewModels
     {
         private IPinService _pinService;
 
-        public MapTabPageViewModel(INavigationService navigationService, IPinService pinService) : base(navigationService)
+        public MapTabPageViewModel(INavigationService navigationService, 
+                                   IPinService pinService) : base(navigationService)
         {
             _pinService = pinService;
         }
@@ -37,11 +39,7 @@ namespace GpsNotepad.ViewModels
 
             foreach (var pinModel in pinModelList)
             {
-                var pin = new Pin();
-                pin.Label = pinModel.Label;
-                pin.Position = new Position(pinModel.Latitude, pinModel.Longitude);
-                pin.Address = pinModel.Address;
-                pin.IsVisible = pinModel.IsVisible;
+                var pin = pinModel.GetPin();
                 pinList.Add(pin);
             }
 
