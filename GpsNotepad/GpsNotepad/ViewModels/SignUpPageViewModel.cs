@@ -2,6 +2,7 @@
 using GpsNotepad.Models;
 using GpsNotepad.Resources;
 using GpsNotepad.Services.Authorization;
+using GpsNotepad.Services.Localization;
 using GpsNotepad.Validation;
 using GpsNotepad.Views;
 using Prism.Mvvm;
@@ -19,7 +20,8 @@ namespace GpsNotepad.ViewModels
         private IAuthorizationService _authorizationService;
 
         public SignUpPageViewModel(IAuthorizationService authorizationService,
-                                   INavigationService navigationService) : base(navigationService)
+                                   ILocalizationService localizationService,
+                                   INavigationService navigationService) : base(navigationService, localizationService)
         {
             _authorizationService = authorizationService;
         }
@@ -108,58 +110,61 @@ namespace GpsNotepad.ViewModels
 
         private void ShowAlert(string msg)
         {
-            UserDialogs.Instance.Alert(msg, Resource.Alert, "OK");
+            UserDialogs.Instance.Alert(msg, Resource["Alert"], "OK");
         }
 
         private bool HasValidName()
         {
+            bool isNameValid = true;
             if (Validator.HasFirstDigitalSymbol(Name))
             {
-                ShowAlert(Resource.HasFirstDigitalSymbol);
+                ShowAlert(Resource["HasFirstDigitalSymbol"]);
                 ClearEntries();
-                return false;
+                isNameValid = false;
             }
             if (!Validator.HasValidLength(Name, 4))
             {
-                ShowAlert(Resource.HasNameValidLength);
+                ShowAlert(Resource["HasNameValidLength"]);
                 ClearEntries();
-                return false;
+                isNameValid = false;
             }
-            return true;
+            return isNameValid;
         }
 
         private bool HasValidEmail()
         {
+            bool isEmailValid = true;
             if (!Validator.HasValidEmail(Email))
             {
-                ShowAlert(Resource.HasValidEmail);
+                ShowAlert(Resource["HasValidEmail"]);
                 ClearEntries();
-                return false;
+                isEmailValid = false;
             }
-            return true;
+            return isEmailValid;
         }
 
         private bool HasValidPassword()
         {
+            bool isPasswordValid = true;
             if (!Validator.HasValidPassword(Password))
             {
-                ShowAlert(Resource.HasValidPassword);
+                ShowAlert(Resource["HasValidPassword"]);
                 ClearEntries();
-                return false;
+                isPasswordValid = false;
             }
             if (!Validator.HasValidLength(Password, 6))
             {
-                ShowAlert(Resource.HasPasswordValidLength);
+                ShowAlert(Resource["HasPasswordValidLength"]);
                 ClearEntries();
-                return false;
+                isPasswordValid = false;
             }
             if (!Validator.HasEqualPasswords(Password, ConfirmPassword))
             {
-                ShowAlert(Resource.HasEqualPasswords);
+                ShowAlert(Resource["HasEqualPasswords"]);
                 ClearEntries();
-                return false;
+                isPasswordValid = false;
             }
-            return true;
+            return isPasswordValid;
         }
 
         private UserModel CreateUser()
@@ -177,7 +182,7 @@ namespace GpsNotepad.ViewModels
             }
             else
             {
-                ShowAlert(Resource.HasEqualNameAndPassword);
+                ShowAlert(Resource["HasEqualNameAndPassword"]);
                 ClearEntries();
             }
 
@@ -204,7 +209,7 @@ namespace GpsNotepad.ViewModels
                     }
                     else
                     {
-                        ShowAlert(Resource.HasBusyEmail);
+                        ShowAlert(Resource["HasBusyEmail"]);
                         ClearEntries();
                     }
                 }

@@ -18,8 +18,8 @@ namespace GpsNotepad.ViewModels
         private ILocalizationService _localizationService;
 
         public SettingsPageViewModel(INavigationService navigationService,
-                                     ISettingsManager settingsManager,
-                                     ILocalizationService localizationService) : base(navigationService)
+                                     ILocalizationService localizationService,
+                                     ISettingsManager settingsManager) : base(navigationService, localizationService)
         {
             _settingsManager = settingsManager;
             _localizationService = localizationService;
@@ -49,9 +49,9 @@ namespace GpsNotepad.ViewModels
 
         private void ActivateLanguageControl()
         {
-            //SelectedLang = _settingsManager.Culture;
+            //SelectedLang = _localizationService.Lang;
 
-            switch (_settingsManager.Culture)
+            switch (_localizationService.Lang)
             {
                 case Constant.ENGLISH_LANGUAGE:
                     SelectedLang = Constant.ENGLISH_LANGUAGE;
@@ -65,8 +65,8 @@ namespace GpsNotepad.ViewModels
 
         private void SaveLanguageSettings()
         {
-            _settingsManager.Culture = SelectedLang;
-            _localizationService.SetLocalization();
+            Resource.Lang = SelectedLang;
+            Resource.SetCulture(SelectedLang);
         }
 
         #endregion

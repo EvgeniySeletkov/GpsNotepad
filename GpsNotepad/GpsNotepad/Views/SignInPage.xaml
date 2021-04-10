@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resource="clr-namespace:GpsNotepad.Resources"
              x:Class="GpsNotepad.Views.SignInPage"
-             Title="{x:Static resource:Resource.SignInPageTitle}">
+             Title="{Binding Resource[SignInPageTitle]}">
     <ContentPage.Content>
         
         <StackLayout Padding="40, 40, 40, 50">
@@ -21,7 +21,7 @@
 
             <StackLayout VerticalOptions="EndAndExpand" >
 
-                <Button Text="{x:Static resource:Resource.SignInButton}"
+                <Button Text="{Binding Resource[SignInButton]}"
                         Command="{Binding SignInTapCommand}"
                         IsEnabled="{Binding IsButtonEnable}"/>
                 
@@ -30,7 +30,7 @@
                         <FormattedString>
                             <Span TextColor="Blue" 
                                   TextDecorations="Underline"
-                                  Text="{x:Static resource:Resource.SignUpButton}">
+                                  Text="{Binding Resource[SignUpButton]}">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SignUpTapCommand}"/>
                                 </Span.GestureRecognizers>

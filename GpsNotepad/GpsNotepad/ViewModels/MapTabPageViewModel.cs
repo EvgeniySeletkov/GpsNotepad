@@ -1,4 +1,5 @@
 ﻿using GpsNotepad.Extensions;
+using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Pin;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -11,8 +12,9 @@ namespace GpsNotepad.ViewModels
     {
         private IPinService _pinService;
 
-        public MapTabPageViewModel(INavigationService navigationService, 
-                                   IPinService pinService) : base(navigationService)
+        public MapTabPageViewModel(INavigationService navigationService,
+                                   ILocalizationService localizationService,
+                                   IPinService pinService) : base(navigationService, localizationService)
         {
             _pinService = pinService;
         }

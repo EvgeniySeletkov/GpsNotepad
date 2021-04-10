@@ -1,4 +1,5 @@
 ﻿using GpsNotepad.Services.Authorization;
+using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
 using GpsNotepad.Views;
 using Prism.Mvvm;
@@ -17,7 +18,8 @@ namespace GpsNotepad.ViewModels
         private IAuthorizationService _authorizationService;
 
         public SignInPageViewModel(INavigationService navigationService,
-                                   IAuthorizationService authorizationService) : base(navigationService)
+                                   ILocalizationService localizationService,
+                                   IAuthorizationService authorizationService) : base(navigationService, localizationService)
         {
             _authorizationService = authorizationService;
         }

@@ -1,4 +1,5 @@
-﻿using GpsNotepad.Services.Settings;
+﻿using GpsNotepad.Services.Localization;
+using GpsNotepad.Services.Settings;
 using GpsNotepad.Views;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -15,7 +16,8 @@ namespace GpsNotepad.ViewModels
         private ISettingsManager _settingsManager;
 
         public MainMapTabbedPageViewModel(INavigationService navigationService,
-                                    ISettingsManager settingsManager) : base(navigationService)
+                                          ILocalizationService localizationService,       
+                                          ISettingsManager settingsManager) : base(navigationService, localizationService)
         {
             _settingsManager = settingsManager;
         }

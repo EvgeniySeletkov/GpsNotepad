@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using GpsNotepad.Extensions;
 using GpsNotepad.Models;
+using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.ViewModels.ExtendedViewModels;
 using GpsNotepad.Views;
@@ -24,7 +25,8 @@ namespace GpsNotepad.ViewModels
         private IPinService _pinService;
 
         public PinsListTabPageViewModel(INavigationService navigationService,
-                                        IPinService pinService) : base(navigationService)
+                                        ILocalizationService localizationService,
+                                        IPinService pinService) : base(navigationService, localizationService)
         {
             _pinService = pinService;
         }

@@ -10,61 +10,66 @@ namespace GpsNotepad.Validation
     {
         public static bool HasFirstDigitalSymbol(string name)
         {
+            bool isFirstSymbolDigit = false;
             var hasNumber = new Regex(@"^[0-9]");
 
             if (hasNumber.IsMatch(name))
             {
-                return true;
+                isFirstSymbolDigit = true;
             }
-            return false;
+            return isFirstSymbolDigit;
         }
 
         public static bool HasValidEmail(string email)
         {
+            bool isEmail;
             try
             {
                 var address = new MailAddress(email);
-                return address.Address == email;
+                isEmail = address.Address == email;
             }
             catch
             {
-
-                return false;
+                isEmail = false;
             }
+            return isEmail;
         }
 
         public static bool HasEqualPasswords(string password, string confirmPassword)
         {
+            bool arePasswordsEqual = false;
             if (confirmPassword.Equals(password))
             {
-                return true;
+                arePasswordsEqual = true;
             }
-            return false;
+            return arePasswordsEqual;
         }
 
         public static bool HasValidPassword(string password)
         {
+            bool isPasswordValid = false;
             var hasNumber = new Regex("[0-9]+");
             var hasUpperChar = new Regex("[A-Z]+");
             var hasLowerChar = new Regex("[a-z]+");
 
             if (hasNumber.IsMatch(password) && hasUpperChar.IsMatch(password) && hasLowerChar.IsMatch(password))
             {
-                return true;
+                isPasswordValid = true;
             }
 
-            return false;
+            return isPasswordValid;
         }
 
         public static bool HasValidLength(string item, int minLength)
         {
+            bool isLengthValid = false;
             var hasCorrectLength = new Regex(@"^.{" + $"{minLength}" + ",16}$");
 
             if (hasCorrectLength.IsMatch(item))
             {
-                return true;
+                isLengthValid = true;
             }
-            return false;
+            return isLengthValid;
         }
     }
 }

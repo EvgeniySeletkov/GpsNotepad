@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resource="clr-namespace:GpsNotepad.Resources"
              x:Class="GpsNotepad.Views.SignUpPage"
-             Title="{x:Static resource:Resource.SignUpPageTitle}">
+             Title="{Binding Resource[SignUpPageTitle]}">
     <ContentPage.Content>
         
         <StackLayout Padding="40, 40, 40, 50">
@@ -28,7 +28,7 @@
 
             <StackLayout VerticalOptions="EndAndExpand">
 
-                <Button Text="{x:Static resource:Resource.SignUpButton}"
+                <Button Text="{Binding Resource[SignUpButton]}"
                         Command="{Binding SignUpTapCommand}"
                         IsEnabled="{Binding IsButtonEnable}" />
 

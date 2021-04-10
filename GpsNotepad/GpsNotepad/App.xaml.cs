@@ -17,10 +17,6 @@ namespace GpsNotepad
     {
         public App() { }
 
-        private ILocalizationService _localizationService;
-        private ILocalizationService LocalizationService =>
-            _localizationService ??= Container.Resolve<ILocalizationService>();
-
         private IAuthorizationService _authorizationService;
         private IAuthorizationService AuthorizationService =>
             _authorizationService ??= Container.Resolve<IAuthorizationService>();
@@ -51,8 +47,6 @@ namespace GpsNotepad
         protected async override void OnInitialized()
         {
             InitializeComponent();
-
-            LocalizationService.SetLocalization();
 
             if (AuthorizationService.IsAuthorized)
             {

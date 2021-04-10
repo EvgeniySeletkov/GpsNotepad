@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using GpsNotepad.Models;
 using GpsNotepad.Resources;
+using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.Views;
 using Prism.Navigation;
@@ -21,7 +22,8 @@ namespace GpsNotepad.ViewModels
         private IPinService _pinService;
 
         public AddEditPageViewModel(INavigationService navigationService,
-                                    IPinService pinService) : base(navigationService)
+                                    ILocalizationService localizationService,
+                                    IPinService pinService) : base(navigationService, localizationService)
         {
             _pinService = pinService;
         }
@@ -170,12 +172,12 @@ namespace GpsNotepad.ViewModels
                 }
                 else
                 {
-                    UserDialogs.Instance.Alert("Latitude or Longitude field is not digit!", Resource.Alert, "OK");
+                    UserDialogs.Instance.Alert("Latitude or Longitude field is not digit!", Resource["Alert"], "OK");
                 }
             }
             else
             {
-                UserDialogs.Instance.Alert("Name, Latitude or Longitude field is empty!", Resource.Alert, "OK");
+                UserDialogs.Instance.Alert("Name, Latitude or Longitude field is empty!", Resource["Alert"], "OK");
             }
         }
 
