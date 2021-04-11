@@ -8,31 +8,40 @@ namespace GpsNotepad.Validation
 {
     static class Validator
     {
-        public static bool HasFirstDigitalSymbol(string name)
+        public static bool HasValidName(string name)
         {
-            bool isFirstSymbolDigit = false;
-            var hasNumber = new Regex(@"^[0-9]");
+            bool isName = false;
+            var nameRegex = new Regex(@"^[A-Za-z][A-Za-z\d]{3,15}$");
 
-            if (hasNumber.IsMatch(name))
+            if (nameRegex.IsMatch(name))
             {
-                isFirstSymbolDigit = true;
+                isName = true;
             }
-            return isFirstSymbolDigit;
+            return isName;
         }
 
         public static bool HasValidEmail(string email)
         {
-            bool isEmail;
-            try
+            bool isEmail = false;
+            var emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+
+            if (emailRegex.IsMatch(email))
             {
-                var address = new MailAddress(email);
-                isEmail = address.Address == email;
-            }
-            catch
-            {
-                isEmail = false;
+                isEmail = true;
             }
             return isEmail;
+        }
+
+        public static bool HasValidPassword(string password)
+        {
+            bool isPassword = false;
+            var passwordRegex = new Regex(@"^[A-Z](?=.*[a-z])(?=.*\d)[a-zA-Z\d]{5,15}$");
+
+            if (passwordRegex.IsMatch(password))
+            {
+                isPassword = true;
+            }
+            return isPassword;
         }
 
         public static bool HasEqualPasswords(string password, string confirmPassword)
@@ -43,33 +52,6 @@ namespace GpsNotepad.Validation
                 arePasswordsEqual = true;
             }
             return arePasswordsEqual;
-        }
-
-        public static bool HasValidPassword(string password)
-        {
-            bool isPasswordValid = false;
-            var hasNumber = new Regex("[0-9]+");
-            var hasUpperChar = new Regex("[A-Z]+");
-            var hasLowerChar = new Regex("[a-z]+");
-
-            if (hasNumber.IsMatch(password) && hasUpperChar.IsMatch(password) && hasLowerChar.IsMatch(password))
-            {
-                isPasswordValid = true;
-            }
-
-            return isPasswordValid;
-        }
-
-        public static bool HasValidLength(string item, int minLength)
-        {
-            bool isLengthValid = false;
-            var hasCorrectLength = new Regex(@"^.{" + $"{minLength}" + ",16}$");
-
-            if (hasCorrectLength.IsMatch(item))
-            {
-                isLengthValid = true;
-            }
-            return isLengthValid;
         }
     }
 }

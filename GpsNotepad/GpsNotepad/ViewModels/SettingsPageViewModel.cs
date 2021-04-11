@@ -1,6 +1,7 @@
 ﻿using GpsNotepad.Constants;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -41,7 +42,9 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref selectedLang, value);
         }
 
-        public ICommand SaveSettingsTapCommand => new Command(OnSaveSettingsTap);
+        private ICommand saveSettingsTapCommand;
+        public ICommand SaveSettingsTapCommand => 
+            saveSettingsTapCommand ?? (saveSettingsTapCommand = new DelegateCommand(OnSaveSettingsTap));
 
         #endregion
 

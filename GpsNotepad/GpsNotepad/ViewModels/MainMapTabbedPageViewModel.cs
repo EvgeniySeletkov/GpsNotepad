@@ -1,6 +1,7 @@
 ﻿using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
 using GpsNotepad.Views;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -24,8 +25,13 @@ namespace GpsNotepad.ViewModels
 
         #region --- Public Properties ---
 
-        public ICommand ExitTapCommand => new Command(OnExitTap);
-        public ICommand SettingsTapCommand => new Command(OnSettingsTap);
+        private ICommand exitTapCommand;
+        public ICommand ExitTapCommand => 
+            exitTapCommand ?? (exitTapCommand = new DelegateCommand(OnExitTap));
+
+        private ICommand settingsTapCommand;
+        public ICommand SettingsTapCommand => 
+            settingsTapCommand ?? (settingsTapCommand = new DelegateCommand(OnSettingsTap));
 
         #endregion
 

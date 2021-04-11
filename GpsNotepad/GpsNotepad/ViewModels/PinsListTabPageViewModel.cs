@@ -38,8 +38,13 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref pins, value);
         }
 
-        public ICommand PinVisibleChangeTapCommand => new Command<PinViewModel>(OnPinVisibleChangeTap);
-        public ICommand AddPinTapCommand => new Command(OnAddPinTap);
+        private ICommand pinVisibleChangeTapCommand;
+        public ICommand PinVisibleChangeTapCommand =>
+            pinVisibleChangeTapCommand ?? (pinVisibleChangeTapCommand = new DelegateCommand<PinViewModel>(OnPinVisibleChangeTap));
+
+        private ICommand addPinTapCommand;
+        public ICommand AddPinTapCommand => 
+            addPinTapCommand ?? (addPinTapCommand = new DelegateCommand(OnAddPinTap));
 
         private async void OnPinVisibleChangeTap(PinViewModel pinViewModel)
         {

@@ -2,10 +2,12 @@
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
 using GpsNotepad.Views;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -30,22 +32,14 @@ namespace GpsNotepad.ViewModels
         public string Email
         {
             get => email;
-            set
-            {
-                SetProperty(ref email, value);
-                CheckEntries();
-            }
+            set => SetProperty(ref email, value);
         }
 
         private string password;
         public string Password
         {
             get => password;
-            set
-            {
-                SetProperty(ref password, value);
-                CheckEntries();
-            }
+            set => SetProperty(ref password, value);
         }
 
         private bool isButtonEnable = false;
@@ -55,25 +49,13 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref isButtonEnable, value);
         }
 
-        public ICommand SignInTapCommand => new Command(OnSignInTap);
-        public ICommand SignUpTapCommand => new Command(OnSignUpTap);
+        private ICommand signInTapCommand;
+        public ICommand SignInTapCommand =>
+            signInTapCommand ?? (signInTapCommand = new DelegateCommand(OnSignInTap));
 
-        #endregion
-
-        #region --- Private Methods ---
-
-        private void CheckEntries()
-        {
-            if (string.IsNullOrWhiteSpace(Email) ||
-                string.IsNullOrWhiteSpace(Password))
-            {
-                IsButtonEnable = false;
-            }
-            else
-            {
-                IsButtonEnable = true;
-            }
-        }
+        private ICommand signUpTapCommand;
+        public ICommand SignUpTapCommand => 
+            signUpTapCommand ?? (signUpTapCommand = new DelegateCommand(OnSignUpTap));
 
         #endregion
 
@@ -94,6 +76,21 @@ namespace GpsNotepad.ViewModels
         }
 
         #endregion
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            if (string.IsNullOrWhiteSpace(Email) ||
+                string.IsNullOrWhiteSpace(Password))
+            {
+                IsButtonEnable = false;
+            }
+            else
+            {
+                IsButtonEnable = true;
+            }
+        }
 
     }
 }

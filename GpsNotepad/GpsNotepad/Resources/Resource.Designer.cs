@@ -97,7 +97,7 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This email used by another user!.
+        ///   Looks up a localized string similar to This email used by another user..
         /// </summary>
         internal static string HasBusyEmail {
             get {
@@ -106,7 +106,7 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name and password don`t have to be equals!.
+        ///   Looks up a localized string similar to Name and password should not be equal..
         /// </summary>
         internal static string HasEqualNameAndPassword {
             get {
@@ -115,7 +115,7 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password and confirm password must equals!.
+        ///   Looks up a localized string similar to Enter the same password in confirm password field as in password field..
         /// </summary>
         internal static string HasEqualPasswords {
             get {
@@ -124,34 +124,7 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First simbol doesn`t have to be digit in name!.
-        /// </summary>
-        internal static string HasFirstDigitalSymbol {
-            get {
-                return ResourceManager.GetString("HasFirstDigitalSymbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Number of characters in name less than 4 or more than 16!.
-        /// </summary>
-        internal static string HasNameValidLength {
-            get {
-                return ResourceManager.GetString("HasNameValidLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Number of characters in password less than 6 or more than 16!.
-        /// </summary>
-        internal static string HasPasswordValidLength {
-            get {
-                return ResourceManager.GetString("HasPasswordValidLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please enter corrected email!.
+        ///   Looks up a localized string similar to Please enter corrected email..
         /// </summary>
         internal static string HasValidEmail {
             get {
@@ -160,7 +133,16 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pasword must have a number, uppercase and lowercase letters!.
+        ///   Looks up a localized string similar to Name must contain at least 4 characters. First symbol should not be digit. .
+        /// </summary>
+        internal static string HasValidName {
+            get {
+                return ResourceManager.GetString("HasValidName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least 6 characters, including one uppercase, one lowercase and one number. First symbol should not be digit. .
         /// </summary>
         internal static string HasValidPassword {
             get {

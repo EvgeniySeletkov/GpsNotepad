@@ -4,6 +4,7 @@ using GpsNotepad.Resources;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.Views;
+using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,8 +71,13 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref isSaveButtonEnabled, value);
         }
 
-        public ICommand MapTapCommand => new Command<object>(OnMapTap);
-        public ICommand SavePinTapCommand => new Command(OnSavePinTap);
+        private ICommand mapTapCommand;
+        public ICommand MapTapCommand => 
+            mapTapCommand ?? (mapTapCommand = new DelegateCommand<object>(OnMapTap));
+
+        private ICommand savePinTapCommand;
+        public ICommand SavePinTapCommand => 
+            savePinTapCommand ?? (savePinTapCommand = new DelegateCommand(OnSavePinTap));
 
         private bool HasEmptyEntries()
         {

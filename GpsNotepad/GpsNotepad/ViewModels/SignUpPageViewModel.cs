@@ -5,10 +5,12 @@ using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Validation;
 using GpsNotepad.Views;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -32,44 +34,28 @@ namespace GpsNotepad.ViewModels
         public string Name
         {
             get => name;
-            set
-            {
-                SetProperty(ref name, value);
-                CheckEntries();
-            }
+            set => SetProperty(ref name, value);
         }
 
         private string email;
         public string Email
         {
             get => email;
-            set
-            {
-                SetProperty(ref email, value);
-                CheckEntries();
-            }
+            set => SetProperty(ref email, value);
         }
 
         private string password;
         public string Password
         {
             get => password;
-            set
-            {
-                SetProperty(ref password, value);
-                CheckEntries();
-            }
+            set => SetProperty(ref password, value);
         }
 
         private string confirmPassword;
         public string ConfirmPassword
         {
             get => confirmPassword;
-            set
-            {
-                SetProperty(ref confirmPassword, value);
-                CheckEntries();
-            }
+            set => SetProperty(ref confirmPassword, value);
         }
 
         private bool isButtonEnable = false;
@@ -79,26 +65,13 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref isButtonEnable, value);
         }
 
-        public ICommand SignUpTapCommand => new Command(OnSignUpTap);
+        private ICommand signUpTapCommand;
+        public ICommand SignUpTapCommand => 
+            signUpTapCommand ?? (signUpTapCommand = new DelegateCommand(OnSignUpTap));
 
         #endregion
 
         #region --- Private Methods ---
-
-        private void CheckEntries()
-        {
-            if (string.IsNullOrWhiteSpace(Name) ||
-                string.IsNullOrWhiteSpace(Email) ||
-                string.IsNullOrWhiteSpace(Password) ||
-                string.IsNullOrWhiteSpace(ConfirmPassword))
-            {
-                IsButtonEnable = false;
-            }
-            else
-            {
-                IsButtonEnable = true;
-            }
-        }
 
         private void ClearEntries()
         {
@@ -116,15 +89,9 @@ namespace GpsNotepad.ViewModels
         private bool HasValidName()
         {
             bool isNameValid = true;
-            if (Validator.HasFirstDigitalSymbol(Name))
+            if (!Validator.HasValidName(Name))
             {
-                ShowAlert(Resource["HasFirstDigitalSymbol"]);
-                ClearEntries();
-                isNameValid = false;
-            }
-            if (!Validator.HasValidLength(Name, 4))
-            {
-                ShowAlert(Resource["HasNameValidLength"]);
+                ShowAlert(Resource["HasValidName"]);
                 ClearEntries();
                 isNameValid = false;
             }
@@ -149,12 +116,6 @@ namespace GpsNotepad.ViewModels
             if (!Validator.HasValidPassword(Password))
             {
                 ShowAlert(Resource["HasValidPassword"]);
-                ClearEntries();
-                isPasswordValid = false;
-            }
-            if (!Validator.HasValidLength(Password, 6))
-            {
-                ShowAlert(Resource["HasPasswordValidLength"]);
                 ClearEntries();
                 isPasswordValid = false;
             }
@@ -193,7 +154,7 @@ namespace GpsNotepad.ViewModels
 
         #region --- Private Helpers ---
 
-        private async void OnSignUpTap(object obj)
+        private async void OnSignUpTap()
         {
             if (HasValidName() &&
                 HasValidEmail() &&
@@ -217,5 +178,22 @@ namespace GpsNotepad.ViewModels
         }
 
         #endregion
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            if (string.IsNullOrWhiteSpace(Name) ||
+                string.IsNullOrWhiteSpace(Email) ||
+                string.IsNullOrWhiteSpace(Password) ||
+                string.IsNullOrWhiteSpace(ConfirmPassword))
+            {
+                IsButtonEnable = false;
+            }
+            else
+            {
+                IsButtonEnable = true;
+            }
+        }
     }
 }
