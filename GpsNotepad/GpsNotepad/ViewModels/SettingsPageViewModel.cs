@@ -79,7 +79,7 @@ namespace GpsNotepad.ViewModels
         private async void OnSaveSettingsTap()
         {
             SaveLanguageSettings();
-            await _navigationService.GoBackAsync();
+            await NavigationService.GoBackAsync();
         }
 
         #endregion

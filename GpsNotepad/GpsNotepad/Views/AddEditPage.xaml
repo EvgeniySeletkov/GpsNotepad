@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:GpsNotepad.Controls"
              xmlns:prism="http://prismlibrary.com"
-             x:Class="GpsNotepad.Views.AddEditPage">
+             x:Class="GpsNotepad.Views.AddEditPage"
+             Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="ic_save.png" 
@@ -35,7 +36,9 @@
 
             </StackLayout>
 
-            <controls:CustomMap MapPins="{Binding Pins}" Grid.Row="1">
+            <controls:CustomMap MapPins="{Binding Pins}"
+                                MoveToPosition="{Binding CameraPosition}"
+                                Grid.Row="1">
                 <controls:CustomMap.Behaviors>
 
                     <prism:EventToCommandBehavior EventName="MapClicked" 

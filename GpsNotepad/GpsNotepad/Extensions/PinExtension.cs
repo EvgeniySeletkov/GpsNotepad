@@ -44,6 +44,7 @@ namespace GpsNotepad.Extensions
                 Latitude = pinModel.Latitude,
                 Longitude = pinModel.Longitude,
                 Address = pinModel.Address,
+                Description = pinModel.Description,
                 IsVisible = pinModel.IsVisible,
                 UserId = pinModel.UserId
             };
@@ -60,6 +61,7 @@ namespace GpsNotepad.Extensions
                 Latitude = pinViewModel.Latitude,
                 Longitude = pinViewModel.Longitude,
                 Address = pinViewModel.Address,
+                Description = pinViewModel.Description,
                 IsVisible = pinViewModel.IsVisible,
                 UserId = pinViewModel.UserId
             };

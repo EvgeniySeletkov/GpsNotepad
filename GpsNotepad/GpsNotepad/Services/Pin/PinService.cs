@@ -21,9 +21,9 @@ namespace GpsNotepad.Services.Pin
             _settingsManager = settingsManager;
         }
 
-        public Task DeletePinAsync()
+        public async Task DeletePinAsync(PinModel pinModel)
         {
-            throw new NotImplementedException();
+            await _repository.DeleteAsync(pinModel);
         }
 
         public async Task<List<PinModel>> GetAllPinsAsync()

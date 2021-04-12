@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using GpsNotepad.Extensions;
 using GpsNotepad.Models;
 using GpsNotepad.Resources;
 using GpsNotepad.Services.Localization;
@@ -29,6 +30,13 @@ namespace GpsNotepad.ViewModels
             _pinService = pinService;
         }
 
+        private string title;
+        public string Title
+        {
+            get => title;
+            set => SetProperty(ref title, value);
+        }
+
         private List<Pin> pins = new List<Pin>();
         public List<Pin> Pins
         {
@@ -36,11 +44,18 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref pins, value);
         }
 
-        private string name;
+        private MapSpan cameraPosition;
+        public MapSpan CameraPosition
+        {
+            get => cameraPosition;
+            set => SetProperty(ref cameraPosition, value);
+        }
+
+        private string labelEntry;
         public string LabelEntry
         {
-            get => name;
-            set => SetProperty(ref name, value);
+            get => labelEntry;
+            set => SetProperty(ref labelEntry, value);
         }
 
         private string latitideEntry = "0";
@@ -140,6 +155,7 @@ namespace GpsNotepad.ViewModels
                 Label = LabelEntry,
                 Latitude = latitude,
                 Longitude = longitude,
+                Description = DescriptionEntry,
                 IsVisible = true
             };
         }
@@ -149,6 +165,7 @@ namespace GpsNotepad.ViewModels
             _pinModel.Label = LabelEntry;
             _pinModel.Latitude = latitude;
             _pinModel.Longitude = longitude;
+            _pinModel.Description = DescriptionEntry;
         }
 
         private void OnMapTap(object obj)
@@ -174,7 +191,7 @@ namespace GpsNotepad.ViewModels
                         EditPinModel();
                     }
                     await _pinService.SavePinAsync(_pinModel);
-                    await _navigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
                 }
                 else
                 {
@@ -184,6 +201,29 @@ namespace GpsNotepad.ViewModels
             else
             {
                 UserDialogs.Instance.Alert("Name, Latitude or Longitude field is empty!", Resource["Alert"], "OK");
+            }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            var pinModel = parameters.GetValue<PinModel>(nameof(PinModel));
+            if (pinModel != null)
+            {
+                Title = "Edit Pin";
+                _pinModel = pinModel;
+                LabelEntry = pinModel.Label;
+                LatitudeEntry = pinModel.Latitude.ToString();
+                LongitudeEntry = pinModel.Longitude.ToString();
+                DescriptionEntry = pinModel.Description;
+                var pin = pinModel.GetPin();
+                Pins.Add(pin);
+                var postion = new Position(pinModel.Latitude, pinModel.Longitude);
+                CameraPosition = new MapSpan(postion, 1, 1);
+            }
+            else
+            {
+                Title = "Add Pin";
             }
         }
 

@@ -166,7 +166,7 @@ namespace GpsNotepad.ViewModels
                     var isAutorized = await _authorizationService.SignUp(userModel);
                     if (isAutorized)
                     {
-                        await _navigationService.GoBackAsync();
+                        await NavigationService.GoBackAsync();
                     }
                     else
                     {

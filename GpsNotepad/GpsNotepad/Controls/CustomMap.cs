@@ -34,31 +34,51 @@ namespace GpsNotepad.Controls
             }
         }
 
-        public static readonly BindableProperty CustomMapTypeProperty =
-            BindableProperty.Create(
-                propertyName: nameof(CustomMapType),
-                returnType: typeof(MapType),
-                declaringType: typeof(CustomMap),
-                propertyChanged: CustomMapTypePropertyChanged,
-                defaultBindingMode: BindingMode.TwoWay);
+        public static readonly BindableProperty MoveToPositionProperty = BindableProperty.Create(
+            propertyName: nameof(MoveToPosition),
+            returnType: typeof(MapSpan),
+            declaringType: typeof(CustomMap),
+            defaultValue: default,
+            propertyChanged: MoveToPositionPropertyChanged);
 
-        public MapType CustomMapType
+        public MapSpan MoveToPosition
         {
-            get
-            {
-                return (MapType)GetValue(CustomMapTypeProperty);
-            }
-            set
-            {
-                SetValue(CustomMapTypeProperty, value);
-            }
+            get => (MapSpan)GetValue(MoveToPositionProperty);
+            set => SetValue(MoveToPositionProperty, value);
         }
 
-        private static void CustomMapTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void MoveToPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            CustomMap customMap = (CustomMap)bindable;
-            customMap.MapType = (MapType)newValue;
+            var control = (CustomMap)bindable;
+            control.MoveToRegion((MapSpan)newValue);
+
         }
+
+        //public static readonly BindableProperty CustomMapTypeProperty =
+        //    BindableProperty.Create(
+        //        propertyName: nameof(CustomMapType),
+        //        returnType: typeof(MapType),
+        //        declaringType: typeof(CustomMap),
+        //        propertyChanged: CustomMapTypePropertyChanged,
+        //        defaultBindingMode: BindingMode.TwoWay);
+
+        //public MapType CustomMapType
+        //{
+        //    get
+        //    {
+        //        return (MapType)GetValue(CustomMapTypeProperty);
+        //    }
+        //    set
+        //    {
+        //        SetValue(CustomMapTypeProperty, value);
+        //    }
+        //}
+
+        //private static void CustomMapTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        //{
+        //    CustomMap customMap = (CustomMap)bindable;
+        //    customMap.MapType = (MapType)newValue;
+        //}
 
         //public static BindableProperty CameraPositionProperty =
         //    BindableProperty.Create(nameof(MapPosition),

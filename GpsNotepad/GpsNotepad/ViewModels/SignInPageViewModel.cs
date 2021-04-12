@@ -66,13 +66,13 @@ namespace GpsNotepad.ViewModels
             var isAuthorized = await _authorizationService.SignInAsync(email, password);
             if (isAuthorized)
             {
-                await _navigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
             }
         }
 
         private async void OnSignUpTap()
         {
-            await _navigationService.NavigateAsync($"{nameof(SignUpPage)}");
+            await NavigationService.NavigateAsync($"{nameof(SignUpPage)}");
         }
 
         #endregion

@@ -8,5 +8,9 @@ namespace GpsNotepad.Services.Settings
     {
         int UserId { get; set; }
         string Culture { get; set; }
+        double Latitude { get; set; }
+        double Longitude { get; set; }
+        double Zoom { get; set; }
+
     }
 }

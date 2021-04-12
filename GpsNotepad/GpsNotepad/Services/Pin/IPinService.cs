@@ -10,6 +10,6 @@ namespace GpsNotepad.Services.Pin
     {
         Task<List<PinModel>> GetAllPinsAsync();
         Task SavePinAsync(PinModel pinModel);
-        Task DeletePinAsync();
+        Task DeletePinAsync(PinModel pinModel);
     }
 }

@@ -50,6 +50,15 @@ namespace GpsNotepad.ViewModels.ExtendedViewModels
             set => SetProperty(ref isVisible, value);
         }
 
+        private string description;
+
+        public string Description
+        {
+            get => description;
+            set => SetProperty(ref description, value);
+        }
+
+
         private string image;
         public string Image
         {

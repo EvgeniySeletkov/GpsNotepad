@@ -11,14 +11,22 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <controls:CustomMap MapPins="{Binding Pins}" />
-            <!--<controls:CustomMap.Behaviors>
+            <controls:CustomMap MapPins="{Binding Pins}" 
+                                MoveToPosition="{Binding CameraPosition}">
 
-                <prism:EventToCommandBehavior EventName="MapClicked" 
+                <controls:CustomMap.Behaviors>
+
+                    <!--<prism:EventToCommandBehavior EventName="MapClicked" 
                                                   Command="{Binding MapTapCommand}" 
-                                                  EventArgsParameterPath="Point"/>
+                                                  EventArgsParameterPath="Point"/>-->
 
-            </controls:CustomMap.Behaviors>-->
+                    <prism:EventToCommandBehavior EventName="CameraMoving" 
+                                                  Command="{Binding CameraMoveCommand}" 
+                                                  EventArgsParameterPath="Position"/>
+
+                </controls:CustomMap.Behaviors>
+
+            </controls:CustomMap>
 
 
             <!--<Button Command="{Binding MapTypeChangeCommand}" Grid.Row="1"/>-->

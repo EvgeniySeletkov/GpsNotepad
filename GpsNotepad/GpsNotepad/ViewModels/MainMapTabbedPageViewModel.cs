@@ -1,5 +1,8 @@
-﻿using GpsNotepad.Services.Localization;
+﻿using GpsNotepad.Extensions;
+using GpsNotepad.Models;
+using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
+using GpsNotepad.ViewModels.ExtendedViewModels;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -40,12 +43,12 @@ namespace GpsNotepad.ViewModels
         private async void OnExitTap()
         {
             _settingsManager.UserId = 0;
-            await _navigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
         }
 
         private async void OnSettingsTap()
         {
-            await _navigationService.NavigateAsync($"{nameof(SettingsPage)}");
+            await NavigationService.NavigateAsync($"{nameof(SettingsPage)}");
         }
 
         #endregion

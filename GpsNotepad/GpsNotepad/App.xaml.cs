@@ -1,5 +1,6 @@
 ﻿using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
+using GpsNotepad.Services.MapCameraPosition;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.Services.Repository;
 using GpsNotepad.Services.Settings;
@@ -32,6 +33,7 @@ namespace GpsNotepad
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
             containerRegistry.RegisterInstance<ILocalizationService>(Container.Resolve<LocalizationService>());
+            containerRegistry.RegisterInstance<IMapCameraPositionService>(Container.Resolve<MapCameraPositionService>());
 
             // Navigations
             containerRegistry.RegisterForNavigation<NavigationPage>();

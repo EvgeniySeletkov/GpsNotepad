@@ -15,6 +15,7 @@ namespace GpsNotepad.Models
         public double Longitude { get; set; }
         public bool IsVisible { get; set; }
         public string Address { get; set; }
+        public string Description { get; set; }
         public int UserId { get; set; }
     }
 }
