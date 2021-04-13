@@ -24,6 +24,9 @@
 
                 <Entry Placeholder="Label"
                        Text="{Binding LabelEntry}" />
+                <Entry Placeholder="Address"
+                       Text="{Binding AddressEntry}"
+                       IsReadOnly="True"/>
                 <Entry Placeholder="Latitude"
                        Keyboard="Numeric"
                        Text="{Binding LatitudeEntry}" />

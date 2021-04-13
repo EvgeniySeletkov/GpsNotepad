@@ -6,12 +6,18 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="GpsNotepad.Views.MapTabPage">
     <ContentPage.Content>
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="0.07*" />
+                <RowDefinition Height="0.93*" />
             </Grid.RowDefinitions>
 
-            <controls:CustomMap MapPins="{Binding Pins}" 
+            <SearchBar Grid.Row="0"
+                       Placeholder="Search" 
+                       Text="{Binding SearchText}" />
+
+            <controls:CustomMap Grid.Row="1"
+                                MapPins="{Binding Pins}" 
                                 MoveToPosition="{Binding CameraPosition}">
 
                 <controls:CustomMap.Behaviors>
@@ -28,8 +34,50 @@
 
             </controls:CustomMap>
 
+            <ListView Grid.Row="1"
+                      BackgroundColor="White"
+                      IsVisible="{Binding IsPinListVisible}"
+                      SelectedItem="{Binding SelectedPin}"
+                      VerticalOptions="Start"
+                      RowHeight="70"
+                      HeightRequest="{Binding ListHeight}"
+                      HasUnevenRows="True"
+                      ItemsSource="{Binding PinViewModelList}"
+                      SelectionMode="Single">
 
-            <!--<Button Command="{Binding MapTypeChangeCommand}" Grid.Row="1"/>-->
+                <ListView.Behaviors>
+
+                        <prism:EventToCommandBehavior EventName="ItemTapped" 
+                                                      Command="{Binding SelectionChangedCommand}"
+                                                      CommandParameter="{Binding .}" />
+
+                </ListView.Behaviors>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+
+                                <StackLayout HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center"
+                                             Padding="10, 0, 0, 0">
+
+                                    <Label FontAttributes="Bold"
+                                           Text="{Binding Label}" />
+                                    <Label Text="{Binding Latitude}" 
+                                           LineBreakMode="NoWrap" />
+                                    <Label Text="{Binding Longitude}" />
+
+                                </StackLayout>
+
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+            
+            
 
         </Grid>
     </ContentPage.Content>

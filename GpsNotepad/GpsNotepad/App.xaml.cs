@@ -52,7 +52,8 @@ namespace GpsNotepad
 
             if (AuthorizationService.IsAuthorized)
             {
-                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                //await NavigationService.NavigateAsync($"/{nameof(MainMapTabbedPage)}");
             }
             else
             {

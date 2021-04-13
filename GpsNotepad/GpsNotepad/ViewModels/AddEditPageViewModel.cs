@@ -9,6 +9,8 @@ using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -29,6 +31,8 @@ namespace GpsNotepad.ViewModels
         {
             _pinService = pinService;
         }
+
+        #region --- Public properties ---
 
         private string title;
         public string Title
@@ -56,6 +60,13 @@ namespace GpsNotepad.ViewModels
         {
             get => labelEntry;
             set => SetProperty(ref labelEntry, value);
+        }
+
+        private string addressEntry;
+        public string AddressEntry
+        {
+            get => addressEntry;
+            set => SetProperty(ref addressEntry, value);
         }
 
         private string latitideEntry = "0";
@@ -94,11 +105,14 @@ namespace GpsNotepad.ViewModels
         public ICommand SavePinTapCommand => 
             savePinTapCommand ?? (savePinTapCommand = new DelegateCommand(OnSavePinTap));
 
-        private bool HasEmptyEntries()
+        #endregion
+
+        #region --- Private methods ---
+
+        private bool HasEmptyCordinates()
         {
             bool isEmpty = false;
-            if (string.IsNullOrWhiteSpace(LabelEntry) ||
-                string.IsNullOrWhiteSpace(LatitudeEntry) ||
+            if (string.IsNullOrWhiteSpace(LatitudeEntry) ||
                 string.IsNullOrWhiteSpace(LongitudeEntry))
             {
                 isEmpty = true;
@@ -120,41 +134,57 @@ namespace GpsNotepad.ViewModels
             return areCoordinates;
         }
 
-        private Pin CreatePin(Position position)
+        private async Task<string> GetAddressAsync(Position position)
         {
-            Pin pin = null;
-            if (!HasEmptyEntries())
+            var geocoder = new Geocoder();
+            var addressList = await geocoder.GetAddressesForPositionAsync(position);
+            var fullAddress = addressList != null ? addressList.FirstOrDefault() : string.Empty;
+            var address = !string.IsNullOrWhiteSpace(fullAddress) ? 
+                (fullAddress.Substring(0, 
+                             fullAddress.IndexOf(",") != -1 ?
+                             fullAddress.IndexOf(",") :
+                             fullAddress.Length)) : string.Empty;
+
+            return address;
+        }
+
+        private async Task<Pin> CreatePinAsync(Position position)
+        {
+            var address = await GetAddressAsync(position);
+
+            Pin pin = new Pin()
             {
-                pin = new Pin()
-                {
-                    Label = LabelEntry,
-                    Position = position,
-                    IsVisible = true
-                };
-            }
+                Label = "Untitled pin",
+                Position = position,
+                Address = address,
+                IsVisible = true
+            };
 
             return pin;
         }
 
-        private void AddPinOnMap(Position position)
+        private async Task<Pin> AddPinOnMapAsync(Position position)
         {
-            var pin = CreatePin(position);
+            var pin = await CreatePinAsync(position);
             if (pin != null)
             {
                 var pinList = new List<Pin>();
                 pinList.Add(pin);
                 Pins = pinList;
             }
-
+            return pin;
         }
 
-        private void CreatePinModel()
+        private async Task CreatePinModelAsync()
         {
+            var position = new Position(latitude, longitude);
+            var address = await GetAddressAsync(position);
             _pinModel = new PinModel()
             {
                 Label = LabelEntry,
                 Latitude = latitude,
                 Longitude = longitude,
+                Address = address,
                 Description = DescriptionEntry,
                 IsVisible = true
             };
@@ -163,28 +193,34 @@ namespace GpsNotepad.ViewModels
         private void EditPinModel()
         {
             _pinModel.Label = LabelEntry;
+            _pinModel.Address = AddressEntry;
             _pinModel.Latitude = latitude;
             _pinModel.Longitude = longitude;
             _pinModel.Description = DescriptionEntry;
         }
 
-        private void OnMapTap(object obj)
+        #endregion
+
+        #region --- Private helpers ---
+
+        private async void OnMapTap(object obj)
         {
             var position = (Position)obj;
-            AddPinOnMap(position);
-            LatitudeEntry = position.Latitude.ToString();
-            LongitudeEntry = position.Longitude.ToString();
+            var pin = await AddPinOnMapAsync(position);
+            AddressEntry = pin.Address;
+            LatitudeEntry = pin.Position.Latitude.ToString();
+            LongitudeEntry = pin.Position.Longitude.ToString();
         }
 
         private async void OnSavePinTap()
         {
-            if (!HasEmptyEntries())
+            if (!string.IsNullOrWhiteSpace(LabelEntry) && !HasEmptyCordinates())
             {
                 if (HasCoordinates())
                 {
                     if (_pinModel == null)
                     {
-                        CreatePinModel();
+                        await CreatePinModelAsync();
                     }
                     else
                     {
@@ -204,6 +240,10 @@ namespace GpsNotepad.ViewModels
             }
         }
 
+        #endregion
+
+        #region --- Overrides ---
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -213,7 +253,8 @@ namespace GpsNotepad.ViewModels
                 Title = "Edit Pin";
                 _pinModel = pinModel;
                 LabelEntry = pinModel.Label;
-                LatitudeEntry = pinModel.Latitude.ToString();
+                AddressEntry = pinModel.Address
+;                LatitudeEntry = pinModel.Latitude.ToString();
                 LongitudeEntry = pinModel.Longitude.ToString();
                 DescriptionEntry = pinModel.Description;
                 var pin = pinModel.GetPin();
@@ -227,20 +268,22 @@ namespace GpsNotepad.ViewModels
             }
         }
 
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        protected override async void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
 
-            if (args.PropertyName == nameof(LabelEntry) ||
-                args.PropertyName == nameof(LatitudeEntry) ||
+            if (args.PropertyName == nameof(LatitudeEntry) ||
                 args.PropertyName == nameof(LongitudeEntry))
             {
-                if (!HasEmptyEntries() && HasCoordinates())
+                if (!HasEmptyCordinates() && HasCoordinates())
                 {
                     var position = new Position(latitude, longitude);
-                    AddPinOnMap(position);
+                    await AddPinOnMapAsync(position);
                 }
             }
         }
+
+        #endregion
+
     }
 }

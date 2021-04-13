@@ -21,6 +21,17 @@
         <local:MapTabPage Title="Map" />
         <local:PinsListTabPage Title="Pins" />
 
+        <!--<NavigationPage Title="Map">
+            <x:Arguments>
+                <local:MapTabPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Pins">
+            <x:Arguments>
+                <local:PinsListTabPage />
+            </x:Arguments>
+        </NavigationPage>-->
+
     </TabbedPage.Children>
 
 </TabbedPage>

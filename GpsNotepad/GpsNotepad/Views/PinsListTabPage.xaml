@@ -68,7 +68,7 @@
 
                                                 <Label FontAttributes="Bold"
                                                    Text="{Binding Label}" />
-                                                <Label Text="{Binding Latitude}" />
+                                                <Label Text="{Binding Address}" />
                                                 <Label Text="{Binding Longitude}" />
 
                                             </StackLayout>

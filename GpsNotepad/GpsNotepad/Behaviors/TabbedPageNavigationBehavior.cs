@@ -33,6 +33,14 @@ namespace GpsNotepad.Behaviors
                 var parameters = new NavigationParameters();
                 PageUtilities.OnNavigatedFrom(_currentPage, parameters);
                 PageUtilities.OnNavigatedTo(newPage, parameters);
+
+                //PageUtilities.OnNavigatedFrom(_currentPage, new NavigationParameters());
+
+                //var navigationParameters = new NavigationParameters();
+                //var navigationParametersInternal = (INavigationParametersInternal)navigationParameters;
+                //navigationParametersInternal.Add(InternalNavigationParameterKey.NavigationMode, NavigationMode.New);
+
+                //PageUtilities.OnNavigatedTo(newPage, navigationParameters);
             }
 
             _currentPage = newPage;

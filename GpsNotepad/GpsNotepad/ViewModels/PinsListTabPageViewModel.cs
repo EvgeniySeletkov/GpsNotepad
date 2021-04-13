@@ -8,7 +8,6 @@ using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
-using Prism.Navigation.TabbedPages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -119,14 +118,7 @@ namespace GpsNotepad.ViewModels
 
         private void OnSearch()
         {
-        //    if (string.IsNullOrWhiteSpace(SearchText))
-        //    {
-        //        Pins = new ObservableCollection<PinViewModel>(_pinList);
-        //    }
-        //    else
-        //    {
-        //        Pins = new ObservableCollection<PinViewModel>(_pinList.Where(p => p.Label.Contains(SearchText)));
-        //    }
+
         }
 
         private async void OnSelectionChanged()
@@ -162,13 +154,7 @@ namespace GpsNotepad.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            int count = 0;
-            foreach (var pinViewModel in Pins)
-            {
-                var pin = pinViewModel.GetPin();
-                parameters.Add($"{nameof(pin)}{count}", pin);
-                count++;
-            }
+            parameters.Add(nameof(PinViewModel), Pins);
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -187,7 +173,6 @@ namespace GpsNotepad.ViewModels
                 {
                     Pins = new ObservableCollection<PinViewModel>(_pinList.Where(p =>
                            p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                           p.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
                            p.Latitude.ToString().StartsWith(SearchText) || 
                            p.Longitude.ToString().StartsWith(SearchText)));
                 }
