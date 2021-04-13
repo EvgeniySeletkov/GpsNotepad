@@ -54,51 +54,27 @@ namespace GpsNotepad.Controls
 
         }
 
-        //public static readonly BindableProperty CustomMapTypeProperty =
-        //    BindableProperty.Create(
-        //        propertyName: nameof(CustomMapType),
-        //        returnType: typeof(MapType),
-        //        declaringType: typeof(CustomMap),
-        //        propertyChanged: CustomMapTypePropertyChanged,
-        //        defaultBindingMode: BindingMode.TwoWay);
+        //public static readonly BindableProperty PinsSelectProperty = BindableProperty.Create(
+        //    propertyName: nameof(PinsSelect),
+        //    returnType: typeof(List<Pin>),
+        //    declaringType: typeof(CustomMap),
+        //    defaultValue: default,
+        //    propertyChanged: PinsSelectPropertyChanged);
 
-        //public MapType CustomMapType
+        //private static void PinsSelectPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         //{
-        //    get
+        //    var control = (CustomMap)bindable;
+        //    control.Pins.Clear();
+        //    foreach (Pin pin in (List<Pin>)newValue)
         //    {
-        //        return (MapType)GetValue(CustomMapTypeProperty);
-        //    }
-        //    set
-        //    {
-        //        SetValue(CustomMapTypeProperty, value);
+        //        control.Pins.Add(pin);
         //    }
         //}
 
-        //private static void CustomMapTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        //public List<Pin> PinsSelect
         //{
-        //    CustomMap customMap = (CustomMap)bindable;
-        //    customMap.MapType = (MapType)newValue;
-        //}
-
-        //public static BindableProperty CameraPositionProperty =
-        //    BindableProperty.Create(nameof(MapPosition),
-        //        typeof(Position),
-        //        typeof(CustomMap),
-        //        defaultValue: new CameraPosition(),
-        //        defaultBindingMode: BindingMode.TwoWay
-        //        );
-
-
-        //public CameraPosition MapPosition
-        //{
-        //    get
-        //    {
-        //        return (CameraPosition)GetValue(MapPositionProperty);
-        //    }
-        //    set
-        //    {
-        //        SetValue(MapPositionProperty, value);
-        //    }
+        //    get => (List<Pin>)GetValue(PinsSelectProperty);
+        //    set => SetValue(PinsSelectProperty, value); 
         //}
 
     }

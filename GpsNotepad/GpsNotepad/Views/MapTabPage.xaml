@@ -22,13 +22,17 @@
 
                 <controls:CustomMap.Behaviors>
 
-                    <!--<prism:EventToCommandBehavior EventName="MapClicked" 
+                    <prism:EventToCommandBehavior EventName="MapClicked" 
                                                   Command="{Binding MapTapCommand}" 
-                                                  EventArgsParameterPath="Point"/>-->
+                                                  EventArgsParameterPath="Point"/>
 
                     <prism:EventToCommandBehavior EventName="CameraMoving" 
                                                   Command="{Binding CameraMoveCommand}" 
                                                   EventArgsParameterPath="Position"/>
+
+                    <prism:EventToCommandBehavior EventName="PinClicked" 
+                                                  Command="{Binding PinSelectCommand}" 
+                                                  EventArgsParameterPath="Pin"/>
 
                 </controls:CustomMap.Behaviors>
 
@@ -76,8 +80,27 @@
                 </ListView.ItemTemplate>
 
             </ListView>
-            
-            
+
+            <StackLayout Grid.Row="1" 
+                         VerticalOptions="End"
+                         HeightRequest="200"
+                         BackgroundColor="White"
+                         IsVisible="{Binding IsPinInfoVisible}">
+                
+                <ScrollView>
+                    
+                    <StackLayout Padding="30, 30, 30, 30">
+                        <Label Text="{Binding Label}"
+                               FontAttributes="Bold" 
+                               FontSize="Subtitle" />
+                        <Label Text="{Binding Address}" />
+                        <Label Text="{Binding Position}" />
+                        <Label Text="{Binding Description}" />
+                    </StackLayout>
+                    
+                </ScrollView>
+
+            </StackLayout>
 
         </Grid>
     </ContentPage.Content>

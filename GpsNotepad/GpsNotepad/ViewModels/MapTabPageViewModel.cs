@@ -58,6 +58,34 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref selectedPin, value);
         }
 
+        private string label;
+        public string Label
+        {
+            get => label;
+            set => SetProperty(ref label, value);
+        }
+
+        private string address;
+        public string Address
+        {
+            get => address;
+            set => SetProperty(ref address, value);
+        }
+
+        private string position;
+        public string Position
+        {
+            get => position;
+            set => SetProperty(ref position, value);
+        }
+
+        private string description;
+        public string Description
+        {
+            get => description;
+            set => SetProperty(ref description, value);
+        }
+
         private bool isPinListVisible = false;
         public bool IsPinListVisible
         {
@@ -72,6 +100,12 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref listHeight, value);
         }
 
+        private bool isPinInfoVisible = false;
+        public bool IsPinInfoVisible
+        {
+            get => isPinInfoVisible;
+            set => SetProperty(ref isPinInfoVisible, value);
+        }
 
         private MapSpan cameraPosition;
         public MapSpan CameraPosition
@@ -88,6 +122,14 @@ namespace GpsNotepad.ViewModels
         public ICommand SelectionChangedCommand =>
             selectionChangedCommand ?? (selectionChangedCommand = new DelegateCommand(OnSelectionChanged));
 
+        private ICommand pinSelectCommand;
+        public ICommand PinSelectCommand => 
+            pinSelectCommand ?? (pinSelectCommand = new DelegateCommand<object>(OnPinSelectTap));
+
+        private ICommand mapTapCommand;
+        public ICommand MapTapCommand =>
+            mapTapCommand ?? (mapTapCommand = new DelegateCommand<object>(OnMapTap));
+
         private void ChangeListHeight()
         {
             if (PinViewModelList.Count < 4)
@@ -98,6 +140,18 @@ namespace GpsNotepad.ViewModels
             {
                 ListHeight = 210;
             }
+        }
+
+        private void DisplayPinInfo(int id)
+        {
+            IsPinInfoVisible = true;
+            var pinViewModel = PinViewModelList[id];
+            Label = $"Label: {pinViewModel.Label}";
+            Address = $"Address: {pinViewModel.Address}";
+            var latitude = Math.Round(pinViewModel.Latitude, 2);
+            var longitude = Math.Round(pinViewModel.Longitude, 2);
+            Position = $"Coordinates: {latitude}; {longitude}";
+            Description = $"Description: {pinViewModel.Description}";
         }
 
         private void OnCameraMove(object obj)
@@ -111,6 +165,18 @@ namespace GpsNotepad.ViewModels
             var pin = SelectedPin.GetPin();
             CameraPosition = new MapSpan(pin.Position, 1, 1);
             IsPinListVisible = false;
+        }
+
+        private void OnPinSelectTap(object obj)
+        {
+            Pin selectedPin = (Pin)obj;
+            int selectedPinId = Pins.IndexOf(selectedPin);
+            DisplayPinInfo(selectedPinId);
+        }
+
+        private void OnMapTap(object obj)
+        {
+            IsPinInfoVisible = false;
         }
 
         public override async void Initialize(INavigationParameters parameters)
