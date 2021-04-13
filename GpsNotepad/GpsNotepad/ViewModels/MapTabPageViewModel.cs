@@ -1,4 +1,6 @@
-﻿using GpsNotepad.Extensions;
+﻿using Acr.UserDialogs;
+using GpsNotepad.Controls;
+using GpsNotepad.Extensions;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.MapCameraPosition;
 using GpsNotepad.Services.Pin;
@@ -11,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.ViewModels
@@ -130,6 +133,10 @@ namespace GpsNotepad.ViewModels
         public ICommand MapTapCommand =>
             mapTapCommand ?? (mapTapCommand = new DelegateCommand<object>(OnMapTap));
 
+        private ICommand goToCurrentLocationCommand;
+        public ICommand GoToCurrentLocationCommand =>
+            goToCurrentLocationCommand ?? (goToCurrentLocationCommand = new DelegateCommand(OnGoToCurrentLocation));
+
         private void ChangeListHeight()
         {
             if (PinViewModelList.Count < 4)
@@ -179,9 +186,25 @@ namespace GpsNotepad.ViewModels
             IsPinInfoVisible = false;
         }
 
+        private async void OnGoToCurrentLocation()
+        {
+            var request = new GeolocationRequest(GeolocationAccuracy.Best);
+            try
+            {
+                var location = await Geolocation.GetLocationAsync(request);
+                var position = new Position(location.Latitude, location.Longitude);
+                CameraPosition = new MapSpan(position, 1, 1);
+            }
+            catch
+            {
+                await UserDialogs.Instance.AlertAsync("Geolocation is off!", Resource["Alert"], "OK");
+            }
+        }
+
         public override async void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            
             var pinModelList = await _pinService.GetAllPinsAsync();
 
             var pinViewModels = new List<PinViewModel>();
@@ -223,6 +246,7 @@ namespace GpsNotepad.ViewModels
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
+            
             if (args.PropertyName == nameof(SearchText))
             {
                 _pinViewModelList ??= new ObservableCollection<PinViewModel>(PinViewModelList);

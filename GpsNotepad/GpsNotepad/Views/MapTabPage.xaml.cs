@@ -17,6 +17,5 @@ namespace GpsNotepad.Views
         {
             InitializeComponent();
         }
-
     }
 }

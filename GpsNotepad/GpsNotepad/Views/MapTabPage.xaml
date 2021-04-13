@@ -18,7 +18,8 @@
 
             <controls:CustomMap Grid.Row="1"
                                 MapPins="{Binding Pins}" 
-                                MoveToPosition="{Binding CameraPosition}">
+                                MoveToPosition="{Binding CameraPosition}"
+                                MyLocationEnabled="True">
 
                 <controls:CustomMap.Behaviors>
 
@@ -80,6 +81,15 @@
                 </ListView.ItemTemplate>
 
             </ListView>
+
+            <ImageButton Grid.Row="1" WidthRequest="63"
+                         HorizontalOptions="End" VerticalOptions="Center"
+                         CornerRadius="75" Margin="0, 0, 2, 40"
+                         Padding="17" Scale="0.6"
+                         BackgroundColor="White"
+                         Source="ic_current_location.png" 
+                         Command="{Binding GoToCurrentLocationCommand}"/>
+
 
             <StackLayout Grid.Row="1" 
                          VerticalOptions="End"
