@@ -24,7 +24,7 @@ namespace GpsNotepad.ViewModels
     class PinsListTabPageViewModel : BaseViewModel
     {
         private IPinService _pinService;
-        private ObservableCollection<PinViewModel> _pinList;
+        private ObservableCollection<PinViewModel> _pinViewModelList;
 
         public PinsListTabPageViewModel(INavigationService navigationService,
                                         ILocalizationService localizationService,
@@ -33,11 +33,20 @@ namespace GpsNotepad.ViewModels
             _pinService = pinService;
         }
 
-        private ObservableCollection<PinViewModel> pins;
-        public ObservableCollection<PinViewModel> Pins
+        #region --- Public properties ---
+
+        private ObservableCollection<PinViewModel> pinViewModelList;
+        public ObservableCollection<PinViewModel> PinViewModelList
         {
-            get => pins;
-            set => SetProperty(ref pins, value);
+            get => pinViewModelList;
+            set => SetProperty(ref pinViewModelList, value);
+        }
+
+        private PinViewModel selectedPinViewModel;
+        public PinViewModel SelectedPinViewModel
+        {
+            get => selectedPinViewModel;
+            set => SetProperty(ref selectedPinViewModel, value);
         }
 
         private string searchText;
@@ -47,20 +56,13 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref searchText, value);
         }
 
-        private PinViewModel selectedPin;
-        public PinViewModel SelectedPin
-        {
-            get => selectedPin;
-            set => SetProperty(ref selectedPin, value);
-        }
-
         private ICommand pinVisibleChangeTapCommand;
         public ICommand PinVisibleChangeTapCommand =>
             pinVisibleChangeTapCommand ?? (pinVisibleChangeTapCommand = new DelegateCommand<PinViewModel>(OnPinVisibleChangeTap));
 
-        private ICommand selectionChangedCommand;
-        public ICommand SelectionChangedCommand =>
-            selectionChangedCommand ?? (selectionChangedCommand = new DelegateCommand(OnSelectionChanged));
+        private ICommand selectPinCommand;
+        public ICommand SelectPinCommand =>
+            selectPinCommand ?? (selectPinCommand = new DelegateCommand(OnSelectPinTap));
 
         private ICommand addPinTapCommand;
         public ICommand AddPinTapCommand => 
@@ -74,9 +76,9 @@ namespace GpsNotepad.ViewModels
         public ICommand DeletePinTapCommand =>
             deletePinTapCommand ?? (deletePinTapCommand = new DelegateCommand<PinViewModel>(OnDeletePinTap));
 
-        private ICommand searchCommand;
-        public ICommand SearchCommand =>
-            searchCommand ?? (searchCommand = new DelegateCommand(OnSearch));
+        #endregion
+
+        #region --- Private helpers ---
 
         private async void OnPinVisibleChangeTap(PinViewModel pinViewModel)
         {
@@ -96,6 +98,14 @@ namespace GpsNotepad.ViewModels
             await _pinService.SavePinAsync(pinModel);
         }
 
+        private async void OnSelectPinTap()
+        {
+            var parameters = new NavigationParameters();
+            var pin = SelectedPinViewModel.GetPin();
+            parameters.Add(nameof(SelectedPinViewModel), pin);
+            await NavigationService.SelectTabAsync($"{nameof(MapTabPage)}", parameters);
+        }
+
         private async void OnAddPinTap()
         {
             await NavigationService.NavigateAsync($"{nameof(AddEditPage)}");
@@ -113,27 +123,17 @@ namespace GpsNotepad.ViewModels
         {
             var pinModel = pinViewModel.GetPinModel();
             await _pinService.DeletePinAsync(pinModel);
-            Pins.Remove(pinViewModel);
+            PinViewModelList.Remove(pinViewModel);
         }
 
-        private void OnSearch()
-        {
+        #endregion
 
-        }
-
-        private async void OnSelectionChanged()
-        {
-            var parameters = new NavigationParameters();
-            var pin = SelectedPin.GetPin();
-            parameters.Add(nameof(SelectedPin), pin);
-            await NavigationService.SelectTabAsync($"{nameof(MapTabPage)}", parameters);
-        }
+        #region --- Overrides ---
 
         public override async void Initialize(INavigationParameters parameters)
         {
             var pinModelList = await _pinService.GetAllPinsAsync();
-
-            var pinList = new List<PinViewModel>();
+            var pinViewModels = new List<PinViewModel>();
 
             foreach (var pinModel in pinModelList)
             {
@@ -146,15 +146,15 @@ namespace GpsNotepad.ViewModels
                 {
                     pinViewModel.Image = "closed_eye.png";
                 }
-                pinList.Add(pinViewModel);
+                pinViewModels.Add(pinViewModel);
             }
 
-            Pins = new ObservableCollection<PinViewModel>(pinList);
+            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModels);
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            parameters.Add(nameof(PinViewModel), Pins);
+            parameters.Add(nameof(PinViewModel), PinViewModelList);
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -162,22 +162,24 @@ namespace GpsNotepad.ViewModels
             base.OnPropertyChanged(args);
             if (args.PropertyName == nameof(SearchText))
             {
-                _pinList ??= new ObservableCollection<PinViewModel>(Pins);
+                _pinViewModelList ??= new ObservableCollection<PinViewModel>(PinViewModelList);
 
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
-                    Pins = new ObservableCollection<PinViewModel>(_pinList);
-                    _pinList = null;
+                    PinViewModelList = new ObservableCollection<PinViewModel>(_pinViewModelList);
+                    _pinViewModelList = null;
                 }
                 else
                 {
-                    Pins = new ObservableCollection<PinViewModel>(_pinList.Where(p =>
+                    PinViewModelList = new ObservableCollection<PinViewModel>(_pinViewModelList.Where(p =>
                            p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
                            p.Latitude.ToString().StartsWith(SearchText) || 
                            p.Longitude.ToString().StartsWith(SearchText)));
                 }
             }
         }
+
+        #endregion
 
     }
 }

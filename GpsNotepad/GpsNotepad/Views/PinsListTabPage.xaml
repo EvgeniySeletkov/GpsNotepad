@@ -20,41 +20,40 @@
                            Text="{Binding SearchText}"
                            SearchCommand="{Binding SearchCommand}"/>
 
-                <ScrollView>
-                    <ListView ItemsSource="{Binding Pins}"
-                              SelectedItem="{Binding SelectedPin}"
+                <ListView ItemsSource="{Binding PinViewModelList}"
+                              SelectedItem="{Binding SelectedPinViewModel}"
                               HasUnevenRows="True"
                               SelectionMode="Single">
 
-                        <ListView.Behaviors>
+                    <ListView.Behaviors>
 
-                            <prism:EventToCommandBehavior EventName="ItemTapped" 
-                                                          Command="{Binding SelectionChangedCommand}"
+                        <prism:EventToCommandBehavior EventName="ItemTapped" 
+                                                          Command="{Binding SelectPinCommand}"
                                                           CommandParameter="{Binding .}" />
 
-                        </ListView.Behaviors>
+                    </ListView.Behaviors>
 
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
 
-                                    <ViewCell.ContextActions>
-                                        <MenuItem Text="Edit" 
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Edit" 
                                                   Command="{Binding Path=BindingContext.EditPinTapCommand, 
                                                                     Source={x:Reference pin}}"
                                                   CommandParameter="{Binding .}"/>
-                                        <MenuItem Text="Delete"
+                                    <MenuItem Text="Delete"
                                                   Command="{Binding Path=BindingContext.DeletePinTapCommand, 
                                                                     Source={x:Reference pin}}"
                                                   CommandParameter="{Binding .}" />
-                                    </ViewCell.ContextActions>
+                                </ViewCell.ContextActions>
 
-                                    <ViewCell.View>
+                                <ViewCell.View>
 
-                                        <StackLayout Orientation="Horizontal"
+                                    <StackLayout Orientation="Horizontal"
                                                  HorizontalOptions="FillAndExpand">
 
-                                            <ImageButton HeightRequest="50"
+                                        <ImageButton HeightRequest="50"
                                                          WidthRequest="50"
                                                          Margin="10, 0, 0, 0"
                                                          BackgroundColor="Transparent"
@@ -63,24 +62,25 @@
                                                                            Source={x:Reference pin}}"
                                                          CommandParameter="{Binding .}" />
 
-                                            <StackLayout VerticalOptions="Center" 
+                                        <StackLayout VerticalOptions="Center" 
                                                          Margin="10, 0, 0, 0">
 
-                                                <Label FontAttributes="Bold"
-                                                       Text="{Binding Label}" />
-                                                <Label Text="{Binding Address}" />
-                                                <Label Text="{Binding Longitude}" />
-
-                                            </StackLayout>
+                                            <Label FontSize="Subtitle"
+                                                   FontAttributes="Bold"
+                                                   Text="{Binding Label}" />
+                                            <Label Text="{Binding Address}" />
+                                            <Label Text="{Binding Coordinates}" />
 
                                         </StackLayout>
-                                    </ViewCell.View>
 
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </ScrollView>
+                                    </StackLayout>
+                                </ViewCell.View>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                
             </StackLayout>
 
             <!--<Label Style="{StaticResource TextStyle}" 

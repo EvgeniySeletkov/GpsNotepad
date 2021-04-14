@@ -42,9 +42,9 @@
             <ListView Grid.Row="1"
                       BackgroundColor="White"
                       IsVisible="{Binding IsPinListVisible}"
-                      SelectedItem="{Binding SelectedPin}"
+                      SelectedItem="{Binding SelectedPinViewModel}"
                       VerticalOptions="Start"
-                      RowHeight="70"
+                      RowHeight="72"
                       HeightRequest="{Binding ListHeight}"
                       HasUnevenRows="True"
                       ItemsSource="{Binding PinViewModelList}"
@@ -53,7 +53,7 @@
                 <ListView.Behaviors>
 
                         <prism:EventToCommandBehavior EventName="ItemTapped" 
-                                                      Command="{Binding SelectionChangedCommand}"
+                                                      Command="{Binding PinViewModelSelectCommand}"
                                                       CommandParameter="{Binding .}" />
 
                 </ListView.Behaviors>
@@ -67,11 +67,11 @@
                                              VerticalOptions="Center"
                                              Padding="10, 0, 0, 0">
 
-                                    <Label FontAttributes="Bold"
+                                    <Label FontSize="Subtitle"
+                                           FontAttributes="Bold"
                                            Text="{Binding Label}" />
-                                    <Label Text="{Binding Latitude}" 
-                                           LineBreakMode="NoWrap" />
-                                    <Label Text="{Binding Longitude}" />
+                                    <Label Text="{Binding Address}" />
+                                    <Label Text="{Binding Coordinates}" />
 
                                 </StackLayout>
 

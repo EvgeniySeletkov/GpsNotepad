@@ -7,6 +7,7 @@ using GpsNotepad.Services.Pin;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -90,12 +91,12 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref descriptionEntry, value);
         }
 
-        private bool isSaveButtonEnabled = false;
-        public bool IsSaveButtonEnabled
-        {
-            get => isSaveButtonEnabled;
-            set => SetProperty(ref isSaveButtonEnabled, value);
-        }
+        //private bool isSaveButtonEnabled = false;
+        //public bool IsSaveButtonEnabled
+        //{
+        //    get => isSaveButtonEnabled;
+        //    set => SetProperty(ref isSaveButtonEnabled, value);
+        //}
 
         private ICommand mapTapCommand;
         public ICommand MapTapCommand => 
@@ -182,8 +183,8 @@ namespace GpsNotepad.ViewModels
             _pinModel = new PinModel()
             {
                 Label = LabelEntry,
-                Latitude = latitude,
-                Longitude = longitude,
+                Latitude = Math.Round(latitude, 2),
+                Longitude = Math.Round(longitude, 2),
                 Address = address,
                 Description = DescriptionEntry,
                 IsVisible = true
@@ -194,8 +195,8 @@ namespace GpsNotepad.ViewModels
         {
             _pinModel.Label = LabelEntry;
             _pinModel.Address = AddressEntry;
-            _pinModel.Latitude = latitude;
-            _pinModel.Longitude = longitude;
+            _pinModel.Latitude = Math.Round(latitude, 2);
+            _pinModel.Longitude = Math.Round(longitude, 2);
             _pinModel.Description = DescriptionEntry;
         }
 

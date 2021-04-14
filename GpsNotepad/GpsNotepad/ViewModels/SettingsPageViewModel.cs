@@ -15,15 +15,9 @@ namespace GpsNotepad.ViewModels
 {
     class SettingsPageViewModel : BaseViewModel
     {
-        private ISettingsManager _settingsManager;
-        private ILocalizationService _localizationService;
-
         public SettingsPageViewModel(INavigationService navigationService,
-                                     ILocalizationService localizationService,
-                                     ISettingsManager settingsManager) : base(navigationService, localizationService)
+                                     ILocalizationService localizationService) : base(navigationService, localizationService)
         {
-            _settingsManager = settingsManager;
-            _localizationService = localizationService;
         }
 
         #region --- Public properties ---
@@ -54,7 +48,7 @@ namespace GpsNotepad.ViewModels
         {
             //SelectedLang = _localizationService.Lang;
 
-            switch (_localizationService.Lang)
+            switch (Resource.Lang)
             {
                 case Constant.ENGLISH_LANGUAGE:
                     SelectedLang = Constant.ENGLISH_LANGUAGE;

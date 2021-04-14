@@ -28,6 +28,12 @@ namespace GpsNotepad.ViewModels.ExtendedViewModels
             set => SetProperty(ref latitude, value);
         }
 
+        public string Coordinates
+        {
+            get => $"{Latitude}; {Longitude}";
+        }
+
+
         private double longitude;
         public double Longitude
         {

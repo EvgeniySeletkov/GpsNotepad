@@ -179,6 +179,8 @@ namespace GpsNotepad.ViewModels
 
         #endregion
 
+        #region --- Overrides ---
+
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
@@ -195,5 +197,8 @@ namespace GpsNotepad.ViewModels
                 IsButtonEnable = true;
             }
         }
+
+        #endregion
+
     }
 }
