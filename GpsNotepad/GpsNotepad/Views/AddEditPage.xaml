@@ -33,7 +33,7 @@
                 <Entry Placeholder="Longitude"
                        Keyboard="Numeric"
                        Text="{Binding LongitudeEntry}" />
-                <Editor HeightRequest="170"
+                <Editor HeightRequest="140"
                         Placeholder="Description"
                         Text="{Binding DescriptionEntry}" />
 

@@ -9,7 +9,6 @@ using Xamarin.Forms.Xaml;
 
 namespace GpsNotepad.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignInPage : ContentPage
     {
         public SignInPage()

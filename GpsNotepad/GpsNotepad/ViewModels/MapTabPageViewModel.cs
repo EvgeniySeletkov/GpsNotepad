@@ -141,7 +141,7 @@ namespace GpsNotepad.ViewModels
 
         #endregion
 
-        #region --- Private methods ---
+        #region --- Private helpers ---
 
         private void ChangeListHeight()
         {
@@ -167,10 +167,6 @@ namespace GpsNotepad.ViewModels
             Description = $"Description: {pinViewModel.Description}";
         }
 
-        #endregion
-
-        #region --- Private helpers ---
-
         private void OnCameraMove(object obj)
         {
             var cameraPosition = (CameraPosition)obj;
@@ -179,7 +175,7 @@ namespace GpsNotepad.ViewModels
 
         private void OnPinViewModelSelectTap()
         {
-            var pin = SelectedPinViewModel.GetPin();
+            var pin = SelectedPinViewModel.ToPin();
             CameraPosition = new MapSpan(pin.Position, 1, 1);
             IsPinListVisible = false;
         }
@@ -226,8 +222,8 @@ namespace GpsNotepad.ViewModels
 
             foreach (var pinModel in pinModelList)
             {
-                var pin = pinModel.GetPin();
-                var pinViewModel = pinModel.GetPinViewModel();
+                var pin = pinModel.ToPin();
+                var pinViewModel = pinModel.ToPinViewModel();
                 pinList.Add(pin);
                 pinViewModels.Add(pinViewModel);
             }
@@ -246,7 +242,7 @@ namespace GpsNotepad.ViewModels
                 PinViewModelList = newPinViewModelList;
                 foreach (var pinViewModel in newPinViewModelList)
                 {
-                    pinList.Add(pinViewModel.GetPin());
+                    pinList.Add(pinViewModel.ToPin());
                 }
                 Pins = pinList;
             }

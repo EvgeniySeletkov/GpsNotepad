@@ -93,7 +93,7 @@ namespace GpsNotepad.ViewModels
                 pinViewModel.Image = "eye.png";
             }
 
-            var pinModel = pinViewModel.GetPinModel();
+            var pinModel = pinViewModel.ToPinModel();
 
             await _pinService.SavePinAsync(pinModel);
         }
@@ -101,7 +101,7 @@ namespace GpsNotepad.ViewModels
         private async void OnSelectPinTap()
         {
             var parameters = new NavigationParameters();
-            var pin = SelectedPinViewModel.GetPin();
+            var pin = SelectedPinViewModel.ToPin();
             parameters.Add(nameof(SelectedPinViewModel), pin);
             await NavigationService.SelectTabAsync($"{nameof(MapTabPage)}", parameters);
         }
@@ -113,7 +113,7 @@ namespace GpsNotepad.ViewModels
 
         private async void OnEditPinTap(PinViewModel pinViewModel)
         {
-            var pinModel = pinViewModel.GetPinModel();
+            var pinModel = pinViewModel.ToPinModel();
             var parameters = new NavigationParameters();
             parameters.Add(nameof(PinModel), pinModel);
             await NavigationService.NavigateAsync($"{nameof(AddEditPage)}", parameters);
@@ -121,7 +121,7 @@ namespace GpsNotepad.ViewModels
 
         private async void OnDeletePinTap(PinViewModel pinViewModel)
         {
-            var pinModel = pinViewModel.GetPinModel();
+            var pinModel = pinViewModel.ToPinModel();
             await _pinService.DeletePinAsync(pinModel);
             PinViewModelList.Remove(pinViewModel);
         }
@@ -137,7 +137,7 @@ namespace GpsNotepad.ViewModels
 
             foreach (var pinModel in pinModelList)
             {
-                var pinViewModel = pinModel.GetPinViewModel();
+                var pinViewModel = pinModel.ToPinViewModel();
                 if (pinViewModel.IsVisible)
                 {
                     pinViewModel.Image = "eye.png";

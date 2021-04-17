@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
@@ -12,26 +13,12 @@ namespace GpsNotepad.Controls
                 returnType: typeof(List<Pin>),
                 declaringType: typeof(CustomMap),
                 defaultValue: default(List<Pin>),
-                defaultBindingMode: BindingMode.TwoWay,
-                propertyChanged: MapPinsPropertyChanged);
+                defaultBindingMode: BindingMode.TwoWay);
 
         public List<Pin> MapPins
         {
             get => (List<Pin>)GetValue(MapPinsProperty);
             set => SetValue(MapPinsProperty, value);
-        }
-
-        private static void MapPinsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var customMap = (CustomMap)bindable;
-            customMap.Pins.Clear();
-            if ((List<Pin>)newValue != null)
-            {
-                foreach (var pin in (List<Pin>)newValue)
-                {
-                    customMap.Pins.Add(pin);
-                }
-            }
         }
 
         public static readonly BindableProperty MoveToPositionProperty = BindableProperty.Create(
@@ -54,28 +41,22 @@ namespace GpsNotepad.Controls
 
         }
 
-        //public static readonly BindableProperty PinsSelectProperty = BindableProperty.Create(
-        //    propertyName: nameof(PinsSelect),
-        //    returnType: typeof(List<Pin>),
-        //    declaringType: typeof(CustomMap),
-        //    defaultValue: default,
-        //    propertyChanged: PinsSelectPropertyChanged);
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
 
-        //private static void PinsSelectPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        //{
-        //    var control = (CustomMap)bindable;
-        //    control.Pins.Clear();
-        //    foreach (Pin pin in (List<Pin>)newValue)
-        //    {
-        //        control.Pins.Add(pin);
-        //    }
-        //}
+            if (propertyName == nameof(MapPins)) 
+            {
+                Pins.Clear();
 
-        //public List<Pin> PinsSelect
-        //{
-        //    get => (List<Pin>)GetValue(PinsSelectProperty);
-        //    set => SetValue(PinsSelectProperty, value); 
-        //}
-
+                if (MapPins != null )
+                {
+                    foreach (var pin in MapPins)
+                    {
+                        Pins.Add(pin);
+                    }
+                }
+            }
+        }
     }
 }

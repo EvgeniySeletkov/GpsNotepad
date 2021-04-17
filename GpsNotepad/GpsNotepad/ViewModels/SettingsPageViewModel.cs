@@ -1,5 +1,4 @@
-﻿using GpsNotepad.Constants;
-using GpsNotepad.Services.Localization;
+﻿using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
 using Prism.Commands;
 using Prism.Mvvm;

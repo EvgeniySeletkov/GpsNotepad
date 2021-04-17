@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GpsNotepad.Constants
+namespace GpsNotepad
 {
     public static class Constant
     {

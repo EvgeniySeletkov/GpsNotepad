@@ -91,13 +91,6 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref descriptionEntry, value);
         }
 
-        //private bool isSaveButtonEnabled = false;
-        //public bool IsSaveButtonEnabled
-        //{
-        //    get => isSaveButtonEnabled;
-        //    set => SetProperty(ref isSaveButtonEnabled, value);
-        //}
-
         private ICommand mapTapCommand;
         public ICommand MapTapCommand => 
             mapTapCommand ?? (mapTapCommand = new DelegateCommand<object>(OnMapTap));
@@ -258,7 +251,7 @@ namespace GpsNotepad.ViewModels
 ;                LatitudeEntry = pinModel.Latitude.ToString();
                 LongitudeEntry = pinModel.Longitude.ToString();
                 DescriptionEntry = pinModel.Description;
-                var pin = pinModel.GetPin();
+                var pin = pinModel.ToPin();
                 Pins.Add(pin);
                 var postion = new Position(pinModel.Latitude, pinModel.Longitude);
                 CameraPosition = new MapSpan(postion, 1, 1);

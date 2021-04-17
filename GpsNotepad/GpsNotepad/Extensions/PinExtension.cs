@@ -9,7 +9,7 @@ namespace GpsNotepad.Extensions
 {
     static class PinExtension
     {
-        public static Pin GetPin(this PinModel pinModel)
+        public static Pin ToPin(this PinModel pinModel)
         {
             var pin = new Pin()
             {
@@ -22,7 +22,7 @@ namespace GpsNotepad.Extensions
             return pin;
         }
 
-        public static Pin GetPin(this PinViewModel pinViewModel)
+        public static Pin ToPin(this PinViewModel pinViewModel)
         {
             var pin = new Pin()
             {
@@ -35,7 +35,7 @@ namespace GpsNotepad.Extensions
             return pin;
         }
 
-        public static PinViewModel GetPinViewModel(this PinModel pinModel)
+        public static PinViewModel ToPinViewModel(this PinModel pinModel)
         {
             var pinViewModel = new PinViewModel()
             {
@@ -52,7 +52,7 @@ namespace GpsNotepad.Extensions
             return pinViewModel;
         }
 
-        public static PinModel GetPinModel(this PinViewModel pinViewModel)
+        public static PinModel ToPinModel(this PinViewModel pinViewModel)
         {
             var pinModel = new PinModel()
             {
