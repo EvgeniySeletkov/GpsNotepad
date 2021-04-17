@@ -12,5 +12,7 @@ namespace GpsNotepad.Services.Settings
         double Longitude { get; set; }
         double Zoom { get; set; }
 
+        void ClearSettings();
+
     }
 }

@@ -71,7 +71,7 @@ namespace GpsNotepad.ViewModels
 
         #endregion
 
-        #region --- Private Methods ---
+        #region --- Private helpers ---
 
         private void ClearEntries()
         {
@@ -149,10 +149,6 @@ namespace GpsNotepad.ViewModels
 
             return userModel;
         }
-
-        #endregion
-
-        #region --- Private Helpers ---
 
         private async void OnSignUpTap()
         {

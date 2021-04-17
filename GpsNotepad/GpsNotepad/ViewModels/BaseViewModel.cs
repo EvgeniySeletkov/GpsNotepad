@@ -32,9 +32,5 @@ namespace GpsNotepad.ViewModels
         {
         }
 
-        public virtual void OnNavigatingTo(INavigationParameters parameters)
-        {
-        }
-
     }
 }

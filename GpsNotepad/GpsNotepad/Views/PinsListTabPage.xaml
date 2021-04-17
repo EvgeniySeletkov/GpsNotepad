@@ -13,19 +13,18 @@
 
                 <SearchBar x:Name="searchBar"
                            Placeholder="Search"
-                           Text="{Binding SearchText}"
-                           SearchCommand="{Binding SearchCommand}"/>
+                           Text="{Binding SearchText}"/>
 
                 <ListView ItemsSource="{Binding PinViewModelList}"
-                              SelectedItem="{Binding SelectedPinViewModel}"
-                              HasUnevenRows="True"
-                              SelectionMode="Single">
+                          SelectedItem="{Binding SelectedPinViewModel}"
+                          HasUnevenRows="True"
+                          SelectionMode="Single">
 
                     <ListView.Behaviors>
 
                         <prism:EventToCommandBehavior EventName="ItemTapped" 
-                                                          Command="{Binding SelectPinCommand}"
-                                                          CommandParameter="{Binding .}" />
+                                                      Command="{Binding SelectPinCommand}"
+                                                      CommandParameter="{Binding .}" />
 
                     </ListView.Behaviors>
 

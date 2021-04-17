@@ -33,17 +33,15 @@ namespace GpsNotepad.Services.Pin
             return pins.Where(x => x.UserId == userId).ToList();
         }
 
-        public async Task SavePinAsync(PinModel pinModel)
+        public async Task InsertPinAsync(PinModel pinModel)
         {
-            if (pinModel.Id == 0)
-            {
-                pinModel.UserId = _settingsManager.UserId;
-                await _repository.InsertAsync(pinModel);
-            }
-            else
-            {
-                await _repository.UpdateAsync(pinModel);
-            }
+            pinModel.UserId = _settingsManager.UserId;
+            await _repository.InsertAsync(pinModel);
+        }
+
+        public async Task UpdatePinAsync(PinModel pinModel)
+        {
+            await _repository.UpdateAsync(pinModel);
         }
     }
 }

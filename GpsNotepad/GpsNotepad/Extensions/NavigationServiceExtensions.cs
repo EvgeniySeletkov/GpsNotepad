@@ -15,7 +15,9 @@ namespace GpsNotepad.Extensions
                 var currentPage = ((IPageAware)navigationService).Page;
                 var canNavigate = await PageUtilities.CanNavigateAsync(currentPage, parameters);
                 if (!canNavigate)
+                {
                     throw new Exception($"IConfirmNavigation for {currentPage} returned false");
+                }
                 TabbedPage tabbedPage = null;
                 if (currentPage is TabbedPage)
                 {
@@ -33,10 +35,14 @@ namespace GpsNotepad.Extensions
                     }
                 }
                 if (tabbedPage == null)
+                {
                     throw new Exception("No parent TabbedPage could be found");
+                }  
                 var tabToSelectedType = PageNavigationRegistry.GetPageType(UriParsingHelper.GetSegmentName(name));
                 if (tabToSelectedType is null)
+                {
                     throw new Exception($"No View Type has been registered for '{name}'");
+                }
                 Page target = null;
                 foreach (var child in tabbedPage.Children)
                 {
@@ -56,7 +62,9 @@ namespace GpsNotepad.Extensions
                     }
                 }
                 if (target is null)
+                {
                     throw new Exception($"Could not find a Child Tab for '{name}'");
+                }
                 var tabParameters = UriParsingHelper.GetSegmentParameters(name, parameters);
                 tabbedPage.CurrentPage = target;
                 PageUtilities.OnNavigatedFrom(currentPage, tabParameters);

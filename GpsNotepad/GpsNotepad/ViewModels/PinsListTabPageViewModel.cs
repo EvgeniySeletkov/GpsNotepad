@@ -95,7 +95,7 @@ namespace GpsNotepad.ViewModels
 
             var pinModel = pinViewModel.ToPinModel();
 
-            await _pinService.SavePinAsync(pinModel);
+            await _pinService.UpdatePinAsync(pinModel);
         }
 
         private async void OnSelectPinTap()
@@ -113,9 +113,8 @@ namespace GpsNotepad.ViewModels
 
         private async void OnEditPinTap(PinViewModel pinViewModel)
         {
-            var pinModel = pinViewModel.ToPinModel();
             var parameters = new NavigationParameters();
-            parameters.Add(nameof(PinModel), pinModel);
+            parameters.Add(nameof(PinViewModel), pinViewModel);
             await NavigationService.NavigateAsync($"{nameof(AddEditPage)}", parameters);
         }
 
@@ -133,7 +132,7 @@ namespace GpsNotepad.ViewModels
         public override async void Initialize(INavigationParameters parameters)
         {
             var pinModelList = await _pinService.GetAllPinsAsync();
-            var pinViewModels = new List<PinViewModel>();
+            var pinViewModelList = new List<PinViewModel>();
 
             foreach (var pinModel in pinModelList)
             {
@@ -146,10 +145,10 @@ namespace GpsNotepad.ViewModels
                 {
                     pinViewModel.Image = "closed_eye.png";
                 }
-                pinViewModels.Add(pinViewModel);
+                pinViewModelList.Add(pinViewModel);
             }
 
-            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModels);
+            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModelList);
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
@@ -174,7 +173,9 @@ namespace GpsNotepad.ViewModels
                     PinViewModelList = new ObservableCollection<PinViewModel>(_pinViewModelList.Where(p =>
                            p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
                            p.Latitude.ToString().StartsWith(SearchText) || 
-                           p.Longitude.ToString().StartsWith(SearchText)));
+                           p.Longitude.ToString().StartsWith(SearchText) ||
+                           (!string.IsNullOrWhiteSpace(p.Description) &&
+                           p.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
                 }
             }
         }

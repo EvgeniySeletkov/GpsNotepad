@@ -9,7 +9,8 @@ namespace GpsNotepad.Services.Pin
     interface IPinService
     {
         Task<List<PinModel>> GetAllPinsAsync();
-        Task SavePinAsync(PinModel pinModel);
+        Task InsertPinAsync(PinModel pinModel);
+        Task UpdatePinAsync(PinModel pinModel);
         Task DeletePinAsync(PinModel pinModel);
     }
 }

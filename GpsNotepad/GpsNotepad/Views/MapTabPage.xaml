@@ -17,7 +17,7 @@
                        Text="{Binding SearchText}" />
 
             <controls:CustomMap Grid.Row="1"
-                                MapPins="{Binding Pins}" 
+                                MapPinViewModels="{Binding PinViewModelList}"
                                 MoveToPosition="{Binding CameraPosition}"
                                 MyLocationEnabled="True">
 

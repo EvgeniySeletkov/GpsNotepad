@@ -8,8 +8,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="ic_save.png" 
-                     Command="{Binding SavePinTapCommand}" 
-                     IsEnabled="{Binding IsSaveButtonEnabled}"/>
+                     Command="{Binding SavePinTapCommand}" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -39,8 +38,8 @@
 
             </StackLayout>
 
-            <controls:CustomMap MapPins="{Binding Pins}"
-                                MoveToPosition="{Binding CameraPosition}"
+            <controls:CustomMap MoveToPosition="{Binding CameraPosition}"
+                                MapPinViewModels="{Binding PinViewModelList}"
                                 Grid.Row="1">
                 <controls:CustomMap.Behaviors>
 

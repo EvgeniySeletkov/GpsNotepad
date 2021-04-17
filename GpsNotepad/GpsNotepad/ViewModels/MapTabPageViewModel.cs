@@ -35,13 +35,6 @@ namespace GpsNotepad.ViewModels
 
         #region --- Public properties ---
 
-        private List<Pin> pins = new List<Pin>();
-        public List<Pin> Pins
-        {
-            get => pins;
-            set => SetProperty(ref pins, value);
-        }
-
         private ObservableCollection<PinViewModel> pinViewModelList = new ObservableCollection<PinViewModel>();
         public ObservableCollection<PinViewModel> PinViewModelList
         {
@@ -155,10 +148,9 @@ namespace GpsNotepad.ViewModels
             }
         }
 
-        private void DisplayPinInfo(int id)
+        private void DisplayPinInfo(PinViewModel pinViewModel)
         {
             IsPinInfoVisible = true;
-            var pinViewModel = PinViewModelList[id];
             Label = $"Label: {pinViewModel.Label}";
             Address = $"Address: {pinViewModel.Address}";
             var latitude = pinViewModel.Latitude;
@@ -183,8 +175,8 @@ namespace GpsNotepad.ViewModels
         private void OnPinSelectTap(object obj)
         {
             Pin selectedPin = (Pin)obj;
-            int selectedPinId = Pins.IndexOf(selectedPin);
-            DisplayPinInfo(selectedPinId);
+            var selectedPinViewModel = PinViewModelList.FirstOrDefault(p => p.Label == selectedPin.Label);
+            DisplayPinInfo(selectedPinViewModel);
         }
 
         private async void OnGoToCurrentLocationTap()
@@ -216,20 +208,15 @@ namespace GpsNotepad.ViewModels
             base.Initialize(parameters);
             
             var pinModelList = await _pinService.GetAllPinsAsync();
-
-            var pinViewModels = new List<PinViewModel>();
-            var pinList = new List<Pin>();
+            var pinViewModelList = new List<PinViewModel>();
 
             foreach (var pinModel in pinModelList)
             {
-                var pin = pinModel.ToPin();
                 var pinViewModel = pinModel.ToPinViewModel();
-                pinList.Add(pin);
-                pinViewModels.Add(pinViewModel);
+                pinViewModelList.Add(pinViewModel);
             }
 
-            Pins = pinList;
-            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModels);
+            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModelList);
 
             CameraPosition = _mapCameraPositionService.GetCameraPosition();
         }
@@ -238,13 +225,13 @@ namespace GpsNotepad.ViewModels
         {
             if (parameters.TryGetValue<ObservableCollection<PinViewModel>>(nameof(PinViewModel), out var newPinViewModelList))
             {
-                var pinList = new List<Pin>();
-                PinViewModelList = newPinViewModelList;
+                var pinViewModelList = new List<PinViewModel>();
+                
                 foreach (var pinViewModel in newPinViewModelList)
                 {
-                    pinList.Add(pinViewModel.ToPin());
+                    pinViewModelList.Add(pinViewModel);
                 }
-                Pins = pinList;
+                PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModelList);
             }
             if (parameters.TryGetValue<Pin>(nameof(SelectedPinViewModel), out var newPin))
             {
@@ -273,7 +260,9 @@ namespace GpsNotepad.ViewModels
                     PinViewModelList = new ObservableCollection<PinViewModel>(_pinViewModelList.Where(p =>
                            p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
                            p.Latitude.ToString().StartsWith(SearchText) ||
-                           p.Longitude.ToString().StartsWith(SearchText)));
+                           p.Longitude.ToString().StartsWith(SearchText) || 
+                           (string.IsNullOrWhiteSpace(p.Description) && 
+                           p.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
                     ChangeListHeight();
                 }
             }

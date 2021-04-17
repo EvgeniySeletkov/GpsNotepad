@@ -41,7 +41,7 @@ namespace GpsNotepad.ViewModels
 
         #endregion
 
-        #region --- Private Methods ---
+        #region --- Private helpers ---
 
         private void ActivateLanguageControl()
         {
@@ -64,10 +64,6 @@ namespace GpsNotepad.ViewModels
             Resource.Lang = SelectedLang;
             Resource.SetCulture(SelectedLang);
         }
-
-        #endregion
-
-        #region --- Private helpers ---
 
         private async void OnSaveSettingsTap()
         {

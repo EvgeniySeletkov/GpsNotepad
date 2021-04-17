@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using GpsNotepad.Extensions;
+using GpsNotepad.ViewModels.ExtendedViewModels;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -7,18 +10,32 @@ namespace GpsNotepad.Controls
 {
     class CustomMap : Map
     {
-        public static readonly BindableProperty MapPinsProperty =
+        //public static readonly BindableProperty MapPinsProperty =
+        //    BindableProperty.Create(
+        //        propertyName: nameof(MapPins),
+        //        returnType: typeof(List<Pin>),
+        //        declaringType: typeof(CustomMap),
+        //        defaultValue: default(List<Pin>),
+        //        defaultBindingMode: BindingMode.TwoWay);
+
+        //public List<Pin> MapPins
+        //{
+        //    get => (List<Pin>)GetValue(MapPinsProperty);
+        //    set => SetValue(MapPinsProperty, value);
+        //}
+
+        public static readonly BindableProperty MapPinViewModelsProperty =
             BindableProperty.Create(
-                propertyName: nameof(MapPins),
-                returnType: typeof(List<Pin>),
+                propertyName: nameof(MapPinViewModels),
+                returnType: typeof(ObservableCollection<PinViewModel>),
                 declaringType: typeof(CustomMap),
-                defaultValue: default(List<Pin>),
+                defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        public List<Pin> MapPins
+        public ObservableCollection<PinViewModel> MapPinViewModels
         {
-            get => (List<Pin>)GetValue(MapPinsProperty);
-            set => SetValue(MapPinsProperty, value);
+            get => (ObservableCollection<PinViewModel>)GetValue(MapPinViewModelsProperty);
+            set => SetValue(MapPinViewModelsProperty, value);
         }
 
         public static readonly BindableProperty MoveToPositionProperty = BindableProperty.Create(
@@ -45,14 +62,27 @@ namespace GpsNotepad.Controls
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(MapPins)) 
+            //if (propertyName == nameof(MapPins)) 
+            //{
+            //    Pins.Clear();
+
+            //    if (MapPins != null )
+            //    {
+            //        foreach (var pin in MapPins)
+            //        {
+            //            Pins.Add(pin);
+            //        }
+            //    }
+            //}
+            if (propertyName == nameof(MapPinViewModels))
             {
                 Pins.Clear();
 
-                if (MapPins != null )
+                if (MapPinViewModels != null)
                 {
-                    foreach (var pin in MapPins)
+                    foreach (var pinViewModel in MapPinViewModels)
                     {
+                        var pin = pinViewModel.ToPin();
                         Pins.Add(pin);
                     }
                 }
