@@ -21,6 +21,7 @@ namespace GpsNotepad.Services.Repository
 
                 database.CreateTableAsync<UserModel>().Wait();
                 database.CreateTableAsync<PinModel>().Wait();
+                database.CreateTableAsync<PinImageModel>().Wait();
 
                 return database;
             });

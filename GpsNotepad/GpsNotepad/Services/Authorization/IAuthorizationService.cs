@@ -10,6 +10,7 @@ namespace GpsNotepad.Services.Authorization
     {
         bool IsAuthorized { get; }
         Task<bool> SignInAsync(string email, string password);
+        Task SignInWithFacebook();
         Task<bool> SignUp(UserModel userModel);
     }
 }

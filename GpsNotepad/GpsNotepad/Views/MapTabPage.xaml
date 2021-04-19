@@ -18,8 +18,7 @@
 
             <controls:CustomMap Grid.Row="1"
                                 MapPinViewModels="{Binding PinViewModelList}"
-                                MoveToPosition="{Binding CameraPosition}"
-                                MyLocationEnabled="True">
+                                MoveToPosition="{Binding CameraPosition}">
 
                 <controls:CustomMap.Behaviors>
 

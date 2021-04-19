@@ -3,6 +3,7 @@ using GpsNotepad.Controls;
 using GpsNotepad.Extensions;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.MapCameraPosition;
+using GpsNotepad.Services.Permission;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.ViewModels.ExtendedViewModels;
 using Prism.Commands;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms.GoogleMaps;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace GpsNotepad.ViewModels
 {
@@ -22,15 +24,18 @@ namespace GpsNotepad.ViewModels
     {
         private IPinService _pinService;
         private IMapCameraPositionService _mapCameraPositionService;
+        private IPermissionService _permissionService;
         private ObservableCollection<PinViewModel> _pinViewModelList;
 
         public MapTabPageViewModel(INavigationService navigationService,
                                    ILocalizationService localizationService,
                                    IPinService pinService,
-                                   IMapCameraPositionService mapCameraPositionService) : base(navigationService, localizationService)
+                                   IMapCameraPositionService mapCameraPositionService,
+                                   IPermissionService permissionService) : base(navigationService, localizationService)
         {
             _pinService = pinService;
             _mapCameraPositionService = mapCameraPositionService;
+            _permissionService = permissionService;
         }
 
         #region --- Public properties ---
@@ -181,16 +186,14 @@ namespace GpsNotepad.ViewModels
 
         private async void OnGoToCurrentLocationTap()
         {
-            try
+            var status = await _permissionService.CheckAndRequestLocationPermission();
+
+            if (status == PermissionStatus.Granted)
             {
                 //var request = new GeolocationRequest(GeolocationAccuracy.Best);
                 var location = await Geolocation.GetLocationAsync();
                 var position = new Position(location.Latitude, location.Longitude);
                 CameraPosition = new MapSpan(position, 1, 1);
-            }
-            catch
-            {
-                await UserDialogs.Instance.AlertAsync("Geolocation is off!", Resource["Alert"], "OK");
             }
         }
 

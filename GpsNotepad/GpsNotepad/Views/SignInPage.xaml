@@ -30,7 +30,8 @@
                         ContentLayout="20"
                         Image="ic_fb.png"
                         TextColor="White"
-                        BackgroundColor="#3F51B5"/>
+                        BackgroundColor="#3F51B5"
+                        Command="{Binding SignInWithFacebookTapCommand}"/>
 
                 <Label HorizontalOptions="Center">
                     <Label.FormattedText>

@@ -1,13 +1,17 @@
-﻿using GpsNotepad.Services.Authorization;
+﻿using GpsNotepad.Models;
+using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
 using GpsNotepad.Views;
+using Newtonsoft.Json;
+using Plugin.FacebookClient;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -53,6 +57,10 @@ namespace GpsNotepad.ViewModels
         public ICommand SignInTapCommand =>
             signInTapCommand ?? (signInTapCommand = new DelegateCommand(OnSignInTap));
 
+        private ICommand signInWithFacebookTapCommand;
+        public ICommand SignInWithFacebookTapCommand =>
+            signInWithFacebookTapCommand ?? (signInWithFacebookTapCommand = new DelegateCommand(OnSignInWithFacebookTap));
+
         private ICommand signUpTapCommand;
         public ICommand SignUpTapCommand => 
             signUpTapCommand ?? (signUpTapCommand = new DelegateCommand(OnSignUpTap));
@@ -68,6 +76,11 @@ namespace GpsNotepad.ViewModels
             {
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
             }
+        }
+
+        private async void OnSignInWithFacebookTap()
+        {
+            await _authorizationService.SignInWithFacebook();
         }
 
         private async void OnSignUpTap()
