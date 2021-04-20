@@ -6,6 +6,7 @@ using GpsNotepad.Services.MapCameraPosition;
 using GpsNotepad.Services.Permission;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.ViewModels.ExtendedViewModels;
+using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -177,11 +178,14 @@ namespace GpsNotepad.ViewModels
             IsPinListVisible = false;
         }
 
-        private void OnPinSelectTap(object obj)
+        private async void OnPinSelectTap(object obj)
         {
             Pin selectedPin = (Pin)obj;
             var selectedPinViewModel = PinViewModelList.FirstOrDefault(p => p.Label == selectedPin.Label);
-            DisplayPinInfo(selectedPinViewModel);
+            var parameters = new NavigationParameters();
+            parameters.Add("pinId", selectedPinViewModel.PinId);
+            //DisplayPinInfo(selectedPinViewModel);
+            await NavigationService.NavigateAsync($"{nameof(PinImagesPage)}", parameters);
         }
 
         private async void OnGoToCurrentLocationTap()

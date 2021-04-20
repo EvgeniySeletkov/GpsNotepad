@@ -48,11 +48,15 @@ namespace GpsNotepad
             containerRegistry.RegisterForNavigation<PinsListTabPage, PinsListTabPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<AddEditPage, AddEditPageViewModel>();
+            containerRegistry.RegisterForNavigation<PinImagesPage, PinImagesPageViewModel>();
+            containerRegistry.RegisterForNavigation<LogInAndRegisterPage, LogInAndRegisterPageViewModel>();
         }
 
         protected async override void OnInitialized()
         {
             InitializeComponent();
+
+
 
             if (AuthorizationService.IsAuthorized)
             {
@@ -64,7 +68,7 @@ namespace GpsNotepad
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
             }
 
-            //await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+            //await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
 
         }
 

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             x:Class="GpsNotepad.Views.PinImagesPage">
+
+    <ContentPage.Content>
+
+        <Grid RowDefinitions="*">
+
+            <StackLayout Grid.Row="0">
+
+                <ListView ItemsSource="{Binding PinImageModelList}"
+                          SelectedItem="{Binding SelectedPinImageModel}"
+                          HasUnevenRows="True"
+                          SelectionMode="Single">
+
+                    <!--<ListView.Behaviors>
+
+                        <prism:EventToCommandBehavior EventName="ItemTapped" 
+                                                      Command="{Binding SelectPinImageCommand}"
+                                                      CommandParameter="{Binding .}" />
+
+                    </ListView.Behaviors>-->
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <ViewCell>
+
+                                <ViewCell.View>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="FillAndExpand">
+
+                                        <ImageButton HeightRequest="100"
+                                                     WidthRequest="100"
+                                                     Margin="10, 0, 0, 0"
+                                                     BackgroundColor="Transparent"
+                                                     Source="{Binding Image}" />
+
+                                    </StackLayout>
+
+                                </ViewCell.View>
+                                
+                            </ViewCell>
+                            
+                        </DataTemplate>
+                        
+                    </ListView.ItemTemplate>
+
+                </ListView>
+                
+            </StackLayout>
+
+            <ImageButton Grid.Row="0" WidthRequest="85"
+                         HorizontalOptions="End" VerticalOptions="End"
+                         BorderWidth="10" CornerRadius="100"
+                         Margin="0,0,20,40" Padding="30"
+                         Scale="0.8" BorderColor="#2B3C3C"
+                         BackgroundColor="#1E90FF"
+                         Source="ic_add.png" 
+                         Command="{Binding AddImageTapCommand}"/>
+
+        </Grid>
+        
+    </ContentPage.Content>
+    
+</ContentPage>

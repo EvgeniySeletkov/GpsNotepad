@@ -25,7 +25,7 @@ namespace GpsNotepad.Services.PinImage
         public async Task<List<PinImageModel>> GetAllImagesAsync(int pinId)
         {
             var pinImages = await _repository.GetAllAsync<PinImageModel>();
-            return pinImages.Where(x => x.PinId == pinId).ToList();
+            return pinImages.Where(p => p.PinId == pinId).ToList();
         }
 
         public async Task InsertPinAsync(PinImageModel pinImageModel)

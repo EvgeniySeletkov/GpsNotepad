@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GpsNotepad.Views.LogInAndRegisterPage">
+
+    <ContentPage.Content>
+
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Frame HeightRequest="193" BackgroundColor="#e1e1e1">
+
+                </Frame>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="EndAndExpand" >
+
+                <Frame BackgroundColor="#e1e1e1">
+
+                    <StackLayout>
+                        <Button HeightRequest="40" />
+                        <Button HeightRequest="40" />
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+  
+</ContentPage>

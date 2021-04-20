@@ -49,13 +49,13 @@
                                                  HorizontalOptions="FillAndExpand">
 
                                         <ImageButton HeightRequest="50"
-                                                         WidthRequest="50"
-                                                         Margin="10, 0, 0, 0"
-                                                         BackgroundColor="Transparent"
-                                                         Source="{Binding Image}"
-                                                         Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
-                                                                           Source={x:Reference pin}}"
-                                                         CommandParameter="{Binding .}" />
+                                                     WidthRequest="50"
+                                                     Margin="10, 0, 0, 0"
+                                                     BackgroundColor="Transparent"
+                                                     Source="{Binding Image}"
+                                                     Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
+                                                                       Source={x:Reference pin}}"
+                                                     CommandParameter="{Binding .}" />
 
                                         <StackLayout VerticalOptions="Center" 
                                                          Margin="10, 0, 0, 0">
