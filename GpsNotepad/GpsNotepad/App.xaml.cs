@@ -41,8 +41,9 @@ namespace GpsNotepad
 
             // Navigations
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
-            containerRegistry.RegisterForNavigation<SignUpPage, SignUpPageViewModel>();
+            containerRegistry.RegisterForNavigation<LogInPage, LogInPageViewModel>();
+            containerRegistry.RegisterForNavigation<CreateAccountFirstPage, CreateAccountFirstPageViewModel>();
+            containerRegistry.RegisterForNavigation<CreateAccountSecondPage, CreateAccountSecondPageViewModel>();
             containerRegistry.RegisterForNavigation<MainMapTabbedPage, MainMapTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<MapTabPage, MapTabPageViewModel>();
             containerRegistry.RegisterForNavigation<PinsListTabPage, PinsListTabPageViewModel>();
@@ -65,10 +66,13 @@ namespace GpsNotepad
             }
             else
             {
-                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
             }
 
-            //await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
+            Application.Current.UserAppTheme = OSAppTheme.Dark;
+
+            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
+            //await NavigationService.NavigateAsync($"{nameof(LogInAndRegisterPage)}");
 
         }
 

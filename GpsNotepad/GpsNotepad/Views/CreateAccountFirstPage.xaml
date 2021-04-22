@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resource="clr-namespace:GpsNotepad.Resources"
+             x:Class="GpsNotepad.Views.CreateAccountFirstPage"
+             Style="{StaticResource PageBackground}"
+             Title="Create an account">
+    <ContentPage.Content>
+
+            <!--<StackLayout Padding="40, 40, 40, 50">
+
+            <StackLayout VerticalOptions="CenterAndExpand">
+
+                <Entry Placeholder="Name" 
+                       Text="{Binding Name}"/>
+                
+                <Entry Placeholder="Email" 
+                       Text="{Binding Email}"/>
+                
+                <Entry Placeholder="Password" 
+                       IsPassword="True" 
+                       Text="{Binding Password}"/>
+                
+                <Entry Placeholder="Confirm Password" 
+                       IsPassword="True" 
+                       Text="{Binding ConfirmPassword}"/>
+
+            </StackLayout>
+
+            <StackLayout VerticalOptions="EndAndExpand">
+
+                <Button Text="{Binding Resource[SignUpButton]}"
+                        Command="{Binding SignUpTapCommand}"
+                        IsEnabled="{Binding IsButtonEnable}" />
+
+            </StackLayout>
+            
+        </StackLayout>-->
+
+        <Grid RowDefinitions="*">
+
+            <StackLayout Grid.Row="0">
+
+                <StackLayout Padding="16, 0, 16, 0">
+                    
+                    <!--NAME-->
+                    <Label Style="{StaticResource SubtitleLabel}"
+                           Text="Name"
+                           Padding="6, 0, 0, 0"/>
+                    <Entry PlaceholderColor="#858E9E"
+                           Placeholder="Enter your name"
+                           Text="{Binding Name}"/>
+
+                    <!--EMAIL-->
+                    <Label Style="{StaticResource SubtitleLabel}"
+                           Text="Email"
+                           Padding="6, 0, 0, 0"
+                           Margin="0, 25, 0, 0"/>
+                    <Entry PlaceholderColor="#858E9E"
+                           Placeholder="Enter email"
+                           Keyboard="Email"
+                           Text="{Binding Email}"/>
+
+                    <!--NEXT BUTTON-->
+                    <Button Style="{StaticResource FillButton}"
+                            Text="Next" 
+                            Margin="0, 40, 0, 0"
+                            Command="{Binding NextTapCommand}"
+                            IsEnabled="{Binding IsNextButtonEnabled}"/>
+
+                    <!--SEPARATOR-->
+                    <Grid ColumnDefinitions="0.48*, 0.04*, 0.48*"
+                          Margin="0, 14, 0, 0">
+
+                        <BoxView Style="{StaticResource Separator}"
+                                 Grid.Column="0"
+                                 VerticalOptions="Center"/>
+
+                        <Label Style="{StaticResource SeparatorText}"
+                               Text="or"
+                               Grid.Column="1"
+                               HorizontalOptions="Center"/>
+
+                        <BoxView Style="{StaticResource Separator}"
+                                 Grid.Column="2"
+                                 VerticalOptions="Center"/>
+
+                    </Grid>
+
+                    <!--ALTERNATIVE LOG IN BUTTON-->
+                    <Grid ColumnDefinitions="*"
+                          Margin="0, 14, 0, 0">
+
+                        <Button Style="{StaticResource AlternativeLogInButton}"
+                                ImageSource="ic_google.png"
+                                Grid.Column="0"
+                                IsEnabled="False"/>
+
+                        <Button Style="{StaticResource AlternativeLogInButton}"
+                                ImageSource="ic_facebook.png"
+                                Grid.Column="1"
+                                Command="{Binding SignInWithFacebookTapCommand}"/>
+
+                        <Button Style="{StaticResource AlternativeLogInButton}"
+                                ImageSource="{AppThemeBinding Light=ic_apple.png,
+                                                              Dark=ic_apple_dark.png}"
+                                Grid.Column="2"
+                                IsEnabled="False"/>
+
+                    </Grid>
+
+                </StackLayout>
+
+            </StackLayout>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+    </ContentPage>

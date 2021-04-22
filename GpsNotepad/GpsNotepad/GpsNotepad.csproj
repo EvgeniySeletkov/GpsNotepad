@@ -29,6 +29,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\CreateAccountSecondPage.xaml.cs">
+      <DependentUpon>CreateAccountSecondPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MainMapTabbedPage.xaml.cs">
       <DependentUpon>MainMapTabbedPage.xaml</DependentUpon>
     </Compile>
@@ -38,9 +41,18 @@
     <Compile Update="Views\PinsListTabPage.xaml.cs">
       <DependentUpon>PinsListTabPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\LogInPage.xaml.cs">
+      <DependentUpon>LogInPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CreateAccountFirstPage.xaml.cs">
+      <DependentUpon>CreateAccountFirstPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Controls\Views\CustomEntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
@@ -69,10 +81,10 @@
     <EmbeddedResource Update="Views\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignInPage.xaml">
+    <EmbeddedResource Update="Views\LogInPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignUpPage.xaml">
+    <EmbeddedResource Update="Views\CreateAccountFirstPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

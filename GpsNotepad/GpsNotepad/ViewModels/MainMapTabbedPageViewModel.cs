@@ -43,7 +43,7 @@ namespace GpsNotepad.ViewModels
         private async void OnExitTap()
         {
             _settingsManager.UserId = 0;
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SignInPage)}");
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
         }
 
         private async void OnSettingsTap()

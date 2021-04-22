@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GpsNotepad.Controls"
+             x:Class="GpsNotepad.Controls.Views.CustomEntry">
+
+    <Label x:Name="Subtitle" />
+    <Frame BorderColor="Blue" Padding="12, 10, 15, 10">
+        <Grid ColumnDefinitions="0.9*, 0.1*">
+            <local:CustomEntry x:Name="Entry" 
+                               FontSize="14"
+                               BackgroundColor="Transparent"
+                               Placeholder="Email"
+                               Grid.Column="0"/>
+            <ImageButton BackgroundColor="Transparent" 
+                         Source="ic_eye.png"
+                         Grid.Column="1"/>
+        </Grid>
+    </Frame>
+    <Label x:Name="WrongLabel"
+           TextColor="#F24545"
+           Text="Wrong" />
+
+</StackLayout>

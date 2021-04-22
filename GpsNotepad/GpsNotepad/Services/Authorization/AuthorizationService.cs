@@ -63,7 +63,7 @@ namespace GpsNotepad.Services.Authorization
             }
             else
             {
-                await _repository.InsertAsync(userModel);
+                await CreateAccount(userModel);
                 isAutorized = true;
                 _settingsManager.UserId = userModel.Id;
             }
@@ -94,8 +94,6 @@ namespace GpsNotepad.Services.Authorization
         {
             try
             {
-                
-
                 if (_facebookService.IsLoggedIn)
                 {
                     _facebookService.Logout();
@@ -143,16 +141,19 @@ namespace GpsNotepad.Services.Authorization
             }
         }
 
-        public async Task<bool> SignUp(UserModel userModel)
+        public async Task CreateAccount(UserModel userModel)
         {
-            var result = false;
+            await _repository.InsertAsync(userModel);
+        }
 
+        public async Task<bool> HasEmail(string email)
+        {
+            bool result = false;
             var users = await _repository.GetAllAsync<UserModel>();
-            var user = users.FirstOrDefault(u => u.Email == userModel.Email);
+            var user = users.FirstOrDefault(u => u.Email == email);
 
-            if (user == null)
+            if (user != null)
             {
-                await _repository.InsertAsync(userModel);
                 result = true;
             }
 

@@ -1,9 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
              x:Class="GpsNotepad.App">
     <prism:PrismApplication.Resources>
         
+        <!--Colors-->
+        <Color x:Key="SystemWhite">#FEFEFD</Color>
+        <Color x:Key="SystemBlack">#1E242B</Color>
+        <Color x:Key="LightPrimary">#596EFB</Color>
+        <Color x:Key="DarkPrimary">#7485FB</Color>
+        <Color x:Key="SystemLightGray">#D7DDE8</Color>
+        <Color x:Key="SystemGray">#858E9E</Color>
+        <Color x:Key="SystemDarkGray">#3D4E61</Color>
+        <!--<Color x:Key="AlternativeLogInButtonBorderLightColor">#D7DDE8</Color>
+        <Color x:Key="AlternativeLogInButtonBorderDarkColor">#FEFEFD</Color>-->
+
+        <!--Styles-->
+        <Style TargetType="NavigationPage">
+
+            <Setter Property="BarBackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
+                                            Dark={StaticResource SystemBlack}}"/>
+
+            <Setter Property="BarTextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack}, 
+                                            Dark={StaticResource SystemWhite}}"/>
+            
+        </Style>
+
+        <Style x:Key="PageBackground" TargetType="ContentPage">
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
+                                            Dark={StaticResource SystemBlack}}"/>
+
+        </Style>
+
+        <Style x:Key="PicEnterPageLabel" TargetType="Label">
+
+            <Setter Property="FontSize" 
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+        </Style>
+
+        <Style x:Key="FillButton" TargetType="Button">
+
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+            <Setter Property="TextTransform"
+                    Value="None"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="TextColor"
+                    Value="{StaticResource SystemWhite}" />
+
+        </Style>
+
+        <Style x:Key="ButtonWithBorder" TargetType="Button">
+
+            <Setter Property="BorderColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
+                                            Dark={StaticResource SystemBlack}}"/>
+
+            <Setter Property="TextTransform"
+                    Value="None"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+        </Style>
+
+        <Style x:Key="SubtitleLabel" TargetType="Label">
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemWhite}}" />
+
+        </Style>
+
+        <Style x:Key="AlternativeLogInButton" TargetType="Button">
+
+            <Setter Property="BorderWidth"
+                    Value="1"/>
+
+            <Setter Property="BorderColor"
+                    Value="{StaticResource SystemLightGray}"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
+                                            Dark={StaticResource SystemBlack}}"/>
+
+        </Style>
+
+        <Style x:Key="Separator" TargetType="BoxView">
+
+            <Setter Property="HeightRequest"
+                    Value="1"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemLightGray}, 
+                                            Dark={StaticResource SystemGray}}"/>
+
+        </Style>
+
+        <Style x:Key="SeparatorText" TargetType="Label">
+
+            <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemLightGray}, 
+                                            Dark={StaticResource SystemGray}}"/>
+
+        </Style>
+
     </prism:PrismApplication.Resources>
 </prism:PrismApplication>
