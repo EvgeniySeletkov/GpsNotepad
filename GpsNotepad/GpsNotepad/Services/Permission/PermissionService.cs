@@ -10,6 +10,7 @@ namespace GpsNotepad.Services.Permission
     {
         public async Task<PermissionStatus> CheckAndRequestLocationPermission()
         {
+            //refactor
             var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 
             if (status == PermissionStatus.Granted)

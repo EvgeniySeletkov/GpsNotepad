@@ -2,6 +2,7 @@
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+             xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
              x:Class="GpsNotepad.App">
     <prism:PrismApplication.Resources>
         
@@ -13,6 +14,8 @@
         <Color x:Key="SystemLightGray">#D7DDE8</Color>
         <Color x:Key="SystemGray">#858E9E</Color>
         <Color x:Key="SystemDarkGray">#3D4E61</Color>
+        <Color x:Key="LightError">#F24545</Color>
+        <Color x:Key="DarkError">#FA545F</Color>
         <!--<Color x:Key="AlternativeLogInButtonBorderLightColor">#D7DDE8</Color>
         <Color x:Key="AlternativeLogInButtonBorderDarkColor">#FEFEFD</Color>-->
 
@@ -37,7 +40,8 @@
 
         </Style>
 
-        <Style x:Key="PicEnterPageLabel" TargetType="Label">
+        <Style x:Key="PicEnterPageLabel" 
+               TargetType="Label">
 
             <Setter Property="FontSize" 
                     Value="18"/>
@@ -87,14 +91,37 @@
 
         </Style>
 
-        <Style x:Key="SubtitleLabel" TargetType="Label">
+        <Style x:Key="Entry" TargetType="local:CustomEntry">
 
-            <Setter Property="FontSize"
+            <Setter Property="SubtitleFontSize"
                     Value="12"/>
 
-            <Setter Property="TextColor"
+            <Setter Property="SubtitleTextColor"
                     Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
-                                            Dark={StaticResource SystemWhite}}" />
+                                            Dark={StaticResource SystemWhite}}"/>
+
+            <Setter Property="EntryBorderColor"
+                    Value="{StaticResource SystemLightGray}"/>
+
+            <Setter Property="EntryBackgoundColor"
+                    Value="Transparent"/>
+
+            <Setter Property="EntryFontSize"
+                    Value="14"/>
+
+            <Setter Property="EntryPlaceholderColor"
+                    Value="{StaticResource SystemGray}"/>
+
+            <Setter Property="EntryTextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+            <Setter Property="WrongFontSize"
+                    Value="10"/>
+
+            <Setter Property="WrongColor"
+                    Value="{AppThemeBinding Light={StaticResource LightError},
+                                            Dark={StaticResource DarkError}}"/>
 
         </Style>
 

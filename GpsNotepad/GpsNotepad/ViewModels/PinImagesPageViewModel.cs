@@ -31,6 +31,7 @@ namespace GpsNotepad.ViewModels
         {
             _pinImageService = pinImageService;
 
+            //refactor
             GalleryAction += TakePhotoFromGallery;
             CameraAction += TakePhotoWithCamera;
         }
@@ -60,12 +61,15 @@ namespace GpsNotepad.ViewModels
         private void SaveImage(string image)
         {
             var pinImageModel = CreatePinImageModel(image);
+
+            //await!
             _pinImageService.InsertPinAsync(pinImageModel);
             PinImageModelList.Add(pinImageModel);
         }
         
         private async void TakePhotoFromGallery()
         {
+            //create MediaService
             try
             {
                 var photo = await MediaPicker.PickPhotoAsync();
@@ -80,6 +84,7 @@ namespace GpsNotepad.ViewModels
 
         private async void TakePhotoWithCamera()
         {
+            //create MediaService
             try
             {
                 var photo = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions
@@ -113,6 +118,7 @@ namespace GpsNotepad.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
+            //trygetvalue
             _pinId = parameters.GetValue<int>("pinId");
             var pinImages = await _pinImageService.GetAllImagesAsync(_pinId);
             PinImageModelList = new ObservableCollection<PinImageModel>(pinImages);

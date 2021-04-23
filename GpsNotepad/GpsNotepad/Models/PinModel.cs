@@ -14,6 +14,8 @@ namespace GpsNotepad.Models
         public string Label { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+
+        //rename to IsFavorite
         public bool IsVisible { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }

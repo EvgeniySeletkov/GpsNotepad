@@ -39,11 +39,53 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref email, value);
         }
 
+        private string emailWrongText;
+        public string EmailWrongText
+        {
+            get => emailWrongText;
+            set => SetProperty(ref emailWrongText, value);
+        }
+
+        private bool isEmailWrongVisible = false;
+        public bool IsEmailWrongVisible
+        {
+            get => isEmailWrongVisible;
+            set => SetProperty(ref isEmailWrongVisible, value);
+        }
+
         private string password;
         public string Password
         {
             get => password;
             set => SetProperty(ref password, value);
+        }
+
+        private string passwordVisibleImage = "ic_eye_off.png";
+        public string PasswordVisibleImage
+        {
+            get => passwordVisibleImage;
+            set => SetProperty(ref passwordVisibleImage, value);
+        }
+
+        private bool isPassword = true;
+        public bool IsPassword
+        {
+            get => isPassword;
+            set => SetProperty(ref isPassword, value);
+        }
+
+        private string passwordWrongText;
+        public string PasswordWrongText
+        {
+            get => passwordWrongText;
+            set => SetProperty(ref passwordWrongText, value);
+        }
+
+        private bool isPasswordWrongVisible = false;
+        public bool IsPasswordWrongVisible
+        {
+            get => isPasswordWrongVisible;
+            set => SetProperty(ref isPasswordWrongVisible, value);
         }
 
         private bool isButtonEnable = false;
@@ -53,13 +95,21 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref isButtonEnable, value);
         }
 
-        private ICommand signInTapCommand;
-        public ICommand SignInTapCommand =>
-            signInTapCommand ?? (signInTapCommand = new DelegateCommand(OnSignInTap));
+        private ICommand emailClearTapCommand;
+        public ICommand EmailClearTapCommand =>
+            emailClearTapCommand ?? (emailClearTapCommand = new DelegateCommand(OnEmailClearTap));
 
-        private ICommand signInWithFacebookTapCommand;
-        public ICommand SignInWithFacebookTapCommand =>
-            signInWithFacebookTapCommand ?? (signInWithFacebookTapCommand = new DelegateCommand(OnSignInWithFacebookTap));
+        private ICommand passwordVisibleTapCommand;
+        public ICommand PasswordVisibleTapCommand =>
+            passwordVisibleTapCommand ?? (passwordVisibleTapCommand = new DelegateCommand(OnPasswordVisibleTap));
+
+        private ICommand logInTapCommand;
+        public ICommand LogInTapCommand =>
+            logInTapCommand ?? (logInTapCommand = new DelegateCommand(OnLogInTap));
+
+        private ICommand logInWithFacebookTapCommand;
+        public ICommand LogInWithFacebookTapCommand =>
+            logInWithFacebookTapCommand ?? (logInWithFacebookTapCommand = new DelegateCommand(OnLogInWithFacebookTap));
 
         private ICommand signUpTapCommand;
         public ICommand SignUpTapCommand => 
@@ -69,7 +119,19 @@ namespace GpsNotepad.ViewModels
 
         #region --- Private helpers ---
 
-        private async void OnSignInTap()
+        private void OnEmailClearTap()
+        {
+            Email = string.Empty;
+        }
+
+        private void OnPasswordVisibleTap()
+        {
+            IsPassword = !IsPassword;
+
+            passwordVisibleImage = isPassword ? "ic_eye_off.png" : "ic_eye.png";
+        }
+
+        private async void OnLogInTap()
         {
             var isAuthorized = await _authorizationService.SignInAsync(email, password);
             if (isAuthorized)
@@ -78,7 +140,7 @@ namespace GpsNotepad.ViewModels
             }
         }
 
-        private async void OnSignInWithFacebookTap()
+        private async void OnLogInWithFacebookTap()
         {
             await _authorizationService.SignInWithFacebook();
         }

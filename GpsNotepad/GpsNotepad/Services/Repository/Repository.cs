@@ -16,6 +16,7 @@ namespace GpsNotepad.Services.Repository
         {
             _database = new Lazy<SQLiteAsyncConnection>(() =>
             {
+                //to constants
                 var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gpsnotepad.db3");
                 var database = new SQLiteAsyncConnection(path);
 
@@ -27,16 +28,17 @@ namespace GpsNotepad.Services.Repository
             });
         }
 
-        public async Task<int> DeleteAsync<T>(T entity) where T : IEntityBase, new()
+        public Task<int> DeleteAsync<T>(T entity) where T : IEntityBase, new()
         {
-            return await _database.Value.DeleteAsync(entity);
+            return _database.Value.DeleteAsync(entity);
         }
 
-        public async Task<List<T>> GetAllAsync<T>() where T : IEntityBase, new()
+        public Task<List<T>> GetAllAsync<T>() where T : IEntityBase, new()
         {
-            return await _database.Value.Table<T>().ToListAsync();
+            return _database.Value.Table<T>().ToListAsync();
         }
 
+        //remove async-await and return task
         public async Task<int> InsertAsync<T>(T entity) where T : IEntityBase, new()
         {
             return await _database.Value.InsertAsync(entity);

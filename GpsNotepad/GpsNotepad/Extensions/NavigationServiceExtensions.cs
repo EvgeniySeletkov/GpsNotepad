@@ -72,6 +72,7 @@ namespace GpsNotepad.Extensions
             }
             catch (Exception ex)
             {
+                //remove two returns 
                 return new NavigationResult { Exception = ex };
             }
             return new NavigationResult { Success = true };

@@ -21,6 +21,7 @@ namespace GpsNotepad.Services.Pin
             _settingsManager = settingsManager;
         }
 
+        //remove async-await and return task
         public async Task DeletePinAsync(PinModel pinModel)
         {
             await _repository.DeleteAsync(pinModel);
@@ -39,6 +40,7 @@ namespace GpsNotepad.Services.Pin
             await _repository.InsertAsync(pinModel);
         }
 
+        //remove async-await and return task
         public async Task UpdatePinAsync(PinModel pinModel)
         {
             await _repository.UpdateAsync(pinModel);

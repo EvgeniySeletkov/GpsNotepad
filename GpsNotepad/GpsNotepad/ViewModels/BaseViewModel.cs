@@ -11,6 +11,7 @@ namespace GpsNotepad.ViewModels
     class BaseViewModel : BindableBase, IInitialize, INavigationAware
     {
         protected INavigationService NavigationService { get; private set; }
+        //protected
         public ILocalizationService Resource{ get; private set; }
 
         public BaseViewModel(INavigationService navigationService,
@@ -20,6 +21,7 @@ namespace GpsNotepad.ViewModels
             Resource = localizationService;
         }
 
+        //regions
         public virtual void Initialize(INavigationParameters parameters)
         {
         }

@@ -11,6 +11,7 @@ using Xamarin.Forms;
 
 namespace GpsNotepad.ViewModels
 {
+    //rename
     class LogInAndRegisterPageViewModel : BaseViewModel
     {
         public LogInAndRegisterPageViewModel(INavigationService navigationService,

@@ -37,11 +37,39 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref name, value);
         }
 
+        private string nameWrongText;
+        public string NameWrongText
+        {
+            get => nameWrongText;
+            set => SetProperty(ref nameWrongText, value);
+        }
+
+        private bool isNameWrongVisible = false;
+        public bool IsNameWrongVisible
+        {
+            get => isNameWrongVisible;
+            set => SetProperty(ref isNameWrongVisible, value);
+        }
+
         private string email;
         public string Email
         {
             get => email;
             set => SetProperty(ref email, value);
+        }
+
+        private string emailWrongText;
+        public string EmailWrongText
+        {
+            get => emailWrongText;
+            set => SetProperty(ref emailWrongText, value);
+        }
+
+        private bool isEmailWrongVisible = false;
+        public bool IsEmailWrongVisible
+        {
+            get => isEmailWrongVisible;
+            set => SetProperty(ref isEmailWrongVisible, value);
         }
 
         private bool isNextButtonEnabled = false;
@@ -50,6 +78,14 @@ namespace GpsNotepad.ViewModels
             get => isNextButtonEnabled;
             set => SetProperty(ref isNextButtonEnabled, value);
         }
+
+        private ICommand nameClearTapCommand;
+        public ICommand NameClearTapCommand =>
+            nameClearTapCommand ?? (nameClearTapCommand = new DelegateCommand(OnNameClearTap));
+
+        private ICommand emailClearTapCommand;
+        public ICommand EmailClearTapCommand =>
+            emailClearTapCommand ?? (emailClearTapCommand = new DelegateCommand(OnEmailClearTap));
 
         private ICommand nextTapCommand;
         public ICommand NextTapCommand => 
@@ -110,6 +146,16 @@ namespace GpsNotepad.ViewModels
             return userModel;
         }
 
+        private void OnNameClearTap()
+        {
+            Name = string.Empty;
+        }
+
+        private void OnEmailClearTap()
+        {
+            Email = string.Empty;
+        }
+
         private async void OnNextTap()
         {
             if (HasValidName() &&
@@ -122,8 +168,8 @@ namespace GpsNotepad.ViewModels
                     if (!isBusy)
                     {
                         var parameters = new NavigationParameters();
-                        parameters.Add($"{nameof(UserModel)}", userModel);
-                        await NavigationService.NavigateAsync($"{nameof(CreateAccountSecondPage)}", parameters);
+                        parameters.Add(nameof(UserModel), userModel);
+                        await NavigationService.NavigateAsync(nameof(CreateAccountSecondPage), parameters);
                     }
                     else
                     {

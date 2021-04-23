@@ -14,12 +14,13 @@ namespace GpsNotepad.Services.Settings
         }
         public string Culture
         {
-            get => Preferences.Get(nameof(Culture), Constant.ENGLISH_LANGUAGE);
+            get => Preferences.Get(nameof(Culture), Constants.ENGLISH_LANGUAGE);
             set => Preferences.Set(nameof(Culture), value);
         }
 
         public double Latitude
         {
+            //to constants
             get => Preferences.Get(nameof(Latitude), 41.89);
             set => Preferences.Set(nameof(Latitude), value);
         }
@@ -39,7 +40,7 @@ namespace GpsNotepad.Services.Settings
         public void ClearSettings()
         {
             UserId = 0;
-            Culture = Constant.ENGLISH_LANGUAGE;
+            Culture = Constants.ENGLISH_LANGUAGE;
             Latitude = 41.89;
             Longitude = 12.49;
         }

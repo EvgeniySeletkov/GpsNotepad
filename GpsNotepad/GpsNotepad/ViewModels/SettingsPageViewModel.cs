@@ -37,7 +37,7 @@ namespace GpsNotepad.ViewModels
 
         private ICommand saveSettingsTapCommand;
         public ICommand SaveSettingsTapCommand => 
-            saveSettingsTapCommand ?? (saveSettingsTapCommand = new DelegateCommand(OnSaveSettingsTap));
+            saveSettingsTapCommand ??= new DelegateCommand(OnSaveSettingsTap);
 
         #endregion
 
@@ -45,15 +45,17 @@ namespace GpsNotepad.ViewModels
 
         private void ActivateLanguageControl()
         {
+            //try to use it
             //SelectedLang = _localizationService.Lang;
 
+            //rename (Language)
             switch (Resource.Lang)
             {
-                case Constant.ENGLISH_LANGUAGE:
-                    SelectedLang = Constant.ENGLISH_LANGUAGE;
+                case Constants.ENGLISH_LANGUAGE:
+                    SelectedLang = Constants.ENGLISH_LANGUAGE;
                     break;
-                case Constant.RUSSIAN_LANGUAGE:
-                    SelectedLang = Constant.RUSSIAN_LANGUAGE;
+                case Constants.RUSSIAN_LANGUAGE:
+                    SelectedLang = Constants.RUSSIAN_LANGUAGE;
                     break;
             }
 

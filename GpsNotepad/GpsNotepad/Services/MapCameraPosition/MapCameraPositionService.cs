@@ -22,6 +22,7 @@ namespace GpsNotepad.Services.MapCameraPosition
             return mapSpan;
         }
 
+        //SaveCameraPosition
         public void SetCameraPosition(CameraPosition cameraPosition)
         {
             _settingsManager.Latitude = cameraPosition.Target.Latitude;

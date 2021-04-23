@@ -74,6 +74,8 @@ namespace GpsNotepad.Controls
             //        }
             //    }
             //}
+
+            //ask Alexey about this part
             if (propertyName == nameof(MapPinViewModels))
             {
                 Pins.Clear();

@@ -57,8 +57,6 @@ namespace GpsNotepad
         {
             InitializeComponent();
 
-
-
             if (AuthorizationService.IsAuthorized)
             {
                 await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");

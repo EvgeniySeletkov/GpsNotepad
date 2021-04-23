@@ -8,6 +8,7 @@ namespace GpsNotepad.Services.Permission
 {
     interface IPermissionService
     {
+        //rename
         Task<PermissionStatus> CheckAndRequestLocationPermission();
     }
 }

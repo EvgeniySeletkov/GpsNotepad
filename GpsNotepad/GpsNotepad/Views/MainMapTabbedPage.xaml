@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:GpsNotepad.Views"
              xmlns:behaviors="clr-namespace:GpsNotepad.Behaviors"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             SelectedTabColor="#7485FB"
+             UnselectedTabColor="#7485FB"
              android:TabbedPage.ToolbarPlacement="Bottom"
              x:Class="GpsNotepad.Views.MainMapTabbedPage">
 
@@ -20,11 +22,13 @@
                     Grid.Column="0"
                     VerticalOptions="CenterAndExpand"
                     Command="{Binding SettingsTapCommand}"/>
+            
             <SearchBar BackgroundColor="#33374E"
                        PlaceholderColor="#D7DDE8"
                        Placeholder="Search"
                        Grid.Column="1"
                        VerticalOptions="Center"/>
+            
             <Button BackgroundColor="Transparent"
                     ImageSource="ic_exid.png"
                     Grid.Column="2"

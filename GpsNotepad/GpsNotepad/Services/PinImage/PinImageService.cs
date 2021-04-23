@@ -17,6 +17,7 @@ namespace GpsNotepad.Services.PinImage
             _repository = repository;
         }
 
+        //remove async-await and return task
         public async Task DeletePinAsync(PinImageModel pinImageModel)
         {
             await _repository.DeleteAsync(pinImageModel);
@@ -28,6 +29,7 @@ namespace GpsNotepad.Services.PinImage
             return pinImages.Where(p => p.PinId == pinId).ToList();
         }
 
+        //remove async-await and return task
         public async Task InsertPinAsync(PinImageModel pinImageModel)
         {
             await _repository.InsertAsync(pinImageModel);

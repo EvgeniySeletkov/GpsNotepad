@@ -137,6 +137,7 @@ namespace GpsNotepad.ViewModels
             foreach (var pinModel in pinModelList)
             {
                 var pinViewModel = pinModel.ToPinViewModel();
+                //refactor
                 if (pinViewModel.IsVisible)
                 {
                     pinViewModel.Image = "eye.png";
@@ -153,6 +154,7 @@ namespace GpsNotepad.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
+            //remove
             parameters.Add(nameof(PinViewModel), PinViewModelList);
         }
 
@@ -170,6 +172,7 @@ namespace GpsNotepad.ViewModels
                 }
                 else
                 {
+                    //add method to PinService
                     PinViewModelList = new ObservableCollection<PinViewModel>(_pinViewModelList.Where(p =>
                            p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
                            p.Latitude.ToString().StartsWith(SearchText) || 

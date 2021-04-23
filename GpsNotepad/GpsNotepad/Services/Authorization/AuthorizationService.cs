@@ -6,10 +6,8 @@ using Newtonsoft.Json;
 using Plugin.FacebookClient;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -17,9 +15,11 @@ namespace GpsNotepad.Services.Authorization
 {
     class AuthorizationService : IAuthorizationService
     {
-        private IRepository _repository;
+        //add readonly
+        private readonly IRepository _repository;
         private ISettingsManager _settingsManager;
         private INavigationService _navigationService;
+        //register it in app.xaml.cs and get instance using DI
         private IFacebookClient _facebookService = CrossFacebookClient.Current;
 
         public AuthorizationService(IRepository repository,
@@ -31,6 +31,7 @@ namespace GpsNotepad.Services.Authorization
             _navigationService = navigationService;
         }
          
+        //make extension
         private UserModel ConvertFacebookProfileModelToUserModel(FacebookProfileModel facebookProfileModel)
         {
             var userModel = new UserModel()
@@ -101,6 +102,7 @@ namespace GpsNotepad.Services.Authorization
 
                 EventHandler<FBEventArgs<string>> userDataDelegate = null;
 
+                //make method
                 userDataDelegate = async (object sender, FBEventArgs<string> e) =>
                 {
                     if (e == null)
@@ -108,6 +110,7 @@ namespace GpsNotepad.Services.Authorization
                         return;
                     }
 
+                    //return status from SignInWithFacebook and handle it in viewmodel
                     switch (e.Status)
                     {
                         case FacebookActionStatus.Completed:
@@ -115,6 +118,7 @@ namespace GpsNotepad.Services.Authorization
                             bool isAutorized = await AuthorizeWithFacebookAsync(facebookProfileModel);
                             if (isAutorized)
                             {
+                                //no navigation in services
                                 await _navigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
                             }
                             break;
@@ -141,9 +145,9 @@ namespace GpsNotepad.Services.Authorization
             }
         }
 
-        public async Task CreateAccount(UserModel userModel)
+        public Task CreateAccount(UserModel userModel)
         {
-            await _repository.InsertAsync(userModel);
+            return _repository.InsertAsync(userModel);
         }
 
         public async Task<bool> HasEmail(string email)

@@ -115,11 +115,11 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the same password in confirm password field as in password field..
+        ///   Looks up a localized string similar to Password missmatch.
         /// </summary>
-        internal static string HasEqualPasswords {
+        internal static string HasMatchPasswords {
             get {
-                return ResourceManager.GetString("HasEqualPasswords", resourceCulture);
+                return ResourceManager.GetString("HasMatchPasswords", resourceCulture);
             }
         }
         

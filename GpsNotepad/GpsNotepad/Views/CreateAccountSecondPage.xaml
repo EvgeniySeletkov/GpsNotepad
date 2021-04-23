@@ -2,65 +2,41 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resource="clr-namespace:GpsNotepad.Resources"
+             xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
              x:Class="GpsNotepad.Views.CreateAccountSecondPage"
              Style="{StaticResource PageBackground}"
              Title="Create an account">
     <ContentPage.Content>
-
-            <!--<StackLayout Padding="40, 40, 40, 50">
-
-            <StackLayout VerticalOptions="CenterAndExpand">
-
-                <Entry Placeholder="Name" 
-                       Text="{Binding Name}"/>
-                
-                <Entry Placeholder="Email" 
-                       Text="{Binding Email}"/>
-                
-                <Entry Placeholder="Password" 
-                       IsPassword="True" 
-                       Text="{Binding Password}"/>
-                
-                <Entry Placeholder="Confirm Password" 
-                       IsPassword="True" 
-                       Text="{Binding ConfirmPassword}"/>
-
-            </StackLayout>
-
-            <StackLayout VerticalOptions="EndAndExpand">
-
-                <Button Text="{Binding Resource[SignUpButton]}"
-                        Command="{Binding SignUpTapCommand}"
-                        IsEnabled="{Binding IsButtonEnable}" />
-
-            </StackLayout>
-            
-        </StackLayout>-->
-
+        
+        <!--remove grid-->
         <Grid RowDefinitions="*">
 
             <StackLayout Grid.Row="0">
 
                 <StackLayout Padding="16, 0, 16, 0">
                     
-                    <!--NAME-->
-                    <Label Style="{StaticResource SubtitleLabel}"
-                           Text="Password"
-                           Padding="6, 0, 0, 0"/>
-                    <Entry PlaceholderColor="#858E9E"
-                           Placeholder="Create password"
-                           IsPassword="True"
-                           Text="{Binding Password}"/>
+                    <!--PASSWORD-->
+                    <local:CustomEntry Style="{StaticResource Entry}"
+                                       SubtitleText="Password"
+                                       EntryPlaceholder="Create password"
+                                       ButtonImage="{Binding PasswordVisibleImage}"
+                                       IsEntryPassword="{Binding IsPassword}"
+                                       EntryText="{Binding Password}"
+                                       WrongText="{Binding PasswordWrongText}"
+                                       IsWrongVisible="{Binding IsPasswordWrongVisible}"
+                                       ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
-                    <!--EMAIL-->
-                    <Label Style="{StaticResource SubtitleLabel}"
-                           Text="Confirm password"
-                           Padding="6, 0, 0, 0"
-                           Margin="0, 25, 0, 0"/>
-                    <Entry PlaceholderColor="#858E9E"
-                           Placeholder="Repeat password"
-                           IsPassword="True"
-                           Text="{Binding ConfirmPassword}"/>
+                    <!--CONFIRM PASSWORD-->
+                    <local:CustomEntry Style="{StaticResource Entry}"
+                                       SubtitleText="Confirm password"
+                                       EntryPlaceholder="Repeat password"
+                                       Padding="0, 8, 0, 0"
+                                       ButtonImage="{Binding ConfirmPasswordVisibleImage}"
+                                       IsEntryPassword="{Binding IsConfirmPassword}"
+                                       EntryText="{Binding ConfirmPassword}"
+                                       WrongText="{Binding ConfirmPasswordWrongText}"
+                                       IsWrongVisible="{Binding IsConfirmPasswordWrongVisible}"
+                                       ClickCommand="{Binding ConfirmPasswordVisibleTapCommand}"/>
 
                     <!--CREATE ACCOUNT BUTTON-->
                     <Button Style="{StaticResource FillButton}"

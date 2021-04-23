@@ -135,8 +135,8 @@
   <data name="HasEqualNameAndPassword" xml:space="preserve">
     <value>Name and password should not be equal.</value>
   </data>
-  <data name="HasEqualPasswords" xml:space="preserve">
-    <value>Enter the same password in confirm password field as in password field.</value>
+  <data name="HasMatchPasswords" xml:space="preserve">
+    <value>Password missmatch</value>
   </data>
   <data name="HasValidEmail" xml:space="preserve">
     <value>Please enter corrected email.</value>

@@ -2,40 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resource="clr-namespace:GpsNotepad.Resources"
+             xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
              x:Class="GpsNotepad.Views.CreateAccountFirstPage"
              Style="{StaticResource PageBackground}"
              Title="Create an account">
     <ContentPage.Content>
-
-            <!--<StackLayout Padding="40, 40, 40, 50">
-
-            <StackLayout VerticalOptions="CenterAndExpand">
-
-                <Entry Placeholder="Name" 
-                       Text="{Binding Name}"/>
-                
-                <Entry Placeholder="Email" 
-                       Text="{Binding Email}"/>
-                
-                <Entry Placeholder="Password" 
-                       IsPassword="True" 
-                       Text="{Binding Password}"/>
-                
-                <Entry Placeholder="Confirm Password" 
-                       IsPassword="True" 
-                       Text="{Binding ConfirmPassword}"/>
-
-            </StackLayout>
-
-            <StackLayout VerticalOptions="EndAndExpand">
-
-                <Button Text="{Binding Resource[SignUpButton]}"
-                        Command="{Binding SignUpTapCommand}"
-                        IsEnabled="{Binding IsButtonEnable}" />
-
-            </StackLayout>
-            
-        </StackLayout>-->
 
         <Grid RowDefinitions="*">
 
@@ -44,22 +15,25 @@
                 <StackLayout Padding="16, 0, 16, 0">
                     
                     <!--NAME-->
-                    <Label Style="{StaticResource SubtitleLabel}"
-                           Text="Name"
-                           Padding="6, 0, 0, 0"/>
-                    <Entry PlaceholderColor="#858E9E"
-                           Placeholder="Enter your name"
-                           Text="{Binding Name}"/>
+                    <local:CustomEntry Style="{StaticResource Entry}"
+                                       SubtitleText="Name"
+                                       EntryPlaceholder="Enter your name"
+                                       ButtonImage="ic_clear.png"
+                                       EntryText="{Binding Name}"
+                                       WrongText="{Binding NameWrongText}"
+                                       IsWrongVisible="{Binding IsNameWrongVisible}"
+                                       ClickCommand="{Binding NameClearTapCommand}"/>
 
                     <!--EMAIL-->
-                    <Label Style="{StaticResource SubtitleLabel}"
-                           Text="Email"
-                           Padding="6, 0, 0, 0"
-                           Margin="0, 25, 0, 0"/>
-                    <Entry PlaceholderColor="#858E9E"
-                           Placeholder="Enter email"
-                           Keyboard="Email"
-                           Text="{Binding Email}"/>
+                    <local:CustomEntry Style="{StaticResource Entry}"
+                                       SubtitleText="Email"
+                                       EntryPlaceholder="Enter email"
+                                       ButtonImage="ic_clear.png"
+                                       Padding="0, 8, 0, 0"
+                                       EntryText="{Binding Email}"
+                                       WrongText="{Binding EmailWrongText}"
+                                       IsWrongVisible="{Binding IsEmailWrongVisible}"
+                                       ClickCommand="{Binding EmailClearTapCommand}"/>
 
                     <!--NEXT BUTTON-->
                     <Button Style="{StaticResource FillButton}"

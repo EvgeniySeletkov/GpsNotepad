@@ -38,6 +38,35 @@ namespace GpsNotepad.ViewModels
             get => password;
             set => SetProperty(ref password, value);
         }
+        
+        //use triggers in xaml
+        private string passwordVisibleImage = "ic_eye_off.png";
+        public string PasswordVisibleImage
+        {
+            get => passwordVisibleImage;
+            set => SetProperty(ref passwordVisibleImage, value);
+        }
+
+        private bool isPassword = true;
+        public bool IsPassword
+        {
+            get => isPassword;
+            set => SetProperty(ref isPassword, value);
+        }
+
+        private string passwordWrongText;
+        public string PasswordWrongText
+        {
+            get => passwordWrongText;
+            set => SetProperty(ref passwordWrongText, value);
+        }
+
+        private bool isPasswordWrongVisible = false;
+        public bool IsPasswordWrongVisible
+        {
+            get => isPasswordWrongVisible;
+            set => SetProperty(ref isPasswordWrongVisible, value);
+        }
 
         private string confirmPassword;
         public string ConfirmPassword
@@ -46,12 +75,48 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref confirmPassword, value);
         }
 
+        private string confirmPasswordVisibleImage = "ic_eye_off.png";
+        public string ConfirmPasswordVisibleImage
+        {
+            get => confirmPasswordVisibleImage;
+            set => SetProperty(ref confirmPasswordVisibleImage, value);
+        }
+
+        private bool isConfirmPassword = true;
+        public bool IsConfirmPassword
+        {
+            get => isConfirmPassword;
+            set => SetProperty(ref isConfirmPassword, value);
+        }
+
+        private string confirmPasswordWrongText;
+        public string ConfirmPasswordWrongText
+        {
+            get => confirmPasswordWrongText;
+            set => SetProperty(ref confirmPasswordWrongText, value);
+        }
+
+        private bool isConfirmPasswordWrongVisible = false;
+        public bool IsConfirmPasswordWrongVisible
+        {
+            get => isConfirmPasswordWrongVisible;
+            set => SetProperty(ref isConfirmPasswordWrongVisible, value);
+        }
+
         private bool isButtonEnable = false;
         public bool IsButtonEnable
         {
             get => isButtonEnable;
             set => SetProperty(ref isButtonEnable, value);
         }
+
+        private ICommand passwordVisibleTapCommand;
+        public ICommand PasswordVisibleTapCommand =>
+            passwordVisibleTapCommand ?? (passwordVisibleTapCommand = new DelegateCommand(OnPasswordVisibleTap));
+
+        private ICommand confirmPasswordVisibleTapCommand;
+        public ICommand ConfirmPasswordVisibleTapCommand =>
+            confirmPasswordVisibleTapCommand ?? (confirmPasswordVisibleTapCommand = new DelegateCommand(OnConfirmPasswordVisibleTap));
 
         private ICommand createAccountTapCommand;
         public ICommand CreateAccountTapCommand => 
@@ -87,9 +152,13 @@ namespace GpsNotepad.ViewModels
             }
             if (!Validator.HasEqualPasswords(Password, ConfirmPassword))
             {
-                ShowAlert(Resource["HasEqualPasswords"]);
-                ClearEntries();
+                IsConfirmPasswordWrongVisible = true;
+                ConfirmPasswordWrongText = Resource["HasMatchPasswords"];
                 isPasswordValid = false;
+            }
+            else
+            {
+                IsConfirmPasswordWrongVisible = false;
             }
             return isPasswordValid;
         }
@@ -104,6 +173,32 @@ namespace GpsNotepad.ViewModels
             {
                 ShowAlert(Resource["HasEqualNameAndPassword"]);
                 ClearEntries();
+            }
+        }
+
+        private void OnPasswordVisibleTap()
+        {
+            IsPassword = !IsPassword;
+            if (IsPassword)
+            {
+                PasswordVisibleImage = "ic_eye_off.png";
+            }
+            else
+            {
+                PasswordVisibleImage = "ic_eye.png";
+            }
+        }
+
+        private void OnConfirmPasswordVisibleTap()
+        {
+            IsConfirmPassword = !IsConfirmPassword;
+            if (IsConfirmPassword)
+            {
+                ConfirmPasswordVisibleImage = "ic_eye_off.png";
+            }
+            else
+            {
+                ConfirmPasswordVisibleImage = "ic_eye.png";
             }
         }
 
@@ -122,6 +217,7 @@ namespace GpsNotepad.ViewModels
             }
         }
 
+        //rename
         private async void OnSignInWithFacebookTapCommandTap()
         {
             await _authorizationService.SignInWithFacebook();
@@ -133,6 +229,7 @@ namespace GpsNotepad.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
+            //trygetvalue
             _userModel = parameters.GetValue<UserModel>($"{nameof(UserModel)}");
         }
 

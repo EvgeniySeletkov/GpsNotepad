@@ -23,31 +23,32 @@
                 <StackLayout Padding="16, 0, 16, 0">
 
                     <!--EMAIL-->
-                    <Label Style="{StaticResource SubtitleLabel}"
-                           Text="Email"
-                           Padding="6, 0, 0, 0"/>
-                    <Entry PlaceholderColor="#858E9E"
-                           Placeholder="Enter email"
-                           Keyboard="Email"
-                           Text="{Binding Email}"/>
+                    <local:CustomEntry Style="{StaticResource Entry}"
+                                       SubtitleText="Email"
+                                       EntryPlaceholder="Enter email"
+                                       ButtonImage="ic_clear.png"
+                                       EntryText="{Binding Email}"
+                                       WrongText="{Binding EmailWrongText}"
+                                       IsWrongVisible="{Binding IsEmailWrongVisible}"
+                                       ClickCommand="{Binding EmailClearTapCommand}"/>
 
                     <!--PASSWORD-->
-                    <Label Style="{StaticResource SubtitleLabel}"
-                           Text="Password"
-                           Padding="6, 0, 0, 0"
-                           Margin="0, 25, 0, 0"/>
-                    <!--<local:CustomEntry SubtitleText="Password" 
-                                       WrongText="Wrong"/>-->
-                    <Entry PlaceholderColor="#858E9E"
-                           Placeholder="Enter password"
-                           IsPassword="True"
-                           Text="{Binding Password}"/>
+                    <local:CustomEntry Style="{StaticResource Entry}"
+                                       SubtitleText="Password"
+                                       EntryPlaceholder="Enter password"
+                                       Padding="0, 8, 0, 0"
+                                       ButtonImage="{Binding PasswordVisibleImage}"
+                                       IsEntryPassword="{Binding IsPassword}"
+                                       EntryText="{Binding Password}"
+                                       WrongText="{Binding PasswordWrongText}"
+                                       IsWrongVisible="{Binding IsPasswordWrongVisible}"
+                                       ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
                     <!--LOG IN BUTTON-->
                     <Button Style="{StaticResource FillButton}"
                             Text="Log in" 
-                            Margin="0, 40, 0, 0"
-                            Command="{Binding SignInTapCommand}"
+                            Margin="0, 24, 0, 0"
+                            Command="{Binding LogInTapCommand}"
                             IsEnabled="{Binding IsButtonEnable}"/>
 
                     <!--SEPARATOR-->
@@ -81,7 +82,7 @@
                         <Button Style="{StaticResource AlternativeLogInButton}"
                                 ImageSource="ic_facebook.png"
                                 Grid.Column="1"
-                                Command="{Binding SignInWithFacebookTapCommand}"/>
+                                Command="{Binding LogInWithFacebookTapCommand}"/>
                         
                         <Button Style="{StaticResource AlternativeLogInButton}"
                                 ImageSource="{AppThemeBinding Light=ic_apple.png,

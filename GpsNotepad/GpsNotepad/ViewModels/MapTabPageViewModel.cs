@@ -167,6 +167,7 @@ namespace GpsNotepad.ViewModels
 
         private void OnCameraMove(object obj)
         {
+            //change parameter type
             var cameraPosition = (CameraPosition)obj;
             _mapCameraPositionService.SetCameraPosition(cameraPosition);
         }
@@ -180,6 +181,7 @@ namespace GpsNotepad.ViewModels
 
         private async void OnPinSelectTap(object obj)
         {
+            //change parameter type
             Pin selectedPin = (Pin)obj;
             var selectedPinViewModel = PinViewModelList.FirstOrDefault(p => p.Label == selectedPin.Label);
             var parameters = new NavigationParameters();

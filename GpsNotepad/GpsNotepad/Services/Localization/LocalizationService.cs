@@ -12,6 +12,7 @@ namespace GpsNotepad.Services.Localization
 {
     class LocalizationService : ILocalizationService, INotifyPropertyChanged
     {
+        //add readonly
         private ISettingsManager _settingsManager;
         private readonly ResourceManager _resourceManager;
         private CultureInfo _currentCultureInfo;
@@ -52,6 +53,7 @@ namespace GpsNotepad.Services.Localization
             set => _settingsManager.Culture = value;
         }
 
+        //refactor: add parameter
         public void SetLocalization()
         {
             var cultureInfo = new CultureInfo(_settingsManager.Culture, false);

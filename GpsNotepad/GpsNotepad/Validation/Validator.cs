@@ -8,6 +8,7 @@ namespace GpsNotepad.Validation
 {
     static class Validator
     {
+        //regions
         public static bool HasValidName(string name)
         {
             bool isName = false;
