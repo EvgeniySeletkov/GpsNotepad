@@ -2,8 +2,6 @@
 using Prism.Common;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace GpsNotepad.Behaviors
@@ -12,6 +10,8 @@ namespace GpsNotepad.Behaviors
     {
         //add regios
         private Page _currentPage;
+
+        #region --- Overrides ---
 
         protected override void OnAttachedTo(TabbedPage bindable)
         {
@@ -24,6 +24,10 @@ namespace GpsNotepad.Behaviors
             bindable.CurrentPageChanged -= OnCurrentPageChanged;
             base.OnDetachingFrom(bindable);
         }
+
+        #endregion
+
+        #region --- Private helpers ---
 
         private void OnCurrentPageChanged(object sender, EventArgs e)
         {
@@ -38,5 +42,7 @@ namespace GpsNotepad.Behaviors
 
             _currentPage = newPage;
         }
+
+        #endregion
     }
 }

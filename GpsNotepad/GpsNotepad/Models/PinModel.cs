@@ -1,7 +1,4 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GpsNotepad.Models
 {
@@ -14,9 +11,8 @@ namespace GpsNotepad.Models
         public string Label { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-
         //rename to IsFavorite
-        public bool IsVisible { get; set; }
+        public bool IsFavorite { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
         public int UserId { get; set; }

@@ -178,19 +178,25 @@ namespace GpsNotepad.ViewModels
 
         private void OnPasswordVisibleTap()
         {
+            
+            PasswordWrongText = "Wrong";
             IsPassword = !IsPassword;
             if (IsPassword)
             {
                 PasswordVisibleImage = "ic_eye_off.png";
+                IsPasswordWrongVisible = false;
             }
             else
             {
                 PasswordVisibleImage = "ic_eye.png";
+                IsPasswordWrongVisible = true;
             }
         }
 
         private void OnConfirmPasswordVisibleTap()
         {
+            IsConfirmPasswordWrongVisible = true;
+            ConfirmPasswordWrongText = "Wrong";
             IsConfirmPassword = !IsConfirmPassword;
             if (IsConfirmPassword)
             {

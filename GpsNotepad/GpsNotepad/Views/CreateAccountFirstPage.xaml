@@ -15,7 +15,7 @@
                 <StackLayout Padding="16, 0, 16, 0">
                     
                     <!--NAME-->
-                    <local:CustomEntry Style="{StaticResource Entry}"
+                    <local:CustomFrame Style="{StaticResource Entry}"
                                        SubtitleText="Name"
                                        EntryPlaceholder="Enter your name"
                                        ButtonImage="ic_clear.png"
@@ -25,7 +25,7 @@
                                        ClickCommand="{Binding NameClearTapCommand}"/>
 
                     <!--EMAIL-->
-                    <local:CustomEntry Style="{StaticResource Entry}"
+                    <local:CustomFrame Style="{StaticResource Entry}"
                                        SubtitleText="Email"
                                        EntryPlaceholder="Enter email"
                                        ButtonImage="ic_clear.png"

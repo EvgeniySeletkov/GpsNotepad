@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,19 +12,21 @@ using Xamarin.Forms.Xaml;
 namespace GpsNotepad.Controls.Views
 {
     //CustomEntry -> CustomFrame
-    public partial class CustomEntry : StackLayout
+    public partial class CustomFrame : StackLayout, INotifyPropertyChanged
     {
-        public CustomEntry()
+        public CustomFrame()
         {
             InitializeComponent();
         }
+
+        #region --- Public properties ---
 
         // SUBTITLE.
         public static readonly BindableProperty SubtitleFontSizeProperty =
             BindableProperty.Create(
                 propertyName: nameof(SubtitleFontSize),
                 returnType: typeof(double),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -37,7 +40,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(SubtitleTextColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -51,7 +54,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(SubtitleText),
                 returnType: typeof(string),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -66,7 +69,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryBorderColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -80,7 +83,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryBackgoundColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -95,7 +98,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryFontSize),
                 returnType: typeof(double),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -109,7 +112,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryPlaceholderColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -123,7 +126,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryPlaceholder),
                 returnType: typeof(string),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -137,7 +140,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryTextColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -151,7 +154,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryText),
                 returnType: typeof(string),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -165,7 +168,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(IsEntryPassword),
                 returnType: typeof(bool),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -180,7 +183,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(WrongFontSize),
                 returnType: typeof(double),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -194,7 +197,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(WrongColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -208,7 +211,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(WrongText),
                 returnType: typeof(string),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -222,7 +225,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(IsWrongVisible),
                 returnType: typeof(bool),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -237,7 +240,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(ButtonImage),
                 returnType: typeof(ImageSource),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -251,7 +254,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(ClickCommand),
                 returnType: typeof(ICommand),
-                declaringType: typeof(CustomEntry),
+                declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -261,67 +264,79 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(ClickCommandProperty, value);
         }
 
+        #endregion
+
+        #region --- Overrides ---
+
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             //use bindings
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(SubtitleFontSize))
+            //if (propertyName == nameof(SubtitleFontSize))
+            //{
+            //    Subtitle.FontSize = SubtitleFontSize;
+            //}
+            //if (propertyName == nameof(SubtitleTextColor))
+            //{
+            //    Subtitle.TextColor = SubtitleTextColor;
+            //}
+            //if (propertyName == nameof(SubtitleText))
+            //{
+            //    Subtitle.Text = SubtitleText;
+            //}
+            //if (propertyName == nameof(EntryBorderColor))
+            //{
+            //    Frame.BorderColor = EntryBorderColor;
+            //}
+            //if (propertyName == nameof(EntryBackgoundColor))
+            //{
+            //    Frame.BackgroundColor = EntryBackgoundColor;
+            //}
+            //if (propertyName == nameof(EntryFontSize))
+            //{
+            //    Entry.FontSize = EntryFontSize;
+            //}
+            //if (propertyName == nameof(EntryPlaceholderColor))
+            //{
+            //    Entry.PlaceholderColor = EntryPlaceholderColor;
+            //}
+            //if (propertyName == nameof(EntryPlaceholder))
+            //{
+            //    Entry.Placeholder = EntryPlaceholder;
+            //}
+            //if (propertyName == nameof(EntryTextColor))
+            //{
+            //    Entry.TextColor = EntryTextColor;
+            //}
+            switch (propertyName)
             {
-                Subtitle.FontSize = SubtitleFontSize;
+                case nameof(EntryText):
+                    EntryButton.IsVisible = string.IsNullOrWhiteSpace(EntryText) ? false : true;
+                    break;
+                //case nameof(IsWrongVisible):
+                //    var color = EntryBorderColor;
+                //    EntryBorderColor = IsWrongVisible ? WrongColor : color;
+                //    break;
             }
-            if (propertyName == nameof(SubtitleTextColor))
-            {
-                Subtitle.TextColor = SubtitleTextColor;
-            }
-            if (propertyName == nameof(SubtitleText))
-            {
-                Subtitle.Text = SubtitleText;
-            }
-            if (propertyName == nameof(EntryBorderColor))
-            {
-                Frame.BorderColor = EntryBorderColor;
-            }
-            if (propertyName == nameof(EntryBackgoundColor))
-            {
-                Frame.BackgroundColor = EntryBackgoundColor;
-            }
-            if (propertyName == nameof(EntryFontSize))
-            {
-                Entry.FontSize = EntryFontSize;
-            }
-            if (propertyName == nameof(EntryPlaceholderColor))
-            {
-                Entry.PlaceholderColor = EntryPlaceholderColor;
-            }
-            if (propertyName == nameof(EntryPlaceholder))
-            {
-                Entry.Placeholder = EntryPlaceholder;
-            }
-            if (propertyName == nameof(EntryTextColor))
-            {
-                Entry.TextColor = EntryTextColor;
-            }
-            if (propertyName == nameof(EntryText))
-            {
-                Entry.Text = EntryText;
-            }
-            if (propertyName == nameof(IsEntryPassword))
-            {
-                Entry.IsPassword = IsEntryPassword;
-            }
-            if (propertyName == nameof(WrongFontSize))
-            {
-                WrongLabel.FontSize = WrongFontSize;
-            }
-            if (propertyName == nameof(WrongColor))
-            {
-                WrongLabel.TextColor = WrongColor;
-            }
-            if (propertyName == nameof(WrongText))
-            {
-                WrongLabel.Text = WrongText;
-            }
+            //if (propertyName == nameof(IsEntryPassword))
+            //{
+            //    Entry.IsPassword = IsEntryPassword;
+            //}
+            //if (propertyName == nameof(WrongFontSize))
+            //{
+            //    WrongLabel.FontSize = WrongFontSize;
+            //}
+            //if (propertyName == nameof(WrongColor))
+            //{
+            //    WrongLabel.TextColor = WrongColor;
+            //}
+            //if (propertyName == nameof(WrongText))
+            //{
+            //    WrongLabel.Text = WrongText;
+            //}
+
+
             if (propertyName == nameof(IsWrongVisible))
             {
                 if (IsWrongVisible)
@@ -345,17 +360,7 @@ namespace GpsNotepad.Controls.Views
             }
         }
 
-        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            EntryText = Entry.Text;
-            if (string.IsNullOrWhiteSpace(Entry.Text))
-            {
-                EntryButton.IsVisible = false;
-            }
-            else
-            {
-                EntryButton.IsVisible = true;
-            }
-        }
+        #endregion
+
     }
 }

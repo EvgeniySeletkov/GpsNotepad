@@ -23,17 +23,17 @@
                 <StackLayout Padding="16, 0, 16, 0">
 
                     <!--EMAIL-->
-                    <local:CustomEntry Style="{StaticResource Entry}"
-                                       SubtitleText="Email"
-                                       EntryPlaceholder="Enter email"
-                                       ButtonImage="ic_clear.png"
-                                       EntryText="{Binding Email}"
-                                       WrongText="{Binding EmailWrongText}"
-                                       IsWrongVisible="{Binding IsEmailWrongVisible}"
-                                       ClickCommand="{Binding EmailClearTapCommand}"/>
-
+                    <local:CustomFrame Style="{StaticResource Entry}"
+                                  SubtitleText="Email"
+                                  EntryPlaceholder="Enter email"
+                                  ButtonImage="ic_clear.png"
+                                  EntryText="{Binding Email}"
+                                  WrongText="{Binding EmailWrongText}"
+                                  IsWrongVisible="{Binding IsEmailWrongVisible}"
+                                  ClickCommand="{Binding EmailClearTapCommand}"/>
+                                 
                     <!--PASSWORD-->
-                    <local:CustomEntry Style="{StaticResource Entry}"
+                    <local:CustomFrame Style="{StaticResource Entry}"
                                        SubtitleText="Password"
                                        EntryPlaceholder="Enter password"
                                        Padding="0, 8, 0, 0"

@@ -24,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\Views\CustomFrame.xaml.cs">
+      <DependentUpon>CustomFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -50,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Controls\Views\CustomEntry.xaml">
+    <EmbeddedResource Update="Controls\Views\CustomFrame.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Resource.resx">

@@ -10,6 +10,7 @@ namespace GpsNotepad.Extensions
     {
         public static async Task<INavigationResult> SelectTabAsync(this INavigationService navigationService, string name, INavigationParameters parameters = null)
         {
+            NavigationResult navigationResult = new NavigationResult { Success = true };
             try
             {
                 var currentPage = ((IPageAware)navigationService).Page;
@@ -73,9 +74,9 @@ namespace GpsNotepad.Extensions
             catch (Exception ex)
             {
                 //remove two returns 
-                return new NavigationResult { Exception = ex };
+                navigationResult = new NavigationResult { Exception = ex };
             }
-            return new NavigationResult { Success = true };
+            return navigationResult;
         }
     }
 }

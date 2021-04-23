@@ -16,7 +16,7 @@
                 <StackLayout Padding="16, 0, 16, 0">
                     
                     <!--PASSWORD-->
-                    <local:CustomEntry Style="{StaticResource Entry}"
+                    <local:CustomFrame Style="{StaticResource Entry}"
                                        SubtitleText="Password"
                                        EntryPlaceholder="Create password"
                                        ButtonImage="{Binding PasswordVisibleImage}"
@@ -27,7 +27,7 @@
                                        ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
                     <!--CONFIRM PASSWORD-->
-                    <local:CustomEntry Style="{StaticResource Entry}"
+                    <local:CustomFrame Style="{StaticResource Entry}"
                                        SubtitleText="Confirm password"
                                        EntryPlaceholder="Repeat password"
                                        Padding="0, 8, 0, 0"
