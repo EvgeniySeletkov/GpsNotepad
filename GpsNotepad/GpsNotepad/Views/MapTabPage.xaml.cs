@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GpsNotepad.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,12 @@ namespace GpsNotepad.Views
         public MapTabPage()
         {
             InitializeComponent();
+        }
+
+        public string SearchTextBar
+        {
+            get => (string)GetValue(SearchTextBarProperty);
+            set => SetValue(SearchTextBarProperty, value);
         }
     }
 }

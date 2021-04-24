@@ -1,9 +1,9 @@
 ﻿using Acr.UserDialogs;
 using GpsNotepad.Extensions;
 using GpsNotepad.Models;
+using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Pin;
-using GpsNotepad.ViewModels.ExtendedViewModels;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Mvvm;

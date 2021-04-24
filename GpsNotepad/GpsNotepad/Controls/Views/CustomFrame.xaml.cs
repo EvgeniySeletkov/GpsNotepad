@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace GpsNotepad.Controls.Views
 {
-    //CustomEntry -> CustomFrame
     public partial class CustomFrame : StackLayout, INotifyPropertyChanged
     {
+        private Color _borderColor;
         public CustomFrame()
         {
             InitializeComponent();
@@ -21,7 +15,6 @@ namespace GpsNotepad.Controls.Views
 
         #region --- Public properties ---
 
-        // SUBTITLE.
         public static readonly BindableProperty SubtitleFontSizeProperty =
             BindableProperty.Create(
                 propertyName: nameof(SubtitleFontSize),
@@ -64,7 +57,6 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(SubtitleTextProperty, value);
         }
 
-        // FRAME
         public static readonly BindableProperty EntryBorderColorProperty =
             BindableProperty.Create(
                 propertyName: nameof(EntryBorderColor),
@@ -93,7 +85,6 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(EntryBackgoundColorProperty, value);
         }
 
-        // ENTRY
         public static readonly BindableProperty EntryFontSizeProperty =
             BindableProperty.Create(
                 propertyName: nameof(EntryFontSize),
@@ -178,7 +169,6 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(IsEntryPasswordProperty, value);
         }
 
-        // WRONG LABEL
         public static readonly BindableProperty WrongFontSizeProperty =
             BindableProperty.Create(
                 propertyName: nameof(WrongFontSize),
@@ -235,7 +225,6 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(IsWrongVisibleProperty, value);
         }
 
-        // BUTTON
         public static readonly BindableProperty ButtonImageProperty =
             BindableProperty.Create(
                 propertyName: nameof(ButtonImage),
@@ -248,6 +237,20 @@ namespace GpsNotepad.Controls.Views
         {
             get => (ImageSource)GetValue(ButtonImageProperty);
             set => SetValue(ButtonImageProperty, value);
+        }
+
+        public static readonly BindableProperty IsButtonVisibleProperty =
+            BindableProperty.Create(
+                propertyName: nameof(IsButtonVisible),
+                returnType: typeof(bool),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsButtonVisible
+        {
+            get => (bool)GetValue(IsButtonVisibleProperty);
+            set => SetValue(IsButtonVisibleProperty, value);
         }
 
         public static readonly BindableProperty ClickCommandProperty =
@@ -270,93 +273,24 @@ namespace GpsNotepad.Controls.Views
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            //use bindings
             base.OnPropertyChanged(propertyName);
 
-            //if (propertyName == nameof(SubtitleFontSize))
-            //{
-            //    Subtitle.FontSize = SubtitleFontSize;
-            //}
-            //if (propertyName == nameof(SubtitleTextColor))
-            //{
-            //    Subtitle.TextColor = SubtitleTextColor;
-            //}
-            //if (propertyName == nameof(SubtitleText))
-            //{
-            //    Subtitle.Text = SubtitleText;
-            //}
-            //if (propertyName == nameof(EntryBorderColor))
-            //{
-            //    Frame.BorderColor = EntryBorderColor;
-            //}
-            //if (propertyName == nameof(EntryBackgoundColor))
-            //{
-            //    Frame.BackgroundColor = EntryBackgoundColor;
-            //}
-            //if (propertyName == nameof(EntryFontSize))
-            //{
-            //    Entry.FontSize = EntryFontSize;
-            //}
-            //if (propertyName == nameof(EntryPlaceholderColor))
-            //{
-            //    Entry.PlaceholderColor = EntryPlaceholderColor;
-            //}
-            //if (propertyName == nameof(EntryPlaceholder))
-            //{
-            //    Entry.Placeholder = EntryPlaceholder;
-            //}
-            //if (propertyName == nameof(EntryTextColor))
-            //{
-            //    Entry.TextColor = EntryTextColor;
-            //}
             switch (propertyName)
             {
                 case nameof(EntryText):
-                    EntryButton.IsVisible = string.IsNullOrWhiteSpace(EntryText) ? false : true;
+                    IsButtonVisible = string.IsNullOrWhiteSpace(EntryText) ? false : true;
                     break;
-                //case nameof(IsWrongVisible):
-                //    var color = EntryBorderColor;
-                //    EntryBorderColor = IsWrongVisible ? WrongColor : color;
-                //    break;
-            }
-            //if (propertyName == nameof(IsEntryPassword))
-            //{
-            //    Entry.IsPassword = IsEntryPassword;
-            //}
-            //if (propertyName == nameof(WrongFontSize))
-            //{
-            //    WrongLabel.FontSize = WrongFontSize;
-            //}
-            //if (propertyName == nameof(WrongColor))
-            //{
-            //    WrongLabel.TextColor = WrongColor;
-            //}
-            //if (propertyName == nameof(WrongText))
-            //{
-            //    WrongLabel.Text = WrongText;
-            //}
-
-
-            if (propertyName == nameof(IsWrongVisible))
-            {
-                if (IsWrongVisible)
-                {
-                    WrongLabel.IsVisible = true;
-                    Frame.BorderColor = WrongColor;
-                }
-                else
-                {
-                    WrongLabel.IsVisible = false;
-                    Frame.BorderColor = EntryBorderColor;
-                }
-            }
-            if (propertyName == nameof(ButtonImage))
-            {
-                EntryButton.Source = ButtonImage;
-            }
-            if (propertyName == nameof(ClickCommand))
-            {
-                EntryButton.Command = ClickCommand;
+                case nameof(IsWrongVisible):
+                    if (IsWrongVisible)
+                    {
+                        _borderColor = EntryBorderColor;
+                        EntryBorderColor = WrongColor;
+                    }
+                    else
+                    {
+                        EntryBorderColor = _borderColor;
+                    }
+                    break;
             }
         }
 

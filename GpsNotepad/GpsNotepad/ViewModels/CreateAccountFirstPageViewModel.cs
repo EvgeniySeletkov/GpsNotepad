@@ -1,17 +1,12 @@
-﻿using Acr.UserDialogs;
-using GpsNotepad.Models;
-using GpsNotepad.Resources;
+﻿using GpsNotepad.Models;
 using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Validation;
 using GpsNotepad.Views;
+using Plugin.FacebookClient;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -19,118 +14,136 @@ namespace GpsNotepad.ViewModels
 {
     class CreateAccountFirstPageViewModel : BaseViewModel
     {
-        private IAuthorizationService _authorizationService;
+        private readonly IAuthorizationService _authorizationService;
 
         public CreateAccountFirstPageViewModel(IAuthorizationService authorizationService,
-                                   ILocalizationService localizationService,
-                                   INavigationService navigationService) : base(navigationService, localizationService)
+                                               ILocalizationService localizationService,
+                                               INavigationService navigationService) : base(navigationService, localizationService)
         {
             _authorizationService = authorizationService;
         }
 
         #region --- Public Properties ---
 
-        private string name;
+        private string _name;
         public string Name
         {
-            get => name;
-            set => SetProperty(ref name, value);
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
-        private string nameWrongText;
+        private string _nameWrongText;
         public string NameWrongText
         {
-            get => nameWrongText;
-            set => SetProperty(ref nameWrongText, value);
+            get => _nameWrongText;
+            set => SetProperty(ref _nameWrongText, value);
         }
 
-        private bool isNameWrongVisible = false;
+        private bool _isNameWrongVisible;
         public bool IsNameWrongVisible
         {
-            get => isNameWrongVisible;
-            set => SetProperty(ref isNameWrongVisible, value);
+            get => _isNameWrongVisible;
+            set => SetProperty(ref _isNameWrongVisible, value);
         }
 
-        private string email;
+        private string _email;
         public string Email
         {
-            get => email;
-            set => SetProperty(ref email, value);
+            get => _email;
+            set => SetProperty(ref _email, value);
         }
 
-        private string emailWrongText;
+        private string _emailWrongText;
         public string EmailWrongText
         {
-            get => emailWrongText;
-            set => SetProperty(ref emailWrongText, value);
+            get => _emailWrongText;
+            set => SetProperty(ref _emailWrongText, value);
         }
 
-        private bool isEmailWrongVisible = false;
+        private bool _isEmailWrongVisible;
         public bool IsEmailWrongVisible
         {
-            get => isEmailWrongVisible;
-            set => SetProperty(ref isEmailWrongVisible, value);
+            get => _isEmailWrongVisible;
+            set => SetProperty(ref _isEmailWrongVisible, value);
         }
 
-        private bool isNextButtonEnabled = false;
+        private bool _isNextButtonEnabled;
         public bool IsNextButtonEnabled
         {
-            get => isNextButtonEnabled;
-            set => SetProperty(ref isNextButtonEnabled, value);
+            get => _isNextButtonEnabled;
+            set => SetProperty(ref _isNextButtonEnabled, value);
         }
 
-        private ICommand nameClearTapCommand;
+        private ICommand _nameClearTapCommand;
         public ICommand NameClearTapCommand =>
-            nameClearTapCommand ?? (nameClearTapCommand = new DelegateCommand(OnNameClearTap));
+            _nameClearTapCommand ??= new DelegateCommand(OnNameClearTap);
 
-        private ICommand emailClearTapCommand;
+        private ICommand _emailClearTapCommand;
         public ICommand EmailClearTapCommand =>
-            emailClearTapCommand ?? (emailClearTapCommand = new DelegateCommand(OnEmailClearTap));
+            _emailClearTapCommand ??= new DelegateCommand(OnEmailClearTap);
 
-        private ICommand nextTapCommand;
+        private ICommand _nextTapCommand;
         public ICommand NextTapCommand => 
-            nextTapCommand ?? (nextTapCommand = new DelegateCommand(OnNextTap));
+            _nextTapCommand ??= new DelegateCommand(OnNextTapAsync);
 
-        private ICommand signInWithFacebookTapCommand;
-        public ICommand SignInWithFacebookTapCommand =>
-            signInWithFacebookTapCommand ?? (signInWithFacebookTapCommand = new DelegateCommand(OnSignInWithFacebookTapCommandTap));
+        private ICommand _logInWithFacebookTapCommand;
+        public ICommand LogInWithFacebookTapCommand =>
+            _logInWithFacebookTapCommand ??= new DelegateCommand(OnLogInWithFacebookTapAsync);
 
+
+        #endregion
+
+        #region --- Overrides ---
+
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            base.OnPropertyChanged(args);
+
+            if (string.IsNullOrWhiteSpace(Name) ||
+                string.IsNullOrWhiteSpace(Email))
+            {
+                IsNextButtonEnabled = false;
+            }
+            else
+            {
+                IsNextButtonEnabled = true;
+            }
+        }
 
         #endregion
 
         #region --- Private helpers ---
 
-        private void ClearEntries()
-        {
-            Name = string.Empty;
-            Email = string.Empty;
-        }
-
-        private void ShowAlert(string msg)
-        {
-            UserDialogs.Instance.Alert(msg, Resource["Alert"], "OK");
-        }
-
         private bool HasValidName()
         {
-            bool isNameValid = true;
+            bool isNameValid;
             if (!Validator.HasValidName(Name))
             {
-                ShowAlert(Resource["HasValidName"]);
-                ClearEntries();
+                IsNameWrongVisible = true;
+                NameWrongText = Resource["HasValidName"];
                 isNameValid = false;
+            }
+            else
+            {
+                IsNameWrongVisible = false;
+                isNameValid = true;
             }
             return isNameValid;
         }
 
         private bool HasValidEmail()
         {
-            bool isEmailValid = true;
+            bool isEmailValid;
             if (!Validator.HasValidEmail(Email))
             {
-                ShowAlert(Resource["HasValidEmail"]);
-                ClearEntries();
+                IsEmailWrongVisible = true;
+                EmailWrongText = Resource["HasValidEmail"];
                 isEmailValid = false;
+            }
+            else
+            {
+                IsEmailWrongVisible = false;
+                isEmailValid = true;
             }
             return isEmailValid;
         }
@@ -156,7 +169,7 @@ namespace GpsNotepad.ViewModels
             Email = string.Empty;
         }
 
-        private async void OnNextTap()
+        private async void OnNextTapAsync()
         {
             if (HasValidName() &&
                 HasValidEmail())
@@ -164,43 +177,41 @@ namespace GpsNotepad.ViewModels
                 var userModel = CreateUser();
                 if (userModel != null)
                 {
-                    var isBusy = await _authorizationService.HasEmail(Email);
-                    if (!isBusy)
+                    var isBusyEmail = await _authorizationService.HasEmailAsync(Email);
+                    if (!isBusyEmail)
                     {
+                        IsEmailWrongVisible = false;
                         var parameters = new NavigationParameters();
                         parameters.Add(nameof(UserModel), userModel);
                         await NavigationService.NavigateAsync(nameof(CreateAccountSecondPage), parameters);
                     }
                     else
                     {
-                        ShowAlert(Resource["HasBusyEmail"]);
-                        ClearEntries();
+                        IsEmailWrongVisible = true;
+                        EmailWrongText = Resource["HasBusyEmail"];
                     }
                 }
             }
         }
 
-        private async void OnSignInWithFacebookTapCommandTap()
+        private async void OnLogInWithFacebookTapAsync()
         {
-            await _authorizationService.SignInWithFacebook();
-        }
-
-        #endregion
-
-        #region --- Overrides ---
-
-        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
-        {
-            base.OnPropertyChanged(args);
-
-            if (string.IsNullOrWhiteSpace(Name) ||
-                string.IsNullOrWhiteSpace(Email))
+            var response = await _authorizationService.LogInWithFacebookAsync();
+            switch (response.Status)
             {
-                IsNextButtonEnabled = false;
-            }
-            else
-            {
-                IsNextButtonEnabled = true;
+                case FacebookActionStatus.Completed:
+                    bool isAutorized = await _authorizationService.AuthorizeWithFacebookAsync();
+                    if (isAutorized)
+                    {
+                        await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                    }
+                    break;
+                case FacebookActionStatus.Canceled:
+                    break;
+                case FacebookActionStatus.Error:
+                    break;
+                case FacebookActionStatus.Unauthorized:
+                    break;
             }
         }
 

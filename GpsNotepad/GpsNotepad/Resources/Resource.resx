@@ -121,28 +121,43 @@
     <value>Alert</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>Confirm Password</value>
+    <value>Confirm password</value>
+  </data>
+  <data name="CreateAccountButton" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="CreateAccountPageTitle" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="CreatePasswordPlaceholder" xml:space="preserve">
+    <value>Create password</value>
   </data>
   <data name="DarkTheme" xml:space="preserve">
     <value>Dark</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>Enter email</value>
   </data>
   <data name="EnglishLanguage" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="HasBusyEmail" xml:space="preserve">
-    <value>This email used by another user.</value>
+    <value>This email used by another user</value>
   </data>
-  <data name="HasEqualNameAndPassword" xml:space="preserve">
-    <value>Name and password should not be equal.</value>
+  <data name="HasConsidePasswordWithName" xml:space="preserve">
+    <value>Password is conside with name</value>
   </data>
   <data name="HasMatchPasswords" xml:space="preserve">
     <value>Password missmatch</value>
   </data>
   <data name="HasValidEmail" xml:space="preserve">
-    <value>Please enter corrected email.</value>
+    <value>Wrong Email</value>
   </data>
   <data name="HasValidName" xml:space="preserve">
-    <value>Name must contain at least 4 characters. First symbol should not be digit. </value>
+    <value>Name must contain at least 4 characters. First symbol should not be digit</value>
   </data>
   <data name="HasValidPassword" xml:space="preserve">
     <value>Password must contain at least 6 characters, including one uppercase, one lowercase and one number. First symbol should not be digit. </value>
@@ -153,11 +168,26 @@
   <data name="LightTheme" xml:space="preserve">
     <value>Light</value>
   </data>
+  <data name="LogInButton" xml:space="preserve">
+    <value>Log In</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NamePlaceholder" xml:space="preserve">
+    <value>Enter your name</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="PasswordPlaceholder" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="RepeatPasswordPlaceholder" xml:space="preserve">
+    <value>Repeat password</value>
   </data>
   <data name="RussianLanguage" xml:space="preserve">
     <value>Russian</value>
@@ -165,17 +195,8 @@
   <data name="SettingsPageTitle" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="SignInButton" xml:space="preserve">
-    <value>SIGN IN</value>
-  </data>
   <data name="SignInPageTitle" xml:space="preserve">
     <value>User SignIn</value>
-  </data>
-  <data name="SignUpButton" xml:space="preserve">
-    <value>SIGN UP</value>
-  </data>
-  <data name="SignUpPageTitle" xml:space="preserve">
-    <value>User SignUp</value>
   </data>
   <data name="ThemeOptions" xml:space="preserve">
     <value>Theme</value>

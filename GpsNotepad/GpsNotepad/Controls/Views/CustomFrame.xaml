@@ -5,20 +5,20 @@
              x:Class="GpsNotepad.Controls.Views.CustomFrame"
              x:Name="CustomEntry">
 
-    <Label x:Name="Subtitle"
-           BindingContext="{x:Reference Name=CustomEntry}"
+    <Label BindingContext="{x:Reference Name=CustomEntry}"
            Padding="16, 0, 0, 0"
            FontSize="{Binding SubtitleFontSize}"
            TextColor="{Binding SubtitleTextColor}"
            Text="{Binding SubtitleText}"/>
-    <Frame x:Name="Frame" 
-           BindingContext="{x:Reference Name=CustomEntry}"
+    
+    <Frame BindingContext="{x:Reference Name=CustomEntry}"
            Padding="12, 10, 15, 10"
            BorderColor="{Binding EntryBorderColor}"
            BackgroundColor="{Binding EntryBackgoundColor}">
+        
         <Grid ColumnDefinitions="0.9*, 0.1*">
-            <local:CustomEntry x:Name="Entry"
-                               BindingContext="{x:Reference Name=CustomEntry}"
+            
+            <local:CustomEntry BindingContext="{x:Reference Name=CustomEntry}"
                                Grid.Column="0"
                                FontSize="{Binding EntryFontSize}"
                                PlaceholderColor="{Binding EntryPlaceholderColor}"
@@ -26,19 +26,23 @@
                                TextColor="{Binding EntryTextColor}"
                                Text="{Binding EntryText}"
                                IsPassword="{Binding IsEntryPassword}"/>
-            <ImageButton x:Name="EntryButton"
-                         BindingContext="{x:Reference Name=CustomEntry}"
+            
+            <ImageButton BindingContext="{x:Reference Name=CustomEntry}"
+                         Source="{Binding ButtonImage}"
+                         IsVisible="{Binding IsButtonVisible}"
+                         Command="{Binding ClickCommand}"
                          BackgroundColor="Transparent"
-                         Grid.Column="1"
-                         IsVisible="False"/>
+                         Grid.Column="1"/>
         </Grid>
+        
     </Frame>
-    <Label x:Name="WrongLabel"
-           BindingContext="{x:Reference Name=CustomEntry}"
+    
+    <Label BindingContext="{x:Reference Name=CustomEntry}"
            Padding="16, 0, 0, 0"
            FontSize="{Binding WrongFontSize}"
            TextColor="{Binding WrongColor}"
            Text="{Binding WrongText}"
-           IsVisible="False"/>
+           IsVisible="{Binding IsWrongVisible}"/>
+    
 
 </StackLayout>

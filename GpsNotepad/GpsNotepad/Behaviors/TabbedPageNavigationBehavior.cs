@@ -8,7 +8,6 @@ namespace GpsNotepad.Behaviors
 {
     class TabbedPageNavigationBehavior : BehaviorBase<TabbedPage>
     {
-        //add regios
         private Page _currentPage;
 
         #region --- Overrides ---

@@ -1,11 +1,10 @@
-﻿using GpsNotepad.Models;
+﻿using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Repository;
 using GpsNotepad.Services.Settings;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.Services.Pin
 {
@@ -22,9 +21,9 @@ namespace GpsNotepad.Services.Pin
         }
 
         //remove async-await and return task
-        public async Task DeletePinAsync(PinModel pinModel)
+        public Task DeletePinAsync(PinModel pinModel)
         {
-            await _repository.DeleteAsync(pinModel);
+            return _repository.DeleteAsync(pinModel);
         }
 
         public async Task<List<PinModel>> GetAllPinsAsync()
@@ -34,16 +33,29 @@ namespace GpsNotepad.Services.Pin
             return pins.Where(x => x.UserId == userId).ToList();
         }
 
-        public async Task InsertPinAsync(PinModel pinModel)
+        public Task InsertPinAsync(PinModel pinModel)
         {
             pinModel.UserId = _settingsManager.UserId;
-            await _repository.InsertAsync(pinModel);
+            return _repository.InsertAsync(pinModel);
         }
 
-        //remove async-await and return task
-        public async Task UpdatePinAsync(PinModel pinModel)
+        public Task UpdatePinAsync(PinModel pinModel)
         {
-            await _repository.UpdateAsync(pinModel);
+            return _repository.UpdateAsync(pinModel);
         }
+
+        public async Task<string> GetAddressAsync(Position position)
+        {
+            var geocoder = new Geocoder();
+            var addressList = await geocoder.GetAddressesForPositionAsync(position);
+            var fullAddress = addressList != null ? addressList.FirstOrDefault() : string.Empty;
+            var address = !string.IsNullOrWhiteSpace(fullAddress) ?
+                (fullAddress.Substring(0,
+                             fullAddress.IndexOf(",") != -1 ?
+                             fullAddress.IndexOf(",") :
+                             fullAddress.Length)) : string.Empty;
+
+            return address;
+        }  
     }
 }

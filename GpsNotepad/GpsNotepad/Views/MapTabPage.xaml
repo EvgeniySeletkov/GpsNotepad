@@ -5,6 +5,7 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="GpsNotepad.Views.MapTabPage">
+
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

@@ -1,10 +1,8 @@
 ﻿using Acr.UserDialogs;
 using GpsNotepad.Extensions;
-using GpsNotepad.Models;
-using GpsNotepad.Resources;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Pin;
-using GpsNotepad.ViewModels.ExtendedViewModels;
+using GpsNotepad.Models.Pin;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
@@ -31,26 +29,23 @@ namespace GpsNotepad.ViewModels
                                     IPinService pinService) : base(navigationService, localizationService)
         {
             _pinService = pinService;
+            title = "Add Pin";
+            pinViewModelList = new ObservableCollection<PinViewModel>();
+            latitideEntry = "0";
+            longitideEntry = "0";
         }
 
         #region --- Public properties ---
 
-        private string title = "Add Pin";
+        private string title;
         public string Title
         {
             get => title;
             set => SetProperty(ref title, value);
         }
-        //check for using anywhere
-        private List<Pin> pins = new List<Pin>();
-        public List<Pin> Pins
-        {
-            get => pins;
-            set => SetProperty(ref pins, value);
-        }
 
         //initialize in ctor
-        private ObservableCollection<PinViewModel> pinViewModelList = new ObservableCollection<PinViewModel>();
+        private ObservableCollection<PinViewModel> pinViewModelList;
         public ObservableCollection<PinViewModel> PinViewModelList
         {
             get => pinViewModelList;
@@ -78,14 +73,14 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref addressEntry, value);
         }
 
-        private string latitideEntry = "0";
+        private string latitideEntry;
         public string LatitudeEntry
         {
             get => latitideEntry;
             set => SetProperty(ref latitideEntry, value);
         }
 
-        private string longitideEntry = "0";
+        private string longitideEntry;
         public string LongitudeEntry
         {
             get => longitideEntry;
@@ -101,135 +96,11 @@ namespace GpsNotepad.ViewModels
 
         private ICommand mapTapCommand;
         public ICommand MapTapCommand => 
-            mapTapCommand ?? (mapTapCommand = new DelegateCommand<object>(OnMapTap));
+            mapTapCommand ??= new DelegateCommand<object>(OnMapTap);
 
         private ICommand savePinTapCommand;
         public ICommand SavePinTapCommand => 
-            savePinTapCommand ?? (savePinTapCommand = new DelegateCommand(OnSavePinTap));
-
-        #endregion
-        //regions order
-        #region --- Private helpers ---
-
-        private bool HasEmptyCordinates()
-        {
-            bool isEmpty = false;
-            if (string.IsNullOrWhiteSpace(LatitudeEntry) ||
-                string.IsNullOrWhiteSpace(LongitudeEntry))
-            {
-                isEmpty = true;
-                Pins.Clear();
-            }
-
-            return isEmpty;
-        }
-
-        private async Task<string> GetAddressAsync(Position position)
-        {
-            //move this method to service
-            var geocoder = new Geocoder();
-            var addressList = await geocoder.GetAddressesForPositionAsync(position);
-            var fullAddress = addressList != null ? addressList.FirstOrDefault() : string.Empty;
-            var address = !string.IsNullOrWhiteSpace(fullAddress) ? 
-                (fullAddress.Substring(0, 
-                             fullAddress.IndexOf(",") != -1 ?
-                             fullAddress.IndexOf(",") :
-                             fullAddress.Length)) : string.Empty;
-
-            return address;
-        }
-
-        private async Task<PinViewModel> CreatePinViewModelAsync(Position position)
-        {
-            var address = await GetAddressAsync(position);
-
-            _pinViewModel = new PinViewModel()
-            {
-                //string to resources
-                Label = !string.IsNullOrWhiteSpace(LabelEntry) ? LabelEntry : "Untitled pin",
-                Latitude = Math.Round(position.Latitude, 2),
-                Longitude = Math.Round(position.Longitude, 2),
-                Address = address,
-                IsVisible = true,
-                Description = DescriptionEntry
-            };
-
-            return _pinViewModel;
-        }
-
-        //EditPinAsync
-        private async Task<PinViewModel> EditPinViewModelAsync(Position position)
-        {
-            var address = await GetAddressAsync(position);
-            _pinViewModel.Label = !string.IsNullOrWhiteSpace(LabelEntry) ? LabelEntry : "Untitled pin";
-            _pinViewModel.Latitude = Math.Round(position.Latitude, 2);
-            _pinViewModel.Longitude = Math.Round(position.Longitude, 2);
-            _pinViewModel.Address = address;
-            _pinViewModel.Description = DescriptionEntry;
-
-            return _pinViewModel;
-        }
-
-        private async Task<PinViewModel> AddPinViewModelOnMapAsync(Position position)
-        {
-            //refactor (return types)
-            if (_pinViewModel == null)
-            {
-                await CreatePinViewModelAsync(position);
-                
-            }
-            else
-            {
-                await EditPinViewModelAsync(position);
-            }
-
-            var pinViewModelList = new List<PinViewModel>();
-            pinViewModelList.Add(_pinViewModel);
-            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModelList);
-
-            return _pinViewModel;
-        }
-
-        private async void OnMapTap(object obj)
-        {
-            var position = (Position)obj;
-            await AddPinViewModelOnMapAsync(position);
-            LabelEntry = _pinViewModel.Label;
-            AddressEntry = _pinViewModel.Address;
-            LatitudeEntry = _pinViewModel.Latitude.ToString();
-            LongitudeEntry = _pinViewModel.Longitude.ToString();
-        }
-
-        private async void OnSavePinTap()
-        {
-            if (!string.IsNullOrWhiteSpace(LabelEntry) && !HasEmptyCordinates())
-            {
-                var pinModels = await _pinService.GetAllPinsAsync();
-                var uniquePinModel = pinModels.FirstOrDefault(p => p.Label == LabelEntry);
-                if (uniquePinModel == null)
-                {
-                    var pinModel = _pinViewModel.ToPinModel();
-                    if (_pinViewModel.PinId == 0)
-                    {
-                        await _pinService.InsertPinAsync(pinModel);
-                    }
-                    else
-                    {
-                        await _pinService.UpdatePinAsync(pinModel);
-                    }
-                    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
-                }
-                else
-                {
-                    //UserDialogs.Instance.Alert("Latitude or Longitude field is not digit!", Resource["Alert"], "OK");
-                    UserDialogs.Instance.Alert("Name must be unique.", Resource["Alert"], "OK");
-                }
-            }
-            else
-            {
-                UserDialogs.Instance.Alert("Name, Latitude or Longitude field is empty.", Resource["Alert"], "OK");
-            }
-        }
+            savePinTapCommand ??= new DelegateCommand(OnSavePinTap);
 
         #endregion
 
@@ -237,9 +108,7 @@ namespace GpsNotepad.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            //use TryGetValue
-            var pinViewModel = parameters.GetValue<PinViewModel>(nameof(PinViewModel));
-            if (pinViewModel != null)
+            if (parameters.TryGetValue<PinViewModel>(nameof(PinViewModel), out var pinViewModel))
             {
                 Title = "Edit Pin";
                 _pinViewModel = pinViewModel;
@@ -272,6 +141,106 @@ namespace GpsNotepad.ViewModels
                     var position = new Position(latitude, longitude);
                     await AddPinViewModelOnMapAsync(position);
                 }
+            }
+        }
+
+        #endregion
+
+        #region --- Private helpers ---
+
+        private bool HasEmptyCordinates()
+        {
+            bool isEmpty = false;
+            if (string.IsNullOrWhiteSpace(LatitudeEntry) ||
+                string.IsNullOrWhiteSpace(LongitudeEntry))
+            {
+                isEmpty = true;
+            }
+
+            return isEmpty;
+        }
+
+        private async Task CreatePinAsync(Position position)
+        {
+            var address = await _pinService.GetAddressAsync(position);
+
+            _pinViewModel = new PinViewModel()
+            {
+                Label = !string.IsNullOrWhiteSpace(LabelEntry) ? LabelEntry : "Untitled pin",
+                Latitude = Math.Round(position.Latitude, 2),
+                Longitude = Math.Round(position.Longitude, 2),
+                Address = address,
+                IsVisible = true,
+                Description = DescriptionEntry
+            };
+        }
+
+        private async Task EditPinAsync(Position position)
+        {
+            var address = await _pinService.GetAddressAsync(position);
+            _pinViewModel.Label = !string.IsNullOrWhiteSpace(LabelEntry) ? LabelEntry : "Untitled pin";
+            _pinViewModel.Latitude = Math.Round(position.Latitude, 2);
+            _pinViewModel.Longitude = Math.Round(position.Longitude, 2);
+            _pinViewModel.Address = address;
+            _pinViewModel.Description = DescriptionEntry;
+
+        }
+
+        private async Task AddPinViewModelOnMapAsync(Position position)
+        {
+            if (_pinViewModel == null)
+            {
+                await CreatePinAsync(position);
+                
+            }
+            else
+            {
+                await EditPinAsync(position);
+            }
+
+            var pinViewModelList = new List<PinViewModel>();
+            pinViewModelList.Add(_pinViewModel);
+            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModelList);
+        }
+
+        private async void OnMapTap(object obj)
+        {
+            var position = (Position)obj;
+            await AddPinViewModelOnMapAsync(position);
+            LabelEntry = _pinViewModel.Label;
+            AddressEntry = _pinViewModel.Address;
+            LatitudeEntry = _pinViewModel.Latitude.ToString();
+            LongitudeEntry = _pinViewModel.Longitude.ToString();
+        }
+
+        private async void OnSavePinTap()
+        {
+            if (!string.IsNullOrWhiteSpace(LabelEntry) && !HasEmptyCordinates())
+            {
+                var pinModels = await _pinService.GetAllPinsAsync();
+                var uniquePinModel = pinModels.FirstOrDefault(p => p.Label == LabelEntry);
+                if (uniquePinModel == null && _pinViewModel != null)
+                {
+                    var pinModel = _pinViewModel.ToPinModel();
+                    if (_pinViewModel.PinId == 0)
+                    {
+                        await _pinService.InsertPinAsync(pinModel);
+                    }
+                    else
+                    {
+                        await _pinService.UpdatePinAsync(pinModel);
+                    }
+                    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                }
+                else
+                {
+                    //UserDialogs.Instance.Alert("Latitude or Longitude field is not digit!", Resource["Alert"], "OK");
+                    UserDialogs.Instance.Alert("Name must be unique.", Resource["Alert"], "OK");
+                }
+            }
+            else
+            {
+                UserDialogs.Instance.Alert("Name, Latitude or Longitude field is empty.", Resource["Alert"], "OK");
             }
         }
 

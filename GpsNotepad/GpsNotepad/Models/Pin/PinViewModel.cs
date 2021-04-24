@@ -3,31 +3,39 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GpsNotepad.ViewModels.ExtendedViewModels
+namespace GpsNotepad.Models.Pin
 {
     class PinViewModel : BindableBase
     {
         //_pinId
-        private int pinId;
+        private int _pinId;
         public int PinId
         {
-            get => pinId;
-            set => SetProperty(ref pinId, value);
+            get => _pinId;
+            set => SetProperty(ref _pinId, value);
         }
 
         //rename
-        private string label;
+        private string _label;
         public string Label
         {
-            get => label;
-            set => SetProperty(ref label, value);
+            get => _label;
+            set => SetProperty(ref _label, value);
         }
 
-        private double latitude;
+        private double _latitude;
         public double Latitude
         {
-            get => latitude;
-            set => SetProperty(ref latitude, value);
+            get => _latitude;
+            set => SetProperty(ref _latitude, value);
+        }
+
+
+        private double _longitude;
+        public double Longitude
+        {
+            get => _longitude;
+            set => SetProperty(ref _longitude, value);
         }
 
         public string Coordinates
@@ -35,19 +43,11 @@ namespace GpsNotepad.ViewModels.ExtendedViewModels
             get => $"{Latitude}; {Longitude}";
         }
 
-
-        private double longitude;
-        public double Longitude
-        {
-            get => longitude;
-            set => SetProperty(ref longitude, value);
-        }
-
-        private string address;
+        private string _address;
         public string Address
         {
-            get => address;
-            set => SetProperty(ref address, value);
+            get => _address;
+            set => SetProperty(ref _address, value);
         }
 
         //_isFavorite

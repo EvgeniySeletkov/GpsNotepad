@@ -35,6 +35,9 @@
     <Compile Update="Views\CreateAccountSecondPage.xaml.cs">
       <DependentUpon>CreateAccountSecondPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MainMapTabbedPage.xaml.cs">
       <DependentUpon>MainMapTabbedPage.xaml</DependentUpon>
     </Compile>
@@ -63,7 +66,7 @@
     <EmbeddedResource Update="Views\AddEditPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\LogInAndRegisterPage.xaml">
+    <EmbeddedResource Update="Views\WelcomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MainMapTabbedPage.xaml">

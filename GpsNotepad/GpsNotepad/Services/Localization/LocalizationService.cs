@@ -1,11 +1,8 @@
 ﻿using GpsNotepad.Resources;
 using GpsNotepad.Services.Settings;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
-using System.Text;
 using Xamarin.Forms;
 
 namespace GpsNotepad.Services.Localization
@@ -13,7 +10,7 @@ namespace GpsNotepad.Services.Localization
     class LocalizationService : ILocalizationService, INotifyPropertyChanged
     {
         //add readonly
-        private ISettingsManager _settingsManager;
+        private readonly ISettingsManager _settingsManager;
         private readonly ResourceManager _resourceManager;
         private CultureInfo _currentCultureInfo;
 
@@ -54,10 +51,10 @@ namespace GpsNotepad.Services.Localization
         }
 
         //refactor: add parameter
-        public void SetLocalization()
-        {
-            var cultureInfo = new CultureInfo(_settingsManager.Culture, false);
-            Resource.Culture = cultureInfo;
-        }
+        //public void SetLocalization()
+        //{
+        //    var cultureInfo = new CultureInfo(_settingsManager.Culture, false);
+        //    Resource.Culture = cultureInfo;
+        //}
     }
 }

@@ -1,95 +1,83 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:resource="clr-namespace:GpsNotepad.Resources"
              xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
              x:Class="GpsNotepad.Views.CreateAccountSecondPage"
              Style="{StaticResource PageBackground}"
-             Title="Create an account">
+             Title="{Binding Resource[CreateAccountPageTitle]}">
     <ContentPage.Content>
-        
-        <!--remove grid-->
-        <Grid RowDefinitions="*">
 
-            <StackLayout Grid.Row="0">
+        <StackLayout Padding="16, 0, 16, 0">
 
-                <StackLayout Padding="16, 0, 16, 0">
-                    
-                    <!--PASSWORD-->
-                    <local:CustomFrame Style="{StaticResource Entry}"
-                                       SubtitleText="Password"
-                                       EntryPlaceholder="Create password"
-                                       ButtonImage="{Binding PasswordVisibleImage}"
-                                       IsEntryPassword="{Binding IsPassword}"
-                                       EntryText="{Binding Password}"
-                                       WrongText="{Binding PasswordWrongText}"
-                                       IsWrongVisible="{Binding IsPasswordWrongVisible}"
-                                       ClickCommand="{Binding PasswordVisibleTapCommand}"/>
+            <!--PASSWORD-->
+            <local:CustomFrame Style="{StaticResource PasswordEntry}"
+                               SubtitleText="{Binding Resource[Password]}"
+                               EntryPlaceholder="{Binding Resource[CreatePasswordPlaceholder]}"
+                               IsEntryPassword="{Binding IsPassword}"
+                               EntryText="{Binding Password}"
+                               WrongText="{Binding PasswordWrongText}"
+                               IsWrongVisible="{Binding IsPasswordWrongVisible}"
+                               ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
-                    <!--CONFIRM PASSWORD-->
-                    <local:CustomFrame Style="{StaticResource Entry}"
-                                       SubtitleText="Confirm password"
-                                       EntryPlaceholder="Repeat password"
-                                       Padding="0, 8, 0, 0"
-                                       ButtonImage="{Binding ConfirmPasswordVisibleImage}"
-                                       IsEntryPassword="{Binding IsConfirmPassword}"
-                                       EntryText="{Binding ConfirmPassword}"
-                                       WrongText="{Binding ConfirmPasswordWrongText}"
-                                       IsWrongVisible="{Binding IsConfirmPasswordWrongVisible}"
-                                       ClickCommand="{Binding ConfirmPasswordVisibleTapCommand}"/>
+            <!--CONFIRM PASSWORD-->
+            <local:CustomFrame Style="{StaticResource PasswordEntry}"
+                               SubtitleText="{Binding Resource[ConfirmPassword]}"
+                               EntryPlaceholder="{Binding Resource[RepeatPasswordPlaceholder]}"
+                               Padding="0, 8, 0, 0"
+                               IsEntryPassword="{Binding IsConfirmPassword}"
+                               EntryText="{Binding ConfirmPassword}"
+                               WrongText="{Binding ConfirmPasswordWrongText}"
+                               IsWrongVisible="{Binding IsConfirmPasswordWrongVisible}"
+                               ClickCommand="{Binding ConfirmPasswordVisibleTapCommand}"/>
 
-                    <!--CREATE ACCOUNT BUTTON-->
-                    <Button Style="{StaticResource FillButton}"
-                            Text="Create account" 
-                            Margin="0, 40, 0, 0"
-                            Command="{Binding CreateAccountTapCommand}"/>
+            <!--CREATE ACCOUNT BUTTON-->
+            <Button Style="{StaticResource FillButton}"
+                    Text="{Binding Resource[CreateAccountButton]}" 
+                    Margin="0, 40, 0, 0"
+                    Command="{Binding CreateAccountTapCommand}"/>
 
-                    <!--SEPARATOR-->
-                    <Grid ColumnDefinitions="0.48*, 0.04*, 0.48*"
-                          Margin="0, 14, 0, 0">
+            <!--SEPARATOR-->
+            <Grid ColumnDefinitions="0.48*, 0.04*, 0.48*"
+                  Margin="0, 14, 0, 0">
 
-                        <BoxView Style="{StaticResource Separator}"
-                                 Grid.Column="0"
-                                 VerticalOptions="Center"/>
+                <BoxView Style="{StaticResource Separator}"
+                         Grid.Column="0"
+                         VerticalOptions="Center"/>
 
-                        <Label Style="{StaticResource SeparatorText}"
-                               Text="or"
-                               Grid.Column="1"
-                               HorizontalOptions="Center"/>
+                <Label Style="{StaticResource SeparatorText}"
+                       Text="or"
+                       Grid.Column="1"
+                       HorizontalOptions="Center"/>
 
-                        <BoxView Style="{StaticResource Separator}"
-                                 Grid.Column="2"
-                                 VerticalOptions="Center"/>
+                <BoxView Style="{StaticResource Separator}"
+                         Grid.Column="2"
+                         VerticalOptions="Center"/>
 
-                    </Grid>
+            </Grid>
 
-                    <!--ALTERNATIVE LOG IN BUTTON-->
-                    <Grid ColumnDefinitions="*"
-                          Margin="0, 14, 0, 0">
+            <!--ALTERNATIVE LOG IN BUTTON-->
+            <Grid ColumnDefinitions="*"
+                  Margin="0, 14, 0, 0">
 
-                        <Button Style="{StaticResource AlternativeLogInButton}"
-                                ImageSource="ic_google.png"
-                                Grid.Column="0"
-                                IsEnabled="False"/>
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="ic_google.png"
+                        Grid.Column="0"
+                        IsEnabled="False"/>
 
-                        <Button Style="{StaticResource AlternativeLogInButton}"
-                                ImageSource="ic_facebook.png"
-                                Grid.Column="1"
-                                Command="{Binding SignInWithFacebookTapCommand}"/>
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="ic_facebook.png"
+                        Grid.Column="1"
+                        Command="{Binding LogInWithFacebookTapCommand}"/>
 
-                        <Button Style="{StaticResource AlternativeLogInButton}"
-                                ImageSource="{AppThemeBinding Light=ic_apple.png,
-                                                              Dark=ic_apple_dark.png}"
-                                Grid.Column="2"
-                                IsEnabled="False"/>
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="{AppThemeBinding Light=ic_apple.png,
+                                                      Dark=ic_apple_dark.png}"
+                        Grid.Column="2"
+                        IsEnabled="False"/>
 
-                    </Grid>
+            </Grid>
 
-                </StackLayout>
-
-            </StackLayout>
-
-        </Grid>
+        </StackLayout>
 
     </ContentPage.Content>
 

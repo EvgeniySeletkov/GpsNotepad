@@ -1,8 +1,7 @@
-﻿using GpsNotepad.Models;
-using System;
+﻿using GpsNotepad.Models.Pin;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.Services.Pin
 {
@@ -12,5 +11,6 @@ namespace GpsNotepad.Services.Pin
         Task InsertPinAsync(PinModel pinModel);
         Task UpdatePinAsync(PinModel pinModel);
         Task DeletePinAsync(PinModel pinModel);
+        Task<string> GetAddressAsync(Position position);
     }
 }

@@ -1,94 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:resource="clr-namespace:GpsNotepad.Resources"
              xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
              x:Class="GpsNotepad.Views.CreateAccountFirstPage"
              Style="{StaticResource PageBackground}"
-             Title="Create an account">
+             Title="{Binding Resource[CreateAccountPageTitle]}">
     <ContentPage.Content>
 
-        <Grid RowDefinitions="*">
+        <StackLayout Padding="16, 0, 16, 0">
 
-            <StackLayout Grid.Row="0">
+            <!--NAME-->
+            <local:CustomFrame Style="{StaticResource Entry}"
+                               SubtitleText="{Binding Resource[Name]}"
+                               EntryPlaceholder="{Binding Resource[NamePlaceholder]}"
+                               ButtonImage="ic_clear.png"
+                               EntryText="{Binding Name}"
+                               WrongText="{Binding NameWrongText}"
+                               IsWrongVisible="{Binding IsNameWrongVisible}"
+                               ClickCommand="{Binding NameClearTapCommand}"/>
 
-                <StackLayout Padding="16, 0, 16, 0">
-                    
-                    <!--NAME-->
-                    <local:CustomFrame Style="{StaticResource Entry}"
-                                       SubtitleText="Name"
-                                       EntryPlaceholder="Enter your name"
-                                       ButtonImage="ic_clear.png"
-                                       EntryText="{Binding Name}"
-                                       WrongText="{Binding NameWrongText}"
-                                       IsWrongVisible="{Binding IsNameWrongVisible}"
-                                       ClickCommand="{Binding NameClearTapCommand}"/>
+            <!--EMAIL-->
+            <local:CustomFrame Style="{StaticResource Entry}"
+                               SubtitleText="{Binding Resource[Email]}"
+                               EntryPlaceholder="{Binding Resource[EmailPlaceholder]}"
+                               ButtonImage="ic_clear.png"
+                               Padding="0, 8, 0, 0"
+                               EntryText="{Binding Email}"
+                               WrongText="{Binding EmailWrongText}"
+                               IsWrongVisible="{Binding IsEmailWrongVisible}"
+                               ClickCommand="{Binding EmailClearTapCommand}"/>
 
-                    <!--EMAIL-->
-                    <local:CustomFrame Style="{StaticResource Entry}"
-                                       SubtitleText="Email"
-                                       EntryPlaceholder="Enter email"
-                                       ButtonImage="ic_clear.png"
-                                       Padding="0, 8, 0, 0"
-                                       EntryText="{Binding Email}"
-                                       WrongText="{Binding EmailWrongText}"
-                                       IsWrongVisible="{Binding IsEmailWrongVisible}"
-                                       ClickCommand="{Binding EmailClearTapCommand}"/>
+            <!--NEXT BUTTON-->
+            <Button Style="{StaticResource FillButton}"
+                    Text="{Binding Resource[NextButton]}" 
+                    Margin="0, 40, 0, 0"
+                    Command="{Binding NextTapCommand}"
+                    IsEnabled="{Binding IsNextButtonEnabled}"/>
 
-                    <!--NEXT BUTTON-->
-                    <Button Style="{StaticResource FillButton}"
-                            Text="Next" 
-                            Margin="0, 40, 0, 0"
-                            Command="{Binding NextTapCommand}"
-                            IsEnabled="{Binding IsNextButtonEnabled}"/>
+            <!--SEPARATOR-->
+            <Grid ColumnDefinitions="0.48*, 0.04*, 0.48*"
+                  Margin="0, 14, 0, 0">
 
-                    <!--SEPARATOR-->
-                    <Grid ColumnDefinitions="0.48*, 0.04*, 0.48*"
-                          Margin="0, 14, 0, 0">
+                <BoxView Style="{StaticResource Separator}"
+                         Grid.Column="0"
+                         VerticalOptions="Center"/>
 
-                        <BoxView Style="{StaticResource Separator}"
-                                 Grid.Column="0"
-                                 VerticalOptions="Center"/>
+                <Label Style="{StaticResource SeparatorText}"
+                       Text="or"
+                       Grid.Column="1"
+                       HorizontalOptions="Center"/>
 
-                        <Label Style="{StaticResource SeparatorText}"
-                               Text="or"
-                               Grid.Column="1"
-                               HorizontalOptions="Center"/>
+                <BoxView Style="{StaticResource Separator}"
+                         Grid.Column="2"
+                         VerticalOptions="Center"/>
 
-                        <BoxView Style="{StaticResource Separator}"
-                                 Grid.Column="2"
-                                 VerticalOptions="Center"/>
+            </Grid>
 
-                    </Grid>
+            <!--ALTERNATIVE LOG IN BUTTON-->
+            <Grid ColumnDefinitions="*"
+                  Margin="0, 14, 0, 0">
 
-                    <!--ALTERNATIVE LOG IN BUTTON-->
-                    <Grid ColumnDefinitions="*"
-                          Margin="0, 14, 0, 0">
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="ic_google.png"
+                        Grid.Column="0"
+                        IsEnabled="False"/>
 
-                        <Button Style="{StaticResource AlternativeLogInButton}"
-                                ImageSource="ic_google.png"
-                                Grid.Column="0"
-                                IsEnabled="False"/>
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="ic_facebook.png"
+                        Grid.Column="1"
+                        Command="{Binding LogInWithFacebookTapCommand}"/>
 
-                        <Button Style="{StaticResource AlternativeLogInButton}"
-                                ImageSource="ic_facebook.png"
-                                Grid.Column="1"
-                                Command="{Binding SignInWithFacebookTapCommand}"/>
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="{AppThemeBinding Light=ic_apple.png,
+                                                      Dark=ic_apple_dark.png}"
+                        Grid.Column="2"
+                        IsEnabled="False"/>
 
-                        <Button Style="{StaticResource AlternativeLogInButton}"
-                                ImageSource="{AppThemeBinding Light=ic_apple.png,
-                                                              Dark=ic_apple_dark.png}"
-                                Grid.Column="2"
-                                IsEnabled="False"/>
+            </Grid>
 
-                    </Grid>
-
-                </StackLayout>
-
-            </StackLayout>
-
-        </Grid>
+        </StackLayout>
 
     </ContentPage.Content>
 
-    </ContentPage>
+</ContentPage>

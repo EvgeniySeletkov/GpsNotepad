@@ -1,26 +1,24 @@
-﻿using GpsNotepad.Models;
+﻿using GpsNotepad.Extensions;
+using GpsNotepad.Models;
 using GpsNotepad.Services.Repository;
 using GpsNotepad.Services.Settings;
-using GpsNotepad.Views;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.FacebookClient;
 using Prism.Navigation;
-using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace GpsNotepad.Services.Authorization
 {
     class AuthorizationService : IAuthorizationService
     {
-        //add readonly
         private readonly IRepository _repository;
-        private ISettingsManager _settingsManager;
-        private INavigationService _navigationService;
+        private readonly ISettingsManager _settingsManager;
+        private readonly INavigationService _navigationService;
         //register it in app.xaml.cs and get instance using DI
-        private IFacebookClient _facebookService = CrossFacebookClient.Current;
+        private readonly IFacebookClient _facebookService;
+        
+        private string[] _fbPermisions = { Constants.FACEBOOK_EMAIL_KEY };
 
         public AuthorizationService(IRepository repository,
                                     ISettingsManager settingsManager,
@@ -29,24 +27,78 @@ namespace GpsNotepad.Services.Authorization
             _repository = repository;
             _settingsManager = settingsManager;
             _navigationService = navigationService;
+            _facebookService = CrossFacebookClient.Current;
         }
-         
-        //make extension
-        private UserModel ConvertFacebookProfileModelToUserModel(FacebookProfileModel facebookProfileModel)
+
+        public bool IsAuthorized
         {
-            var userModel = new UserModel()
+            get => _settingsManager.UserId != 0;
+        }
+
+        public Task CreateAccountAsync(UserModel userModel)
+        {
+            return _repository.InsertAsync(userModel);
+        }
+
+        public async Task<bool> HasEmailAsync(string email)
+        {
+            bool result = false;
+            var users = await _repository.GetAllAsync<UserModel>();
+            var user = users.FirstOrDefault(u => u.Email == email);
+
+            if (user != null)
             {
-                Email = facebookProfileModel.Email,
-                Name = $"{facebookProfileModel.FirstName} {facebookProfileModel.LastName}"
+                result = true;
+            }
+
+            return result;
+        }
+
+        public async Task<bool> LogInAsync(string email, string password)
+        {
+            var users = await _repository.GetAllAsync<UserModel>();
+            var user = users.FirstOrDefault(u => u.Email == email);
+
+            if (user != null)
+            {
+                _settingsManager.UserId = user.Id;
+            }
+
+            return user != null;
+        }
+
+        private async Task<FacebookProfileModel> LoadFacebookDataAsync()
+        {
+            string[] fbRequestFields = new string[]
+            { 
+                Constants.FACEBOOK_EMAIL_KEY, 
+                Constants.FACEBOOK_FIRST_NAME_KEY, 
+                Constants.FACEBOOK_LAST_NAME_KEY
             };
 
-            return userModel;
+            var jsonData = await _facebookService.RequestUserDataAsync(fbRequestFields, _fbPermisions);
+            var data = JObject.Parse(jsonData.Data);
+
+            var facebookProfile = new FacebookProfileModel()
+            {
+                FirstName = data[Constants.FACEBOOK_FIRST_NAME_KEY].ToString(),
+                LastName = data[Constants.FACEBOOK_LAST_NAME_KEY].ToString(),
+                Email = data[Constants.FACEBOOK_EMAIL_KEY].ToString()
+            };
+
+            return facebookProfile;
         }
 
-        private async Task<bool> AuthorizeWithFacebookAsync(FacebookProfileModel facebookProfileModel)
+        public Task<FacebookResponse<bool>> LogInWithFacebookAsync()
+        {
+            return _facebookService.LoginAsync(_fbPermisions);
+        }
+
+        public async Task<bool> AuthorizeWithFacebookAsync()
         {
             bool isAutorized = false;
-            var userModel = ConvertFacebookProfileModelToUserModel(facebookProfileModel);
+            var facebookProfile = await LoadFacebookDataAsync();
+            var userModel = facebookProfile.ToUser();
             var users = await _repository.GetAllAsync<UserModel>();
             var user = users.FirstOrDefault(u => u.Email == userModel.Email);
 
@@ -64,7 +116,7 @@ namespace GpsNotepad.Services.Authorization
             }
             else
             {
-                await CreateAccount(userModel);
+                await CreateAccountAsync(userModel);
                 isAutorized = true;
                 _settingsManager.UserId = userModel.Id;
             }
@@ -73,95 +125,5 @@ namespace GpsNotepad.Services.Authorization
 
         }
 
-        public bool IsAuthorized
-        {
-            get => _settingsManager.UserId != 0;
-        }
-
-        public async Task<bool> SignInAsync(string email, string password)
-        {
-            var users = await _repository.GetAllAsync<UserModel>();
-            var user = users.FirstOrDefault(u => u.Email == email);
-
-            if (user != null)
-            {
-                _settingsManager.UserId = user.Id;
-            }
-
-            return user != null;
-        }
-
-        public async Task SignInWithFacebook()
-        {
-            try
-            {
-                if (_facebookService.IsLoggedIn)
-                {
-                    _facebookService.Logout();
-                }
-
-                EventHandler<FBEventArgs<string>> userDataDelegate = null;
-
-                //make method
-                userDataDelegate = async (object sender, FBEventArgs<string> e) =>
-                {
-                    if (e == null)
-                    {
-                        return;
-                    }
-
-                    //return status from SignInWithFacebook and handle it in viewmodel
-                    switch (e.Status)
-                    {
-                        case FacebookActionStatus.Completed:
-                            var facebookProfileModel = await Task.Run(() => JsonConvert.DeserializeObject<FacebookProfileModel>(e.Data));
-                            bool isAutorized = await AuthorizeWithFacebookAsync(facebookProfileModel);
-                            if (isAutorized)
-                            {
-                                //no navigation in services
-                                await _navigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
-                            }
-                            break;
-                        case FacebookActionStatus.Canceled:
-                            break;
-                        case FacebookActionStatus.Error:
-                            break;
-                        case FacebookActionStatus.Unauthorized:
-                            break;
-                    }
-
-                    _facebookService.OnUserData -= userDataDelegate;
-                };
-
-                _facebookService.OnUserData += userDataDelegate;
-
-                string[] fbRequestFields = { "email", "first_name", "gender", "last_name" };
-                string[] fbPermisions = { "email" };
-                await _facebookService.RequestUserDataAsync(fbRequestFields, fbPermisions);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.ToString());
-            }
-        }
-
-        public Task CreateAccount(UserModel userModel)
-        {
-            return _repository.InsertAsync(userModel);
-        }
-
-        public async Task<bool> HasEmail(string email)
-        {
-            bool result = false;
-            var users = await _repository.GetAllAsync<UserModel>();
-            var user = users.FirstOrDefault(u => u.Email == email);
-
-            if (user != null)
-            {
-                result = true;
-            }
-
-            return result;
-        }
     }
 }

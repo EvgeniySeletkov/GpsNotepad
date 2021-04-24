@@ -1,15 +1,8 @@
-﻿using GpsNotepad.Extensions;
-using GpsNotepad.Models;
-using GpsNotepad.Services.Localization;
+﻿using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Settings;
-using GpsNotepad.ViewModels.ExtendedViewModels;
 using GpsNotepad.Views;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -45,7 +38,7 @@ namespace GpsNotepad.ViewModels
         {
             //add logout method in authservice
             _settingsManager.UserId = 0;
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}");
         }
 
         private async void OnSettingsTap()

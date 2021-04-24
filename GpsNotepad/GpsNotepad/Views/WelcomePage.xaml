@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GpsNotepad.Views.LogInAndRegisterPage"
+             x:Class="GpsNotepad.Views.WelcomePage"
              NavigationPage.HasNavigationBar="False"
              Style="{StaticResource PageBackground}">
 
@@ -29,11 +29,11 @@
                              Padding="16, 0, 16, 0">
 
                     <Button Style="{StaticResource FillButton}"
-                            Text="Log in" 
+                            Text="{Binding Resource[LogInButton]}" 
                             Command="{Binding LogInTapCommand}"/>
                     <Button BorderWidth="1"
                             Style="{StaticResource ButtonWithBorder}"
-                            Text="Create account" 
+                            Text="{Binding Resource[CreateAccountButton]}" 
                             Margin="0, 10, 0, 0"
                             Command="{Binding CreateAccountTapCommand}"/>
 

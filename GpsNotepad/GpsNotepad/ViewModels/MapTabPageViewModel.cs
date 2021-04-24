@@ -1,11 +1,11 @@
 ﻿using Acr.UserDialogs;
 using GpsNotepad.Controls;
 using GpsNotepad.Extensions;
+using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.MapCameraPosition;
 using GpsNotepad.Services.Permission;
 using GpsNotepad.Services.Pin;
-using GpsNotepad.ViewModels.ExtendedViewModels;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
@@ -67,6 +67,13 @@ namespace GpsNotepad.ViewModels
         {
             get => searchText;
             set => SetProperty(ref searchText, value);
+        }
+
+        private string searchBar;
+        public string SearchBar
+        {
+            get => searchBar;
+            set => SetProperty(ref searchBar, value);
         }
 
         private string label;
@@ -169,7 +176,7 @@ namespace GpsNotepad.ViewModels
         {
             //change parameter type
             var cameraPosition = (CameraPosition)obj;
-            _mapCameraPositionService.SetCameraPosition(cameraPosition);
+            _mapCameraPositionService.SaveCameraPosition(cameraPosition);
         }
 
         private void OnPinViewModelSelectTap()
@@ -192,7 +199,7 @@ namespace GpsNotepad.ViewModels
 
         private async void OnGoToCurrentLocationTap()
         {
-            var status = await _permissionService.CheckAndRequestLocationPermission();
+            var status = await _permissionService.RequestLocationPermissionAsync();
 
             if (status == PermissionStatus.Granted)
             {
@@ -252,6 +259,11 @@ namespace GpsNotepad.ViewModels
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnPropertyChanged(args);
+
+            if (args.PropertyName == nameof(SearchBar))
+            {
+                Console.WriteLine();
+            }
             
             if (args.PropertyName == nameof(SearchText))
             {

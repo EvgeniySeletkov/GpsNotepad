@@ -1,6 +1,5 @@
 ﻿using GpsNotepad.Extensions;
-using GpsNotepad.ViewModels.ExtendedViewModels;
-using System.Collections.Generic;
+using GpsNotepad.Models.Pin;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
@@ -28,8 +27,7 @@ namespace GpsNotepad.Controls
             propertyName: nameof(MoveToPosition),
             returnType: typeof(MapSpan),
             declaringType: typeof(CustomMap),
-            defaultValue: default,
-            propertyChanged: MoveToPositionPropertyChanged);
+            defaultValue: default);
 
         public MapSpan MoveToPosition
         {
@@ -37,31 +35,44 @@ namespace GpsNotepad.Controls
             set => SetValue(MoveToPositionProperty, value);
         }
 
-        private static void MoveToPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var control = (CustomMap)bindable;
-            control.MoveToRegion((MapSpan)newValue);
+        //private static void MoveToPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        //{
+        //    var control = (CustomMap)bindable;
+        //    control.MoveToRegion((MapSpan)newValue);
 
-        }
+        //}
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
             //ask Alexey about this part
-            if (propertyName == nameof(MapPinViewModels))
+            switch (propertyName)
             {
-                Pins.Clear();
+                case nameof(MapPinViewModels):
+                    Pins.Clear();
 
-                if (MapPinViewModels != null)
-                {
-                    foreach (var pinViewModel in MapPinViewModels)
+                    if (MapPinViewModels != null)
                     {
-                        var pin = pinViewModel.ToPin();
-                        Pins.Add(pin);
+                        foreach (var pinViewModel in MapPinViewModels)
+                        {
+                            var pin = pinViewModel.ToPin();
+                            Pins.Add(pin);
+                        }
                     }
-                }
+                    break;
+                case nameof(MoveToPosition):
+                    MoveToRegion(MoveToPosition);
+                    break;
             }
+            //if (propertyName == nameof(MapPinViewModels))
+            //{
+                
+            //}
+            //if (propertyName == nameof(MoveToPosition))
+            //{
+                
+            //}
         }
     }
 }

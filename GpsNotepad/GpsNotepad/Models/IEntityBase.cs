@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GpsNotepad.Models
+﻿namespace GpsNotepad.Models
 {
     interface IEntityBase
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Essentials;
+﻿using Xamarin.Essentials;
 
 namespace GpsNotepad.Services.Settings
 {
@@ -20,14 +17,13 @@ namespace GpsNotepad.Services.Settings
 
         public double Latitude
         {
-            //to constants
-            get => Preferences.Get(nameof(Latitude), 41.89);
+            get => Preferences.Get(nameof(Latitude), Constants.DEFAULT_LATITUDE);
             set => Preferences.Set(nameof(Latitude), value);
         }
 
         public double Longitude
         {
-            get => Preferences.Get(nameof(Longitude), 12.49);
+            get => Preferences.Get(nameof(Longitude), Constants.DEFAULT_LONGITUDE);
             set => Preferences.Set(nameof(Longitude), value);
         }
 
@@ -41,8 +37,8 @@ namespace GpsNotepad.Services.Settings
         {
             UserId = 0;
             Culture = Constants.ENGLISH_LANGUAGE;
-            Latitude = 41.89;
-            Longitude = 12.49;
+            Latitude = Constants.DEFAULT_LATITUDE;
+            Longitude = Constants.DEFAULT_LONGITUDE;
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using GpsNotepad.Services.Settings;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.Services.MapCameraPosition
@@ -22,12 +19,11 @@ namespace GpsNotepad.Services.MapCameraPosition
             return mapSpan;
         }
 
-        //SaveCameraPosition
-        public void SetCameraPosition(CameraPosition cameraPosition)
+        public void SaveCameraPosition(CameraPosition cameraPosition)
         {
             _settingsManager.Latitude = cameraPosition.Target.Latitude;
             _settingsManager.Longitude = cameraPosition.Target.Longitude;
-            _settingsManager.Zoom = Math.Round(cameraPosition.Zoom);
+            //_settingsManager.Zoom = Math.Round(cameraPosition.Zoom);
         }
     }
 }

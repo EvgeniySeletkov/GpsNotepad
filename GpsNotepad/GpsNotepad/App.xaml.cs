@@ -8,6 +8,7 @@ using GpsNotepad.Services.Repository;
 using GpsNotepad.Services.Settings;
 using GpsNotepad.ViewModels;
 using GpsNotepad.Views;
+using Plugin.FacebookClient;
 using Prism.Ioc;
 using Prism.Unity;
 using System;
@@ -50,7 +51,7 @@ namespace GpsNotepad
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<AddEditPage, AddEditPageViewModel>();
             containerRegistry.RegisterForNavigation<PinImagesPage, PinImagesPageViewModel>();
-            containerRegistry.RegisterForNavigation<LogInAndRegisterPage, LogInAndRegisterPageViewModel>();
+            containerRegistry.RegisterForNavigation<WelcomePage, WelcomePageViewModel>();
         }
 
         protected async override void OnInitialized()
@@ -64,7 +65,7 @@ namespace GpsNotepad
             }
             else
             {
-                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}");
             }
 
             Application.Current.UserAppTheme = OSAppTheme.Dark;

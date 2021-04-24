@@ -1,17 +1,12 @@
-﻿using Acr.UserDialogs;
-using GpsNotepad.Models;
-using GpsNotepad.Resources;
+﻿using GpsNotepad.Models;
 using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Validation;
 using GpsNotepad.Views;
+using Plugin.FacebookClient;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -20,214 +15,111 @@ namespace GpsNotepad.ViewModels
     class CreateAccountSecondPageViewModel : BaseViewModel
     {
         private UserModel _userModel;
-
-        private IAuthorizationService _authorizationService;
+        private readonly IAuthorizationService _authorizationService;
 
         public CreateAccountSecondPageViewModel(IAuthorizationService authorizationService,
                                                 ILocalizationService localizationService,
                                                 INavigationService navigationService) : base(navigationService, localizationService)
         {
             _authorizationService = authorizationService;
+            IsPassword = true;
+            IsConfirmPassword = true;
         }
 
         #region --- Public Properties ---
 
-        private string password;
+        private string _password;
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
         
-        //use triggers in xaml
-        private string passwordVisibleImage = "ic_eye_off.png";
+        private string _passwordVisibleImage;
         public string PasswordVisibleImage
         {
-            get => passwordVisibleImage;
-            set => SetProperty(ref passwordVisibleImage, value);
+            get => _passwordVisibleImage;
+            set => SetProperty(ref _passwordVisibleImage, value);
         }
 
-        private bool isPassword = true;
+        private bool _isPassword;
         public bool IsPassword
         {
-            get => isPassword;
-            set => SetProperty(ref isPassword, value);
+            get => _isPassword;
+            set => SetProperty(ref _isPassword, value);
         }
 
-        private string passwordWrongText;
+        private string _passwordWrongText;
         public string PasswordWrongText
         {
-            get => passwordWrongText;
-            set => SetProperty(ref passwordWrongText, value);
+            get => _passwordWrongText;
+            set => SetProperty(ref _passwordWrongText, value);
         }
 
-        private bool isPasswordWrongVisible = false;
+        private bool _isPasswordWrongVisible;
         public bool IsPasswordWrongVisible
         {
-            get => isPasswordWrongVisible;
-            set => SetProperty(ref isPasswordWrongVisible, value);
+            get => _isPasswordWrongVisible;
+            set => SetProperty(ref _isPasswordWrongVisible, value);
         }
 
-        private string confirmPassword;
+        private string _confirmPassword;
         public string ConfirmPassword
         {
-            get => confirmPassword;
-            set => SetProperty(ref confirmPassword, value);
+            get => _confirmPassword;
+            set => SetProperty(ref _confirmPassword, value);
         }
 
-        private string confirmPasswordVisibleImage = "ic_eye_off.png";
+        private string _confirmPasswordVisibleImage;
         public string ConfirmPasswordVisibleImage
         {
-            get => confirmPasswordVisibleImage;
-            set => SetProperty(ref confirmPasswordVisibleImage, value);
+            get => _confirmPasswordVisibleImage;
+            set => SetProperty(ref _confirmPasswordVisibleImage, value);
         }
 
-        private bool isConfirmPassword = true;
+        private bool _isConfirmPassword;
         public bool IsConfirmPassword
         {
-            get => isConfirmPassword;
-            set => SetProperty(ref isConfirmPassword, value);
+            get => _isConfirmPassword;
+            set => SetProperty(ref _isConfirmPassword, value);
         }
 
-        private string confirmPasswordWrongText;
+        private string _confirmPasswordWrongText;
         public string ConfirmPasswordWrongText
         {
-            get => confirmPasswordWrongText;
-            set => SetProperty(ref confirmPasswordWrongText, value);
+            get => _confirmPasswordWrongText;
+            set => SetProperty(ref _confirmPasswordWrongText, value);
         }
 
-        private bool isConfirmPasswordWrongVisible = false;
+        private bool _isConfirmPasswordWrongVisible;
         public bool IsConfirmPasswordWrongVisible
         {
-            get => isConfirmPasswordWrongVisible;
-            set => SetProperty(ref isConfirmPasswordWrongVisible, value);
+            get => _isConfirmPasswordWrongVisible;
+            set => SetProperty(ref _isConfirmPasswordWrongVisible, value);
         }
 
-        private bool isButtonEnable = false;
+        private bool _isButtonEnable;
         public bool IsButtonEnable
         {
-            get => isButtonEnable;
-            set => SetProperty(ref isButtonEnable, value);
+            get => _isButtonEnable;
+            set => SetProperty(ref _isButtonEnable, value);
         }
 
-        private ICommand passwordVisibleTapCommand;
+        private ICommand _passwordVisibleTapCommand;
         public ICommand PasswordVisibleTapCommand =>
-            passwordVisibleTapCommand ?? (passwordVisibleTapCommand = new DelegateCommand(OnPasswordVisibleTap));
+            _passwordVisibleTapCommand ??= new DelegateCommand(OnPasswordVisibleTap);
 
-        private ICommand confirmPasswordVisibleTapCommand;
+        private ICommand _confirmPasswordVisibleTapCommand;
         public ICommand ConfirmPasswordVisibleTapCommand =>
-            confirmPasswordVisibleTapCommand ?? (confirmPasswordVisibleTapCommand = new DelegateCommand(OnConfirmPasswordVisibleTap));
+            _confirmPasswordVisibleTapCommand ??= new DelegateCommand(OnConfirmPasswordVisibleTap);
 
-        private ICommand createAccountTapCommand;
+        private ICommand _createAccountTapCommand;
         public ICommand CreateAccountTapCommand => 
-            createAccountTapCommand ?? (createAccountTapCommand = new DelegateCommand(OnCreateAccountTap));
+            _createAccountTapCommand ??= new DelegateCommand(OnCreateAccountTapAsync);
 
-        private ICommand signInWithFacebookTapCommand;
-        public ICommand SignInWithFacebookTapCommand =>
-            signInWithFacebookTapCommand ?? (signInWithFacebookTapCommand = new DelegateCommand(OnSignInWithFacebookTapCommandTap));
-
-        #endregion
-
-        #region --- Private helpers ---
-
-        private void ClearEntries()
-        {
-            Password = string.Empty;
-            ConfirmPassword = string.Empty;
-        }
-
-        private void ShowAlert(string msg)
-        {
-            UserDialogs.Instance.Alert(msg, Resource["Alert"], "OK");
-        }
-
-        private bool HasValidPassword()
-        {
-            bool isPasswordValid = true;
-            if (!Validator.HasValidPassword(Password))
-            {
-                ShowAlert(Resource["HasValidPassword"]);
-                ClearEntries();
-                isPasswordValid = false;
-            }
-            if (!Validator.HasEqualPasswords(Password, ConfirmPassword))
-            {
-                IsConfirmPasswordWrongVisible = true;
-                ConfirmPasswordWrongText = Resource["HasMatchPasswords"];
-                isPasswordValid = false;
-            }
-            else
-            {
-                IsConfirmPasswordWrongVisible = false;
-            }
-            return isPasswordValid;
-        }
-
-        private void CreateUser()
-        {
-            if (!Password.Equals(_userModel.Name))
-            {
-                _userModel.Password = Password;
-            }
-            else
-            {
-                ShowAlert(Resource["HasEqualNameAndPassword"]);
-                ClearEntries();
-            }
-        }
-
-        private void OnPasswordVisibleTap()
-        {
-            
-            PasswordWrongText = "Wrong";
-            IsPassword = !IsPassword;
-            if (IsPassword)
-            {
-                PasswordVisibleImage = "ic_eye_off.png";
-                IsPasswordWrongVisible = false;
-            }
-            else
-            {
-                PasswordVisibleImage = "ic_eye.png";
-                IsPasswordWrongVisible = true;
-            }
-        }
-
-        private void OnConfirmPasswordVisibleTap()
-        {
-            IsConfirmPasswordWrongVisible = true;
-            ConfirmPasswordWrongText = "Wrong";
-            IsConfirmPassword = !IsConfirmPassword;
-            if (IsConfirmPassword)
-            {
-                ConfirmPasswordVisibleImage = "ic_eye_off.png";
-            }
-            else
-            {
-                ConfirmPasswordVisibleImage = "ic_eye.png";
-            }
-        }
-
-        private async void OnCreateAccountTap()
-        {
-            if (HasValidPassword())
-            {
-                CreateUser();
-                if (_userModel != null)
-                {
-                    var parameters = new NavigationParameters();
-                    await _authorizationService.CreateAccount(_userModel);
-                    parameters.Add($"{nameof(UserModel)}", _userModel);
-                    await NavigationService.NavigateAsync($"{nameof(LogInPage)}", parameters);
-                }
-            }
-        }
-
-        //rename
-        private async void OnSignInWithFacebookTapCommandTap()
-        {
-            await _authorizationService.SignInWithFacebook();
-        }
+        private ICommand _logInWithFacebookTapCommand;
+        public ICommand LogInWithFacebookTapCommand =>
+            _logInWithFacebookTapCommand ??= new DelegateCommand(OnLogInWithFacebookTapAsync);
 
         #endregion
 
@@ -235,8 +127,7 @@ namespace GpsNotepad.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            //trygetvalue
-            _userModel = parameters.GetValue<UserModel>($"{nameof(UserModel)}");
+            parameters.TryGetValue<UserModel>(nameof(UserModel), out _userModel);
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -251,6 +142,100 @@ namespace GpsNotepad.ViewModels
             else
             {
                 IsButtonEnable = true;
+            }
+        }
+
+        #endregion
+
+        #region --- Private helpers ---
+
+        private bool HasValidPassword()
+        {
+            bool isPasswordValid = true;
+            if (!Validator.HasValidPassword(Password))
+            {
+                IsPasswordWrongVisible = true;
+                PasswordWrongText = Resource["HasValidPassword"];
+                isPasswordValid = false;
+            }
+            else
+            {
+                IsPasswordWrongVisible = false;
+            }
+            if (!Validator.HasEqualPasswords(Password, ConfirmPassword))
+            {
+                IsConfirmPasswordWrongVisible = true;
+                ConfirmPasswordWrongText = Resource["HasMatchPasswords"];
+                isPasswordValid = false;
+            }
+            else
+            {
+                IsConfirmPasswordWrongVisible = false;
+            }
+            return isPasswordValid;
+        }
+
+        private UserModel CreateUser()
+        {
+            var user = _userModel;
+            if (!Password.Equals(_userModel.Name))
+            {
+                IsPasswordWrongVisible = false;
+                user.Password = Password;
+            }
+            else
+            {
+                user = null;
+                IsPasswordWrongVisible = true;
+                PasswordWrongText = Resource["HasConsidePasswordWithName"];
+            }
+
+            return user;
+        }
+
+        private void OnPasswordVisibleTap()
+        {
+            IsPassword = !IsPassword;
+        }
+
+        private void OnConfirmPasswordVisibleTap()
+        {
+            IsConfirmPassword = !IsConfirmPassword;
+        }
+
+        private async void OnCreateAccountTapAsync()
+        {
+            if (HasValidPassword())
+            {
+                var user = CreateUser();
+                if (user != null)
+                {
+                    var parameters = new NavigationParameters();
+                    await _authorizationService.CreateAccountAsync(_userModel);
+                    parameters.Add(nameof(UserModel), _userModel);
+                    await NavigationService.NavigateAsync(nameof(LogInPage), parameters);
+                }
+            }
+        }
+
+        private async void OnLogInWithFacebookTapAsync()
+        {
+            var response = await _authorizationService.LogInWithFacebookAsync();
+            switch (response.Status)
+            {
+                case FacebookActionStatus.Completed:
+                    bool isAutorized = await _authorizationService.AuthorizeWithFacebookAsync();
+                    if (isAutorized)
+                    {
+                        await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                    }
+                    break;
+                case FacebookActionStatus.Canceled:
+                    break;
+                case FacebookActionStatus.Error:
+                    break;
+                case FacebookActionStatus.Unauthorized:
+                    break;
             }
         }
 

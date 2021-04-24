@@ -1,19 +1,11 @@
 ﻿using GpsNotepad.Models;
 using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
-using GpsNotepad.Services.Settings;
 using GpsNotepad.Views;
-using Newtonsoft.Json;
 using Plugin.FacebookClient;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -21,134 +13,96 @@ namespace GpsNotepad.ViewModels
 {
     class LogInPageViewModel : BaseViewModel
     {
-        private IAuthorizationService _authorizationService;
+        private readonly IAuthorizationService _authorizationService;
 
         public LogInPageViewModel(INavigationService navigationService,
                                   ILocalizationService localizationService,
                                   IAuthorizationService authorizationService) : base(navigationService, localizationService)
         {
             _authorizationService = authorizationService;
+            _isPassword = true;
         }
 
         #region --- Public Properties ---
 
-        private string email;
+        private string _email;
         public string Email
         {
-            get => email;
-            set => SetProperty(ref email, value);
+            get => _email;
+            set => SetProperty(ref _email, value);
         }
 
-        private string emailWrongText;
+        private string _emailWrongText;
         public string EmailWrongText
         {
-            get => emailWrongText;
-            set => SetProperty(ref emailWrongText, value);
+            get => _emailWrongText;
+            set => SetProperty(ref _emailWrongText, value);
         }
 
-        private bool isEmailWrongVisible = false;
+        private bool _isEmailWrongVisible = false;
         public bool IsEmailWrongVisible
         {
-            get => isEmailWrongVisible;
-            set => SetProperty(ref isEmailWrongVisible, value);
+            get => _isEmailWrongVisible;
+            set => SetProperty(ref _isEmailWrongVisible, value);
         }
 
-        private string password;
+        private string _password;
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
 
-        private string passwordVisibleImage = "ic_eye_off.png";
+        private string _passwordVisibleImage;
         public string PasswordVisibleImage
         {
-            get => passwordVisibleImage;
-            set => SetProperty(ref passwordVisibleImage, value);
+            get => _passwordVisibleImage;
+            set => SetProperty(ref _passwordVisibleImage, value);
         }
 
-        private bool isPassword = true;
+        private bool _isPassword;
         public bool IsPassword
         {
-            get => isPassword;
-            set => SetProperty(ref isPassword, value);
+            get => _isPassword;
+            set => SetProperty(ref _isPassword, value);
         }
 
-        private string passwordWrongText;
+        private string _passwordWrongText;
         public string PasswordWrongText
         {
-            get => passwordWrongText;
-            set => SetProperty(ref passwordWrongText, value);
+            get => _passwordWrongText;
+            set => SetProperty(ref _passwordWrongText, value);
         }
 
-        private bool isPasswordWrongVisible = false;
+        private bool _isPasswordWrongVisible;
         public bool IsPasswordWrongVisible
         {
-            get => isPasswordWrongVisible;
-            set => SetProperty(ref isPasswordWrongVisible, value);
+            get => _isPasswordWrongVisible;
+            set => SetProperty(ref _isPasswordWrongVisible, value);
         }
 
-        private bool isButtonEnable = false;
+        private bool _isButtonEnable;
         public bool IsButtonEnable
         {
-            get => isButtonEnable;
-            set => SetProperty(ref isButtonEnable, value);
+            get => _isButtonEnable;
+            set => SetProperty(ref _isButtonEnable, value);
         }
 
-        private ICommand emailClearTapCommand;
+        private ICommand _emailClearTapCommand;
         public ICommand EmailClearTapCommand =>
-            emailClearTapCommand ?? (emailClearTapCommand = new DelegateCommand(OnEmailClearTap));
+            _emailClearTapCommand ??= new DelegateCommand(OnEmailClearTap);
 
-        private ICommand passwordVisibleTapCommand;
+        private ICommand _passwordVisibleTapCommand;
         public ICommand PasswordVisibleTapCommand =>
-            passwordVisibleTapCommand ?? (passwordVisibleTapCommand = new DelegateCommand(OnPasswordVisibleTap));
+            _passwordVisibleTapCommand ??= new DelegateCommand(OnPasswordVisibleTap);
 
-        private ICommand logInTapCommand;
+        private ICommand _logInTapCommand;
         public ICommand LogInTapCommand =>
-            logInTapCommand ?? (logInTapCommand = new DelegateCommand(OnLogInTap));
+            _logInTapCommand ??= new DelegateCommand(OnLogInTapAsync);
 
-        private ICommand logInWithFacebookTapCommand;
+        private ICommand _logInWithFacebookTapCommand;
         public ICommand LogInWithFacebookTapCommand =>
-            logInWithFacebookTapCommand ?? (logInWithFacebookTapCommand = new DelegateCommand(OnLogInWithFacebookTap));
-
-        private ICommand signUpTapCommand;
-        public ICommand SignUpTapCommand => 
-            signUpTapCommand ?? (signUpTapCommand = new DelegateCommand(OnSignUpTap));
-
-        #endregion
-
-        #region --- Private helpers ---
-
-        private void OnEmailClearTap()
-        {
-            Email = string.Empty;
-        }
-
-        private void OnPasswordVisibleTap()
-        {
-            IsPassword = !IsPassword;
-
-            passwordVisibleImage = isPassword ? "ic_eye_off.png" : "ic_eye.png";
-        }
-
-        private async void OnLogInTap()
-        {
-            var isAuthorized = await _authorizationService.SignInAsync(email, password);
-            if (isAuthorized)
-            {
-                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
-            }
-        }
-
-        private async void OnLogInWithFacebookTap()
-        {
-            await _authorizationService.SignInWithFacebook();
-        }
-
-        private async void OnSignUpTap()
-        {
-            await NavigationService.NavigateAsync($"{nameof(CreateAccountFirstPage)}");
-        }
+            _logInWithFacebookTapCommand ??= new DelegateCommand(OnLogInWithFacebookTapAsync);
 
         #endregion
 
@@ -156,8 +110,10 @@ namespace GpsNotepad.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            var userModel = parameters.GetValue<UserModel>($"{nameof(UserModel)}");
-            Email = userModel.Email;
+            if (parameters.TryGetValue<UserModel>(nameof(UserModel), out var userModel))
+            {
+                Email = userModel.Email;
+            }
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -172,6 +128,50 @@ namespace GpsNotepad.ViewModels
             else
             {
                 IsButtonEnable = true;
+            }
+        }
+
+        #endregion
+
+        #region --- Private helpers ---
+
+        private void OnEmailClearTap()
+        {
+            Email = string.Empty;
+        }
+
+        private void OnPasswordVisibleTap()
+        {
+            IsPassword = !IsPassword;
+        }
+
+        private async void OnLogInTapAsync()
+        {
+            var isAuthorized = await _authorizationService.LogInAsync(Email, Password);
+            if (isAuthorized)
+            {
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+            }
+        }
+
+        private async void OnLogInWithFacebookTapAsync()
+        {
+            var response = await _authorizationService.LogInWithFacebookAsync();
+            switch (response.Status)
+            {
+                case FacebookActionStatus.Completed:
+                    bool isAutorized = await _authorizationService.AuthorizeWithFacebookAsync();
+                    if (isAutorized)
+                    {
+                        await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                    }
+                    break;
+                case FacebookActionStatus.Canceled:
+                    break;
+                case FacebookActionStatus.Error:
+                    break;
+                case FacebookActionStatus.Unauthorized:
+                    break;
             }
         }
 

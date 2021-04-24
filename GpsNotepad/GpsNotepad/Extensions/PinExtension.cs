@@ -1,8 +1,4 @@
-﻿using GpsNotepad.Models;
-using GpsNotepad.ViewModels.ExtendedViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GpsNotepad.Models.Pin;
 using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.Extensions

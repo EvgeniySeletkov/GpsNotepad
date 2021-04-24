@@ -1,9 +1,7 @@
 ﻿using GpsNotepad.Models;
 using GpsNotepad.Services.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GpsNotepad.Services.PinImage
@@ -17,10 +15,9 @@ namespace GpsNotepad.Services.PinImage
             _repository = repository;
         }
 
-        //remove async-await and return task
-        public async Task DeletePinAsync(PinImageModel pinImageModel)
+        public Task DeletePinAsync(PinImageModel pinImageModel)
         {
-            await _repository.DeleteAsync(pinImageModel);
+            return _repository.DeleteAsync(pinImageModel);
         }
 
         public async Task<List<PinImageModel>> GetAllImagesAsync(int pinId)
@@ -29,10 +26,9 @@ namespace GpsNotepad.Services.PinImage
             return pinImages.Where(p => p.PinId == pinId).ToList();
         }
 
-        //remove async-await and return task
-        public async Task InsertPinAsync(PinImageModel pinImageModel)
+        public Task InsertPinAsync(PinImageModel pinImageModel)
         {
-            await _repository.InsertAsync(pinImageModel);
+            return _repository.InsertAsync(pinImageModel);
         }
     }
 }

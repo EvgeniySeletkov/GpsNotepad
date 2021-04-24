@@ -2,9 +2,9 @@
 
 namespace GpsNotepad.Views
 {
-    public partial class LogInAndRegisterPage : ContentPage
+    public partial class WelcomePage : ContentPage
     {
-        public LogInAndRegisterPage()
+        public WelcomePage()
         {
             InitializeComponent();
         }

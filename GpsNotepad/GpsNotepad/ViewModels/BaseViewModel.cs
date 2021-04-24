@@ -1,17 +1,12 @@
 ﻿using GpsNotepad.Services.Localization;
 using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GpsNotepad.ViewModels
 {
     class BaseViewModel : BindableBase, IInitialize, INavigationAware
     {
         protected INavigationService NavigationService { get; private set; }
-        //protected
         public ILocalizationService Resource{ get; private set; }
 
         public BaseViewModel(INavigationService navigationService,
@@ -21,7 +16,8 @@ namespace GpsNotepad.ViewModels
             Resource = localizationService;
         }
 
-        //regions
+        #region --- IterfaceName implementation ---
+
         public virtual void Initialize(INavigationParameters parameters)
         {
         }
@@ -33,6 +29,8 @@ namespace GpsNotepad.ViewModels
         public virtual void OnNavigatedTo(INavigationParameters parameters)
         {
         }
+
+        #endregion
 
     }
 }
