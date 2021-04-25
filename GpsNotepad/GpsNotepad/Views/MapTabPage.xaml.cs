@@ -17,11 +17,5 @@ namespace GpsNotepad.Views
         {
             InitializeComponent();
         }
-
-        public string SearchTextBar
-        {
-            get => (string)GetValue(SearchTextBarProperty);
-            set => SetValue(SearchTextBarProperty, value);
-        }
     }
 }

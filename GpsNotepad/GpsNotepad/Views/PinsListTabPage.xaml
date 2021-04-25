@@ -3,20 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="GpsNotepad.Views.PinsListTabPage"
              x:Name="pin"
-             x:Class="GpsNotepad.Views.PinsListTabPage">
+             Style="{StaticResource PageBackground}">
+    
     <ContentPage.Content>
 
         <Grid RowDefinitions="*">
 
             <StackLayout Grid.Row="0">
 
-                <SearchBar x:Name="searchBar"
-                           Placeholder="Search"
+                <SearchBar Placeholder="Search"
                            Text="{Binding SearchText}"/>
 
-                <ListView ItemsSource="{Binding PinViewModelList}"
-                          SelectedItem="{Binding SelectedPinViewModel}"
+                <ListView ItemsSource="{Binding PinList}"
+                          SelectedItem="{Binding SelectedPin}"
+                          SeparatorVisibility="None"
                           HasUnevenRows="True"
                           SelectionMode="Single">
 
@@ -29,70 +31,93 @@
                     </ListView.Behaviors>
 
                     <ListView.ItemTemplate>
+
                         <DataTemplate>
+
                             <ViewCell>
 
                                 <ViewCell.ContextActions>
-                                    <MenuItem Text="Edit"
+
+                                    <MenuItem IconImageSource="ic_edit.png"
                                               Command="{Binding Path=BindingContext.EditPinTapCommand, 
                                                                 Source={x:Reference pin}}"
                                               CommandParameter="{Binding .}"/>
-                                    <MenuItem Text="Delete"
+
+                                    <MenuItem IconImageSource="ic_delete.png"
                                               Command="{Binding Path=BindingContext.DeletePinTapCommand, 
                                                                 Source={x:Reference pin}}"
                                               CommandParameter="{Binding .}" />
+
                                 </ViewCell.ContextActions>
 
                                 <ViewCell.View>
 
-                                    <StackLayout Orientation="Horizontal"
-                                                 HorizontalOptions="FillAndExpand">
+                                    <StackLayout Padding="16, 0, 25, 0">
 
-                                        <ImageButton HeightRequest="50"
-                                                     WidthRequest="50"
-                                                     Margin="10, 0, 0, 0"
-                                                     BackgroundColor="Transparent"
-                                                     Source="{Binding Image}"
-                                                     Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
-                                                                       Source={x:Reference pin}}"
-                                                     CommandParameter="{Binding .}" />
+                                        <Grid ColumnDefinitions="0.9*, 0.1*"
+                                              Padding="0, 17.5, 0, 17.5">
 
-                                        <StackLayout VerticalOptions="Center" 
-                                                         Margin="10, 0, 0, 0">
+                                            <StackLayout Orientation="Horizontal"
+                                                         Grid.Column="0">
 
-                                            <Label FontSize="Subtitle"
-                                                   FontAttributes="Bold"
-                                                   Text="{Binding Label}" />
-                                            <Label Text="{Binding Address}" />
-                                            <Label Text="{Binding Coordinates}" />
+                                                <!--IS FAVOURITE BUTTON-->
+                                                <Button Style="{StaticResource IsFavouriteButton}"
+                                                        ImageSource="{Binding Image}"
+                                                        Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
+                                                                          Source={x:Reference pin}}"
+                                                        CommandParameter="{Binding .}" />
 
-                                        </StackLayout>
+                                                <!--PIN INFO-->
+                                                <StackLayout VerticalOptions="Center" 
+                                                             Padding="12, 0, 0, 0">
+
+                                                    <Label Style="{StaticResource PinInfo}"
+                                                           FontSize="14"
+                                                           FontAttributes="Bold"
+                                                           Text="{Binding Label}" />
+
+                                                    <Label Style="{StaticResource PinCoordinates}"
+                                                           FontSize="12"
+                                                           Text="{Binding Coordinates}" />
+
+                                                </StackLayout>
+
+                                            </StackLayout>
+
+                                            <!--RIGHT ARROW BUTTON-->
+                                            <ImageButton Style="{StaticResource RightArrowButton}"
+                                                         Grid.Column="1"/>
+
+                                        </Grid>
+
+                                        <BoxView Style="{StaticResource PinSeparator}"/>
 
                                     </StackLayout>
+
                                 </ViewCell.View>
 
                             </ViewCell>
+                            
                         </DataTemplate>
+                        
                     </ListView.ItemTemplate>
+                    
                 </ListView>
-                
+
             </StackLayout>
-
-            <!--<Label Style="{StaticResource TextStyle}" 
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   Text="No profiles added"
-                   IsVisible="{Binding HaveNoProfiles}" />-->
-
-            <ImageButton Grid.Row="0" WidthRequest="85"
-                         HorizontalOptions="End" VerticalOptions="End"
-                         BorderWidth="10" CornerRadius="100"
-                         Margin="0,0,20,40" Padding="30"
-                         Scale="0.8" BorderColor="#2B3C3C"
-                         BackgroundColor="#1E90FF"
-                         Source="ic_add.png" 
+            
+            <!--ADD BUTTON-->
+            <ImageButton Style="{StaticResource AddButton}"
+                         Source="ic_plus.png"
+                         Padding="11, 11, 11, 11"
+                         Grid.Row="0" 
+                         HorizontalOptions="End" 
+                         VerticalOptions="End"
+                         Margin="0, 0, 16, 16"
                          Command="{Binding AddPinTapCommand}"/>
 
         </Grid>
+        
     </ContentPage.Content>
+    
 </ContentPage>

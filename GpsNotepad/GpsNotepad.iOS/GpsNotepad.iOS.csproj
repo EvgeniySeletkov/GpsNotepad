@@ -136,8 +136,14 @@
     <PackageReference Include="Plugin.FacebookClient">
       <Version>2.2.1</Version>
     </PackageReference>
+    <PackageReference Include="Prism.Plugin.Popups">
+      <Version>7.2.0.1046</Version>
+    </PackageReference>
     <PackageReference Include="Prism.Unity.Forms">
       <Version>8.0.0.1909</Version>
+    </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>2.0.0.11</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.335</Version>

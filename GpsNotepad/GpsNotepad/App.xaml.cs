@@ -10,6 +10,7 @@ using GpsNotepad.ViewModels;
 using GpsNotepad.Views;
 using Plugin.FacebookClient;
 using Prism.Ioc;
+using Prism.Plugin.Popups;
 using Prism.Unity;
 using System;
 using Xamarin.Forms;
@@ -41,6 +42,9 @@ namespace GpsNotepad
             containerRegistry.RegisterInstance<IPinImageService>(Container.Resolve<PinImageService>());
 
             // Navigations
+            containerRegistry.RegisterPopupNavigationService();
+
+            //containerRegistry.RegisterDialog<PinInfoPopupPage, PinInfoPopupPageViewModel>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LogInPage, LogInPageViewModel>();
             containerRegistry.RegisterForNavigation<CreateAccountFirstPage, CreateAccountFirstPageViewModel>();
@@ -52,6 +56,7 @@ namespace GpsNotepad
             containerRegistry.RegisterForNavigation<AddEditPage, AddEditPageViewModel>();
             containerRegistry.RegisterForNavigation<PinImagesPage, PinImagesPageViewModel>();
             containerRegistry.RegisterForNavigation<WelcomePage, WelcomePageViewModel>();
+            containerRegistry.RegisterForNavigation<PinInfoPopupPage, PinInfoPopupPageViewModel>();
         }
 
         protected async override void OnInitialized()

@@ -223,6 +223,15 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Map.
+        /// </summary>
+        internal static string Map {
+            get {
+                return ResourceManager.GetString("Map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Name.
         /// </summary>
         internal static string Name {
@@ -264,6 +273,15 @@ namespace GpsNotepad.Resources {
         internal static string PasswordPlaceholder {
             get {
                 return ResourceManager.GetString("PasswordPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Метки.
+        /// </summary>
+        internal static string Pins {
+            get {
+                return ResourceManager.GetString("Pins", resourceCulture);
             }
         }
         

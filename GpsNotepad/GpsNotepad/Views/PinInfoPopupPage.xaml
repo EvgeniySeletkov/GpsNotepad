@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             BackgroundColor="Transparent"
+             x:Class="GpsNotepad.Views.PinInfoPopupPage"
+             BackgroundClickedCommand="{Binding ClosePopupPageTapCommand}">
+
+    <popups:PopupPage.Animation>
+
+        <animations:ScaleAnimation PositionIn="Bottom"
+                                   PositionOut="Bottom"
+                                   HasBackgroundAnimation="True"/>
+
+    </popups:PopupPage.Animation>
+
+    <popups:PopupPage.Content>
+
+        <StackLayout Style="{StaticResource PopupPageContent}"
+                     VerticalOptions="EndAndExpand" 
+                     HorizontalOptions="FillAndExpand">
+
+            <StackLayout Padding="16, 16, 16, 0">
+                
+                <!--PIN LABEL-->
+                <Label Style="{StaticResource PinInfo}"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Text="{Binding Label}"/>
+                
+                <!--COORDINATES-->
+                <Label Style="{StaticResource PinCoordinates}"
+                       FontSize="14"
+                       Text="{Binding Coordinates}"/>
+                
+                <!--SEPARATOR-->
+                <BoxView Style="{StaticResource PinSeparator}"
+                         HorizontalOptions="Fill"
+                         Margin="0, 16, 0, 0"/>
+                
+                <!--DESCRIPTION-->
+                <Label Style="{StaticResource PinInfo}"
+                       FontSize="14"
+                       Text="{Binding Description}"/>
+
+            </StackLayout>
+
+        </StackLayout>
+
+    </popups:PopupPage.Content>
+  
+</popups:PopupPage>

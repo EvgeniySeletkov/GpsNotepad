@@ -38,22 +38,12 @@
         </Grid>
 
     </NavigationPage.TitleView>
-    
-    <!--<TabbedPage.ToolbarItems>
-
-        <ToolbarItem IconImageSource="ic_settings.png" 
-                     Command="{Binding SettingsTapCommand}"/>
-        <ToolbarItem IconImageSource="ic_exid.png" 
-                     Command="{Binding ExitTapCommand}" />
-        
-    </TabbedPage.ToolbarItems>-->
 
     <TabbedPage.Children>
 
-        <local:MapTabPage Title="Map" 
-                          IconImageSource="ic_map.png"
-                          />
-        <local:PinsListTabPage Title="Pins" 
+        <local:MapTabPage Title="{Binding Resource[Map]}" 
+                          IconImageSource="ic_map.png"/>
+        <local:PinsListTabPage Title="{Binding Resource[Pins]}" 
                                IconImageSource="ic_pin.png"/>
 
     </TabbedPage.Children>

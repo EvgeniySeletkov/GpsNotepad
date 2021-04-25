@@ -1,29 +1,22 @@
-﻿using Acr.UserDialogs;
-using GpsNotepad.Extensions;
-using GpsNotepad.Models;
+﻿using GpsNotepad.Extensions;
 using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.Views;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Input;
-using Xamarin.Forms;
-using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.ViewModels
 {
     class PinsListTabPageViewModel : BaseViewModel
     {
-        private IPinService _pinService;
+        private readonly IPinService _pinService;
         private ObservableCollection<PinViewModel> _pinViewModelList;
 
         public PinsListTabPageViewModel(INavigationService navigationService,
@@ -35,95 +28,46 @@ namespace GpsNotepad.ViewModels
 
         #region --- Public properties ---
 
-        private ObservableCollection<PinViewModel> pinViewModelList;
-        public ObservableCollection<PinViewModel> PinViewModelList
+        private ObservableCollection<PinViewModel> _pinList;
+        public ObservableCollection<PinViewModel> PinList
         {
-            get => pinViewModelList;
-            set => SetProperty(ref pinViewModelList, value);
+            get => _pinList;
+            set => SetProperty(ref _pinList, value);
         }
 
-        private PinViewModel selectedPinViewModel;
-        public PinViewModel SelectedPinViewModel
+        private PinViewModel _selectedPin;
+        public PinViewModel SelectedPin
         {
-            get => selectedPinViewModel;
-            set => SetProperty(ref selectedPinViewModel, value);
+            get => _selectedPin;
+            set => SetProperty(ref _selectedPin, value);
         }
 
-        private string searchText;
+        private string _searchText;
         public string SearchText
         {
-            get => searchText;
-            set => SetProperty(ref searchText, value);
+            get => _searchText;
+            set => SetProperty(ref _searchText, value);
         }
 
-        private ICommand pinVisibleChangeTapCommand;
+        private ICommand _pinVisibleChangeTapCommand;
         public ICommand PinVisibleChangeTapCommand =>
-            pinVisibleChangeTapCommand ?? (pinVisibleChangeTapCommand = new DelegateCommand<PinViewModel>(OnPinVisibleChangeTap));
+            _pinVisibleChangeTapCommand ??= new DelegateCommand<PinViewModel>(OnPinVisibleChangeTapAsync);
 
-        private ICommand selectPinCommand;
+        private ICommand _selectPinCommand;
         public ICommand SelectPinCommand =>
-            selectPinCommand ?? (selectPinCommand = new DelegateCommand(OnSelectPinTap));
+            _selectPinCommand ??= new DelegateCommand(OnSelectPinTapAsync);
 
-        private ICommand addPinTapCommand;
+        private ICommand _addPinTapCommand;
         public ICommand AddPinTapCommand => 
-            addPinTapCommand ?? (addPinTapCommand = new DelegateCommand(OnAddPinTap));
+            _addPinTapCommand ??= new DelegateCommand(OnAddPinTapAsync);
 
-        private ICommand editPinTapCommand;
+        private ICommand _editPinTapCommand;
         public ICommand EditPinTapCommand =>
-            editPinTapCommand ?? (editPinTapCommand = new DelegateCommand<PinViewModel>(OnEditPinTap));
+            _editPinTapCommand ??= new DelegateCommand<PinViewModel>(OnEditPinTapAsync);
 
-        private ICommand deletePinTapCommand;
+        private ICommand _deletePinTapCommand;
         public ICommand DeletePinTapCommand =>
-            deletePinTapCommand ?? (deletePinTapCommand = new DelegateCommand<PinViewModel>(OnDeletePinTap));
-
-        #endregion
-
-        #region --- Private helpers ---
-
-        private async void OnPinVisibleChangeTap(PinViewModel pinViewModel)
-        {
-            if (pinViewModel.IsVisible)
-            {
-                pinViewModel.IsVisible = false;
-                pinViewModel.Image = "closed_eye.png";
-            }
-            else
-            {
-                pinViewModel.IsVisible = true;
-                pinViewModel.Image = "eye.png";
-            }
-
-            var pinModel = pinViewModel.ToPinModel();
-
-            await _pinService.UpdatePinAsync(pinModel);
-        }
-
-        private async void OnSelectPinTap()
-        {
-            var parameters = new NavigationParameters();
-            var pin = SelectedPinViewModel.ToPin();
-            parameters.Add(nameof(SelectedPinViewModel), pin);
-            await NavigationService.SelectTabAsync($"{nameof(MapTabPage)}", parameters);
-        }
-
-        private async void OnAddPinTap()
-        {
-            await NavigationService.NavigateAsync($"{nameof(AddEditPage)}");
-        }
-
-        private async void OnEditPinTap(PinViewModel pinViewModel)
-        {
-            var parameters = new NavigationParameters();
-            parameters.Add(nameof(PinViewModel), pinViewModel);
-            await NavigationService.NavigateAsync($"{nameof(AddEditPage)}", parameters);
-        }
-
-        private async void OnDeletePinTap(PinViewModel pinViewModel)
-        {
-            var pinModel = pinViewModel.ToPinModel();
-            await _pinService.DeletePinAsync(pinModel);
-            PinViewModelList.Remove(pinViewModel);
-        }
+            _deletePinTapCommand ??= new DelegateCommand<PinViewModel>(OnDeletePinTapAsync);
 
         #endregion
 
@@ -137,25 +81,18 @@ namespace GpsNotepad.ViewModels
             foreach (var pinModel in pinModelList)
             {
                 var pinViewModel = pinModel.ToPinViewModel();
-                //refactor
-                if (pinViewModel.IsVisible)
-                {
-                    pinViewModel.Image = "eye.png";
-                }
-                else
-                {
-                    pinViewModel.Image = "closed_eye.png";
-                }
+
+                pinViewModel.Image = pinViewModel.IsVisible ? "ic_like_blue.png" : "ic_like_gray.png";
                 pinViewModelList.Add(pinViewModel);
+
             }
 
-            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModelList);
+            PinList = new ObservableCollection<PinViewModel>(pinViewModelList);
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            //remove
-            parameters.Add(nameof(PinViewModel), PinViewModelList);
+            parameters.Add(nameof(PinViewModel), PinList);
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -163,24 +100,73 @@ namespace GpsNotepad.ViewModels
             base.OnPropertyChanged(args);
             if (args.PropertyName == nameof(SearchText))
             {
-                _pinViewModelList ??= new ObservableCollection<PinViewModel>(PinViewModelList);
+                _pinViewModelList ??= new ObservableCollection<PinViewModel>(PinList);
 
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
-                    PinViewModelList = new ObservableCollection<PinViewModel>(_pinViewModelList);
+                    PinList = new ObservableCollection<PinViewModel>(_pinViewModelList);
                     _pinViewModelList = null;
                 }
                 else
                 {
                     //add method to PinService
-                    PinViewModelList = new ObservableCollection<PinViewModel>(_pinViewModelList.Where(p =>
+                    PinList = new ObservableCollection<PinViewModel>(_pinViewModelList.Where(p =>
                            p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                           p.Latitude.ToString().StartsWith(SearchText) || 
+                           p.Latitude.ToString().StartsWith(SearchText) ||
                            p.Longitude.ToString().StartsWith(SearchText) ||
                            (!string.IsNullOrWhiteSpace(p.Description) &&
                            p.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
                 }
             }
+        }
+
+        #endregion
+
+        #region --- Private helpers ---
+
+        private async void OnPinVisibleChangeTapAsync(PinViewModel pinViewModel)
+        {
+            if (pinViewModel.IsVisible)
+            {
+                pinViewModel.IsVisible = false;
+                pinViewModel.Image = "ic_like_gray.png";
+            }
+            else
+            {
+                pinViewModel.IsVisible = true;
+                pinViewModel.Image = "ic_like_blue.png";
+            }
+
+            var pinModel = pinViewModel.ToPinModel();
+
+            await _pinService.UpdatePinAsync(pinModel);
+        }
+
+        private async void OnSelectPinTapAsync()
+        {
+            var parameters = new NavigationParameters();
+            var pin = SelectedPin.ToPin();
+            parameters.Add(nameof(SelectedPin), pin);
+            await NavigationService.SelectTabAsync($"{nameof(MapTabPage)}", parameters);
+        }
+
+        private async void OnAddPinTapAsync()
+        {
+            await NavigationService.NavigateAsync($"{nameof(AddEditPage)}");
+        }
+
+        private async void OnEditPinTapAsync(PinViewModel pinViewModel)
+        {
+            var parameters = new NavigationParameters();
+            parameters.Add(nameof(PinViewModel), pinViewModel);
+            await NavigationService.NavigateAsync($"{nameof(AddEditPage)}", parameters);
+        }
+
+        private async void OnDeletePinTapAsync(PinViewModel pinViewModel)
+        {
+            var pinModel = pinViewModel.ToPinModel();
+            await _pinService.DeletePinAsync(pinModel);
+            PinList.Remove(pinViewModel);
         }
 
         #endregion

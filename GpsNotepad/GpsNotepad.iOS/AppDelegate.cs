@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using Plugin.FacebookClient;
 using UIKit;
 
@@ -23,6 +19,8 @@ namespace GpsNotepad.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Rg.Plugins.Popup.Popup.Init();
+
             global::Xamarin.Forms.Forms.Init();
             FacebookClientManager.Initialize(app, options);
             Xamarin.FormsGoogleMaps.Init("AIzaSyCKuhxuGJdfI2c-kxAqRYQJ7VwS6HbREWI");

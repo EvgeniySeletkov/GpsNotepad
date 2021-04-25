@@ -171,6 +171,9 @@
   <data name="LogInButton" xml:space="preserve">
     <value>Log In</value>
   </data>
+  <data name="Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="PasswordPlaceholder" xml:space="preserve">
     <value>Enter password</value>
+  </data>
+  <data name="Pins" xml:space="preserve">
+    <value>Метки</value>
   </data>
   <data name="RepeatPasswordPlaceholder" xml:space="preserve">
     <value>Repeat password</value>

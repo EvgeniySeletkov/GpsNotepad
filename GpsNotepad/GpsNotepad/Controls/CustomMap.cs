@@ -9,6 +9,7 @@ namespace GpsNotepad.Controls
 {
     class CustomMap : Map
     {
+
         public static readonly BindableProperty MapPinViewModelsProperty =
             BindableProperty.Create(
                 propertyName: nameof(MapPinViewModels),
@@ -33,6 +34,18 @@ namespace GpsNotepad.Controls
         {
             get => (MapSpan)GetValue(MoveToPositionProperty);
             set => SetValue(MoveToPositionProperty, value);
+        }
+
+        public static readonly BindableProperty IsMyLocationButtonVisibleProperty = BindableProperty.Create(
+            propertyName: nameof(IsMyLocationButtonVisible),
+            returnType: typeof(bool),
+            declaringType: typeof(CustomMap),
+            defaultValue: default);
+
+        public bool IsMyLocationButtonVisible
+        {
+            get => (bool)GetValue(IsMyLocationButtonVisibleProperty);
+            set => SetValue(IsMyLocationButtonVisibleProperty, value);
         }
 
         //private static void MoveToPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -64,15 +77,12 @@ namespace GpsNotepad.Controls
                 case nameof(MoveToPosition):
                     MoveToRegion(MoveToPosition);
                     break;
+                case nameof(IsMyLocationButtonVisible):
+                    UiSettings.CompassEnabled = true;
+                    MyLocationEnabled = true;
+                    UiSettings.MyLocationButtonEnabled = true;
+                    break;
             }
-            //if (propertyName == nameof(MapPinViewModels))
-            //{
-                
-            //}
-            //if (propertyName == nameof(MoveToPosition))
-            //{
-                
-            //}
         }
     }
 }

@@ -7,19 +7,18 @@
              x:Class="GpsNotepad.Views.MapTabPage">
 
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.07*" />
-                <RowDefinition Height="0.93*" />
-            </Grid.RowDefinitions>
+
+        <Grid RowDefinitions="0.07*, 0.93*">
 
             <SearchBar Grid.Row="0"
                        Placeholder="Search" 
                        Text="{Binding SearchText}" />
-
+            
+            <!--GoogleMap-->
             <controls:CustomMap Grid.Row="1"
-                                MapPinViewModels="{Binding PinViewModelList}"
-                                MoveToPosition="{Binding CameraPosition}">
+                                MapPinViewModels="{Binding PinList}"
+                                MoveToPosition="{Binding CameraPosition}"
+                                IsMyLocationButtonVisible="{Binding IsMyLocation}">
 
                 <controls:CustomMap.Behaviors>
 
@@ -38,80 +37,68 @@
                 </controls:CustomMap.Behaviors>
 
             </controls:CustomMap>
-
-            <ListView Grid.Row="1"
-                      BackgroundColor="White"
-                      IsVisible="{Binding IsPinListVisible}"
-                      SelectedItem="{Binding SelectedPinViewModel}"
-                      VerticalOptions="Start"
-                      RowHeight="72"
-                      HeightRequest="{Binding ListHeight}"
+            
+            <!--SearchablePinList-->
+            <ListView BackgroundColor="White"
                       HasUnevenRows="True"
-                      ItemsSource="{Binding PinViewModelList}"
-                      SelectionMode="Single">
+                      VerticalOptions="Start"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding PinList}"
+                      HeightRequest="{Binding ListHeight}"
+                      SelectedItem="{Binding SelectedPin}"
+                      IsVisible="{Binding IsPinListVisible}"
+                      Grid.Row="1">
 
                 <ListView.Behaviors>
 
-                        <prism:EventToCommandBehavior EventName="ItemTapped" 
-                                                      Command="{Binding PinViewModelSelectCommand}"
-                                                      CommandParameter="{Binding .}" />
+                    <prism:EventToCommandBehavior EventName="ItemTapped" 
+                                                  Command="{Binding FoundedPinSelectCommand}"
+                                                  CommandParameter="{Binding .}" />
 
                 </ListView.Behaviors>
 
                 <ListView.ItemTemplate>
+
                     <DataTemplate>
+
                         <ViewCell>
+
                             <ViewCell.View>
 
-                                <StackLayout HorizontalOptions="FillAndExpand"
+                                <StackLayout Padding="20, 12, 21, 12"
                                              VerticalOptions="Center"
-                                             Padding="10, 0, 0, 0">
+                                             Orientation="Horizontal">
 
-                                    <Label FontSize="Subtitle"
-                                           FontAttributes="Bold"
-                                           Text="{Binding Label}" />
-                                    <Label Text="{Binding Address}" />
-                                    <Label Text="{Binding Coordinates}" />
+                                    <Image Source="ic_pin.png"/>
+
+                                    <StackLayout Padding="12, 0, 0, 0">
+
+                                        <Label FontSize="12"
+                                               FontAttributes="Bold"
+                                               TextColor="#1E242B"
+                                               Text="{Binding Label}"/>
+
+                                        <Label FontSize="12"
+                                               TextColor="#1E242B"
+                                               LineBreakMode="TailTruncation"
+                                               Text="{Binding Address}"/>
+
+                                    </StackLayout>
 
                                 </StackLayout>
 
                             </ViewCell.View>
+
                         </ViewCell>
+
                     </DataTemplate>
+
                 </ListView.ItemTemplate>
 
             </ListView>
 
-            <ImageButton Grid.Row="1" WidthRequest="63"
-                         HorizontalOptions="End" VerticalOptions="Center"
-                         CornerRadius="75" Margin="0, 0, 2, 40"
-                         Padding="17" Scale="0.6"
-                         BackgroundColor="White"
-                         Source="ic_current_location.png" 
-                         Command="{Binding GoToCurrentLocationCommand}"/>
-
-
-            <StackLayout Grid.Row="1" 
-                         VerticalOptions="End"
-                         HeightRequest="200"
-                         BackgroundColor="White"
-                         IsVisible="{Binding IsPinInfoVisible}">
-                
-                <ScrollView>
-                    
-                    <StackLayout Padding="30, 30, 30, 30">
-                        <Label Text="{Binding Label}"
-                               FontAttributes="Bold" 
-                               FontSize="Subtitle" />
-                        <Label Text="{Binding Address}" />
-                        <Label Text="{Binding Position}" />
-                        <Label Text="{Binding Description}" />
-                    </StackLayout>
-                    
-                </ScrollView>
-
-            </StackLayout>
-
         </Grid>
+        
     </ContentPage.Content>
+    
 </ContentPage>

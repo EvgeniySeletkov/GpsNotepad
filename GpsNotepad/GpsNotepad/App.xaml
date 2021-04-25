@@ -6,18 +6,40 @@
              x:Class="GpsNotepad.App">
     <prism:PrismApplication.Resources>
         
-        <!--Colors-->
-        <Color x:Key="SystemWhite">#FEFEFD</Color>
-        <Color x:Key="SystemBlack">#1E242B</Color>
+        <!--COLORS-->
+        
+        <!--Light/Primary-->
         <Color x:Key="LightPrimary">#596EFB</Color>
+        <Color x:Key="LightDisabled">#C7CDF5</Color>
+        <Color x:Key="LightHoveredAndFocused">#273BC6</Color>
+        <Color x:Key="LightPressed">#192680</Color>
+        <Color x:Key="LightVariant">#F1F3FD</Color>
+        
+        <!--Dark/Primary-->
         <Color x:Key="DarkPrimary">#7485FB</Color>
+        <Color x:Key="DarkDisabled">#3D4475</Color>
+        <Color x:Key="DarkHoveredAndFocused">#5F73FA</Color>
+        <Color x:Key="DarkPressed">#3953FE</Color>
+        <Color x:Key="DarkVariant">#33374E</Color>
+
+        <!--Text&Background-->
+        <Color x:Key="SystemWhite">#FEFEFD</Color>
         <Color x:Key="SystemLightGray">#D7DDE8</Color>
         <Color x:Key="SystemGray">#858E9E</Color>
         <Color x:Key="SystemDarkGray">#3D4E61</Color>
+        <Color x:Key="SystemBlack">#1E242B</Color>
+        
+        <!--Indications-->
         <Color x:Key="LightError">#F24545</Color>
         <Color x:Key="DarkError">#FA545F</Color>
+        <Color x:Key="LightConfirm">#F6EA62</Color>
+        <Color x:Key="DarkConfirm">#F8FD4D</Color>
+        <Color x:Key="LightSuccess">#32D27F</Color>
+        <Color x:Key="DarkSuccess">#00FFB1</Color>
+        
+        
 
-        <!--Styles-->
+        <!--STYLES-->
         <Style TargetType="NavigationPage">
 
             <Setter Property="BarBackgroundColor" 
@@ -34,6 +56,17 @@
 
             <Setter Property="BackgroundColor" 
                     Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
+                                            Dark={StaticResource SystemBlack}}"/>
+
+        </Style>
+
+        <Style x:Key="PopupPageContent" TargetType="StackLayout">
+
+            <Setter Property="HeightRequest"
+                    Value="242"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite},
                                             Dark={StaticResource SystemBlack}}"/>
 
         </Style>
@@ -182,6 +215,17 @@
 
         </Style>
 
+        <Style x:Key="PinSeparator" TargetType="BoxView">
+
+            <Setter Property="HeightRequest"
+                    Value="1"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource LightVariant}, 
+                                            Dark={StaticResource DarkVariant}}"/>
+
+        </Style>
+
         <Style x:Key="MainMapTabbedPage" TargetType="TabbedPage">
 
             <Setter Property="BarBackgroundColor"
@@ -194,5 +238,65 @@
 
         </Style>
 
+        <Style x:Key="PinInfo" TargetType="Label">
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+
+        </Style>
+
+        <Style x:Key="PinCoordinates" TargetType="Label">
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemLightGray}}"/>
+
+
+        </Style>
+
+        <Style x:Key="RightArrowButton" TargetType="ImageButton">
+
+            <Setter Property="BackgroundColor"
+                    Value="Transparent"/>
+
+            <Setter Property="Source"
+                    Value="{AppThemeBinding Light=ic_left_blue.png,
+                                            Dark=ic_left_gray.png}"/>
+
+        </Style>
+
+        <Style x:Key="IsFavouriteButton" TargetType="Button">
+
+            <Setter Property="HeightRequest"
+                    Value="40"/>
+
+            <Setter Property="WidthRequest"
+                    Value="40"/>
+            
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource LightVariant},
+                                            Dark={StaticResource DarkVariant}}"/>
+
+        </Style>
+
+        <Style x:Key="AddButton" TargetType="ImageButton">
+
+            <Setter Property="HeightRequest"
+                    Value="46"/>
+
+            <Setter Property="WidthRequest"
+                    Value="46"/>
+
+            <Setter Property="CornerRadius"
+                    Value="56"/>
+
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource LightPrimary}" />
+            
+        </Style>
+
     </prism:PrismApplication.Resources>
+    
 </prism:PrismApplication>
