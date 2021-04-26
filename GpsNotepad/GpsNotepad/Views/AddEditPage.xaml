@@ -2,8 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:GpsNotepad.Controls"
+             xmlns:viewControls="clr-namespace:GpsNotepad.Controls.Views"
              xmlns:prism="http://prismlibrary.com"
              x:Class="GpsNotepad.Views.AddEditPage"
+             Style="{StaticResource PageBackground}"
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
@@ -12,37 +14,74 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        
-        <Grid HorizontalOptions="FillAndExpand" 
-              VerticalOptions="FillAndExpand">
-            
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <StackLayout Margin="20, 20, 20, 20"
-                         Grid.Row="0">
+        <StackLayout>
 
-                <Entry Placeholder="Label"
-                       Text="{Binding LabelEntry}" />
-                <Entry Placeholder="Address"
-                       Text="{Binding AddressEntry}"
-                       IsReadOnly="True"/>
-                <Entry Placeholder="Latitude"
-                       Keyboard="Numeric"
-                       Text="{Binding LatitudeEntry}" />
-                <Entry Placeholder="Longitude"
-                       Keyboard="Numeric"
-                       Text="{Binding LongitudeEntry}" />
-                <Editor HeightRequest="140"
-                        Placeholder="Description"
-                        Text="{Binding DescriptionEntry}" />
+            <StackLayout Padding="16, 8, 16, 21">
+
+                <!--LABEL-->
+                <viewControls:CustomFrame Style="{StaticResource Entry}"
+                                          SubtitleText="Label"
+                                          EntryPlaceholder="Enter the label"
+                                          ButtonImage="ic_clear.png"
+                                          EntryText="{Binding LabelEntry}"
+                                          ClickCommand="{Binding LabelClearTapCommand}"/>
+
+                <viewControls:CustomFrame Style="{StaticResource Entry}"
+                                          SubtitleText="Description"
+                                          EntryPlaceholder="Write a description"
+                                          ButtonImage="ic_clear.png"
+                                          Padding="0, 21, 0, 0"
+                                          EntryText="{Binding DescriptionEntry}"
+                                          ClickCommand="{Binding DescriptionClearTapCommand}"/>
+
+                <Label Style="{StaticResource Subtitle}"
+                       Text="Coordinates"
+                       Padding="16, 21, 0, 0"/>
+
+                <StackLayout Orientation="Horizontal">
+
+                    <viewControls:CustomFrame Style="{StaticResource Entry}"
+                                          IsSubtitleVisible="False"
+                                          EntryPlaceholder="Latitude"
+                                          ButtonImage="ic_clear.png"
+                                          EntryKeyboard="Numeric"
+                                          EntryText="{Binding LatitudeEntry}"
+                                          ClickCommand="{Binding DescriptionClearTapCommand}"/>
+
+                    <viewControls:CustomFrame Style="{StaticResource Entry}"
+                                          IsSubtitleVisible="False"
+                                          EntryPlaceholder="Longitude"
+                                          ButtonImage="ic_clear.png"
+                                          EntryKeyboard="Numeric"
+                                          EntryText="{Binding LongitudeEntry}"
+                                          ClickCommand="{Binding DescriptionClearTapCommand}"/>
+
+                </StackLayout>
+
+                <Label Style="{StaticResource Subtitle}"
+                       Text="Add photo"
+                       Padding="16, 21, 0, 0"/>
+
+                <Label FontSize="14"
+                       TextColor="White"
+                       Padding="16, 12, 107, 0"
+                       Text="uploaded_image_1.jpg"/>
+
+                <Label FontSize="14"
+                       TextColor="White"
+                       Padding="16, 18, 107, 12"
+                       Text="uploaded_image_2.jpg"/>
+
+                <Button BorderWidth="1"
+                        Style="{StaticResource ButtonWithBorder}"
+                        Text="Add photo"/>
 
             </StackLayout>
 
             <controls:CustomMap MoveToPosition="{Binding CameraPosition}"
-                                MapPinViewModels="{Binding PinViewModelList}"
-                                Grid.Row="1">
+                                MapPinViewModels="{Binding PinViewModelList}">
+                
                 <controls:CustomMap.Behaviors>
 
                     <prism:EventToCommandBehavior EventName="MapClicked" 
@@ -50,9 +89,10 @@
                                                   EventArgsParameterPath="Point"/>
 
                 </controls:CustomMap.Behaviors>
+                
             </controls:CustomMap>
 
-        </Grid>
+        </StackLayout>
         
     </ContentPage.Content>
   

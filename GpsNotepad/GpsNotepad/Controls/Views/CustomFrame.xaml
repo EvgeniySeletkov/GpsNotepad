@@ -9,7 +9,8 @@
            Padding="16, 0, 0, 0"
            FontSize="{Binding SubtitleFontSize}"
            TextColor="{Binding SubtitleTextColor}"
-           Text="{Binding SubtitleText}"/>
+           Text="{Binding SubtitleText}"
+           IsVisible="{Binding IsSubtitleVisible}"/>
     
     <Frame BindingContext="{x:Reference Name=CustomEntry}"
            Padding="12, 10, 15, 10"
@@ -24,6 +25,7 @@
                                PlaceholderColor="{Binding EntryPlaceholderColor}"
                                Placeholder="{Binding EntryPlaceholder}"
                                TextColor="{Binding EntryTextColor}"
+                               Keyboard="{Binding EntryKeyboard}"
                                Text="{Binding EntryText}"
                                IsPassword="{Binding IsEntryPassword}"/>
             

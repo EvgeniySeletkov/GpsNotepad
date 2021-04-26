@@ -57,6 +57,20 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(SubtitleTextProperty, value);
         }
 
+        public static readonly BindableProperty IsSubtitleVisibleProperty =
+            BindableProperty.Create(
+                propertyName: nameof(IsSubtitleVisible),
+                returnType: typeof(bool),
+                declaringType: typeof(CustomFrame),
+                defaultValue: true,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsSubtitleVisible
+        {
+            get => (bool)GetValue(IsSubtitleVisibleProperty);
+            set => SetValue(IsSubtitleVisibleProperty, value);
+        }
+
         public static readonly BindableProperty EntryBorderColorProperty =
             BindableProperty.Create(
                 propertyName: nameof(EntryBorderColor),
@@ -153,6 +167,20 @@ namespace GpsNotepad.Controls.Views
         {
             get => (string)GetValue(EntryTextProperty);
             set => SetValue(EntryTextProperty, value);
+        }
+
+        public static readonly BindableProperty EntryKeyboardProperty =
+            BindableProperty.Create(
+                propertyName: nameof(EntryKeyboard),
+                returnType: typeof(Keyboard),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public Keyboard EntryKeyboard
+        {
+            get => (Keyboard)GetValue(EntryKeyboardProperty);
+            set => SetValue(EntryKeyboardProperty, value);
         }
 
         public static readonly BindableProperty IsEntryPasswordProperty =

@@ -31,7 +31,7 @@
             <local:CustomFrame Style="{StaticResource PasswordEntry}"
                                SubtitleText="{Binding Resource[Password]}"
                                EntryPlaceholder="{Binding Resource[PasswordPlaceholder]}"
-                               Padding="0, 8, 0, 0"
+                               Margin="0, 8, 0, 0"
                                IsEntryPassword="{Binding IsPassword}"
                                EntryText="{Binding Password}"
                                WrongText="{Binding PasswordWrongText}"

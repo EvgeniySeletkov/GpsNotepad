@@ -132,9 +132,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\closed_eye.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GpsNotepad\GpsNotepad.csproj">
       <Project>{2986B746-72E9-49E1-BD8D-B9519885C146}</Project>
       <Name>GpsNotepad</Name>
@@ -259,9 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\eye.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_current_location.png" />

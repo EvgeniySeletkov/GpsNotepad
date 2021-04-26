@@ -52,7 +52,8 @@
             
         </Style>
 
-        <Style x:Key="PageBackground" TargetType="ContentPage">
+        <Style x:Key="PageBackground" 
+               TargetType="ContentPage">
 
             <Setter Property="BackgroundColor" 
                     Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
@@ -60,7 +61,8 @@
 
         </Style>
 
-        <Style x:Key="PopupPageContent" TargetType="StackLayout">
+        <Style x:Key="PopupPageContent" 
+               TargetType="StackLayout">
 
             <Setter Property="HeightRequest"
                     Value="242"/>
@@ -83,7 +85,8 @@
 
         </Style>
 
-        <Style x:Key="FillButton" TargetType="Button">
+        <Style x:Key="FillButton" 
+               TargetType="Button">
 
             <Setter Property="BackgroundColor"
                     Value="{AppThemeBinding Light={StaticResource LightPrimary},
@@ -100,7 +103,8 @@
 
         </Style>
 
-        <Style x:Key="ButtonWithBorder" TargetType="Button">
+        <Style x:Key="ButtonWithBorder" 
+               TargetType="Button">
 
             <Setter Property="BorderColor"
                     Value="{AppThemeBinding Light={StaticResource LightPrimary},
@@ -122,7 +126,8 @@
 
         </Style>
 
-        <Style x:Key="Entry" TargetType="local:CustomFrame">
+        <Style x:Key="Entry" 
+               TargetType="local:CustomFrame">
 
             <Setter Property="SubtitleFontSize"
                     Value="12"/>
@@ -182,7 +187,8 @@
             
         </Style>
 
-        <Style x:Key="AlternativeLogInButton" TargetType="Button">
+        <Style x:Key="AlternativeLogInButton" 
+               TargetType="Button">
 
             <Setter Property="BorderWidth"
                     Value="1"/>
@@ -196,7 +202,8 @@
 
         </Style>
 
-        <Style x:Key="Separator" TargetType="BoxView">
+        <Style x:Key="Separator" 
+               TargetType="BoxView">
 
             <Setter Property="HeightRequest"
                     Value="1"/>
@@ -207,7 +214,8 @@
 
         </Style>
 
-        <Style x:Key="SeparatorText" TargetType="Label">
+        <Style x:Key="SeparatorText" 
+               TargetType="Label">
 
             <Setter Property="TextColor" 
                     Value="{AppThemeBinding Light={StaticResource SystemLightGray}, 
@@ -215,7 +223,8 @@
 
         </Style>
 
-        <Style x:Key="PinSeparator" TargetType="BoxView">
+        <Style x:Key="PinSeparator" 
+               TargetType="BoxView">
 
             <Setter Property="HeightRequest"
                     Value="1"/>
@@ -226,7 +235,8 @@
 
         </Style>
 
-        <Style x:Key="MainMapTabbedPage" TargetType="TabbedPage">
+        <Style x:Key="MainMapTabbedPage" 
+               TargetType="TabbedPage">
 
             <Setter Property="BarBackgroundColor"
                     Value="{AppThemeBinding Light={StaticResource SystemWhite},
@@ -238,7 +248,8 @@
 
         </Style>
 
-        <Style x:Key="PinInfo" TargetType="Label">
+        <Style x:Key="PinInfo" 
+               TargetType="Label">
 
             <Setter Property="TextColor"
                     Value="{AppThemeBinding Light={StaticResource SystemBlack},
@@ -247,7 +258,8 @@
 
         </Style>
 
-        <Style x:Key="PinCoordinates" TargetType="Label">
+        <Style x:Key="PinCoordinates" 
+               TargetType="Label">
 
             <Setter Property="TextColor"
                     Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
@@ -256,7 +268,8 @@
 
         </Style>
 
-        <Style x:Key="RightArrowButton" TargetType="ImageButton">
+        <Style x:Key="RightArrowButton" 
+               TargetType="ImageButton">
 
             <Setter Property="BackgroundColor"
                     Value="Transparent"/>
@@ -267,7 +280,8 @@
 
         </Style>
 
-        <Style x:Key="IsFavouriteButton" TargetType="Button">
+        <Style x:Key="IsFavouriteButton" 
+               TargetType="Button">
 
             <Setter Property="HeightRequest"
                     Value="40"/>
@@ -281,7 +295,8 @@
 
         </Style>
 
-        <Style x:Key="AddButton" TargetType="ImageButton">
+        <Style x:Key="AddButton" 
+               TargetType="ImageButton">
 
             <Setter Property="HeightRequest"
                     Value="46"/>
@@ -296,6 +311,18 @@
                     Value="{StaticResource LightPrimary}" />
             
         </Style>
+
+        <Style x:Key="Subtitle" 
+               TargetType="Label">
+
+            <Setter Property="FontSize" 
+                    Value="12"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style> 
 
     </prism:PrismApplication.Resources>
     
