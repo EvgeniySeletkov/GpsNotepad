@@ -217,6 +217,10 @@
         <Style x:Key="SeparatorText" 
                TargetType="Label">
 
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
+                                            Dark={StaticResource SystemBlack}}"/>
+
             <Setter Property="TextColor" 
                     Value="{AppThemeBinding Light={StaticResource SystemLightGray}, 
                                             Dark={StaticResource SystemGray}}"/>

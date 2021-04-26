@@ -15,18 +15,18 @@ namespace GpsNotepad.Services.PinImage
             _repository = repository;
         }
 
-        public Task DeletePinAsync(PinImageModel pinImageModel)
+        public Task DeletePinImageAsync(PinImageModel pinImageModel)
         {
             return _repository.DeleteAsync(pinImageModel);
         }
 
-        public async Task<List<PinImageModel>> GetAllImagesAsync(int pinId)
+        public async Task<List<PinImageModel>> GetAllPinImagesAsync(int pinId)
         {
             var pinImages = await _repository.GetAllAsync<PinImageModel>();
             return pinImages.Where(p => p.PinId == pinId).ToList();
         }
 
-        public Task InsertPinAsync(PinImageModel pinImageModel)
+        public Task SavePinImageAsync(PinImageModel pinImageModel)
         {
             return _repository.InsertAsync(pinImageModel);
         }

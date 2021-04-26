@@ -1,8 +1,10 @@
 ﻿using Acr.UserDialogs;
 using GpsNotepad.Extensions;
-using GpsNotepad.Services.Localization;
-using GpsNotepad.Services.Pin;
+using GpsNotepad.Models;
 using GpsNotepad.Models.Pin;
+using GpsNotepad.Services.Localization;
+using GpsNotepad.Services.MediaService;
+using GpsNotepad.Services.Pin;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
@@ -10,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -22,17 +25,22 @@ namespace GpsNotepad.ViewModels
     {
         private PinViewModel _pinViewModel;
 
-        private IPinService _pinService;
+        private readonly IPinService _pinService;
+        private readonly IMediaService _mediaService;
 
         public AddEditPageViewModel(INavigationService navigationService,
                                     ILocalizationService localizationService,
+                                    IMediaService mediaService,
                                     IPinService pinService) : base(navigationService, localizationService)
         {
+            _mediaService = mediaService;
             _pinService = pinService;
             title = "Add Pin";
             pinViewModelList = new ObservableCollection<PinViewModel>();
             latitideEntry = "0";
             longitideEntry = "0";
+
+            PinImageList = new ObservableCollection<PinImageModel>();
         }
 
         #region --- Public properties ---
@@ -44,12 +52,25 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref title, value);
         }
 
-        //initialize in ctor
         private ObservableCollection<PinViewModel> pinViewModelList;
         public ObservableCollection<PinViewModel> PinViewModelList
         {
             get => pinViewModelList;
             set => SetProperty(ref pinViewModelList, value);
+        }
+
+        private ObservableCollection<PinImageModel> pinImageList;
+        public ObservableCollection<PinImageModel> PinImageList
+        {
+            get => pinImageList;
+            set => SetProperty(ref pinImageList, value);
+        }
+
+        private double pinImageListHeight;
+        public double PinImageListHeight
+        {
+            get => pinImageListHeight;
+            set => SetProperty(ref pinImageListHeight, value);
         }
 
         private MapSpan cameraPosition;
@@ -95,11 +116,15 @@ namespace GpsNotepad.ViewModels
         }
 
         private ICommand mapTapCommand;
-        public ICommand MapTapCommand => 
+        public ICommand MapTapCommand =>
             mapTapCommand ??= new DelegateCommand<object>(OnMapTap);
 
+        private ICommand addImageTapCommand;
+        public ICommand AddImageTapCommand =>
+            addImageTapCommand ??= new DelegateCommand(OnAddImageTap);
+
         private ICommand savePinTapCommand;
-        public ICommand SavePinTapCommand => 
+        public ICommand SavePinTapCommand =>
             savePinTapCommand ??= new DelegateCommand(OnSavePinTap);
 
         #endregion
@@ -142,6 +167,10 @@ namespace GpsNotepad.ViewModels
                     await AddPinViewModelOnMapAsync(position);
                 }
             }
+            if (args.PropertyName == nameof(PinImageList))
+            {
+                PinImageListHeight = PinImageList.Count < 3 ? PinImageList.Count * 42 : 84;
+            }
         }
 
         #endregion
@@ -158,6 +187,20 @@ namespace GpsNotepad.ViewModels
             }
 
             return isEmpty;
+        }
+
+        private void CreatePinImageModel(string imagePath)
+        {
+            if (imagePath != null)
+            {
+                var imageList = new List<PinImageModel>(PinImageList);
+                var pinImageModel = new PinImageModel()
+                {
+                    Image = imagePath
+                };
+                imageList.Add(pinImageModel);
+                PinImageList = new ObservableCollection<PinImageModel>(imageList);
+            }
         }
 
         private async Task CreatePinAsync(Position position)
@@ -191,7 +234,7 @@ namespace GpsNotepad.ViewModels
             if (_pinViewModel == null)
             {
                 await CreatePinAsync(position);
-                
+
             }
             else
             {
@@ -211,6 +254,28 @@ namespace GpsNotepad.ViewModels
             AddressEntry = _pinViewModel.Address;
             LatitudeEntry = _pinViewModel.Latitude.ToString();
             LongitudeEntry = _pinViewModel.Longitude.ToString();
+        }
+
+        private void OnAddImageTap()
+        {
+            var config = new ActionSheetConfig
+            {
+                Title = "Alert"
+            };
+
+            config.Add("Gallery", new Action(async () =>
+            {
+                string imagePath = await _mediaService.TakePhotoFromGalleryAsync();
+                CreatePinImageModel(imagePath);
+            }), icon: "ic_collections_black.png");
+
+            config.Add("Camera", new Action(async () =>
+            {
+                string imagePath = await _mediaService.TakePhotoWithCameraAsync();
+                CreatePinImageModel(imagePath);
+            }), icon: "ic_camera_alt_black.png");
+
+            UserDialogs.Instance.ActionSheet(config);
         }
 
         private async void OnSavePinTap()

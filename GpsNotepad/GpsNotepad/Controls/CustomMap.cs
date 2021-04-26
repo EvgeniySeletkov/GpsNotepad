@@ -10,6 +10,11 @@ namespace GpsNotepad.Controls
     class CustomMap : Map
     {
 
+        public CustomMap()
+        {
+            //UiSettings.ZoomControlsEnabled = false;
+        }
+
         public static readonly BindableProperty MapPinViewModelsProperty =
             BindableProperty.Create(
                 propertyName: nameof(MapPinViewModels),
@@ -48,6 +53,20 @@ namespace GpsNotepad.Controls
             set => SetValue(IsMyLocationButtonVisibleProperty, value);
         }
 
+        public static readonly BindableProperty IsZoomButtonsEnabledProperty =
+            BindableProperty.Create(
+                propertyName: nameof(IsZoomButtonsEnabled),
+                returnType: typeof(bool),
+                declaringType: typeof(CustomMap),
+                defaultValue: true,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsZoomButtonsEnabled
+        {
+            get => (bool)GetValue(IsZoomButtonsEnabledProperty);
+            set => SetValue(IsZoomButtonsEnabledProperty, value);
+        }
+
         //private static void MoveToPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         //{
         //    var control = (CustomMap)bindable;
@@ -78,9 +97,12 @@ namespace GpsNotepad.Controls
                     MoveToRegion(MoveToPosition);
                     break;
                 case nameof(IsMyLocationButtonVisible):
-                    UiSettings.CompassEnabled = true;
-                    MyLocationEnabled = true;
-                    UiSettings.MyLocationButtonEnabled = true;
+                    UiSettings.CompassEnabled = IsMyLocationButtonVisible;
+                    MyLocationEnabled = IsMyLocationButtonVisible;
+                    UiSettings.MyLocationButtonEnabled = IsMyLocationButtonVisible;
+                    break;
+                case nameof(IsZoomButtonsEnabled):
+                    UiSettings.ZoomControlsEnabled = IsZoomButtonsEnabled;
                     break;
             }
         }

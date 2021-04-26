@@ -6,8 +6,8 @@ namespace GpsNotepad.Services.PinImage
 {
     interface IPinImageService
     {
-        Task<List<PinImageModel>> GetAllImagesAsync(int pinId);
-        Task InsertPinAsync(PinImageModel pinImageModel);
-        Task DeletePinAsync(PinImageModel pinImageModel);
+        Task<List<PinImageModel>> GetAllPinImagesAsync(int pinId);
+        Task SavePinImageAsync(PinImageModel pinImageModel);
+        Task DeletePinImageAsync(PinImageModel pinImageModel);
     }
 }

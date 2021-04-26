@@ -2,15 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:GpsNotepad.Controls"
+             xmlns:converters="clr-namespace:GpsNotepad.Converter"
              xmlns:viewControls="clr-namespace:GpsNotepad.Controls.Views"
              xmlns:prism="http://prismlibrary.com"
              x:Class="GpsNotepad.Views.AddEditPage"
              Style="{StaticResource PageBackground}"
              Title="{Binding Title}">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FilePathToFileNameConverter x:Key="PathToName" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
     <ContentPage.ToolbarItems>
+        
         <ToolbarItem IconImageSource="ic_save.png" 
                      Command="{Binding SavePinTapCommand}" />
+        
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -63,24 +73,55 @@
                        Text="Add photo"
                        Padding="16, 21, 0, 0"/>
 
-                <Label FontSize="14"
-                       TextColor="White"
-                       Padding="16, 12, 107, 0"
-                       Text="uploaded_image_1.jpg"/>
+                <ListView HeightRequest="{Binding PinImageListHeight}"
+                          ItemsSource="{Binding PinImageList}">
 
-                <Label FontSize="14"
-                       TextColor="White"
-                       Padding="16, 18, 107, 12"
-                       Text="uploaded_image_2.jpg"/>
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <ViewCell>
+
+                                <ViewCell.View>
+
+                                    <Grid ColumnDefinitions="0.5*, 0.1*, 0.4*"
+                                                 Padding="16, 0, 0, 0">
+
+                                        <Label FontSize="14"
+                                               TextColor="White"
+                                               VerticalOptions="Center"
+                                               LineBreakMode="TailTruncation"
+                                               Text="{Binding Image}"
+                                               Grid.Column="0"/>
+
+                                        <ImageButton BackgroundColor="Transparent"
+                                                     Source="ic_clear.png"
+                                                     VerticalOptions="Center"
+                                                     Grid.Column="1"/>
+
+                                    </Grid>
+
+                                </ViewCell.View>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
 
                 <Button BorderWidth="1"
                         Style="{StaticResource ButtonWithBorder}"
-                        Text="Add photo"/>
+                        Text="Add photo"
+                        Command="{Binding AddImageTapCommand}"/>
 
             </StackLayout>
 
             <controls:CustomMap MoveToPosition="{Binding CameraPosition}"
-                                MapPinViewModels="{Binding PinViewModelList}">
+                                MapPinViewModels="{Binding PinViewModelList}"
+                                IsZoomButtonsEnabled="False"
+                                IsMyLocationButtonVisible="True">
                 
                 <controls:CustomMap.Behaviors>
 

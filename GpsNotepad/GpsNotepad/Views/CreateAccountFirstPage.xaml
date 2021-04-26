@@ -46,13 +46,9 @@
                          VerticalOptions="Center"/>
 
                 <Label Style="{StaticResource SeparatorText}"
-                       Text="or"
-                       Grid.Column="1"
+                       Text=" or "
+                       Grid.Column="0"
                        HorizontalOptions="Center"/>
-
-                <BoxView Style="{StaticResource Separator}"
-                         Grid.Column="2"
-                         VerticalOptions="Center"/>
 
             </Grid>
 

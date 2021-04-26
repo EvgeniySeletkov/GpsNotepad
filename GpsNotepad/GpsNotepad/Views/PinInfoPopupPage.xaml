@@ -23,23 +23,23 @@
                      HorizontalOptions="FillAndExpand">
 
             <StackLayout Padding="16, 16, 16, 0">
-                
+
                 <!--PIN LABEL-->
                 <Label Style="{StaticResource PinInfo}"
                        FontSize="16"
                        FontAttributes="Bold"
                        Text="{Binding Label}"/>
-                
+
                 <!--COORDINATES-->
                 <Label Style="{StaticResource PinCoordinates}"
                        FontSize="14"
                        Text="{Binding Coordinates}"/>
-                
+
                 <!--SEPARATOR-->
                 <BoxView Style="{StaticResource PinSeparator}"
                          HorizontalOptions="Fill"
                          Margin="0, 16, 0, 0"/>
-                
+
                 <!--DESCRIPTION-->
                 <Label Style="{StaticResource PinInfo}"
                        FontSize="14"

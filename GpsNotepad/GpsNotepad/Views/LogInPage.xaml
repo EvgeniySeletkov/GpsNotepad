@@ -46,7 +46,7 @@
                     IsEnabled="{Binding IsButtonEnable}"/>
 
             <!--SEPARATOR-->
-            <Grid ColumnDefinitions="0.48*, 0.04*, 0.48*"
+            <Grid ColumnDefinitions="*"
                   Margin="0, 14, 0, 0">
 
                 <BoxView Style="{StaticResource Separator}"
@@ -54,13 +54,9 @@
                          VerticalOptions="Center"/>
 
                 <Label Style="{StaticResource SeparatorText}"
-                       Text="or"
-                       Grid.Column="1"
+                       Text=" or "
+                       Grid.Column="0"
                        HorizontalOptions="Center"/>
-
-                <BoxView Style="{StaticResource Separator}"
-                         Grid.Column="2"
-                         VerticalOptions="Center"/>
 
             </Grid>
 

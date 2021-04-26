@@ -59,21 +59,14 @@
             <Grid ColumnDefinitions="*"
                   Margin="0, 14, 0, 0">
 
-                <Button Style="{StaticResource AlternativeLogInButton}"
-                        ImageSource="ic_google.png"
-                        Grid.Column="0"
-                        IsEnabled="False"/>
+                <BoxView Style="{StaticResource Separator}"
+                         Grid.Column="0"
+                         VerticalOptions="Center"/>
 
-                <Button Style="{StaticResource AlternativeLogInButton}"
-                        ImageSource="ic_facebook.png"
-                        Grid.Column="1"
-                        Command="{Binding LogInWithFacebookTapCommand}"/>
-
-                <Button Style="{StaticResource AlternativeLogInButton}"
-                        ImageSource="{AppThemeBinding Light=ic_apple.png,
-                                                      Dark=ic_apple_dark.png}"
-                        Grid.Column="2"
-                        IsEnabled="False"/>
+                <Label Style="{StaticResource SeparatorText}"
+                       Text=" or "
+                       Grid.Column="0"
+                       HorizontalOptions="Center"/>
 
             </Grid>
 

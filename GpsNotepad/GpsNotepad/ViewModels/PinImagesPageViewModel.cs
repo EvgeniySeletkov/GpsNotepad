@@ -63,64 +63,35 @@ namespace GpsNotepad.ViewModels
             var pinImageModel = CreatePinImageModel(image);
 
             //await!
-            _pinImageService.InsertPinAsync(pinImageModel);
+            _pinImageService.SavePinImageAsync(pinImageModel);
             PinImageModelList.Add(pinImageModel);
         }
         
         private async void TakePhotoFromGallery()
         {
-            //create MediaService
-            try
-            {
-                var photo = await MediaPicker.PickPhotoAsync();
-                string image = photo.FullPath;
-                SaveImage(image);
-            }
-            catch (Exception ex)
-            {
-                UserDialogs.Instance.Alert(ex.Message, "Alert", "OK");
-            }
+            
+            
         }
 
         private async void TakePhotoWithCamera()
         {
             //create MediaService
-            try
-            {
-                var photo = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions
-                {
-                    Title = $"xamarin.{DateTime.Now.ToString("ddMMyyyyhhmmss")}.jpg"
-                });
-
-                var newFile = Path.Combine(FileSystem.AppDataDirectory, photo.FileName);
-                using (var stream = await photo.OpenReadAsync())
-                using (var newStream = File.OpenWrite(newFile))
-                {
-                    await stream.CopyToAsync(newStream);
-                }
-
-                string image = photo.FullPath;
-                SaveImage(image);
-            }
-            catch (Exception ex)
-            {
-                UserDialogs.Instance.Alert(ex.Message, "Alert", "OK");
-            }
+            
         }
 
         private void OnAddImageTap()
         {
             UserDialogs.Instance.ActionSheet(new ActionSheetConfig().
                 SetTitle("Alert").
-                Add("Gallery", GalleryAction, "ic_collections_black.png").
-                Add("Camera", CameraAction, "ic_camera_alt_black.png"));
+                Add("Gallery", TakePhotoFromGallery, "ic_collections_black.png").
+                Add("Camera", TakePhotoWithCamera, "ic_camera_alt_black.png"));
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             //trygetvalue
             _pinId = parameters.GetValue<int>("pinId");
-            var pinImages = await _pinImageService.GetAllImagesAsync(_pinId);
+            var pinImages = await _pinImageService.GetAllPinImagesAsync(_pinId);
             PinImageModelList = new ObservableCollection<PinImageModel>(pinImages);
         }
 
