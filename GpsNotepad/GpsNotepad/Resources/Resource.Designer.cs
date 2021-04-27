@@ -61,6 +61,24 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Add pin.
+        /// </summary>
+        internal static string Add_pin {
+            get {
+                return ResourceManager.GetString("Add pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Add photo.
+        /// </summary>
+        internal static string AddPhoto {
+            get {
+                return ResourceManager.GetString("AddPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Alert.
         /// </summary>
         internal static string Alert {
@@ -75,6 +93,15 @@ namespace GpsNotepad.Resources {
         internal static string ConfirmPassword {
             get {
                 return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Coordinates.
+        /// </summary>
+        internal static string Coordinates {
+            get {
+                return ResourceManager.GetString("Coordinates", resourceCulture);
             }
         }
         
@@ -111,6 +138,33 @@ namespace GpsNotepad.Resources {
         internal static string DarkTheme {
             get {
                 return ResourceManager.GetString("DarkTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Description.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Write a description.
+        /// </summary>
+        internal static string DescriptionPlaceholder {
+            get {
+                return ResourceManager.GetString("DescriptionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Edit pin.
+        /// </summary>
+        internal static string Edit_pin {
+            get {
+                return ResourceManager.GetString("Edit pin", resourceCulture);
             }
         }
         
@@ -196,11 +250,56 @@ namespace GpsNotepad.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Label.
+        /// </summary>
+        internal static string Label {
+            get {
+                return ResourceManager.GetString("Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Label is empty.
+        /// </summary>
+        internal static string Label_is_empty {
+            get {
+                return ResourceManager.GetString("Label is empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter the label.
+        /// </summary>
+        internal static string LabelPlaceholder {
+            get {
+                return ResourceManager.GetString("LabelPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Language.
         /// </summary>
         internal static string LanguageOptions {
             get {
                 return ResourceManager.GetString("LanguageOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Latitude.
+        /// </summary>
+        internal static string Latitude {
+            get {
+                return ResourceManager.GetString("Latitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Latitude is empty.
+        /// </summary>
+        internal static string Latitude_is_empty {
+            get {
+                return ResourceManager.GetString("Latitude is empty", resourceCulture);
             }
         }
         
@@ -219,6 +318,24 @@ namespace GpsNotepad.Resources {
         internal static string LogInButton {
             get {
                 return ResourceManager.GetString("LogInButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Longitude.
+        /// </summary>
+        internal static string Longitude {
+            get {
+                return ResourceManager.GetString("Longitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Longitude is empty.
+        /// </summary>
+        internal static string Longitude_is_empty {
+            get {
+                return ResourceManager.GetString("Longitude is empty", resourceCulture);
             }
         }
         
@@ -327,6 +444,15 @@ namespace GpsNotepad.Resources {
         internal static string ThemeOptions {
             get {
                 return ResourceManager.GetString("ThemeOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Untitled pin.
+        /// </summary>
+        internal static string Untitled_pin {
+            get {
+                return ResourceManager.GetString("Untitled pin", resourceCulture);
             }
         }
     }

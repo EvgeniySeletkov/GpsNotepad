@@ -4,7 +4,9 @@ using GpsNotepad.Models;
 using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.MediaService;
+using GpsNotepad.Services.Permission;
 using GpsNotepad.Services.Pin;
+using GpsNotepad.Services.PinImage;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
@@ -12,10 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
@@ -26,126 +28,222 @@ namespace GpsNotepad.ViewModels
         private PinViewModel _pinViewModel;
 
         private readonly IPinService _pinService;
+        private readonly IPermissionService _permissionService;
         private readonly IMediaService _mediaService;
+        private readonly IPinImageService _pinImageService;
 
         public AddEditPageViewModel(INavigationService navigationService,
                                     ILocalizationService localizationService,
+                                    IPinService pinService,
+                                    IPermissionService permissionService,
                                     IMediaService mediaService,
-                                    IPinService pinService) : base(navigationService, localizationService)
+                                    IPinImageService pinImageService
+                                    ) : base(navigationService, localizationService)
         {
-            _mediaService = mediaService;
             _pinService = pinService;
-            title = "Add Pin";
-            pinViewModelList = new ObservableCollection<PinViewModel>();
-            latitideEntry = "0";
-            longitideEntry = "0";
-
+            _permissionService = permissionService;
+            _mediaService = mediaService;
+            _pinImageService = pinImageService;
+            
+            _title = Resource["Add pin"];
+            PinList = new ObservableCollection<PinViewModel>();
             PinImageList = new ObservableCollection<PinImageModel>();
         }
 
         #region --- Public properties ---
 
-        private string title;
+        private string _title;
         public string Title
         {
-            get => title;
-            set => SetProperty(ref title, value);
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
-        private ObservableCollection<PinViewModel> pinViewModelList;
-        public ObservableCollection<PinViewModel> PinViewModelList
+        private bool _isMyLocation;
+        public bool IsMyLocation
         {
-            get => pinViewModelList;
-            set => SetProperty(ref pinViewModelList, value);
+            get => _isMyLocation;
+            set => SetProperty(ref _isMyLocation, value);
         }
 
-        private ObservableCollection<PinImageModel> pinImageList;
-        public ObservableCollection<PinImageModel> PinImageList
+        private ObservableCollection<PinViewModel> _pinList;
+        public ObservableCollection<PinViewModel> PinList
         {
-            get => pinImageList;
-            set => SetProperty(ref pinImageList, value);
+            get => _pinList;
+            set => SetProperty(ref _pinList, value);
         }
 
-        private double pinImageListHeight;
-        public double PinImageListHeight
-        {
-            get => pinImageListHeight;
-            set => SetProperty(ref pinImageListHeight, value);
-        }
-
-        private MapSpan cameraPosition;
+        private MapSpan _cameraPosition;
         public MapSpan CameraPosition
         {
-            get => cameraPosition;
-            set => SetProperty(ref cameraPosition, value);
+            get => _cameraPosition;
+            set => SetProperty(ref _cameraPosition, value);
         }
 
-        private string labelEntry;
-        public string LabelEntry
+        private string _label;
+        public string Label
         {
-            get => labelEntry;
-            set => SetProperty(ref labelEntry, value);
+            get => _label;
+            set => SetProperty(ref _label, value);
         }
 
-        private string addressEntry;
-        public string AddressEntry
+        private string _labelWrongText;
+        public string LabelWrongText
         {
-            get => addressEntry;
-            set => SetProperty(ref addressEntry, value);
+            get => _labelWrongText;
+            set => SetProperty(ref _labelWrongText, value);
         }
 
-        private string latitideEntry;
-        public string LatitudeEntry
+        private bool _isLabelWrongVisible;
+        public bool IsLabelWrongVisible
         {
-            get => latitideEntry;
-            set => SetProperty(ref latitideEntry, value);
+            get => _isLabelWrongVisible;
+            set => SetProperty(ref _isLabelWrongVisible, value);
         }
 
-        private string longitideEntry;
-        public string LongitudeEntry
+        private string _address;
+        public string Address
         {
-            get => longitideEntry;
-            set => SetProperty(ref longitideEntry, value);
+            get => _address;
+            set => SetProperty(ref _address, value);
         }
 
-        private string descriptionEntry;
-        public string DescriptionEntry
+        private string _description;
+        public string Description
         {
-            get => descriptionEntry;
-            set => SetProperty(ref descriptionEntry, value);
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
-        private ICommand mapTapCommand;
+        private string _descriptionWrongText;
+        public string DescriptionWrongText
+        {
+            get => _descriptionWrongText;
+            set => SetProperty(ref _descriptionWrongText, value);
+        }
+
+        private bool _isDescriptionWrongVisible;
+        public bool IsDescriptionWrongVisible
+        {
+            get => _isDescriptionWrongVisible;
+            set => SetProperty(ref _isDescriptionWrongVisible, value);
+        }
+
+        private string _latitide;
+        public string Latitude
+        {
+            get => _latitide;
+            set => SetProperty(ref _latitide, value);
+        }
+
+        private string _latitudeWrongText;
+        public string LatitudeWrongText
+        {
+            get => _latitudeWrongText;
+            set => SetProperty(ref _latitudeWrongText, value);
+        }
+
+        private bool _isLatitudeWrongVisible;
+        public bool IsLatitudeWrongVisible
+        {
+            get => _isLatitudeWrongVisible;
+            set => SetProperty(ref _isLatitudeWrongVisible, value);
+        }
+
+        private string _longitide;
+        public string Longitude
+        {
+            get => _longitide;
+            set => SetProperty(ref _longitide, value);
+        }
+
+        private string _longitudeWrongText;
+        public string LongitudeWrongText
+        {
+            get => _longitudeWrongText;
+            set => SetProperty(ref _longitudeWrongText, value);
+        }
+
+        private bool _isLongitudeWrongVisible;
+        public bool IsLongitudeWrongVisible
+        {
+            get => _isLongitudeWrongVisible;
+            set => SetProperty(ref _isLongitudeWrongVisible, value);
+        }
+
+        private ObservableCollection<PinImageModel> _pinImageList;
+        public ObservableCollection<PinImageModel> PinImageList
+        {
+            get => _pinImageList;
+            set => SetProperty(ref _pinImageList, value);
+        }
+
+        private double _pinImageListHeight;
+        public double PinImageListHeight
+        {
+            get => _pinImageListHeight;
+            set => SetProperty(ref _pinImageListHeight, value);
+        }
+
+        private ICommand _mapTapCommand;
         public ICommand MapTapCommand =>
-            mapTapCommand ??= new DelegateCommand<object>(OnMapTap);
+            _mapTapCommand ??= new DelegateCommand<object>(OnMapTapAsync);
 
-        private ICommand addImageTapCommand;
+        private ICommand _clearLabelTapCommand;
+        public ICommand ClearLabelTapCommand =>
+            _clearLabelTapCommand ??= new DelegateCommand(OnClearLabelTap);
+
+        private ICommand _clearDescriptionTapCommand;
+        public ICommand ClearDescriptionTapCommand =>
+            _clearDescriptionTapCommand ??= new DelegateCommand(OnClearDescriptionTap);
+
+        private ICommand _clearLatitudeTapCommand;
+        public ICommand ClearLatitudeTapCommand =>
+            _clearLatitudeTapCommand ??= new DelegateCommand(OnClearLatitudeTap);
+
+        private ICommand _clearLongitudeTapCommand;
+        public ICommand ClearLongitudeTapCommand =>
+            _clearLongitudeTapCommand ??= new DelegateCommand(OnClearLongitudeTap);
+
+        private ICommand _addImageTapCommand;
         public ICommand AddImageTapCommand =>
-            addImageTapCommand ??= new DelegateCommand(OnAddImageTap);
+            _addImageTapCommand ??= new DelegateCommand(OnAddImageTap);
 
-        private ICommand savePinTapCommand;
+        private ICommand _deleteImageTapCommand;
+        public ICommand DeleteImageTapCommand =>
+            _deleteImageTapCommand ??= new DelegateCommand<PinImageModel>(OnDeleteImageTapAsync);
+
+        private ICommand _savePinTapCommand;
         public ICommand SavePinTapCommand =>
-            savePinTapCommand ??= new DelegateCommand(OnSavePinTap);
+            _savePinTapCommand ??= new DelegateCommand(OnSavePinTapAsync);
 
         #endregion
 
         #region --- Overrides ---
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void Initialize(INavigationParameters parameters)
+        {
+            var status = await _permissionService.RequestLocationPermissionAsync();
+
+            IsMyLocation = status == PermissionStatus.Granted;
+        }
+
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.TryGetValue<PinViewModel>(nameof(PinViewModel), out var pinViewModel))
             {
-                Title = "Edit Pin";
+                Title = Resource["Edit pin"];
                 _pinViewModel = pinViewModel;
-                LabelEntry = pinViewModel.Label;
-                AddressEntry = pinViewModel.Address;
-                LatitudeEntry = pinViewModel.Latitude.ToString();
-                LongitudeEntry = pinViewModel.Longitude.ToString();
-                DescriptionEntry = pinViewModel.Description;
-                PinViewModelList = new ObservableCollection<PinViewModel>();
-                PinViewModelList.Add(_pinViewModel);
+                Label = pinViewModel.Label;
+                Latitude = pinViewModel.Latitude.ToString();
+                Longitude = pinViewModel.Longitude.ToString();
+                Description = pinViewModel.Description;
+                PinList = new ObservableCollection<PinViewModel>();
+                PinList.Add(_pinViewModel);
                 var postion = new Position(pinViewModel.Latitude, pinViewModel.Longitude);
                 CameraPosition = new MapSpan(postion, 1, 1);
+                var pinImageList = await _pinImageService.GetAllPinImagesAsync(_pinViewModel.PinId);
+                PinImageList = new ObservableCollection<PinImageModel>(pinImageList);
             }
         }
 
@@ -153,15 +251,15 @@ namespace GpsNotepad.ViewModels
         {
             base.OnPropertyChanged(args);
 
-            if ((args.PropertyName == nameof(LabelEntry) ||
-                args.PropertyName == nameof(LatitudeEntry) ||
-                args.PropertyName == nameof(LongitudeEntry) ||
-                args.PropertyName == nameof(DescriptionEntry)) &&
-                !HasEmptyCordinates())
+            if (args.PropertyName == nameof(Latitude) ||
+                args.PropertyName == nameof(Longitude))
             {
-                bool isLatitude = double.TryParse(LatitudeEntry, out var latitude);
-                bool isLongitude = double.TryParse(LongitudeEntry, out var longitude);
-                if (isLatitude && isLongitude)
+                bool isLatitude = double.TryParse(Latitude, out var latitude);
+                bool isLongitude = double.TryParse(Longitude, out var longitude);
+                Latitude = isLatitude ? Latitude : string.Empty;
+                Longitude = isLongitude ? Longitude : string.Empty;
+
+                if (!HasEmptyLatitude() && !HasEmptyLongitude())
                 {
                     var position = new Position(latitude, longitude);
                     await AddPinViewModelOnMapAsync(position);
@@ -169,7 +267,7 @@ namespace GpsNotepad.ViewModels
             }
             if (args.PropertyName == nameof(PinImageList))
             {
-                PinImageListHeight = PinImageList.Count < 3 ? PinImageList.Count * 42 : 84;
+                ChangeImageListHeight();
             }
         }
 
@@ -177,13 +275,55 @@ namespace GpsNotepad.ViewModels
 
         #region --- Private helpers ---
 
-        private bool HasEmptyCordinates()
+        private bool HasEmptyLabel()
         {
-            bool isEmpty = false;
-            if (string.IsNullOrWhiteSpace(LatitudeEntry) ||
-                string.IsNullOrWhiteSpace(LongitudeEntry))
+            bool isEmpty;
+            if (string.IsNullOrWhiteSpace(Label))
             {
                 isEmpty = true;
+                LabelWrongText = Resource["Label is empty"];
+                IsLabelWrongVisible = true;
+            }
+            else
+            {
+                isEmpty = false;
+                IsLabelWrongVisible = false;
+            }
+
+            return isEmpty;
+        }
+
+        private bool HasEmptyLatitude()
+        {
+            bool isEmpty;
+            if (string.IsNullOrWhiteSpace(Latitude))
+            {
+                isEmpty = true;
+                LatitudeWrongText = Resource["Latitude is empty"];
+                IsLatitudeWrongVisible = true;
+            }
+            else
+            {
+                isEmpty = false;
+                IsLatitudeWrongVisible = false;
+            }
+
+            return isEmpty;
+        }
+
+        private bool HasEmptyLongitude()
+        {
+            bool isEmpty;
+            if (string.IsNullOrWhiteSpace(Longitude))
+            {
+                isEmpty = true;
+                LongitudeWrongText = Resource["Longitude is empty"];
+                IsLongitudeWrongVisible = true;
+            }
+            else
+            {
+                isEmpty = false;
+                IsLongitudeWrongVisible = false;
             }
 
             return isEmpty;
@@ -203,29 +343,32 @@ namespace GpsNotepad.ViewModels
             }
         }
 
+        private void ChangeImageListHeight()
+        {
+            PinImageListHeight = PinImageList.Count < 3 ? PinImageList.Count * 42 : 84;
+        }
+
         private async Task CreatePinAsync(Position position)
         {
             var address = await _pinService.GetAddressAsync(position);
 
             _pinViewModel = new PinViewModel()
             {
-                Label = !string.IsNullOrWhiteSpace(LabelEntry) ? LabelEntry : "Untitled pin",
+                Label = !string.IsNullOrWhiteSpace(Label) ? Label : Resource["Untitled pin"],
                 Latitude = Math.Round(position.Latitude, 2),
                 Longitude = Math.Round(position.Longitude, 2),
                 Address = address,
-                IsVisible = true,
-                Description = DescriptionEntry
+                IsVisible = true
             };
         }
 
         private async Task EditPinAsync(Position position)
         {
             var address = await _pinService.GetAddressAsync(position);
-            _pinViewModel.Label = !string.IsNullOrWhiteSpace(LabelEntry) ? LabelEntry : "Untitled pin";
+            _pinViewModel.Label = !string.IsNullOrWhiteSpace(Label) ? Label : Resource["Untitled pin"];
             _pinViewModel.Latitude = Math.Round(position.Latitude, 2);
             _pinViewModel.Longitude = Math.Round(position.Longitude, 2);
             _pinViewModel.Address = address;
-            _pinViewModel.Description = DescriptionEntry;
 
         }
 
@@ -234,7 +377,6 @@ namespace GpsNotepad.ViewModels
             if (_pinViewModel == null)
             {
                 await CreatePinAsync(position);
-
             }
             else
             {
@@ -243,23 +385,62 @@ namespace GpsNotepad.ViewModels
 
             var pinViewModelList = new List<PinViewModel>();
             pinViewModelList.Add(_pinViewModel);
-            PinViewModelList = new ObservableCollection<PinViewModel>(pinViewModelList);
+            PinList = new ObservableCollection<PinViewModel>(pinViewModelList);
         }
 
-        private async void OnMapTap(object obj)
+        private async Task SaveImagesAsync()
+        {
+            var pinList = await _pinService.GetAllPinsAsync();
+            var pin = pinList.FirstOrDefault(pin => pin.Label == Label);
+
+            if (pin != null)
+            {
+                var pinImageList = await _pinImageService.GetAllPinImagesAsync(pin.Id);
+                foreach (var pinImage in PinImageList)
+                {
+                    if (pinImageList.FirstOrDefault(image => image.Image == pinImage.Image) == null)
+                    {
+                        pinImage.PinId = pin.Id;
+                        await _pinImageService.SavePinImageAsync(pinImage);
+                    }
+                }
+            }
+            
+        }
+
+        private async void OnMapTapAsync(object obj)
         {
             var position = (Position)obj;
             await AddPinViewModelOnMapAsync(position);
-            LabelEntry = _pinViewModel.Label;
-            AddressEntry = _pinViewModel.Address;
-            LatitudeEntry = _pinViewModel.Latitude.ToString();
-            LongitudeEntry = _pinViewModel.Longitude.ToString();
+            Latitude = _pinViewModel.Latitude.ToString();
+            Longitude = _pinViewModel.Longitude.ToString();
+        }
+
+        private void OnClearLabelTap()
+        {
+            Label = string.Empty;
+        }
+
+        private void OnClearDescriptionTap()
+        {
+            Description = string.Empty;
+        }
+
+        private void OnClearLatitudeTap()
+        {
+            Latitude = string.Empty;
+        }
+
+        private void OnClearLongitudeTap()
+        {
+            Longitude = string.Empty;
         }
 
         private void OnAddImageTap()
         {
             var config = new ActionSheetConfig
             {
+                // TODO: To Resources
                 Title = "Alert"
             };
 
@@ -278,34 +459,57 @@ namespace GpsNotepad.ViewModels
             UserDialogs.Instance.ActionSheet(config);
         }
 
-        private async void OnSavePinTap()
+        private async void OnDeleteImageTapAsync(PinImageModel pinImageModel)
         {
-            if (!string.IsNullOrWhiteSpace(LabelEntry) && !HasEmptyCordinates())
+            await _pinImageService.DeletePinImageAsync(pinImageModel);
+            PinImageList.Remove(pinImageModel);
+            ChangeImageListHeight();
+        }
+
+        private async void OnSavePinTapAsync()
+        {
+            if (!HasEmptyLabel() && 
+                !HasEmptyLatitude() &&
+                !HasEmptyLongitude())
             {
                 var pinModels = await _pinService.GetAllPinsAsync();
-                var uniquePinModel = pinModels.FirstOrDefault(p => p.Label == LabelEntry);
-                if (uniquePinModel == null && _pinViewModel != null)
+                _pinViewModel.Label = Label;
+                _pinViewModel.Description = Description;
+                var uniquePin = pinModels.FirstOrDefault(p => p.Label == Label);
+                var pin = _pinViewModel.ToPinModel(); ;
+
+                if (uniquePin == null)
                 {
-                    var pinModel = _pinViewModel.ToPinModel();
+                    IsLabelWrongVisible = false;
                     if (_pinViewModel.PinId == 0)
                     {
-                        await _pinService.InsertPinAsync(pinModel);
+                        await _pinService.InsertPinAsync(pin);
+                        await SaveImagesAsync();
                     }
                     else
                     {
-                        await _pinService.UpdatePinAsync(pinModel);
+                        await _pinService.UpdatePinAsync(pin);
+                        await SaveImagesAsync();
                     }
+
                     await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
                 }
                 else
                 {
-                    //UserDialogs.Instance.Alert("Latitude or Longitude field is not digit!", Resource["Alert"], "OK");
-                    UserDialogs.Instance.Alert("Name must be unique.", Resource["Alert"], "OK");
+                    if (_pinViewModel.PinId != uniquePin.Id)
+                    {
+                        LabelWrongText = "Label must be unique";
+                        IsLabelWrongVisible = true;
+                    }
+                    else
+                    {
+                        IsLabelWrongVisible = false;
+                        await _pinService.UpdatePinAsync(pin);
+                        await SaveImagesAsync();
+                        await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                    }
+                    
                 }
-            }
-            else
-            {
-                UserDialogs.Instance.Alert("Name, Latitude or Longitude field is empty.", Resource["Alert"], "OK");
             }
         }
 

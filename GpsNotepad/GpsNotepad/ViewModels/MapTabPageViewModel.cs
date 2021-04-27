@@ -110,7 +110,7 @@ namespace GpsNotepad.ViewModels
 
             var status = await _permissionService.RequestLocationPermissionAsync();
 
-            IsMyLocation = status == PermissionStatus.Granted ? true : false;
+            IsMyLocation = status == PermissionStatus.Granted;
 
             var pinModelList = await _pinService.GetAllPinsAsync();
             var pinViewModelList = new List<PinViewModel>();

@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add pin" xml:space="preserve">
+    <value>Add pin</value>
+  </data>
+  <data name="AddPhoto" xml:space="preserve">
+    <value>Add photo</value>
+  </data>
   <data name="Alert" xml:space="preserve">
     <value>Alert</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
+  </data>
+  <data name="Coordinates" xml:space="preserve">
+    <value>Coordinates</value>
   </data>
   <data name="CreateAccountButton" xml:space="preserve">
     <value>Create account</value>
@@ -134,6 +143,15 @@
   </data>
   <data name="DarkTheme" xml:space="preserve">
     <value>Dark</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DescriptionPlaceholder" xml:space="preserve">
+    <value>Write a description</value>
+  </data>
+  <data name="Edit pin" xml:space="preserve">
+    <value>Edit pin</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -162,14 +180,35 @@
   <data name="HasValidPassword" xml:space="preserve">
     <value>Password must contain at least 6 characters, including one uppercase, one lowercase and one number. First symbol should not be digit. </value>
   </data>
+  <data name="Label" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="Label is empty" xml:space="preserve">
+    <value>Label is empty</value>
+  </data>
+  <data name="LabelPlaceholder" xml:space="preserve">
+    <value>Enter the label</value>
+  </data>
   <data name="LanguageOptions" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="Latitude is empty" xml:space="preserve">
+    <value>Latitude is empty</value>
   </data>
   <data name="LightTheme" xml:space="preserve">
     <value>Light</value>
   </data>
   <data name="LogInButton" xml:space="preserve">
     <value>Log In</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="Longitude is empty" xml:space="preserve">
+    <value>Longitude is empty</value>
   </data>
   <data name="Map" xml:space="preserve">
     <value>Map</value>
@@ -206,5 +245,8 @@
   </data>
   <data name="ThemeOptions" xml:space="preserve">
     <value>Theme</value>
+  </data>
+  <data name="Untitled pin" xml:space="preserve">
+    <value>Untitled pin</value>
   </data>
 </root>

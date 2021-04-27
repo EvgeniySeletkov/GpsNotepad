@@ -279,8 +279,7 @@
                     Value="Transparent"/>
 
             <Setter Property="Source"
-                    Value="{AppThemeBinding Light=ic_left_blue.png,
-                                            Dark=ic_left_gray.png}"/>
+                    Value="c_left_gray.png"/>
 
         </Style>
 
@@ -326,7 +325,19 @@
                     Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
                                             Dark={StaticResource SystemWhite}}"/>
 
-        </Style> 
+        </Style>
+
+        <Style x:Key="SettingsSubtitle"
+               TargetType="Label">
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
 
     </prism:PrismApplication.Resources>
     

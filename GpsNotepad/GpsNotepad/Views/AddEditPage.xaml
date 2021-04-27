@@ -6,6 +6,7 @@
              xmlns:viewControls="clr-namespace:GpsNotepad.Controls.Views"
              xmlns:prism="http://prismlibrary.com"
              x:Class="GpsNotepad.Views.AddEditPage"
+             x:Name="image"
              Style="{StaticResource PageBackground}"
              Title="{Binding Title}">
 
@@ -31,48 +32,62 @@
 
                 <!--LABEL-->
                 <viewControls:CustomFrame Style="{StaticResource Entry}"
-                                          SubtitleText="Label"
-                                          EntryPlaceholder="Enter the label"
+                                          SubtitleText="{Binding Resource[Label]}"
+                                          EntryPlaceholder="{Binding Resource[LabelPlaceholder]}"
                                           ButtonImage="ic_clear.png"
-                                          EntryText="{Binding LabelEntry}"
-                                          ClickCommand="{Binding LabelClearTapCommand}"/>
+                                          EntryText="{Binding Label}"
+                                          WrongText="{Binding LabelWrongText}"
+                                          IsWrongVisible="{Binding IsLabelWrongVisible}"
+                                          ClickCommand="{Binding ClearLabelTapCommand}"/>
 
+                <!--DESCRIPTION-->
                 <viewControls:CustomFrame Style="{StaticResource Entry}"
-                                          SubtitleText="Description"
-                                          EntryPlaceholder="Write a description"
+                                          SubtitleText="{Binding Resource[Description]}"
+                                          EntryPlaceholder="{Binding Resource[DescriptionPlaceholder]}"
                                           ButtonImage="ic_clear.png"
                                           Padding="0, 21, 0, 0"
-                                          EntryText="{Binding DescriptionEntry}"
-                                          ClickCommand="{Binding DescriptionClearTapCommand}"/>
+                                          EntryText="{Binding Description}"
+                                          ClickCommand="{Binding ClearDescriptionTapCommand}"/>
 
+                <!--COORDINATES SUBTITLE-->
                 <Label Style="{StaticResource Subtitle}"
-                       Text="Coordinates"
+                       Text="{Binding Resource[Coordinates]}"
                        Padding="16, 21, 0, 0"/>
 
-                <StackLayout Orientation="Horizontal">
+                <Grid ColumnDefinitions="*">
 
+                    <!--LATITUDE-->
+                    <viewControls:CustomFrame Style="{StaticResource Entry}"
+                                              IsSubtitleVisible="False"
+                                              EntryPlaceholder="{Binding Resource[Latitude]}"
+                                              ButtonImage="ic_clear.png"
+                                              EntryKeyboard="Numeric"
+                                              WrongText="{Binding LatitudeWrongText}"
+                                              IsWrongVisible="{Binding IsLatitudeWrongVisible}"
+                                              EntryText="{Binding Latitude}"
+                                              Grid.Column="0"
+                                              ClickCommand="{Binding ClearLatitudeTapCommand}"/>
+
+                    <!--LONGITUDE-->
                     <viewControls:CustomFrame Style="{StaticResource Entry}"
                                           IsSubtitleVisible="False"
-                                          EntryPlaceholder="Latitude"
+                                          EntryPlaceholder="{Binding Resource[Longitude]}"
                                           ButtonImage="ic_clear.png"
                                           EntryKeyboard="Numeric"
-                                          EntryText="{Binding LatitudeEntry}"
-                                          ClickCommand="{Binding DescriptionClearTapCommand}"/>
+                                          WrongText="{Binding LongitudeWrongText}"
+                                          IsWrongVisible="{Binding IsLongitudeWrongVisible}"
+                                          EntryText="{Binding Longitude}"
+                                          Grid.Column="1"
+                                          ClickCommand="{Binding ClearLongitudeTapCommand}"/>
 
-                    <viewControls:CustomFrame Style="{StaticResource Entry}"
-                                          IsSubtitleVisible="False"
-                                          EntryPlaceholder="Longitude"
-                                          ButtonImage="ic_clear.png"
-                                          EntryKeyboard="Numeric"
-                                          EntryText="{Binding LongitudeEntry}"
-                                          ClickCommand="{Binding DescriptionClearTapCommand}"/>
+                </Grid>
 
-                </StackLayout>
-
+                <!--ADD PHOTO SUBTITLE-->
                 <Label Style="{StaticResource Subtitle}"
-                       Text="Add photo"
+                       Text="{Binding Resource[AddPhoto]}"
                        Padding="16, 21, 0, 0"/>
 
+                <!--PHOTO LIST-->
                 <ListView HeightRequest="{Binding PinImageListHeight}"
                           ItemsSource="{Binding PinImageList}">
 
@@ -91,13 +106,16 @@
                                                TextColor="White"
                                                VerticalOptions="Center"
                                                LineBreakMode="TailTruncation"
-                                               Text="{Binding Image}"
+                                               Text="{Binding Image, Converter={StaticResource PathToName}}"
                                                Grid.Column="0"/>
 
                                         <ImageButton BackgroundColor="Transparent"
                                                      Source="ic_clear.png"
                                                      VerticalOptions="Center"
-                                                     Grid.Column="1"/>
+                                                     Grid.Column="1"
+                                                     Command="{Binding Path=BindingContext.DeleteImageTapCommand, 
+                                                                       Source={x:Reference image}}"
+                                                     CommandParameter="{Binding .}"/>
 
                                     </Grid>
 
@@ -111,17 +129,19 @@
 
                 </ListView>
 
+                <!--ADD PHOTO BUTTON-->
                 <Button BorderWidth="1"
                         Style="{StaticResource ButtonWithBorder}"
-                        Text="Add photo"
+                        Text="{Binding Resource[AddPhoto]}"
                         Command="{Binding AddImageTapCommand}"/>
 
             </StackLayout>
 
+            <!--MAP-->
             <controls:CustomMap MoveToPosition="{Binding CameraPosition}"
-                                MapPinViewModels="{Binding PinViewModelList}"
+                                MapPinViewModels="{Binding PinList}"
                                 IsZoomButtonsEnabled="False"
-                                IsMyLocationButtonVisible="True">
+                                IsMyLocationButtonVisible="{Binding IsMyLocation}">
                 
                 <controls:CustomMap.Behaviors>
 

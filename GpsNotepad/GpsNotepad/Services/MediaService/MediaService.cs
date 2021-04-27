@@ -31,10 +31,7 @@ namespace GpsNotepad.Services.MediaService
             string image = null;
             try
             {
-                var photo = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions
-                {
-                    Title = $"xamarin.{DateTime.Now.ToString("ddMMyyyyhhmmss")}.jpg"
-                });
+                var photo = await MediaPicker.CapturePhotoAsync();
 
                 var newFile = Path.Combine(FileSystem.AppDataDirectory, photo.FileName);
                 using (var stream = await photo.OpenReadAsync())
