@@ -7,7 +7,7 @@ namespace GpsNotepad.ViewModels
     class BaseViewModel : BindableBase, IInitialize, INavigationAware
     {
         protected INavigationService NavigationService { get; private set; }
-        public ILocalizationService Resource{ get; private set; }
+        public ILocalizationService Resource{ get; set; }
 
         public BaseViewModel(INavigationService navigationService,
                               ILocalizationService localizationService)

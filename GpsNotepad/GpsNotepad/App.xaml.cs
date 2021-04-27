@@ -7,15 +7,14 @@ using GpsNotepad.Services.Pin;
 using GpsNotepad.Services.PinImage;
 using GpsNotepad.Services.Repository;
 using GpsNotepad.Services.Settings;
+using GpsNotepad.Services.ThemeService;
 using GpsNotepad.ViewModels;
 using GpsNotepad.Views;
-using Plugin.FacebookClient;
 using Prism.Ioc;
 using Prism.Plugin.Popups;
 using Prism.Unity;
 using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace GpsNotepad
 {
@@ -26,7 +25,11 @@ namespace GpsNotepad
         private IAuthorizationService _authorizationService;
         private IAuthorizationService AuthorizationService =>
             _authorizationService ??= Container.Resolve<IAuthorizationService>();
-        
+
+        private IThemeService _themeService;
+        private IThemeService ThemeService =>
+            _themeService ??= Container.Resolve<IThemeService>();
+
 
         #region --- Overrides ---
 
@@ -34,19 +37,18 @@ namespace GpsNotepad
         {
             // Services
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IThemeService>(Container.Resolve<ThemeService>());
+            containerRegistry.RegisterInstance<ILocalizationService>(Container.Resolve<LocalizationService>());
             containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
             containerRegistry.RegisterInstance<IPermissionService>(Container.Resolve<PermissionService>());
             containerRegistry.RegisterInstance<IPinService>(Container.Resolve<PinService>());
-            containerRegistry.RegisterInstance<ILocalizationService>(Container.Resolve<LocalizationService>());
             containerRegistry.RegisterInstance<IMapCameraPositionService>(Container.Resolve<MapCameraPositionService>());
             containerRegistry.RegisterInstance<IMediaService>(Container.Resolve<MediaService>());
             containerRegistry.RegisterInstance<IPinImageService>(Container.Resolve<PinImageService>());
 
             // Navigations
             containerRegistry.RegisterPopupNavigationService();
-
-            //containerRegistry.RegisterDialog<PinInfoPopupPage, PinInfoPopupPageViewModel>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LogInPage, LogInPageViewModel>();
             containerRegistry.RegisterForNavigation<CreateAccountFirstPage, CreateAccountFirstPageViewModel>();
@@ -59,11 +61,14 @@ namespace GpsNotepad
             containerRegistry.RegisterForNavigation<PinImagesPage, PinImagesPageViewModel>();
             containerRegistry.RegisterForNavigation<WelcomePage, WelcomePageViewModel>();
             containerRegistry.RegisterForNavigation<PinInfoPopupPage, PinInfoPopupPageViewModel>();
+            containerRegistry.RegisterForNavigation<LanguageSettingsPage, LanguageSettingsPageViewModel>();
         }
 
         protected async override void OnInitialized()
         {
             InitializeComponent();
+
+            Application.Current.UserAppTheme = (OSAppTheme)Enum.Parse(typeof(OSAppTheme), ThemeService.GetTheme());
 
             if (AuthorizationService.IsAuthorized)
             {
@@ -74,8 +79,6 @@ namespace GpsNotepad
             {
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}");
             }
-
-            Application.Current.UserAppTheme = OSAppTheme.Dark;
 
             //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
             //await NavigationService.NavigateAsync($"{nameof(LogInAndRegisterPage)}");

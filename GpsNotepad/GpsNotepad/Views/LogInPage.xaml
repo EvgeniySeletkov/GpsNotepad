@@ -19,29 +19,36 @@
 
             <!--EMAIL-->
             <local:CustomFrame Style="{StaticResource Entry}"
+                               SubtitleFont="Montserrat-Medium"
                                SubtitleText="{Binding Resource[Email]}"
+                               EntryFont="Montserrat-Light"
                                EntryPlaceholder="{Binding Resource[EmailPlaceholder]}"
                                ButtonImage="ic_clear.png"
                                EntryText="{Binding Email}"
+                               WrongFont="Montserrat-Medium"
                                WrongText="{Binding EmailWrongText}"
                                IsWrongVisible="{Binding IsEmailWrongVisible}"
                                ClickCommand="{Binding EmailClearTapCommand}"/>
 
             <!--PASSWORD-->
             <local:CustomFrame Style="{StaticResource PasswordEntry}"
+                               SubtitleFont="Montserrat-Medium"
                                SubtitleText="{Binding Resource[Password]}"
+                               EntryFont="Montserrat-Light"
                                EntryPlaceholder="{Binding Resource[PasswordPlaceholder]}"
-                               Margin="0, 8, 0, 0"
+                               Padding="0, 20, 0, 0"
                                IsEntryPassword="{Binding IsPassword}"
                                EntryText="{Binding Password}"
+                               WrongFont="Montserrat-Medium"
                                WrongText="{Binding PasswordWrongText}"
                                IsWrongVisible="{Binding IsPasswordWrongVisible}"
                                ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
             <!--LOG IN BUTTON-->
             <Button Style="{StaticResource FillButton}"
-                    Text="{Binding Resource[LogInButton]}" 
-                    Margin="0, 24, 0, 0"
+                    Text="{Binding Resource[LogInButton]}"
+                    FontFamily="Montserrat-Medium"
+                    Margin="0, 40, 0, 0"
                     Command="{Binding LogInTapCommand}"
                     IsEnabled="{Binding IsButtonEnable}"/>
 
@@ -54,6 +61,8 @@
                          VerticalOptions="Center"/>
 
                 <Label Style="{StaticResource SeparatorText}"
+                       FontFamily="Montserrat-Medium"
+                       FontSize="16"
                        Text=" or "
                        Grid.Column="0"
                        HorizontalOptions="Center"/>
@@ -62,7 +71,8 @@
 
             <!--ALTERNATIVE LOG IN-->
             <Grid ColumnDefinitions="*"
-                          Margin="0, 14, 0, 0">
+                  Padding="0, 14, 0, 0"
+                  ColumnSpacing="15">
 
                 <Button Style="{StaticResource AlternativeLogInButton}"
                         ImageSource="ic_google.png"

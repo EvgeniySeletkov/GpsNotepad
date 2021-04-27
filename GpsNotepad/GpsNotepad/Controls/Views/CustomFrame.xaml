@@ -8,12 +8,13 @@
     <Label BindingContext="{x:Reference Name=CustomEntry}"
            Padding="16, 0, 0, 0"
            FontSize="{Binding SubtitleFontSize}"
+           FontFamily="{Binding SubtitleFont}"
            TextColor="{Binding SubtitleTextColor}"
            Text="{Binding SubtitleText}"
            IsVisible="{Binding IsSubtitleVisible}"/>
     
     <Frame BindingContext="{x:Reference Name=CustomEntry}"
-           Padding="12, 10, 15, 10"
+           Padding="12, 4, 15, 4"
            BorderColor="{Binding EntryBorderColor}"
            BackgroundColor="{Binding EntryBackgoundColor}">
         
@@ -22,6 +23,7 @@
             <local:CustomEntry BindingContext="{x:Reference Name=CustomEntry}"
                                Grid.Column="0"
                                FontSize="{Binding EntryFontSize}"
+                               FontFamily="{Binding EntryFont}"
                                PlaceholderColor="{Binding EntryPlaceholderColor}"
                                Placeholder="{Binding EntryPlaceholder}"
                                TextColor="{Binding EntryTextColor}"
@@ -42,6 +44,7 @@
     <Label BindingContext="{x:Reference Name=CustomEntry}"
            Padding="16, 0, 0, 0"
            FontSize="{Binding WrongFontSize}"
+           FontFamily="{Binding WrongFont}"
            TextColor="{Binding WrongColor}"
            Text="{Binding WrongText}"
            IsVisible="{Binding IsWrongVisible}"/>

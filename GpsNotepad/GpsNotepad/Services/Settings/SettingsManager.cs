@@ -1,4 +1,5 @@
 ﻿using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace GpsNotepad.Services.Settings
 {
@@ -13,6 +14,12 @@ namespace GpsNotepad.Services.Settings
         {
             get => Preferences.Get(nameof(Culture), Constants.ENGLISH_LANGUAGE);
             set => Preferences.Set(nameof(Culture), value);
+        }
+
+        public string Theme
+        {
+            get => Preferences.Get(nameof(Theme), OSAppTheme.Light.ToString());
+            set => Preferences.Set(nameof(Theme), value);
         }
 
         public double Latitude

@@ -77,7 +77,10 @@
                TargetType="Label">
 
             <Setter Property="FontSize" 
-                    Value="18"/>
+                    Value="24"/>
+
+            <Setter Property="FontAttributes"
+                    Value="Bold"/>
 
             <Setter Property="TextColor"
                     Value="{AppThemeBinding Light={StaticResource LightPrimary},
@@ -96,7 +99,7 @@
                     Value="None"/>
 
             <Setter Property="FontSize"
-                    Value="14"/>
+                    Value="18"/>
 
             <Setter Property="TextColor"
                     Value="{StaticResource SystemWhite}" />
@@ -118,7 +121,7 @@
                     Value="None"/>
 
             <Setter Property="FontSize"
-                    Value="14"/>
+                    Value="18"/>
 
             <Setter Property="TextColor"
                     Value="{AppThemeBinding Light={StaticResource LightPrimary},
@@ -130,7 +133,7 @@
                TargetType="local:CustomFrame">
 
             <Setter Property="SubtitleFontSize"
-                    Value="12"/>
+                    Value="16"/>
 
             <Setter Property="SubtitleTextColor"
                     Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
@@ -143,7 +146,7 @@
                     Value="Transparent"/>
 
             <Setter Property="EntryFontSize"
-                    Value="14"/>
+                    Value="18"/>
 
             <Setter Property="EntryPlaceholderColor"
                     Value="{StaticResource SystemGray}"/>

@@ -1,4 +1,4 @@
-﻿using GpsNotepad.Resources;
+﻿using GpsNotepad.Resources.Strings;
 using GpsNotepad.Services.Settings;
 using System.ComponentModel;
 using System.Globalization;

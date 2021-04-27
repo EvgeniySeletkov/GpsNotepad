@@ -9,18 +9,23 @@
 
         <StackLayout Padding="16, 0, 16, 0">
 
+            <!--DARK THEME-->
             <StackLayout Padding="0, 18, 0, 16" Orientation="Horizontal">
 
                 <Label Style="{StaticResource SettingsSubtitle}"
                        Text="Dark theme"
                        VerticalOptions="Center"/>
 
-                <Switch HorizontalOptions="EndAndExpand"/>
+                <Switch ThumbColor="#FEFEFD"
+                        OnColor="#596EFB"
+                        HorizontalOptions="EndAndExpand"
+                        IsToggled="{Binding DarkTheme}"/>
 
             </StackLayout>
 
             <BoxView Style="{StaticResource PinSeparator}"/>
 
+            <!--LANGUAGE-->
             <StackLayout Padding="0, 18, 0, 16" Orientation="Horizontal">
 
                 <Label Style="{StaticResource SettingsSubtitle}"
@@ -30,7 +35,8 @@
                 <ImageButton BackgroundColor="Transparent"
                              Source="ic_left_gray.png"
                              HorizontalOptions="EndAndExpand"
-                             Padding="0, 0, 9, 0"/>
+                             Padding="0, 0, 9, 0"
+                             Command="{Binding OpenLanguageSettingsTapCommand}"/>
 
             </StackLayout>
 

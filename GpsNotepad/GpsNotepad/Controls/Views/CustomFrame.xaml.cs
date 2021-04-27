@@ -29,6 +29,20 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(SubtitleFontSizeProperty, value);
         }
 
+        public static readonly BindableProperty SubtitleFontProperty =
+            BindableProperty.Create(
+                propertyName: nameof(SubtitleFont),
+                returnType: typeof(string),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public string SubtitleFont
+        {
+            get => (string)GetValue(SubtitleFontProperty);
+            set => SetValue(SubtitleFontProperty, value);
+        }
+
         public static readonly BindableProperty SubtitleTextColorProperty =
             BindableProperty.Create(
                 propertyName: nameof(SubtitleTextColor),
@@ -111,6 +125,20 @@ namespace GpsNotepad.Controls.Views
         {
             get => (double)GetValue(EntryFontSizeProperty);
             set => SetValue(EntryFontSizeProperty, value);
+        }
+
+        public static readonly BindableProperty EntryFontProperty =
+            BindableProperty.Create(
+                propertyName: nameof(EntryFont),
+                returnType: typeof(string),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public string EntryFont
+        {
+            get => (string)GetValue(EntryFontProperty);
+            set => SetValue(EntryFontProperty, value);
         }
 
         public static readonly BindableProperty EntryPlaceholderColorProperty =
@@ -209,6 +237,20 @@ namespace GpsNotepad.Controls.Views
         {
             get => (double)GetValue(WrongFontSizeProperty);
             set => SetValue(WrongFontSizeProperty, value);
+        }
+
+        public static readonly BindableProperty WrongFontProperty =
+            BindableProperty.Create(
+                propertyName: nameof(WrongFont),
+                returnType: typeof(string),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public string WrongFont
+        {
+            get => (string)GetValue(WrongFontProperty);
+            set => SetValue(WrongFontProperty, value);
         }
 
         public static readonly BindableProperty WrongColorProperty =

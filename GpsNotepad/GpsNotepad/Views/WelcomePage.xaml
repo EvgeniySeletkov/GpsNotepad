@@ -13,11 +13,14 @@
                          HeightRequest="193"
                          VerticalOptions="CenterAndExpand">
 
+                <!--APP ICON-->
                 <Image Source="pic_enter_page.png" 
-                       HorizontalOptions="Center"/>
+                       HorizontalOptions="Center"
+                       Scale="1.2"/>
 
                 <Label Style="{StaticResource PicEnterPageLabel}"
-                       Text="MapNotepad" 
+                       FontFamily="Montserrat-Bold"
+                       Text="MapNotepad"
                        HorizontalOptions="Center"/>
 
 
@@ -26,14 +29,19 @@
             <StackLayout Grid.Row="1">
 
                 <StackLayout VerticalOptions="CenterAndExpand"
-                             Padding="16, 0, 16, 0">
+                             Padding="16, 0, 16, 20">
 
+                    <!--LOG IN BUTTON-->
                     <Button Style="{StaticResource FillButton}"
-                            Text="{Binding Resource[LogInButton]}" 
+                            FontFamily="Montserrat-Medium"
+                            Text="{Binding Resource[LogInButton]}"
                             Command="{Binding LogInTapCommand}"/>
+                    
+                    <!--CREATE ACCOUNT BUTTON-->
                     <Button BorderWidth="1"
                             Style="{StaticResource ButtonWithBorder}"
-                            Text="{Binding Resource[CreateAccountButton]}" 
+                            FontFamily="Montserrat-Medium"
+                            Text="{Binding Resource[CreateAccountButton]}"
                             Margin="0, 10, 0, 0"
                             Command="{Binding CreateAccountTapCommand}"/>
 

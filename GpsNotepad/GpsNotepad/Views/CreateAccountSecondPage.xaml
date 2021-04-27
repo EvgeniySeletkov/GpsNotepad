@@ -37,25 +37,6 @@
                     Command="{Binding CreateAccountTapCommand}"/>
 
             <!--SEPARATOR-->
-            <Grid ColumnDefinitions="0.48*, 0.04*, 0.48*"
-                  Margin="0, 14, 0, 0">
-
-                <BoxView Style="{StaticResource Separator}"
-                         Grid.Column="0"
-                         VerticalOptions="Center"/>
-
-                <Label Style="{StaticResource SeparatorText}"
-                       Text="or"
-                       Grid.Column="1"
-                       HorizontalOptions="Center"/>
-
-                <BoxView Style="{StaticResource Separator}"
-                         Grid.Column="2"
-                         VerticalOptions="Center"/>
-
-            </Grid>
-
-            <!--ALTERNATIVE LOG IN BUTTON-->
             <Grid ColumnDefinitions="*"
                   Margin="0, 14, 0, 0">
 
@@ -67,6 +48,28 @@
                        Text=" or "
                        Grid.Column="0"
                        HorizontalOptions="Center"/>
+
+            </Grid>
+
+            <!--ALTERNATIVE LOG IN BUTTON-->
+            <Grid ColumnDefinitions="*"
+                  Margin="0, 14, 0, 0">
+
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="ic_google.png"
+                        Grid.Column="0"
+                        IsEnabled="False"/>
+
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="ic_facebook.png"
+                        Grid.Column="1"
+                        Command="{Binding LogInWithFacebookTapCommand}"/>
+
+                <Button Style="{StaticResource AlternativeLogInButton}"
+                        ImageSource="{AppThemeBinding Light=ic_apple.png,
+                                                      Dark=ic_apple_dark.png}"
+                        Grid.Column="2"
+                        IsEnabled="False"/>
 
             </Grid>
 
