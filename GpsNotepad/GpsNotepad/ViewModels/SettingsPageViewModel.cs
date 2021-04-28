@@ -53,49 +53,6 @@ namespace GpsNotepad.ViewModels
         public ICommand OpenLanguageSettingsTapCommand =>
             _openLanguageSettingsTapCommand ??= new DelegateCommand(OnOpenLanguageSettingsTapAsync);
 
-        private ICommand saveSettingsTapCommand;
-        public ICommand SaveSettingsTapCommand => 
-            saveSettingsTapCommand ??= new DelegateCommand(OnSaveSettingsTap);
-
-        #endregion
-
-        #region --- Private helpers ---
-
-        private void ActivateLanguageControl()
-        {
-            //try to use it
-            //SelectedLang = _localizationService.Lang;
-
-            //rename (Language)
-            switch (Resource.Lang)
-            {
-                case Constants.ENGLISH_LANGUAGE:
-                    SelectedLang = Constants.ENGLISH_LANGUAGE;
-                    break;
-                case Constants.RUSSIAN_LANGUAGE:
-                    SelectedLang = Constants.RUSSIAN_LANGUAGE;
-                    break;
-            }
-
-        }
-
-        private async void OnOpenLanguageSettingsTapAsync()
-        {
-            await NavigationService.NavigateAsync(nameof(LanguageSettingsPage));
-        }
-
-        private void SaveLanguageSettings()
-        {
-            Resource.Lang = SelectedLang;
-            Resource.SetCulture(SelectedLang);
-        }
-
-        private async void OnSaveSettingsTap()
-        {
-            SaveLanguageSettings();
-            await NavigationService.GoBackAsync();
-        }
-
         #endregion
 
         #region --- Overrides ---
@@ -104,7 +61,6 @@ namespace GpsNotepad.ViewModels
         {
             var theme = _themeService.GetTheme();
             DarkTheme = theme == OSAppTheme.Dark.ToString();
-            ActivateLanguageControl();
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -116,6 +72,15 @@ namespace GpsNotepad.ViewModels
                 var theme = DarkTheme ? OSAppTheme.Dark : OSAppTheme.Light;
                 _themeService.SetTheme(theme);
             }
+        }
+
+        #endregion
+
+        #region --- Private helpers ---
+
+        private async void OnOpenLanguageSettingsTapAsync()
+        {
+            await NavigationService.NavigateAsync(nameof(LanguageSettingsPage));
         }
 
         #endregion

@@ -22,6 +22,48 @@
                      VerticalOptions="EndAndExpand" 
                      HorizontalOptions="FillAndExpand">
 
+            <CollectionView ItemsSource="{Binding ImageList}"
+                            HeightRequest="80">
+
+                <CollectionView.ItemsLayout>
+
+                    <LinearItemsLayout Orientation="Horizontal"/>
+
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <StackLayout Orientation="Horizontal" Padding="1, 0, 1, 0">
+
+                            <Image Source="{Binding Image}"/>
+
+                        </StackLayout>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <!--<CarouselView ItemsSource="{Binding ImageList}"
+                          Loop="False"
+                          PeekAreaInsets="150"
+                          HeightRequest="80">
+
+                <CarouselView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Image Source="{Binding Image}"/>
+
+                    </DataTemplate>
+                    
+                </CarouselView.ItemTemplate>
+                
+            </CarouselView>-->
+
             <StackLayout Padding="16, 16, 16, 0">
 
                 <!--PIN LABEL-->

@@ -28,16 +28,16 @@ namespace GpsNotepad.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            //switch (Resource.Lang)
-            //{
-            //    case Constants.ENGLISH_LANGUAGE:
-            //        SelectedLanguage = Constants.ENGLISH_LANGUAGE;
-            //        break;
-            //    case Constants.RUSSIAN_LANGUAGE:
-            //        SelectedLanguage = Constants.RUSSIAN_LANGUAGE;
-            //        break;
-            //}
-            SelectedLanguage = Resource.Lang;
+            switch (Resource.Lang)
+            {
+                case Constants.ENGLISH_LANGUAGE:
+                    SelectedLanguage = Constants.ENGLISH_LANGUAGE;
+                    break;
+                case Constants.RUSSIAN_LANGUAGE:
+                    SelectedLanguage = Constants.RUSSIAN_LANGUAGE;
+                    break;
+            }
+            //SelectedLanguage = Resource.Lang;
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -47,6 +47,7 @@ namespace GpsNotepad.ViewModels
             if (args.PropertyName == nameof(SelectedLanguage))
             {
                 Resource.Lang = SelectedLanguage.ToString();
+                Resource.SetCulture(SelectedLanguage.ToString());
             }
         }
 

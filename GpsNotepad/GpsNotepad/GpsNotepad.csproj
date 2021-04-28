@@ -71,6 +71,11 @@
     <Compile Update="Controls\Views\CustomFrame.xaml.cs">
       <DependentUpon>CustomFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Strings\Resource - Копировать.Designer.cs">
+      <DependentUpon>Resource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\Strings\Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

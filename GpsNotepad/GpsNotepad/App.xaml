@@ -65,7 +65,7 @@
                TargetType="StackLayout">
 
             <Setter Property="HeightRequest"
-                    Value="242"/>
+                    Value="290"/>
 
             <Setter Property="BackgroundColor" 
                     Value="{AppThemeBinding Light={StaticResource SystemWhite},

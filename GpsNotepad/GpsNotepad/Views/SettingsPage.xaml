@@ -13,7 +13,7 @@
             <StackLayout Padding="0, 18, 0, 16" Orientation="Horizontal">
 
                 <Label Style="{StaticResource SettingsSubtitle}"
-                       Text="Dark theme"
+                       Text="{Binding Resource[DarkTheme]}"
                        VerticalOptions="Center"/>
 
                 <Switch ThumbColor="#FEFEFD"
@@ -29,7 +29,7 @@
             <StackLayout Padding="0, 18, 0, 16" Orientation="Horizontal">
 
                 <Label Style="{StaticResource SettingsSubtitle}"
-                       Text="Language"
+                       Text="{Binding Resource[Language]}"
                        VerticalOptions="Center"/>
 
                 <ImageButton BackgroundColor="Transparent"
@@ -41,18 +41,6 @@
             </StackLayout>
 
             <BoxView Style="{StaticResource PinSeparator}"/>
-
-            <!--<StackLayout RadioButtonGroup.GroupName="Theme" RadioButtonGroup.SelectedValue="{Binding SelectedTheme}">
-                <Label Text="{Binding Resource[ThemeOptions]}" VerticalTextAlignment="Center" />
-                <RadioButton Content="{Binding Resource[LightTheme]}" Value="Light" />
-                <RadioButton Content="{Binding Resource[DarkTheme]}" Value="Dark" />
-            </StackLayout>
-
-            <StackLayout RadioButtonGroup.GroupName="Language" RadioButtonGroup.SelectedValue="{Binding SelectedLang}">
-                <Label Text="{Binding Resource[LanguageOptions]}" VerticalTextAlignment="Center"/>
-                <RadioButton Content="{Binding Resource[EnglishLanguage]}" Value="en" />
-                <RadioButton Content="{Binding Resource[RussianLanguage]}" Value="ru" />
-            </StackLayout>-->
 
         </StackLayout>
         

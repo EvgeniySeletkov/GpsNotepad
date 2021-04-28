@@ -1,20 +1,35 @@
-﻿using GpsNotepad.Models.Pin;
+﻿using GpsNotepad.Models;
+using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Localization;
+using GpsNotepad.Services.PinImage;
 using Prism.Commands;
 using Prism.Navigation;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace GpsNotepad.ViewModels
 {
     class PinInfoPopupPageViewModel : BaseViewModel
     {
-        public PinInfoPopupPageViewModel(INavigationService navigationService,
-                                         ILocalizationService localizationService) : base(navigationService, localizationService)
-        {
+        private readonly IPinImageService _pinImageService;
 
+        public PinInfoPopupPageViewModel(INavigationService navigationService,
+                                         ILocalizationService localizationService,
+                                         IPinImageService pinImageService) : base(navigationService, localizationService)
+        {
+            _pinImageService = pinImageService;
         }
 
         #region --- Public properties ---
+
+        private ObservableCollection<PinImageModel> _imageList;
+        public ObservableCollection<PinImageModel> ImageList
+        {
+            get => _imageList;
+            set => SetProperty(ref _imageList, value);
+        }
+
+
 
         private string _label;
         public string Label
@@ -45,10 +60,14 @@ namespace GpsNotepad.ViewModels
 
         #region --- Overrides ---
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.TryGetValue<PinViewModel>(nameof(PinViewModel), out var selectedPin))
             {
+                var imageList = await _pinImageService.GetAllPinImagesAsync(selectedPin.PinId);
+
+                ImageList = new ObservableCollection<PinImageModel>(imageList);
+
                 Label = selectedPin.Label;
                 Coordinates = selectedPin.Coordinates;
                 Description = selectedPin.Description;

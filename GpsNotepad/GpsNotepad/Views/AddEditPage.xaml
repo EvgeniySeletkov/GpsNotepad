@@ -11,9 +11,13 @@
              Title="{Binding Title}">
 
     <ContentPage.Resources>
+        
         <ResourceDictionary>
+            
             <converters:FilePathToFileNameConverter x:Key="PathToName" />
+            
         </ResourceDictionary>
+        
     </ContentPage.Resources>
 
 
@@ -102,11 +106,12 @@
                                     <Grid ColumnDefinitions="0.5*, 0.1*, 0.4*"
                                                  Padding="16, 0, 0, 0">
 
-                                        <Label FontSize="14"
-                                               TextColor="White"
+                                        <Label Style="{StaticResource PinInfo}"
+                                               FontSize="14"
                                                VerticalOptions="Center"
                                                LineBreakMode="TailTruncation"
-                                               Text="{Binding Image, Converter={StaticResource PathToName}}"
+                                               Text="{Binding Image, 
+                                                              Converter={StaticResource PathToName}}"
                                                Grid.Column="0"/>
 
                                         <ImageButton BackgroundColor="Transparent"
