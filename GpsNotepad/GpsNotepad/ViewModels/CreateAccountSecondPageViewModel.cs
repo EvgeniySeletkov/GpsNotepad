@@ -98,12 +98,16 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _isConfirmPasswordWrongVisible, value);
         }
 
-        private bool _isButtonEnable;
-        public bool IsButtonEnable
+        private bool _isButtonEnabled;
+        public bool IsButtonEnabled
         {
-            get => _isButtonEnable;
-            set => SetProperty(ref _isButtonEnable, value);
+            get => _isButtonEnabled;
+            set => SetProperty(ref _isButtonEnabled, value);
         }
+
+        private ICommand _goBackTapCommand;
+        public ICommand GoBackTapCommand =>
+            _goBackTapCommand ??= new DelegateCommand(OnGoBackTapAsync);
 
         private ICommand _passwordVisibleTapCommand;
         public ICommand PasswordVisibleTapCommand =>
@@ -137,11 +141,11 @@ namespace GpsNotepad.ViewModels
             if (string.IsNullOrWhiteSpace(Password) ||
                 string.IsNullOrWhiteSpace(ConfirmPassword))
             {
-                IsButtonEnable = false;
+                IsButtonEnabled = false;
             }
             else
             {
-                IsButtonEnable = true;
+                IsButtonEnabled = true;
             }
         }
 
@@ -154,23 +158,21 @@ namespace GpsNotepad.ViewModels
             bool isPasswordValid = true;
             if (!Validator.HasValidPassword(Password))
             {
-                IsPasswordWrongVisible = true;
                 PasswordWrongText = Resource["HasValidPassword"];
                 isPasswordValid = false;
             }
             else
             {
-                IsPasswordWrongVisible = false;
+                PasswordWrongText = string.Empty;
             }
             if (!Validator.HasEqualPasswords(Password, ConfirmPassword))
             {
-                IsConfirmPasswordWrongVisible = true;
                 ConfirmPasswordWrongText = Resource["HasMatchPasswords"];
                 isPasswordValid = false;
             }
             else
             {
-                IsConfirmPasswordWrongVisible = false;
+                ConfirmPasswordWrongText = string.Empty;
             }
             return isPasswordValid;
         }
@@ -191,6 +193,11 @@ namespace GpsNotepad.ViewModels
             }
 
             return user;
+        }
+
+        private async void OnGoBackTapAsync()
+        {
+            await NavigationService.GoBackAsync();
         }
 
         private void OnPasswordVisibleTap()

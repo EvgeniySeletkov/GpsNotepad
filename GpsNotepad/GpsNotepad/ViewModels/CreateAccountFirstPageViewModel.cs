@@ -39,13 +39,6 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _nameWrongText, value);
         }
 
-        private bool _isNameWrongVisible = true;
-        public bool IsNameWrongVisible
-        {
-            get => _isNameWrongVisible;
-            set => SetProperty(ref _isNameWrongVisible, value);
-        }
-
         private string _email;
         public string Email
         {
@@ -60,19 +53,16 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _emailWrongText, value);
         }
 
-        private bool _isEmailWrongVisible = true;
-        public bool IsEmailWrongVisible
-        {
-            get => _isEmailWrongVisible;
-            set => SetProperty(ref _isEmailWrongVisible, value);
-        }
-
         private bool _isNextButtonEnabled;
         public bool IsNextButtonEnabled
         {
             get => _isNextButtonEnabled;
             set => SetProperty(ref _isNextButtonEnabled, value);
         }
+
+        private ICommand _goBackTapCommand;
+        public ICommand GoBackTapCommand =>
+            _goBackTapCommand ??= new DelegateCommand(OnGoBackTapAsync);
 
         private ICommand _nameClearTapCommand;
         public ICommand NameClearTapCommand =>
@@ -119,14 +109,12 @@ namespace GpsNotepad.ViewModels
             bool isNameValid;
             if (!Validator.HasValidName(Name))
             {
-                //IsNameWrongVisible = true;
                 NameWrongText = Resource["HasValidName"];
                 isNameValid = false;
             }
             else
             {
                 NameWrongText = string.Empty;
-                //IsNameWrongVisible = false;
                 isNameValid = true;
             }
             return isNameValid;
@@ -137,13 +125,11 @@ namespace GpsNotepad.ViewModels
             bool isEmailValid;
             if (!Validator.HasValidEmail(Email))
             {
-                //IsEmailWrongVisible = true;
                 EmailWrongText = Resource["HasValidEmail"];
                 isEmailValid = false;
             }
             else
             {
-                //IsEmailWrongVisible = false;
                 EmailWrongText = string.Empty;
                 isEmailValid = true;
             }
@@ -159,6 +145,11 @@ namespace GpsNotepad.ViewModels
             };
 
             return userModel;
+        }
+
+        private async void OnGoBackTapAsync()
+        {
+            await NavigationService.GoBackAsync();
         }
 
         private void OnNameClearTap()
@@ -182,15 +173,13 @@ namespace GpsNotepad.ViewModels
                     var isBusyEmail = await _authorizationService.HasEmailAsync(Email);
                     if (!isBusyEmail)
                     {
-                        //IsEmailWrongVisible = false;
                         EmailWrongText = string.Empty;
                         var parameters = new NavigationParameters();
                         parameters.Add(nameof(UserModel), userModel);
-                        //await NavigationService.NavigateAsync(nameof(CreateAccountSecondPage), parameters);
+                        await NavigationService.NavigateAsync(nameof(CreateAccountSecondPage), parameters);
                     }
                     else
                     {
-                        //IsEmailWrongVisible = true;
                         EmailWrongText = Resource["HasBusyEmail"];
                     }
                 }

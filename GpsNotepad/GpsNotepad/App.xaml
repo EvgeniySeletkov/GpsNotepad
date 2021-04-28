@@ -199,6 +199,9 @@
         <Style x:Key="AlternativeLogInButton" 
                TargetType="Button">
 
+            <Setter Property="CornerRadius"
+                    Value="1"/>
+
             <Setter Property="BorderWidth"
                     Value="1"/>
 

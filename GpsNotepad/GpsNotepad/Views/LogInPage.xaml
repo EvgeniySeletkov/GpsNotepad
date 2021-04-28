@@ -41,29 +41,29 @@
 
                 <!--EMAIL-->
                 <customFrames:CustomFrame Style="{StaticResource Entry}"
-                               SubtitleFont="Montserrat-Medium"
-                               SubtitleText="{Binding Resource[Email]}"
-                               EntryFont="Montserrat-Light"
-                               EntryPlaceholder="{Binding Resource[EmailPlaceholder]}"
-                               ButtonImage="ic_clear.png"
-                               EntryText="{Binding Email}"
-                               WrongFont="Montserrat-Medium"
-                               WrongText="{Binding EmailWrongText}"
-                               IsWrongVisible="{Binding IsEmailWrongVisible}"
-                               ClickCommand="{Binding EmailClearTapCommand}"/>
+                              SubtitleFont="Montserrat-Medium"
+                              SubtitleText="{Binding Resource[Email]}"
+                              EntryFont="Montserrat-Light"
+                              EntryPlaceholder="{Binding Resource[EmailPlaceholder]}"
+                              ButtonImage="ic_clear.png"
+                              EntryText="{Binding Email}"
+                              WrongFont="Montserrat-Medium"
+                              WrongText="{Binding EmailWrongText}"
+                              IsWrongVisible="{Binding IsEmailWrongVisible}"
+                              ClickCommand="{Binding EmailClearTapCommand}"/>
 
                 <!--PASSWORD-->
                 <customFrames:CustomFrame Style="{StaticResource PasswordEntry}"
-                               SubtitleFont="Montserrat-Medium"
-                               SubtitleText="{Binding Resource[Password]}"
-                               EntryFont="Montserrat-Light"
-                               EntryPlaceholder="{Binding Resource[PasswordPlaceholder]}"
-                               IsEntryPassword="{Binding IsPassword}"
-                               EntryText="{Binding Password}"
-                               WrongFont="Montserrat-Medium"
-                               WrongText="{Binding PasswordWrongText}"
-                               IsWrongVisible="{Binding IsPasswordWrongVisible}"
-                               ClickCommand="{Binding PasswordVisibleTapCommand}"/>
+                              SubtitleFont="Montserrat-Medium"
+                              SubtitleText="{Binding Resource[Password]}"
+                              EntryFont="Montserrat-Light"
+                              EntryPlaceholder="{Binding Resource[PasswordPlaceholder]}"
+                              IsEntryPassword="{Binding IsPassword}"
+                              EntryText="{Binding Password}"
+                              WrongFont="Montserrat-Medium"
+                              WrongText="{Binding PasswordWrongText}"
+                              IsWrongVisible="{Binding IsPasswordWrongVisible}"
+                              ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
                 <!--LOG IN BUTTON-->
                 <Button Style="{StaticResource FillButton}"
