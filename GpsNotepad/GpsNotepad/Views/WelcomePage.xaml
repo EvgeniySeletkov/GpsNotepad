@@ -19,6 +19,7 @@
                        Scale="1.2"/>
 
                 <Label Style="{StaticResource PicEnterPageLabel}"
+                       Padding="0, 20, 0, 0"
                        FontFamily="Montserrat-Bold"
                        Text="MapNotepad"
                        HorizontalOptions="Center"/>
@@ -33,16 +34,17 @@
 
                     <!--LOG IN BUTTON-->
                     <Button Style="{StaticResource FillButton}"
-                            FontFamily="Montserrat-Medium"
+                            FontFamily="Montserrat-SemiBold"
                             Text="{Binding Resource[LogInButton]}"
+                            VerticalOptions="StartAndExpand"
                             Command="{Binding LogInTapCommand}"/>
                     
                     <!--CREATE ACCOUNT BUTTON-->
                     <Button BorderWidth="1"
                             Style="{StaticResource ButtonWithBorder}"
-                            FontFamily="Montserrat-Medium"
-                            Text="{Binding Resource[CreateAccountButton]}"
-                            Margin="0, 10, 0, 0"
+                            FontFamily="Montserrat-SemiBold"
+                            Margin="0, 12, 0, 0"
+                            Text="{Binding Resource[CreateAccountButton]}" 
                             Command="{Binding CreateAccountTapCommand}"/>
 
                 </StackLayout>

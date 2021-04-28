@@ -95,6 +95,9 @@
                     Value="{AppThemeBinding Light={StaticResource LightPrimary},
                                             Dark={StaticResource DarkPrimary}}"/>
 
+            <Setter Property="CornerRadius"
+                    Value="1"/>
+
             <Setter Property="TextTransform"
                     Value="None"/>
 
@@ -108,6 +111,9 @@
 
         <Style x:Key="ButtonWithBorder" 
                TargetType="Button">
+
+            <Setter Property="CornerRadius"
+                    Value="1"/>
 
             <Setter Property="BorderColor"
                     Value="{AppThemeBinding Light={StaticResource LightPrimary},
@@ -133,20 +139,20 @@
                TargetType="local:CustomFrame">
 
             <Setter Property="SubtitleFontSize"
-                    Value="16"/>
+                    Value="15"/>
 
             <Setter Property="SubtitleTextColor"
                     Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
                                             Dark={StaticResource SystemWhite}}"/>
 
-            <Setter Property="EntryBorderColor"
+            <Setter Property="EntryNormalBorderColor"
                     Value="{StaticResource SystemLightGray}"/>
 
             <Setter Property="EntryBackgoundColor"
                     Value="Transparent"/>
 
             <Setter Property="EntryFontSize"
-                    Value="18"/>
+                    Value="17"/>
 
             <Setter Property="EntryPlaceholderColor"
                     Value="{StaticResource SystemGray}"/>
@@ -156,7 +162,7 @@
                                             Dark={StaticResource SystemWhite}}"/>
 
             <Setter Property="WrongFontSize"
-                    Value="10"/>
+                    Value="13"/>
 
             <Setter Property="WrongColor"
                     Value="{AppThemeBinding Light={StaticResource LightError},

@@ -1,5 +1,6 @@
 ﻿using GpsNotepad.Controls;
 using GpsNotepad.iOS;
+using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -13,7 +14,8 @@ namespace GpsNotepad.iOS
             base.OnElementChanged(e);
             if (Control != null)
             {
-                Control.Background = null;
+                Control.Layer.BorderWidth = 0;
+                Control.BorderStyle = UITextBorderStyle.None;
             }
         }
     }

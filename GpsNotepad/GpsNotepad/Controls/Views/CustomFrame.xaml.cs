@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -11,6 +12,7 @@ namespace GpsNotepad.Controls.Views
         public CustomFrame()
         {
             InitializeComponent();
+            _borderColor = EntryNormalBorderColor;
         }
 
         #region --- Public properties ---
@@ -97,6 +99,20 @@ namespace GpsNotepad.Controls.Views
         {
             get => (Color)GetValue(EntryBorderColorProperty);
             set => SetValue(EntryBorderColorProperty, value);
+        }
+
+        public static readonly BindableProperty EntryNormalBorderColorProperty =
+            BindableProperty.Create(
+                propertyName: nameof(EntryNormalBorderColor),
+                returnType: typeof(Color),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public Color EntryNormalBorderColor
+        {
+            get => (Color)GetValue(EntryNormalBorderColorProperty);
+            set => SetValue(EntryNormalBorderColorProperty, value);
         }
 
         public static readonly BindableProperty EntryBackgoundColorProperty =
@@ -344,21 +360,24 @@ namespace GpsNotepad.Controls.Views
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
-
+            
             switch (propertyName)
             {
+                case nameof(EntryNormalBorderColor):
+                    EntryBorderColor = EntryNormalBorderColor;
+                    break;
                 case nameof(EntryText):
                     IsButtonVisible = string.IsNullOrWhiteSpace(EntryText) ? false : true;
                     break;
-                case nameof(IsWrongVisible):
-                    if (IsWrongVisible)
+                case nameof(WrongText):
+                    if (string.IsNullOrWhiteSpace(WrongText))
                     {
-                        _borderColor = EntryBorderColor;
-                        EntryBorderColor = WrongColor;
+                        EntryBorderColor = EntryNormalBorderColor;
                     }
                     else
                     {
-                        EntryBorderColor = _borderColor;
+                        //_borderColor = EntryBorderColor; //0.8
+                        EntryBorderColor = WrongColor; //0.9
                     }
                     break;
             }

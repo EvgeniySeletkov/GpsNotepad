@@ -39,7 +39,7 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _nameWrongText, value);
         }
 
-        private bool _isNameWrongVisible;
+        private bool _isNameWrongVisible = true;
         public bool IsNameWrongVisible
         {
             get => _isNameWrongVisible;
@@ -60,7 +60,7 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _emailWrongText, value);
         }
 
-        private bool _isEmailWrongVisible;
+        private bool _isEmailWrongVisible = true;
         public bool IsEmailWrongVisible
         {
             get => _isEmailWrongVisible;
@@ -119,13 +119,14 @@ namespace GpsNotepad.ViewModels
             bool isNameValid;
             if (!Validator.HasValidName(Name))
             {
-                IsNameWrongVisible = true;
+                //IsNameWrongVisible = true;
                 NameWrongText = Resource["HasValidName"];
                 isNameValid = false;
             }
             else
             {
-                IsNameWrongVisible = false;
+                NameWrongText = string.Empty;
+                //IsNameWrongVisible = false;
                 isNameValid = true;
             }
             return isNameValid;
@@ -136,13 +137,14 @@ namespace GpsNotepad.ViewModels
             bool isEmailValid;
             if (!Validator.HasValidEmail(Email))
             {
-                IsEmailWrongVisible = true;
+                //IsEmailWrongVisible = true;
                 EmailWrongText = Resource["HasValidEmail"];
                 isEmailValid = false;
             }
             else
             {
-                IsEmailWrongVisible = false;
+                //IsEmailWrongVisible = false;
+                EmailWrongText = string.Empty;
                 isEmailValid = true;
             }
             return isEmailValid;
@@ -180,14 +182,15 @@ namespace GpsNotepad.ViewModels
                     var isBusyEmail = await _authorizationService.HasEmailAsync(Email);
                     if (!isBusyEmail)
                     {
-                        IsEmailWrongVisible = false;
+                        //IsEmailWrongVisible = false;
+                        EmailWrongText = string.Empty;
                         var parameters = new NavigationParameters();
                         parameters.Add(nameof(UserModel), userModel);
-                        await NavigationService.NavigateAsync(nameof(CreateAccountSecondPage), parameters);
+                        //await NavigationService.NavigateAsync(nameof(CreateAccountSecondPage), parameters);
                     }
                     else
                     {
-                        IsEmailWrongVisible = true;
+                        //IsEmailWrongVisible = true;
                         EmailWrongText = Resource["HasBusyEmail"];
                     }
                 }

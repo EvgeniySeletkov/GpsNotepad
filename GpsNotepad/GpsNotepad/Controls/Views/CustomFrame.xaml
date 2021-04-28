@@ -5,6 +5,7 @@
              x:Class="GpsNotepad.Controls.Views.CustomFrame"
              x:Name="CustomEntry">
 
+    <!--SUBTITLE-->
     <Label BindingContext="{x:Reference Name=CustomEntry}"
            Padding="16, 0, 0, 0"
            FontSize="{Binding SubtitleFontSize}"
@@ -13,14 +14,19 @@
            Text="{Binding SubtitleText}"
            IsVisible="{Binding IsSubtitleVisible}"/>
     
+    <!--FRAME-->
     <Frame BindingContext="{x:Reference Name=CustomEntry}"
+           CornerRadius="3"
+           HasShadow="False"
            Padding="12, 4, 15, 4"
            BorderColor="{Binding EntryBorderColor}"
            BackgroundColor="{Binding EntryBackgoundColor}">
         
         <Grid ColumnDefinitions="0.9*, 0.1*">
             
+            <!--ENTRY-->
             <local:CustomEntry BindingContext="{x:Reference Name=CustomEntry}"
+                               HeightRequest="50"
                                Grid.Column="0"
                                FontSize="{Binding EntryFontSize}"
                                FontFamily="{Binding EntryFont}"
@@ -31,6 +37,7 @@
                                Text="{Binding EntryText}"
                                IsPassword="{Binding IsEntryPassword}"/>
             
+            <!--ENTRY BUTTON-->
             <ImageButton BindingContext="{x:Reference Name=CustomEntry}"
                          Source="{Binding ButtonImage}"
                          IsVisible="{Binding IsButtonVisible}"
@@ -41,13 +48,14 @@
         
     </Frame>
     
+    <!--WRONG LABEL-->
     <Label BindingContext="{x:Reference Name=CustomEntry}"
            Padding="16, 0, 0, 0"
            FontSize="{Binding WrongFontSize}"
            FontFamily="{Binding WrongFont}"
            TextColor="{Binding WrongColor}"
            Text="{Binding WrongText}"
-           IsVisible="{Binding IsWrongVisible}"/>
+           IsEnabled="{Binding IsWrongVisible}"/>
     
 
 </StackLayout>

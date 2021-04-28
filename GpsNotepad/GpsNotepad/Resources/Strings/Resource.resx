@@ -175,10 +175,10 @@
     <value>Wrong Email</value>
   </data>
   <data name="HasValidName" xml:space="preserve">
-    <value>Name must contain at least 4 characters. First symbol should not be digit</value>
+    <value>The Name is incorrect</value>
   </data>
   <data name="HasValidPassword" xml:space="preserve">
-    <value>Password must contain at least 6 characters, including one uppercase, one lowercase and one number. First symbol should not be digit. </value>
+    <value>The Password is incorrect</value>
   </data>
   <data name="Label" xml:space="preserve">
     <value>Label</value>

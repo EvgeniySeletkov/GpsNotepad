@@ -1,6 +1,7 @@
 ﻿using GpsNotepad.Models;
 using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
+using GpsNotepad.Validation;
 using GpsNotepad.Views;
 using Plugin.FacebookClient;
 using Prism.Commands;
@@ -39,13 +40,6 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _emailWrongText, value);
         }
 
-        private bool _isEmailWrongVisible = false;
-        public bool IsEmailWrongVisible
-        {
-            get => _isEmailWrongVisible;
-            set => SetProperty(ref _isEmailWrongVisible, value);
-        }
-
         private string _password;
         public string Password
         {
@@ -74,19 +68,16 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _passwordWrongText, value);
         }
 
-        private bool _isPasswordWrongVisible;
-        public bool IsPasswordWrongVisible
-        {
-            get => _isPasswordWrongVisible;
-            set => SetProperty(ref _isPasswordWrongVisible, value);
-        }
-
         private bool _isButtonEnable;
         public bool IsButtonEnable
         {
             get => _isButtonEnable;
             set => SetProperty(ref _isButtonEnable, value);
         }
+
+        private ICommand _goBackTapCommand;
+        public ICommand GoBackTapCommand =>
+            _goBackTapCommand ??= new DelegateCommand(OnGoBackTapAsync);
 
         private ICommand _emailClearTapCommand;
         public ICommand EmailClearTapCommand =>
@@ -135,6 +126,43 @@ namespace GpsNotepad.ViewModels
 
         #region --- Private helpers ---
 
+        private bool HasValidEmail()
+        {
+            bool isEmailValid;
+            if (!Validator.HasValidEmail(Email))
+            {
+                EmailWrongText = Resource["HasValidEmail"];
+                isEmailValid = false;
+            }
+            else
+            {
+                EmailWrongText = string.Empty;
+                isEmailValid = true;
+            }
+            return isEmailValid;
+        }
+
+        private bool HasValidPassword()
+        {
+            bool isPasswordValid;
+            if (!Validator.HasValidPassword(Password))
+            {
+                PasswordWrongText = Resource["HasValidPassword"];
+                isPasswordValid = false;
+            }
+            else
+            {
+                PasswordWrongText = string.Empty;
+                isPasswordValid = true;
+            }
+            return isPasswordValid;
+        }
+
+        private async void OnGoBackTapAsync()
+        {
+            await NavigationService.GoBackAsync();
+        }
+
         private void OnEmailClearTap()
         {
             Email = string.Empty;
@@ -147,11 +175,15 @@ namespace GpsNotepad.ViewModels
 
         private async void OnLogInTapAsync()
         {
-            var isAuthorized = await _authorizationService.LogInAsync(Email, Password);
-            if (isAuthorized)
+            if (HasValidEmail() && HasValidPassword())
             {
-                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                var isAuthorized = await _authorizationService.LogInAsync(Email, Password);
+                if (isAuthorized)
+                {
+                    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                }
             }
+            
         }
 
         private async void OnLogInWithFacebookTapAsync()

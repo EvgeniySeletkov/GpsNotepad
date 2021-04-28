@@ -11,7 +11,7 @@ using Xamarin.Forms.Xaml;
 
 namespace GpsNotepad.Views
 {
-    public partial class MapTabPage : ContentPage
+    public partial class MapTabPage : BaseContentPage
     {
         public MapTabPage()
         {
