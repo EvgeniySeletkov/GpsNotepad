@@ -12,5 +12,6 @@ namespace GpsNotepad.Services.Pin
         Task UpdatePinAsync(PinModel pinModel);
         Task DeletePinAsync(PinModel pinModel);
         Task<string> GetAddressAsync(Position position);
+        IEnumerable<PinViewModel> SearchPin(List<PinViewModel> pinList, string searchText);
     }
 }

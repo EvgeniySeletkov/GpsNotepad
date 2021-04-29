@@ -8,7 +8,6 @@ using GpsNotepad.Services.Pin;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -23,11 +22,12 @@ namespace GpsNotepad.ViewModels
 {
     class MapTabPageViewModel : BaseViewModel
     {
+        private List<PinViewModel> _pinSearchList;
+
         private readonly IPinService _pinService;
         private readonly IMapCameraPositionService _mapCameraPositionService;
         private readonly IPermissionService _permissionService;
         private readonly IAuthorizationService _authorizationService;
-        private List<PinViewModel> _pinViewModelListForSearch;
 
         public MapTabPageViewModel(INavigationService navigationService,
                                    ILocalizationService localizationService,
@@ -43,6 +43,20 @@ namespace GpsNotepad.ViewModels
         }
 
         #region --- Public properties ---
+
+        private bool _isSearchBarFocused;
+        public bool IsSearchBarFocused
+        {
+            get => _isSearchBarFocused;
+            set => SetProperty(ref _isSearchBarFocused, value);
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set => SetProperty(ref _searchText, value);
+        }
 
         private ObservableCollection<PinViewModel> _pinList = new ObservableCollection<PinViewModel>();
         public ObservableCollection<PinViewModel> PinList
@@ -72,13 +86,6 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _isPinListVisible, value);
         }
 
-        private string _searchText;
-        public string SearchText
-        {
-            get => _searchText;
-            set => SetProperty(ref _searchText, value);
-        }
-
         private int _listHeight;
         public int ListHeight
         {
@@ -91,13 +98,6 @@ namespace GpsNotepad.ViewModels
         {
             get => _cameraPosition;
             set => SetProperty(ref _cameraPosition, value);
-        }
-
-        private bool _isSearchBarFocused;
-        public bool IsSearchBarFocused
-        {
-            get => _isSearchBarFocused;
-            set => SetProperty(ref _isSearchBarFocused, value);
         }
 
         private ICommand _openSettingsTapCommand;
@@ -162,7 +162,7 @@ namespace GpsNotepad.ViewModels
                 }
                 PinList = new ObservableCollection<PinViewModel>(pinViewModelList);
             }
-            if (parameters.TryGetValue<Pin>(nameof(SelectedPin), out var newPin))
+            if (parameters.TryGetValue<Pin>(nameof(Pin), out var newPin))
             {
                 CameraPosition = new MapSpan(newPin.Position, 1, 1);
             }
@@ -173,36 +173,29 @@ namespace GpsNotepad.ViewModels
         {
             base.OnPropertyChanged(args);
 
-            if (args.PropertyName == nameof(IsSearchBarFocused))
+            switch (args.PropertyName)
             {
-                IsPinListVisible = IsSearchBarFocused;
-                ChangeListHeight();
-            }
+                case nameof(IsSearchBarFocused):
+                    IsPinListVisible = IsSearchBarFocused;
+                    ChangeListHeight();
+                    break;
+                case nameof(SearchText):
+                    _pinSearchList ??= new List<PinViewModel>(PinList);
 
-            if (args.PropertyName == nameof(SearchText))
-            {
-                _pinViewModelListForSearch ??= new List<PinViewModel>(PinList);
+                    if (string.IsNullOrWhiteSpace(SearchText))
+                    {
 
-                if (string.IsNullOrWhiteSpace(SearchText))
-                {
+                        PinList = new ObservableCollection<PinViewModel>(_pinSearchList);
+                        _pinSearchList = null;
 
-                    PinList = new ObservableCollection<PinViewModel>(_pinViewModelListForSearch);
-                    _pinViewModelListForSearch = null;
+                    }
+                    else
+                    {
+                        PinList = new ObservableCollection<PinViewModel>(_pinService.SearchPin(_pinSearchList, SearchText));
+                    }
 
-                }
-                else
-                {
-                    //IsPinListVisible = true;
-                    PinList = new ObservableCollection<PinViewModel>(_pinViewModelListForSearch.Where(p =>
-                           p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                           p.Latitude.ToString().StartsWith(SearchText) ||
-                           p.Longitude.ToString().StartsWith(SearchText) ||
-                           (!string.IsNullOrWhiteSpace(p.Description) &&
-                           p.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
-                    //ChangeListHeight();
-                }
-
-                ChangeListHeight();
+                    ChangeListHeight();
+                    break;
             }
         }
 

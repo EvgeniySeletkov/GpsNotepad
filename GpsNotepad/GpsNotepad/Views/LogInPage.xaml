@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:BaseContentPage  xmlns:views="clr-namespace:GpsNotepad.Views" 
-                        xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:customFrames="clr-namespace:GpsNotepad.Controls.Views"
-                        x:Class="GpsNotepad.Views.LogInPage"
-                        NavigationPage.HasNavigationBar="False"
-                        Style="{StaticResource PageBackgroundStyle}">
+<views:BaseContentPage xmlns:views="clr-namespace:GpsNotepad.Views" 
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:customFrames="clr-namespace:GpsNotepad.Controls.Views"
+                       x:Class="GpsNotepad.Views.LogInPage"
+                       NavigationPage.HasNavigationBar="False"
+                       Style="{StaticResource PageBackgroundStyle}">
 
     <ContentPage.Content>
 

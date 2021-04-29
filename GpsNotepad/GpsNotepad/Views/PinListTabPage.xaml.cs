@@ -1,8 +1,8 @@
 ﻿namespace GpsNotepad.Views
 {
-    public partial class WelcomePage : BaseContentPage
+    public partial class PinListTabPage : BaseContentPage
     {
-        public WelcomePage()
+        public PinListTabPage()
         {
             InitializeComponent();
         }

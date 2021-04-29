@@ -1,6 +1,7 @@
 ﻿using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Repository;
 using GpsNotepad.Services.Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,6 +57,18 @@ namespace GpsNotepad.Services.Pin
                              fullAddress.Length)) : string.Empty;
 
             return address;
-        }  
+        }
+
+        public IEnumerable<PinViewModel> SearchPin(List<PinViewModel> pinList, string searchText)
+        {
+            var pinViewModelList = pinList.Where(p =>
+                           p.Label.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
+                           p.Latitude.ToString().StartsWith(searchText) ||
+                           p.Longitude.ToString().StartsWith(searchText) ||
+                           (!string.IsNullOrWhiteSpace(p.Description) &&
+                           p.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
+
+            return pinViewModelList;
+        }
     }
 }

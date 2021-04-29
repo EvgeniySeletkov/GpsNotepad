@@ -1,45 +1,42 @@
 ﻿using GpsNotepad.Extensions;
 using GpsNotepad.Models.Pin;
+using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.Pin;
 using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Input;
+using Xamarin.Forms;
+using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.ViewModels
 {
     class PinsListTabPageViewModel : BaseViewModel
     {
         private readonly IPinService _pinService;
-        private ObservableCollection<PinViewModel> _pinViewModelList;
+        private readonly IAuthorizationService _authorizationService;
+        private List<PinViewModel> _pinSearchList;
 
         public PinsListTabPageViewModel(INavigationService navigationService,
                                         ILocalizationService localizationService,
-                                        IPinService pinService) : base(navigationService, localizationService)
+                                        IPinService pinService,
+                                        IAuthorizationService authorizationService) : base(navigationService, localizationService)
         {
             _pinService = pinService;
+            _authorizationService = authorizationService;
         }
 
         #region --- Public properties ---
 
-        private ObservableCollection<PinViewModel> _pinList;
-        public ObservableCollection<PinViewModel> PinList
+        private bool _isSearchBarFocused;
+        public bool IsSearchBarFocused
         {
-            get => _pinList;
-            set => SetProperty(ref _pinList, value);
-        }
-
-        private PinViewModel _selectedPin;
-        public PinViewModel SelectedPin
-        {
-            get => _selectedPin;
-            set => SetProperty(ref _selectedPin, value);
+            get => _isSearchBarFocused;
+            set => SetProperty(ref _isSearchBarFocused, value);
         }
 
         private string _searchText;
@@ -48,6 +45,25 @@ namespace GpsNotepad.ViewModels
             get => _searchText;
             set => SetProperty(ref _searchText, value);
         }
+
+        private ObservableCollection<PinViewModel> _pinList;
+        public ObservableCollection<PinViewModel> PinList
+        {
+            get => _pinList;
+            set => SetProperty(ref _pinList, value);
+        }
+
+        private ICommand _openSettingsTapCommand;
+        public ICommand OpenSettingsTapCommand =>
+            _openSettingsTapCommand ??= new DelegateCommand(OnOpenSettingsTapAsync);
+
+        private ICommand _unfocusedSearchBarTapCommand;
+        public ICommand UnfocusedSearchBarTapCommand =>
+            _unfocusedSearchBarTapCommand ??= new DelegateCommand(OnUnfocusedSearchBarTap);
+
+        private ICommand _logOutTapCommand;
+        public ICommand LogOutTapCommand =>
+            _logOutTapCommand ??= new DelegateCommand(OnLogOutTapAsync);
 
         private ICommand _pinVisibleChangeTapCommand;
         public ICommand PinVisibleChangeTapCommand =>
@@ -100,22 +116,17 @@ namespace GpsNotepad.ViewModels
             base.OnPropertyChanged(args);
             if (args.PropertyName == nameof(SearchText))
             {
-                _pinViewModelList ??= new ObservableCollection<PinViewModel>(PinList);
+                _pinSearchList ??= new List<PinViewModel>(PinList);
 
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
-                    PinList = new ObservableCollection<PinViewModel>(_pinViewModelList);
-                    _pinViewModelList = null;
+                    PinList = new ObservableCollection<PinViewModel>(_pinSearchList);
+                    _pinSearchList = null;
                 }
                 else
                 {
                     //add method to PinService
-                    PinList = new ObservableCollection<PinViewModel>(_pinViewModelList.Where(p =>
-                           p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                           p.Latitude.ToString().StartsWith(SearchText) ||
-                           p.Longitude.ToString().StartsWith(SearchText) ||
-                           (!string.IsNullOrWhiteSpace(p.Description) &&
-                           p.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
+                    PinList = new ObservableCollection<PinViewModel>(_pinService.SearchPin(_pinSearchList, SearchText));
                 }
             }
         }
@@ -123,6 +134,22 @@ namespace GpsNotepad.ViewModels
         #endregion
 
         #region --- Private helpers ---
+
+        private async void OnOpenSettingsTapAsync()
+        {
+            await NavigationService.NavigateAsync(nameof(SettingsPage));
+        }
+
+        private void OnUnfocusedSearchBarTap()
+        {
+            IsSearchBarFocused = false;
+        }
+
+        private async void OnLogOutTapAsync()
+        {
+            _authorizationService.LogOut();
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}");
+        }
 
         private async void OnPinVisibleChangeTapAsync(PinViewModel pinViewModel)
         {
@@ -144,19 +171,22 @@ namespace GpsNotepad.ViewModels
 
         private async void OnSelectPinTapAsync(PinViewModel pinViewModel)
         {
+            IsSearchBarFocused = false;
             var parameters = new NavigationParameters();
             var pin = pinViewModel.ToPin();
-            parameters.Add(nameof(SelectedPin), pin);
+            parameters.Add(nameof(Pin), pin);
             await NavigationService.SelectTabAsync($"{nameof(MapTabPage)}", parameters);
         }
 
         private async void OnAddPinTapAsync()
         {
+            IsSearchBarFocused = false;
             await NavigationService.NavigateAsync($"{nameof(AddEditPage)}");
         }
 
         private async void OnEditPinTapAsync(PinViewModel pinViewModel)
         {
+            IsSearchBarFocused = false;
             var parameters = new NavigationParameters();
             parameters.Add(nameof(PinViewModel), pinViewModel);
             await NavigationService.NavigateAsync($"{nameof(AddEditPage)}", parameters);

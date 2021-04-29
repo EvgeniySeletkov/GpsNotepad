@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:BaseContentPage  xmlns:views="clr-namespace:GpsNotepad.Views" 
-                        xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:controls="clr-namespace:GpsNotepad.Controls"
-                        xmlns:prism="http://prismlibrary.com" 
-                        xmlns:controlViews="clr-namespace:GpsNotepad.Controls.Views"
-                        prism:ViewModelLocator.AutowireViewModel="True"
-                        x:Class="GpsNotepad.Views.MapTabPage"
-                        Style="{StaticResource PageBackgroundStyle}">
+<views:BaseContentPage xmlns:views="clr-namespace:GpsNotepad.Views" 
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:controls="clr-namespace:GpsNotepad.Controls"
+                       xmlns:prism="http://prismlibrary.com" 
+                       xmlns:controlViews="clr-namespace:GpsNotepad.Controls.Views"
+                       prism:ViewModelLocator.AutowireViewModel="True"
+                       x:Class="GpsNotepad.Views.MapTabPage"
+                       Style="{StaticResource PageBackgroundStyle}">
 
     <ContentPage.Content>
 
@@ -25,7 +25,6 @@
                                                ClearButtonImage="ic_clear.png"
                                                RightButtonImage="ic_exid.png"
                                                RightButtonClickCommand="{Binding LogOutTapCommand}"/>
-
             <Grid RowDefinitions="*" 
                   VerticalOptions="FillAndExpand">
 
@@ -62,7 +61,7 @@
                           Grid.Row="0"
                           VerticalOptions="Start"
                           HeightRequest="{Binding ListHeight}"
-                          IsVisible="True">
+                          IsVisible="{Binding IsPinListVisible}">
 
                     <ListView.Behaviors>
 
@@ -81,6 +80,9 @@
                                 <ViewCell.View>
 
                                     <StackLayout>
+
+                                        <!--SEPARATOR-->
+                                        <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
                                         <StackLayout Padding="16, 10, 16, 12"
                                                      VerticalOptions="Center"
@@ -103,9 +105,6 @@
                                             </StackLayout>
 
                                         </StackLayout>
-
-                                        <!--SEPARATOR-->
-                                        <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
                                     </StackLayout>
 
