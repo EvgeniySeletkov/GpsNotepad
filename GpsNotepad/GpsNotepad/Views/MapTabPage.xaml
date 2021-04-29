@@ -11,24 +11,28 @@
 
     <ContentPage.Content>
 
-        <StackLayout>
+        <StackLayout VerticalOptions="FillAndExpand">
 
-            <controlViews:CustomSearchBarFrame
-                          EntryBackgroundColor="#F1F3FD"
-                          EntryFont="Montserrat-Medium"
-                          EntryFontSize="15"/>
+            <!--NAVBAR-->
+            <controlViews:CustomSearchBarFrame Style="{StaticResource SearchBarStyle}"
+                                               EntryPlaceholder="Search"
+                                               LeftButtonImage="ic_settings.png"
+                                               LeftButtonClickCommand="{Binding OpenSettingsTapCommand}"
+                                               BackButtonImage="ic_left_blue.png"
+                                               BackButtonClickCommand="{Binding UnfocusedSearchBarTapCommand}"
+                                               EntryText="{Binding SearchText}"
+                                               IsSearchBarFocused="{Binding IsSearchBarFocused}"
+                                               ClearButtonImage="ic_clear.png"
+                                               RightButtonImage="ic_exid.png"
+                                               RightButtonClickCommand="{Binding LogOutTapCommand}"/>
 
-            <Grid RowDefinitions="0.1*, 0.9*">
-
-                <SearchBar Grid.Row="0"
-                       Placeholder="Search" 
-                       Text="{Binding SearchText}" />
+            <Grid RowDefinitions="*" VerticalOptions="FillAndExpand">
 
                 <!--GOOGLE MAP-->
-                <controls:CustomMap Grid.Row="1"
-                                MapPinViewModels="{Binding PinList}"
-                                MoveToPosition="{Binding CameraPosition}"
-                                IsMyLocationButtonVisible="{Binding IsMyLocation}">
+                <controls:CustomMap Grid.Row="0"
+                                    MapPinViewModels="{Binding PinList}"
+                                    MoveToPosition="{Binding CameraPosition}"
+                                    IsMyLocationButtonVisible="{Binding IsMyLocation}">
 
                     <controls:CustomMap.Behaviors>
 
@@ -50,21 +54,21 @@
 
                 <!--SEARCHABLE PIN LIST-->
                 <ListView Style="{StaticResource PageBackgroundStyle}"
-                      SeparatorVisibility="None"
-                      HasUnevenRows="True" 
-                      SelectionMode="Single"
-                      ItemsSource="{Binding PinList}"
-                      Grid.Row="1"
-                      VerticalOptions="Start"
-                      HeightRequest="144"
-                      SelectedItem="{Binding SelectedPin}"
-                      IsVisible="{Binding IsPinListVisible}">
+                          SeparatorVisibility="None"
+                          HasUnevenRows="True" 
+                          SelectionMode="None"
+                          ItemsSource="{Binding PinList}"
+                          Grid.Row="0"
+                          VerticalOptions="Start"
+                          HeightRequest="{Binding ListHeight}"
+                          SelectedItem="{Binding SelectedPin}"
+                          IsVisible="{Binding IsPinListVisible}">
 
                     <ListView.Behaviors>
 
                         <prism:EventToCommandBehavior EventName="ItemTapped" 
-                                                  Command="{Binding FoundedPinSelectCommand}"
-                                                  CommandParameter="{Binding .}" />
+                                                      Command="{Binding FoundedPinSelectCommand}"
+                                                      EventArgsParameterPath="Item"/>
 
                     </ListView.Behaviors>
 

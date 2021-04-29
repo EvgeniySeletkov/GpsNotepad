@@ -5,25 +5,28 @@
              x:Class="GpsNotepad.Controls.Views.CustomSearchBarFrame"
              x:Name="CustomSearchBar">
 
-    <Frame HasShadow="False"
-           Padding="18, 5, 18, 5">
+    <Frame BackgroundColor="Transparent"
+           HasShadow="False"
+           Padding="18, 5, 18, 0">
 
         <Grid ColumnDefinitions="0.1*, 0.8*, 0.1*">
 
+            <!--LEFT BUTTON-->
             <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
-                         Source="ic_settings.png"
+                         Source="{Binding LeftButtonImage}"
                          BackgroundColor="Transparent"
                          Padding="3, 3, 3, 3"
                          Grid.Column="0"
-                         IsVisible="{Binding LeftButtonIsVisible}"/>
+                         IsVisible="{Binding IsLeftButtonVisible}"/>
 
+            <!--BACK BUTTON-->
             <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
-                         Source="ic_left_blue.png"
+                         Source="{Binding BackButtonImage}"
                          BackgroundColor="Transparent"
                          Padding="3, 3, 3, 3"
                          Grid.Column="0"
-                         IsVisible="{Binding BackButtonIsVisible}"
-                         Clicked="ImageButton_Clicked"/>
+                         IsVisible="{Binding IsBackButtonVisible}"
+                         Command="{Binding BackButtonClickCommand}"/>
 
             <!--CUSTOM ENTRY BackgroundColor="#F1F3FD"-->
             <Frame BindingContext="{x:Reference Name=CustomSearchBar}"
@@ -36,29 +39,36 @@
 
                 <Grid ColumnDefinitions="0.9*, 0.1*">
 
-                    <!--ENTRY FontFamily="Montserrat-Medium" FontSize="15"-->
+                    <!--ENTRY-->
                     <controls:CustomEntry BindingContext="{x:Reference Name=CustomSearchBar}"
                                           FontFamily="{Binding EntryFont}"
                                           FontSize="{Binding EntryFontSize}"
-                                          Placeholder="Search"
+                                          TextColor="{Binding EntryTextColor}"
+                                          Placeholder="{Binding EntryPlaceholder}"
+                                          PlaceholderColor="{Binding EntryPlaceholderColor}"
                                           Text="{Binding EntryText}"
                                           Grid.Column="0"
-                                          Focused="CustomEntry_Focused"
-                                          Unfocused="CustomEntry_Unfocused"/>
+                                          Focused="CustomEntry_Focused"/>
 
                     <!--ENTRY BUTTON-->
-                    <ImageButton BackgroundColor="Transparent"
-                                 Grid.Column="1"/>
+                    <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                                 Source="{Binding ClearButtonImage}"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="1"
+                                 IsVisible="{Binding IsClearButtonVisible}"
+                                 Clicked="ClearButton_Clicked"/>
                 </Grid>
 
             </Frame>
 
+            <!--RIGHT BUTTON-->
             <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
-                         Source="ic_exid.png"
+                         Source="{Binding RightButtonImage}"
                          Padding="3, 3, 3, 3"
                          BackgroundColor="Transparent"
                          Grid.Column="2"
-                         IsVisible="{Binding RightButtonIsVisible}"/>
+                         IsVisible="{Binding IsRightButtonVisible}"
+                         Command="{Binding RightButtonClickCommand}"/>
 
         </Grid>
         

@@ -1,5 +1,6 @@
 ﻿using GpsNotepad.Extensions;
 using GpsNotepad.Models.Pin;
+using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.MapCameraPosition;
 using GpsNotepad.Services.Permission;
@@ -14,6 +15,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
 
@@ -24,17 +26,20 @@ namespace GpsNotepad.ViewModels
         private readonly IPinService _pinService;
         private readonly IMapCameraPositionService _mapCameraPositionService;
         private readonly IPermissionService _permissionService;
+        private readonly IAuthorizationService _authorizationService;
         private List<PinViewModel> _pinViewModelListForSearch;
 
         public MapTabPageViewModel(INavigationService navigationService,
                                    ILocalizationService localizationService,
                                    IPinService pinService,
                                    IMapCameraPositionService mapCameraPositionService,
-                                   IPermissionService permissionService) : base(navigationService, localizationService)
+                                   IPermissionService permissionService,
+                                   IAuthorizationService authorizationService) : base(navigationService, localizationService)
         {
             _pinService = pinService;
             _mapCameraPositionService = mapCameraPositionService;
             _permissionService = permissionService;
+            _authorizationService = authorizationService;
         }
 
         #region --- Public properties ---
@@ -81,12 +86,31 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _listHeight, value);
         }
 
-        private MapSpan cameraPosition;
+        private MapSpan _cameraPosition;
         public MapSpan CameraPosition
         {
-            get => cameraPosition;
-            set => SetProperty(ref cameraPosition, value);
+            get => _cameraPosition;
+            set => SetProperty(ref _cameraPosition, value);
         }
+
+        private bool _isSearchBarFocused;
+        public bool IsSearchBarFocused
+        {
+            get => _isSearchBarFocused;
+            set => SetProperty(ref _isSearchBarFocused, value);
+        }
+
+        private ICommand _openSettingsTapCommand;
+        public ICommand OpenSettingsTapCommand =>
+            _openSettingsTapCommand ??= new DelegateCommand(OnOpenSettingsTapAsync);
+
+        private ICommand _unfocusedSearchBarTapCommand;
+        public ICommand UnfocusedSearchBarTapCommand =>
+            _unfocusedSearchBarTapCommand ??= new DelegateCommand(OnUnfocusedSearchBarTap);
+
+        private ICommand _logOutTapCommand;
+        public ICommand LogOutTapCommand =>
+            _logOutTapCommand ??= new DelegateCommand(OnLogOutTapAsync);
 
         private ICommand _cameraMoveCommand;
         public ICommand CameraMoveCommand =>
@@ -94,7 +118,7 @@ namespace GpsNotepad.ViewModels
 
         private ICommand _foundedPinSelectCommand;
         public ICommand FoundedPinSelectCommand =>
-            _foundedPinSelectCommand ??= new DelegateCommand(OnFoundedPinSelectTap);
+            _foundedPinSelectCommand ??= new DelegateCommand<PinViewModel>(OnFoundedPinSelectTap);
 
         private ICommand _pinSelectCommand;
         public ICommand PinSelectCommand =>
@@ -149,27 +173,36 @@ namespace GpsNotepad.ViewModels
         {
             base.OnPropertyChanged(args);
 
+            if (args.PropertyName == nameof(IsSearchBarFocused))
+            {
+                IsPinListVisible = IsSearchBarFocused;
+                ChangeListHeight();
+            }
+
             if (args.PropertyName == nameof(SearchText))
             {
                 _pinViewModelListForSearch ??= new List<PinViewModel>(PinList);
 
                 if (string.IsNullOrWhiteSpace(SearchText))
                 {
-                    IsPinListVisible = false;
+
                     PinList = new ObservableCollection<PinViewModel>(_pinViewModelListForSearch);
                     _pinViewModelListForSearch = null;
+
                 }
                 else
                 {
-                    IsPinListVisible = true;
+                    //IsPinListVisible = true;
                     PinList = new ObservableCollection<PinViewModel>(_pinViewModelListForSearch.Where(p =>
                            p.Label.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
                            p.Latitude.ToString().StartsWith(SearchText) ||
                            p.Longitude.ToString().StartsWith(SearchText) ||
                            (!string.IsNullOrWhiteSpace(p.Description) &&
                            p.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase))));
-                    ChangeListHeight();
+                    //ChangeListHeight();
                 }
+
+                ChangeListHeight();
             }
         }
 
@@ -179,7 +212,7 @@ namespace GpsNotepad.ViewModels
 
         private void ChangeListHeight()
         {
-            if (PinList.Count < 3)
+           if (PinList.Count < 3)
             {
                 ListHeight = PinList.Count * 72;
             }
@@ -189,16 +222,32 @@ namespace GpsNotepad.ViewModels
             }
         }
 
+        private async void OnOpenSettingsTapAsync()
+        {
+            await NavigationService.NavigateAsync(nameof(SettingsPage));
+        }
+
+        private void OnUnfocusedSearchBarTap()
+        {
+            IsSearchBarFocused = false;
+        }
+
+        private async void OnLogOutTapAsync()
+        {
+            _authorizationService.LogOut();
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}");
+        }
+
         private void OnCameraMove(CameraPosition cameraPosition)
         {
             _mapCameraPositionService.SaveCameraPosition(cameraPosition);
         }
 
-        private void OnFoundedPinSelectTap()
+        private void OnFoundedPinSelectTap(PinViewModel selectedPin)
         {
-            var pin = SelectedPin.ToPin();
-            CameraPosition = new MapSpan(pin.Position, 1, 1);
-            IsPinListVisible = false;
+            var pin = selectedPin;
+            CameraPosition = new MapSpan(new Position(pin.Latitude, pin.Longitude), 1, 1);
+            IsSearchBarFocused = false;
         }
 
         private async void OnPinSelectTapAsync(Pin selectedPin)

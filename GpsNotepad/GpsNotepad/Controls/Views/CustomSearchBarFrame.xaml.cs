@@ -2,47 +2,123 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace GpsNotepad.Controls.Views
 {
-    public partial class CustomSearchBarFrame : StackLayout, INotifyPropertyChanged
+    public partial class CustomSearchBarFrame : StackLayout
     {
         public CustomSearchBarFrame()
         {
             InitializeComponent();
         }
 
-        public static readonly BindableProperty LeftButtonIsVisibleProperty =
+        #region --- Public properties ---
+
+        // LEFT BUTTON
+        public static readonly BindableProperty LeftButtonImageProperty =
             BindableProperty.Create(
-                propertyName: nameof(LeftButtonIsVisible),
+                propertyName: nameof(LeftButtonImage),
+                returnType: typeof(ImageSource),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public ImageSource LeftButtonImage
+        {
+            get => (ImageSource)GetValue(LeftButtonImageProperty);
+            set => SetValue(LeftButtonImageProperty, value);
+        }
+
+        public static readonly BindableProperty IsLeftButtonVisibleProperty =
+            BindableProperty.Create(
+                propertyName: nameof(IsLeftButtonVisible),
                 returnType: typeof(bool),
                 declaringType: typeof(CustomFrame),
                 defaultValue: true,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        public bool LeftButtonIsVisible
+        public bool IsLeftButtonVisible
         {
-            get => (bool)GetValue(LeftButtonIsVisibleProperty);
-            private set => SetValue(LeftButtonIsVisibleProperty, value);
+            get => (bool)GetValue(IsLeftButtonVisibleProperty);
+            private set => SetValue(IsLeftButtonVisibleProperty, value);
         }
 
-        public static readonly BindableProperty BackButtonIsVisibleProperty =
+        public static readonly BindableProperty LeftButtonClickCommandProperty =
             BindableProperty.Create(
-                propertyName: nameof(BackButtonIsVisible),
+                propertyName: nameof(LeftButtonClickCommand),
+                returnType: typeof(ICommand),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public ICommand LeftButtonClickCommand
+        {
+            get => (ICommand)GetValue(LeftButtonClickCommandProperty);
+            set => SetValue(LeftButtonClickCommandProperty, value);
+        }
+
+        // BACK BUTTON
+        public static readonly BindableProperty BackButtonImageProperty =
+            BindableProperty.Create(
+                propertyName: nameof(BackButtonImage),
+                returnType: typeof(ImageSource),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public ImageSource BackButtonImage
+        {
+            get => (ImageSource)GetValue(BackButtonImageProperty);
+            set => SetValue(BackButtonImageProperty, value);
+        }
+
+        public static readonly BindableProperty IsBackButtonVisibleProperty =
+            BindableProperty.Create(
+                propertyName: nameof(IsBackButtonVisible),
                 returnType: typeof(bool),
                 declaringType: typeof(CustomFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        public bool BackButtonIsVisible
+        public bool IsBackButtonVisible
         {
-            get => (bool)GetValue(BackButtonIsVisibleProperty);
-            private set => SetValue(BackButtonIsVisibleProperty, value);
+            get => (bool)GetValue(IsBackButtonVisibleProperty);
+            private set => SetValue(IsBackButtonVisibleProperty, value);
+        }
+
+        public static readonly BindableProperty BackButtonClickCommandProperty =
+            BindableProperty.Create(
+                propertyName: nameof(BackButtonClickCommand),
+                returnType: typeof(ICommand),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public ICommand BackButtonClickCommand
+        {
+            get => (ICommand)GetValue(BackButtonClickCommandProperty);
+            set => SetValue(BackButtonClickCommandProperty, value);
+        }
+
+        // ENTRY
+        public static readonly BindableProperty IsSearchBarFocusedProperty =
+            BindableProperty.Create(
+                propertyName: nameof(IsSearchBarFocused),
+                returnType: typeof(bool),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsSearchBarFocused
+        {
+            get => (bool)GetValue(IsSearchBarFocusedProperty);
+            set => SetValue(IsSearchBarFocusedProperty, value);
         }
 
         public static readonly BindableProperty EntryBackgroundColorProperty =
@@ -101,6 +177,34 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(EntryFontSizeProperty, value);
         }
 
+        public static readonly BindableProperty EntryPlaceholderColorProperty =
+            BindableProperty.Create(
+                propertyName: nameof(EntryPlaceholderColor),
+                returnType: typeof(Color),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public Color EntryPlaceholderColor
+        {
+            get => (Color)GetValue(EntryPlaceholderColorProperty);
+            set => SetValue(EntryPlaceholderColorProperty, value);
+        }
+
+        public static readonly BindableProperty EntryPlaceholderProperty =
+            BindableProperty.Create(
+                propertyName: nameof(EntryPlaceholder),
+                returnType: typeof(string),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public string EntryPlaceholder
+        {
+            get => (string)GetValue(EntryPlaceholderProperty);
+            set => SetValue(EntryPlaceholderProperty, value);
+        }
+
         public static readonly BindableProperty EntryTextProperty =
             BindableProperty.Create(
                 propertyName: nameof(EntryText),
@@ -115,42 +219,132 @@ namespace GpsNotepad.Controls.Views
             set => SetValue(EntryTextProperty, value);
         }
 
-        public static readonly BindableProperty RightButtonIsVisibleProperty =
+        public static readonly BindableProperty EntryTextColorProperty =
             BindableProperty.Create(
-                propertyName: nameof(RightButtonIsVisible),
+                propertyName: nameof(EntryTextColor),
+                returnType: typeof(Color),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public Color EntryTextColor
+        {
+            get => (Color)GetValue(EntryTextColorProperty);
+            set => SetValue(EntryTextColorProperty, value);
+        }
+
+        public static readonly BindableProperty ClearButtonImageProperty =
+            BindableProperty.Create(
+                propertyName: nameof(ClearButtonImage),
+                returnType: typeof(ImageSource),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public ImageSource ClearButtonImage
+        {
+            get => (ImageSource)GetValue(ClearButtonImageProperty);
+            set => SetValue(ClearButtonImageProperty, value);
+        }
+
+        public static readonly BindableProperty IsClearButtonVisibleProperty =
+            BindableProperty.Create(
+                propertyName: nameof(IsClearButtonVisible),
+                returnType: typeof(bool),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsClearButtonVisible
+        {
+            get => (bool)GetValue(IsClearButtonVisibleProperty);
+            private set => SetValue(IsClearButtonVisibleProperty, value);
+        }
+
+        // RIGHT BUTTON
+        public static readonly BindableProperty RightButtonImageProperty =
+            BindableProperty.Create(
+                propertyName: nameof(RightButtonImage),
+                returnType: typeof(ImageSource),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public ImageSource RightButtonImage
+        {
+            get => (ImageSource)GetValue(RightButtonImageProperty);
+            set => SetValue(RightButtonImageProperty, value);
+        }
+
+        public static readonly BindableProperty IsRightButtonVisibleProperty =
+            BindableProperty.Create(
+                propertyName: nameof(IsRightButtonVisible),
                 returnType: typeof(bool),
                 declaringType: typeof(CustomFrame),
                 defaultValue: true,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        public bool RightButtonIsVisible
+        public bool IsRightButtonVisible
         {
-            get => (bool)GetValue(RightButtonIsVisibleProperty);
-            private set => SetValue(RightButtonIsVisibleProperty, value);
+            get => (bool)GetValue(IsRightButtonVisibleProperty);
+            private set => SetValue(IsRightButtonVisibleProperty, value);
         }
+
+        public static readonly BindableProperty RightButtonClickCommandProperty =
+            BindableProperty.Create(
+                propertyName: nameof(RightButtonClickCommand),
+                returnType: typeof(ICommand),
+                declaringType: typeof(CustomFrame),
+                defaultValue: default,
+                defaultBindingMode: BindingMode.TwoWay);
+
+        public ICommand RightButtonClickCommand
+        {
+            get => (ICommand)GetValue(RightButtonClickCommandProperty);
+            set => SetValue(RightButtonClickCommandProperty, value);
+        }
+
+        #endregion
+
+        #region --- Overrides ---
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(IsSearchBarFocused):
+                    EntryColumnSpan = IsSearchBarFocused ? 2 : 1;
+                    ChangeButtonsVisible();
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region --- Private helpers ---
 
         private void ChangeButtonsVisible()
         {
-            LeftButtonIsVisible = !LeftButtonIsVisible;
-            BackButtonIsVisible = !BackButtonIsVisible;
-            RightButtonIsVisible = !RightButtonIsVisible;
+            IsLeftButtonVisible = !IsLeftButtonVisible;
+            IsBackButtonVisible = !IsBackButtonVisible;
+            IsRightButtonVisible = !IsRightButtonVisible;
+            IsClearButtonVisible = !IsClearButtonVisible;
         }
 
         private void CustomEntry_Focused(object sender, FocusEventArgs e)
         {
-            ChangeButtonsVisible();
-            EntryColumnSpan = 2;
+            IsSearchBarFocused = true;
+            IsClearButtonVisible = true;
         }
 
-        private void CustomEntry_Unfocused(object sender, FocusEventArgs e)
+        private void ClearButton_Clicked(object sender, EventArgs e)
         {
-            ChangeButtonsVisible();
-            EntryColumnSpan = 1;
+            EntryText = string.Empty;
         }
 
-        private void ImageButton_Clicked(object sender, EventArgs e)
-        {
-            //ChangeButtonsVisible();
-        }
+        #endregion
+
     }
 }

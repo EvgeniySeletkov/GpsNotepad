@@ -13,36 +13,9 @@
         <behaviors:TabbedPageNavigationBehavior />
     </TabbedPage.Behaviors>
 
-    <!--<NavigationPage.TitleView>
-
-        <Grid ColumnDefinitions="0.1*, 0.8*, 0.1*">
-
-            <Button BackgroundColor="Transparent"
-                    ImageSource="ic_settings.png"
-                    Grid.Column="0"
-                    VerticalOptions="CenterAndExpand"
-                    Command="{Binding SettingsTapCommand}"/>
-
-            <SearchBar BackgroundColor="#33374E"
-                       PlaceholderColor="#D7DDE8"
-                       Placeholder="Search"
-                       Grid.Column="1"
-                       VerticalOptions="Center"
-                       Text="{Binding SearchBar}"/>
-
-            <Button BackgroundColor="Transparent"
-                    ImageSource="ic_exid.png"
-                    Grid.Column="2"
-                    VerticalOptions="CenterAndExpand"
-                    Command="{Binding ExitTapCommand}"/>
-
-        </Grid>
-
-    </NavigationPage.TitleView>-->
-
     <TabbedPage.Children>
 
-        <local:MapTabPage Title="{Binding Resource[Map]}" 
+        <local:MapTabPage Title="{Binding Resource[Map]}"
                           IconImageSource="ic_map.png"/>
         <local:PinsListTabPage Title="{Binding Resource[Pins]}" 
                                IconImageSource="ic_pin.png"/>

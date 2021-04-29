@@ -6,13 +6,11 @@ using Xamarin.Forms;
 
 namespace GpsNotepad.Controls.Views
 {
-    public partial class CustomFrame : StackLayout, INotifyPropertyChanged
+    public partial class CustomFrame : StackLayout
     {
-        private Color _borderColor;
         public CustomFrame()
         {
             InitializeComponent();
-            _borderColor = EntryNormalBorderColor;
         }
 
         #region --- Public properties ---

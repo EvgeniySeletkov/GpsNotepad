@@ -35,12 +35,16 @@
 
                     <DataTemplate>
 
-                        <StackLayout Orientation="Horizontal" Padding="1, 0, 1, 0">
+                        <ViewCell>
 
-                            <Image Source="{Binding Image}"/>
+                            <StackLayout Orientation="Horizontal" Padding="1, 0, 1, 0">
 
-                        </StackLayout>
+                                <Image Source="{Binding Image}"/>
 
+                            </StackLayout>
+
+                        </ViewCell>
+                        
                     </DataTemplate>
 
                 </CollectionView.ItemTemplate>

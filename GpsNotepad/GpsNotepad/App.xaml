@@ -290,6 +290,28 @@
 
         </Style>
 
+        <Style x:Key="SearchBarStyle" TargetType="local:CustomSearchBarFrame">
+
+            <Setter Property="EntryBackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource LightVariant},
+                                            Dark={StaticResource DarkVariant}}"/>
+
+            <Setter Property="EntryFont"
+                    Value="Montserrat-Light"/>
+
+            <Setter Property="EntryFontSize"
+                    Value="14"/>
+
+            <Setter Property="EntryPlaceholderColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemGray},
+                                            Dark={StaticResource SystemLightGray}}"/>
+
+            <Setter Property="EntryTextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
         <!--Separator styles-->
         <Style x:Key="SeparatorStyle" 
                TargetType="BoxView">

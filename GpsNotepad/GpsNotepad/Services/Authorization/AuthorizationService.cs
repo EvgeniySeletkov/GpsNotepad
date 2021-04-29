@@ -125,5 +125,9 @@ namespace GpsNotepad.Services.Authorization
 
         }
 
+        public void LogOut()
+        {
+            _settingsManager.ClearSettings();
+        }
     }
 }
