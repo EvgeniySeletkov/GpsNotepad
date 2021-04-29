@@ -198,7 +198,7 @@
   <data name="Latitude is empty" xml:space="preserve">
     <value>Latitude is empty</value>
   </data>
-  <data name="LogInButton" xml:space="preserve">
+  <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
   </data>
   <data name="Longitude" xml:space="preserve">

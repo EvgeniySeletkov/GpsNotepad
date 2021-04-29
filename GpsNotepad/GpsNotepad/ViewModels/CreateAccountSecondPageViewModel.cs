@@ -56,13 +56,6 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _passwordWrongText, value);
         }
 
-        private bool _isPasswordWrongVisible;
-        public bool IsPasswordWrongVisible
-        {
-            get => _isPasswordWrongVisible;
-            set => SetProperty(ref _isPasswordWrongVisible, value);
-        }
-
         private string _confirmPassword;
         public string ConfirmPassword
         {
@@ -89,13 +82,6 @@ namespace GpsNotepad.ViewModels
         {
             get => _confirmPasswordWrongText;
             set => SetProperty(ref _confirmPasswordWrongText, value);
-        }
-
-        private bool _isConfirmPasswordWrongVisible;
-        public bool IsConfirmPasswordWrongVisible
-        {
-            get => _isConfirmPasswordWrongVisible;
-            set => SetProperty(ref _isConfirmPasswordWrongVisible, value);
         }
 
         private bool _isButtonEnabled;
@@ -182,13 +168,12 @@ namespace GpsNotepad.ViewModels
             var user = _userModel;
             if (!Password.Equals(_userModel.Name))
             {
-                IsPasswordWrongVisible = false;
+                PasswordWrongText = string.Empty;
                 user.Password = Password;
             }
             else
             {
                 user = null;
-                IsPasswordWrongVisible = true;
                 PasswordWrongText = Resource["HasConsidePasswordWithName"];
             }
 
@@ -220,7 +205,7 @@ namespace GpsNotepad.ViewModels
                     var parameters = new NavigationParameters();
                     await _authorizationService.CreateAccountAsync(_userModel);
                     parameters.Add(nameof(UserModel), _userModel);
-                    await NavigationService.NavigateAsync(nameof(LogInPage), parameters);
+                    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}/{nameof(LogInPage)}", parameters);
                 }
             }
         }

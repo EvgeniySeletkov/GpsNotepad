@@ -7,7 +7,7 @@
              xmlns:prism="http://prismlibrary.com"
              x:Class="GpsNotepad.Views.AddEditPage"
              x:Name="image"
-             Style="{StaticResource PageBackground}"
+             Style="{StaticResource PageBackgroundStyle}"
              Title="{Binding Title}">
 
     <ContentPage.Resources>
@@ -35,7 +35,7 @@
             <StackLayout Padding="16, 8, 16, 21">
 
                 <!--LABEL-->
-                <viewControls:CustomFrame Style="{StaticResource Entry}"
+                <viewControls:CustomFrame Style="{StaticResource EntryStyle}"
                                           SubtitleText="{Binding Resource[Label]}"
                                           EntryPlaceholder="{Binding Resource[LabelPlaceholder]}"
                                           ButtonImage="ic_clear.png"
@@ -45,7 +45,7 @@
                                           ClickCommand="{Binding ClearLabelTapCommand}"/>
 
                 <!--DESCRIPTION-->
-                <viewControls:CustomFrame Style="{StaticResource Entry}"
+                <viewControls:CustomFrame Style="{StaticResource EntryStyle}"
                                           SubtitleText="{Binding Resource[Description]}"
                                           EntryPlaceholder="{Binding Resource[DescriptionPlaceholder]}"
                                           ButtonImage="ic_clear.png"
@@ -54,14 +54,14 @@
                                           ClickCommand="{Binding ClearDescriptionTapCommand}"/>
 
                 <!--COORDINATES SUBTITLE-->
-                <Label Style="{StaticResource Subtitle}"
+                <Label Style="{StaticResource SubtitleStyle}"
                        Text="{Binding Resource[Coordinates]}"
                        Padding="16, 21, 0, 0"/>
 
                 <Grid ColumnDefinitions="*">
 
                     <!--LATITUDE-->
-                    <viewControls:CustomFrame Style="{StaticResource Entry}"
+                    <viewControls:CustomFrame Style="{StaticResource EntryStyle}"
                                               IsSubtitleVisible="False"
                                               EntryPlaceholder="{Binding Resource[Latitude]}"
                                               ButtonImage="ic_clear.png"
@@ -73,7 +73,7 @@
                                               ClickCommand="{Binding ClearLatitudeTapCommand}"/>
 
                     <!--LONGITUDE-->
-                    <viewControls:CustomFrame Style="{StaticResource Entry}"
+                    <viewControls:CustomFrame Style="{StaticResource EntryStyle}"
                                           IsSubtitleVisible="False"
                                           EntryPlaceholder="{Binding Resource[Longitude]}"
                                           ButtonImage="ic_clear.png"
@@ -87,7 +87,7 @@
                 </Grid>
 
                 <!--ADD PHOTO SUBTITLE-->
-                <Label Style="{StaticResource Subtitle}"
+                <Label Style="{StaticResource SubtitleStyle}"
                        Text="{Binding Resource[AddPhoto]}"
                        Padding="16, 21, 0, 0"/>
 
@@ -135,8 +135,7 @@
                 </ListView>
 
                 <!--ADD PHOTO BUTTON-->
-                <Button BorderWidth="1"
-                        Style="{StaticResource ButtonWithBorder}"
+                <Button Style="{StaticResource ButtonWithBorderStyle}"
                         Text="{Binding Resource[AddPhoto]}"
                         Command="{Binding AddImageTapCommand}"/>
 

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:GpsNotepad.Controls"
+             x:Class="GpsNotepad.Controls.Views.CustomSearchBarFrame"
+             x:Name="CustomSearchBar">
+
+    <Frame HasShadow="False"
+           Padding="18, 5, 18, 5">
+
+        <Grid ColumnDefinitions="0.1*, 0.8*, 0.1*">
+
+            <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                         Source="ic_settings.png"
+                         BackgroundColor="Transparent"
+                         Padding="3, 3, 3, 3"
+                         Grid.Column="0"
+                         IsVisible="{Binding LeftButtonIsVisible}"/>
+
+            <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                         Source="ic_left_blue.png"
+                         BackgroundColor="Transparent"
+                         Padding="3, 3, 3, 3"
+                         Grid.Column="0"
+                         IsVisible="{Binding BackButtonIsVisible}"
+                         Clicked="ImageButton_Clicked"/>
+
+            <!--CUSTOM ENTRY BackgroundColor="#F1F3FD"-->
+            <Frame BindingContext="{x:Reference Name=CustomSearchBar}"
+                   HasShadow="False"
+                   CornerRadius="4"
+                   BackgroundColor="{Binding EntryBackgroundColor}"
+                   Padding="12, 0, 15, 0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="{Binding EntryColumnSpan}">
+
+                <Grid ColumnDefinitions="0.9*, 0.1*">
+
+                    <!--ENTRY FontFamily="Montserrat-Medium" FontSize="15"-->
+                    <controls:CustomEntry BindingContext="{x:Reference Name=CustomSearchBar}"
+                                          FontFamily="{Binding EntryFont}"
+                                          FontSize="{Binding EntryFontSize}"
+                                          Placeholder="Search"
+                                          Text="{Binding EntryText}"
+                                          Grid.Column="0"
+                                          Focused="CustomEntry_Focused"
+                                          Unfocused="CustomEntry_Unfocused"/>
+
+                    <!--ENTRY BUTTON-->
+                    <ImageButton BackgroundColor="Transparent"
+                                 Grid.Column="1"/>
+                </Grid>
+
+            </Frame>
+
+            <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                         Source="ic_exid.png"
+                         Padding="3, 3, 3, 3"
+                         BackgroundColor="Transparent"
+                         Grid.Column="2"
+                         IsVisible="{Binding RightButtonIsVisible}"/>
+
+        </Grid>
+        
+    </Frame>
+    
+</StackLayout>

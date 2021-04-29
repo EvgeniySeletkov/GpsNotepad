@@ -181,11 +181,11 @@ namespace GpsNotepad.ViewModels
         {
             if (PinList.Count < 3)
             {
-                ListHeight = PinList.Count * 63;
+                ListHeight = PinList.Count * 72;
             }
             else
             {
-                ListHeight = 126;
+                ListHeight = 144;
             }
         }
 

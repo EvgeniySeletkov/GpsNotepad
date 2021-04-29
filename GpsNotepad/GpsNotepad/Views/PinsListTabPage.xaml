@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:BaseContentPage  xmlns:views="clr-namespace:GpsNotepad.Views" 
                         xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="GpsNotepad.Views.PinsListTabPage"
-             x:Name="pin"
-             Style="{StaticResource PageBackground}">
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:prism="http://prismlibrary.com"
+                        prism:ViewModelLocator.AutowireViewModel="True"
+                        x:Class="GpsNotepad.Views.PinsListTabPage"
+                        x:Name="pin"
+                        Style="{StaticResource PageBackgroundStyle}">
     
     <ContentPage.Content>
 
@@ -37,6 +37,7 @@
 
                             <ViewCell>
 
+                                <!--CONTEXT MENU-->
                                 <ViewCell.ContextActions>
 
                                     <MenuItem IconImageSource="ic_edit.png"
@@ -53,32 +54,30 @@
 
                                 <ViewCell.View>
 
-                                    <StackLayout Padding="16, 0, 25, 0">
+                                    <StackLayout Padding="16, 0, 16, 0">
 
                                         <Grid ColumnDefinitions="0.9*, 0.1*"
-                                              Padding="0, 17.5, 0, 17.5">
+                                              Padding="0, 16, 0, 16">
 
                                             <StackLayout Orientation="Horizontal"
                                                          Grid.Column="0">
 
                                                 <!--IS FAVOURITE BUTTON-->
-                                                <Button Style="{StaticResource IsFavouriteButton}"
-                                                        ImageSource="{Binding Image}"
-                                                        Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
-                                                                          Source={x:Reference pin}}"
-                                                        CommandParameter="{Binding .}" />
+                                                <ImageButton Style="{StaticResource IsFavouriteButtonStyle}"
+                                                             Source="{Binding Image}"
+                                                             Padding="10, 10, 10, 10"
+                                                             Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
+                                                                               Source={x:Reference pin}}"
+                                                             CommandParameter="{Binding .}" />
 
                                                 <!--PIN INFO-->
                                                 <StackLayout VerticalOptions="Center" 
                                                              Padding="12, 0, 0, 0">
 
-                                                    <Label Style="{StaticResource PinInfo}"
-                                                           FontSize="14"
-                                                           FontAttributes="Bold"
+                                                    <Label Style="{StaticResource PinListSubtitleStyle}"
                                                            Text="{Binding Label}" />
 
-                                                    <Label Style="{StaticResource PinCoordinates}"
-                                                           FontSize="12"
+                                                    <Label Style="{StaticResource PinListInfoStyle}"
                                                            Text="{Binding Coordinates}" />
 
                                                 </StackLayout>
@@ -86,12 +85,12 @@
                                             </StackLayout>
 
                                             <!--RIGHT ARROW BUTTON-->
-                                            <ImageButton Style="{StaticResource RightArrowButton}"
-                                                         Grid.Column="1"/>
+                                            <Image Source="ic_left_gray.png"
+                                                   Grid.Column="1"/>
 
                                         </Grid>
 
-                                        <BoxView Style="{StaticResource PinSeparator}"/>
+                                        <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
                                     </StackLayout>
 
@@ -108,7 +107,7 @@
             </StackLayout>
             
             <!--ADD BUTTON-->
-            <ImageButton Style="{StaticResource AddButton}"
+            <ImageButton Style="{StaticResource AddButtonStyle}"
                          Source="ic_plus.png"
                          Padding="11, 11, 11, 11"
                          Grid.Row="0" 

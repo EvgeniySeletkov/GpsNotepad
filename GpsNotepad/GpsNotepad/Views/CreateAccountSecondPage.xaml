@@ -4,13 +4,13 @@
              xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
              x:Class="GpsNotepad.Views.CreateAccountSecondPage"
              NavigationPage.HasNavigationBar="False"
-             Style="{StaticResource PageBackground}">
+             Style="{StaticResource PageBackgroundStyle}">
     <ContentPage.Content>
 
         <StackLayout>
 
             <StackLayout Orientation="Horizontal"
-                         HeightRequest="54" Style="{StaticResource PageBackground}">
+                         HeightRequest="54">
 
                 <Grid ColumnDefinitions="*" 
                       HorizontalOptions="FillAndExpand">
@@ -22,10 +22,8 @@
                                  Padding="10, 0, 10, 0"
                                  Command="{Binding GoBackTapCommand}"/>
 
-                    <Label Text="{Binding Resource[CreateAccountPageTitle]}"
-                           TextColor="#1E242B"
-                           FontFamily="Montserrat-SemiBold"
-                           FontSize="20"
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Resource[CreateAccountPageTitle]}"
                            Grid.Column="0"
                            HorizontalOptions="Center"
                            VerticalOptions="Center"/>
@@ -37,50 +35,39 @@
             <StackLayout Padding="16, 10, 16, 0">
 
                 <!--PASSWORD-->
-                <local:CustomFrame Style="{StaticResource PasswordEntry}"
-                                   SubtitleFont="Montserrat-Medium"
+                <local:CustomFrame Style="{StaticResource PasswordEntryStyle}"
                                    SubtitleText="{Binding Resource[Password]}"
-                                   EntryFont="Montserrat-Light"
                                    EntryPlaceholder="{Binding Resource[CreatePasswordPlaceholder]}"
                                    IsEntryPassword="{Binding IsPassword}"
                                    EntryText="{Binding Password}"
-                                   WrongFont="Montserrat-Medium"
                                    WrongText="{Binding PasswordWrongText}"
-                                   IsWrongVisible="{Binding IsPasswordWrongVisible}"
                                    ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
                 <!--CONFIRM PASSWORD-->
-                <local:CustomFrame Style="{StaticResource PasswordEntry}"
-                                   SubtitleFont="Montserrat-Medium"
+                <local:CustomFrame Style="{StaticResource PasswordEntryStyle}"
                                    SubtitleText="{Binding Resource[ConfirmPassword]}"
-                                   EntryFont="Montserrat-Light"
                                    EntryPlaceholder="{Binding Resource[RepeatPasswordPlaceholder]}"
-                                   Padding="0, 8, 0, 0"
                                    IsEntryPassword="{Binding IsConfirmPassword}"
                                    EntryText="{Binding ConfirmPassword}"
-                                   WrongFont="Montserrat-Medium"
                                    WrongText="{Binding ConfirmPasswordWrongText}"
-                                   IsWrongVisible="{Binding IsConfirmPasswordWrongVisible}"
                                    ClickCommand="{Binding ConfirmPasswordVisibleTapCommand}"/>
 
                 <!--CREATE ACCOUNT BUTTON-->
-                <Button Style="{StaticResource FillButton}"
+                <Button Style="{StaticResource ButtonStyle}"
                         Text="{Binding Resource[CreateAccountButton]}" 
-                        Margin="0, 10, 0, 0"
+                        Margin="0, 18, 0, 0"
                         Command="{Binding CreateAccountTapCommand}"
                         IsEnabled="{Binding IsButtonEnabled}"/>
 
                 <!--SEPARATOR-->
                 <Grid ColumnDefinitions="*"
-                      Margin="0, 14, 0, 0">
+                      Padding="0, 14, 0, 0">
 
-                    <BoxView Style="{StaticResource Separator}"
+                    <BoxView Style="{StaticResource SeparatorStyle}"
                              Grid.Column="0"
                              VerticalOptions="Center"/>
 
-                    <Label Style="{StaticResource SeparatorText}"
-                           FontFamily="Montserrat-Medium"
-                           FontSize="16"
+                    <Label Style="{StaticResource SeparatorTextStyle}"
                            Text=" or "
                            Grid.Column="0"
                            HorizontalOptions="Center"/>
@@ -91,17 +78,17 @@
                 <Grid ColumnDefinitions="*"
                   Margin="0, 14, 0, 0">
 
-                    <Button Style="{StaticResource AlternativeLogInButton}"
+                    <Button Style="{StaticResource AlternativeLogInButtonStyle}"
                         ImageSource="ic_google.png"
                         Grid.Column="0"
                         IsEnabled="False"/>
 
-                    <Button Style="{StaticResource AlternativeLogInButton}"
+                    <Button Style="{StaticResource AlternativeLogInButtonStyle}"
                         ImageSource="ic_facebook.png"
                         Grid.Column="1"
                         Command="{Binding LogInWithFacebookTapCommand}"/>
 
-                    <Button Style="{StaticResource AlternativeLogInButton}"
+                    <Button Style="{StaticResource AlternativeLogInButtonStyle}"
                         ImageSource="{AppThemeBinding Light=ic_apple.png,
                                                       Dark=ic_apple_dark.png}"
                         Grid.Column="2"

@@ -68,7 +68,8 @@ namespace GpsNotepad
         {
             InitializeComponent();
 
-            Application.Current.UserAppTheme = (OSAppTheme)Enum.Parse(typeof(OSAppTheme), ThemeService.GetTheme());
+            //Application.Current.UserAppTheme = (OSAppTheme)Enum.Parse(typeof(OSAppTheme), ThemeService.GetTheme());
+            Application.Current.UserAppTheme = OSAppTheme.Dark;
 
             if (AuthorizationService.IsAuthorized)
             {
