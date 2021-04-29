@@ -1,8 +1,6 @@
-﻿using Xamarin.Forms;
-
-namespace GpsNotepad.Views
+﻿namespace GpsNotepad.Views
 {
-    public partial class AddEditPage : ContentPage
+    public partial class AddEditPage : BaseContentPage
     {
         public AddEditPage()
         {

@@ -67,19 +67,110 @@
 
         </Style>
 
-        <!--Title style-->
+        <Style x:Key="PinIconStyle"
+               TargetType="Image">
+
+            <Setter Property="WidthRequest"
+                    Value="28"/>
+
+            <Setter Property="HeightRequest"
+                    Value="28"/>
+
+            <Setter Property="Source"
+                    Value="{AppThemeBinding Light=ic_pin_gray.png,
+                                            Dark=ic_pin.png}"/>
+
+        </Style>
+
+        <!--Labels styles-->
         <Style x:Key="TitleStyle"
                TargetType="Label">
-
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
-                                            Dark={StaticResource SystemWhite}}"/>
 
             <Setter Property="FontFamily"
                     Value="Montserrat-SemiBold"/>
 
             <Setter Property="FontSize"
                     Value="20"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="SubtitleStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="15"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinSearchListSubtitleStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinListSubtitleStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize" 
+                    Value="16"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinListInfoStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Light"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemLightGray}}"/>
+
+        </Style>
+
+        <Style x:Key="PinInfoStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Light"/>
+
+            <Setter Property="FontSize"
+                    Value="16"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
 
         </Style>
 
@@ -381,75 +472,6 @@
         </Style>
         
         <!--Labels style-->
-        <Style x:Key="PinIcon"
-               TargetType="Image">
-
-            <Setter Property="WidthRequest"
-                    Value="28"/>
-
-            <Setter Property="HeightRequest"
-                    Value="28"/>
-
-            <Setter Property="Source"
-                    Value="{AppThemeBinding Light=ic_pin_gray.png,
-                                            Dark=ic_pin.png}"/>
-
-        </Style>
-        
-        <Style x:Key="PinSearchListSubtitleStyle" 
-               TargetType="Label">
-
-            <Setter Property="FontFamily"
-                    Value="Montserrat-Medium"/>
-
-            <Setter Property="FontSize"
-                    Value="14"/>
-
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
-                                            Dark={StaticResource SystemWhite}}"/>
-
-        </Style>
-
-        <Style x:Key="PinListSubtitleStyle"
-               TargetType="Label">
-
-            <Setter Property="FontFamily"
-                    Value="Montserrat-Medium"/>
-
-            <Setter Property="FontSize" 
-                    Value="16"/>
-
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
-                                            Dark={StaticResource SystemWhite}}"/>
-
-        </Style>
-
-        <Style x:Key="PinListInfoStyle" 
-               TargetType="Label">
-
-            <Setter Property="FontFamily"
-                    Value="Montserrat-Light"/>
-
-            <Setter Property="FontSize"
-                    Value="14"/>
-
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
-                                            Dark={StaticResource SystemLightGray}}"/>
-
-        </Style>
-
-        <Style x:Key="PinInfo" 
-               TargetType="Label">
-
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
-                                            Dark={StaticResource SystemWhite}}"/>
-
-
-        </Style>
 
         <Style x:Key="PinCoordinates" 
                TargetType="Label">
@@ -469,18 +491,6 @@
 
             <Setter Property="Source"
                     Value="ic_left_gray.png"/>
-
-        </Style>
-
-        <Style x:Key="SubtitleStyle" 
-               TargetType="Label">
-
-            <Setter Property="FontSize" 
-                    Value="12"/>
-
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
-                                            Dark={StaticResource SystemWhite}}"/>
 
         </Style>
 

@@ -79,11 +79,20 @@ namespace GpsNotepad.Resources.Strings {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Alert.
+        ///   Ищет локализованную строку, похожую на Choose an action.
         /// </summary>
         internal static string Alert {
             get {
                 return ResourceManager.GetString("Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Camera.
+        /// </summary>
+        internal static string Camera {
+            get {
+                return ResourceManager.GetString("Camera", resourceCulture);
             }
         }
         
@@ -192,6 +201,15 @@ namespace GpsNotepad.Resources.Strings {
         internal static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Gallery.
+        /// </summary>
+        internal static string Gallery {
+            get {
+                return ResourceManager.GetString("Gallery", resourceCulture);
             }
         }
         

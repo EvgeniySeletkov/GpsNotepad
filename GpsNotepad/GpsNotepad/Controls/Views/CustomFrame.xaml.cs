@@ -374,8 +374,7 @@ namespace GpsNotepad.Controls.Views
                     }
                     else
                     {
-                        //_borderColor = EntryBorderColor; //0.8
-                        EntryBorderColor = WrongColor; //0.9
+                        EntryBorderColor = WrongColor;
                     }
                     break;
             }

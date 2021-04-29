@@ -124,7 +124,10 @@
     <value>Добавить фото</value>
   </data>
   <data name="Alert" xml:space="preserve">
-    <value>Alert</value>
+    <value>Выберите действие</value>
+  </data>
+  <data name="Camera" xml:space="preserve">
+    <value>Камера</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
@@ -161,6 +164,9 @@
   </data>
   <data name="English" xml:space="preserve">
     <value>Английский</value>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>Галерея</value>
   </data>
   <data name="HasBusyEmail" xml:space="preserve">
     <value>This email used by another user</value>

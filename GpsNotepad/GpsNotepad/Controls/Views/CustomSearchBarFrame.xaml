@@ -37,10 +37,11 @@
                    Grid.Column="1"
                    Grid.ColumnSpan="{Binding EntryColumnSpan}">
 
-                <Grid ColumnDefinitions="0.9*, 0.1*">
+                <StackLayout Orientation="Horizontal">
 
                     <!--ENTRY-->
                     <controls:CustomEntry BindingContext="{x:Reference Name=CustomSearchBar}"
+                                          HorizontalOptions="FillAndExpand"
                                           FontFamily="{Binding EntryFont}"
                                           FontSize="{Binding EntryFontSize}"
                                           TextColor="{Binding EntryTextColor}"
@@ -52,12 +53,19 @@
 
                     <!--ENTRY BUTTON-->
                     <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                                 HorizontalOptions="End"
                                  Source="{Binding ClearButtonImage}"
                                  BackgroundColor="Transparent"
                                  Grid.Column="1"
                                  IsVisible="{Binding IsClearButtonVisible}"
                                  Clicked="ClearButton_Clicked"/>
-                </Grid>
+
+                </StackLayout>
+
+                <!--<Grid ColumnDefinitions="0.9*, 0.1*">
+
+                    
+                </Grid>-->
 
             </Frame>
 

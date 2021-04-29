@@ -185,6 +185,14 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _pinImageListHeight, value);
         }
 
+        private ICommand _goBackTapCommand;
+        public ICommand GoBackTapCommand =>
+            _goBackTapCommand ??= new DelegateCommand(OnGoBackTapAsync);
+
+        private ICommand _savePinTapCommand;
+        public ICommand SavePinTapCommand =>
+            _savePinTapCommand ??= new DelegateCommand(OnSavePinTapAsync);
+
         private ICommand _mapTapCommand;
         public ICommand MapTapCommand =>
             _mapTapCommand ??= new DelegateCommand<object>(OnMapTapAsync);
@@ -213,10 +221,6 @@ namespace GpsNotepad.ViewModels
         public ICommand DeleteImageTapCommand =>
             _deleteImageTapCommand ??= new DelegateCommand<PinImageModel>(OnDeleteImageTapAsync);
 
-        private ICommand _savePinTapCommand;
-        public ICommand SavePinTapCommand =>
-            _savePinTapCommand ??= new DelegateCommand(OnSavePinTapAsync);
-
         #endregion
 
         #region --- Overrides ---
@@ -240,8 +244,8 @@ namespace GpsNotepad.ViewModels
                 Description = pinViewModel.Description;
                 PinList = new ObservableCollection<PinViewModel>();
                 PinList.Add(_pinViewModel);
-                var postion = new Position(pinViewModel.Latitude, pinViewModel.Longitude);
-                CameraPosition = new MapSpan(postion, 1, 1);
+                var position = new Position(pinViewModel.Latitude, pinViewModel.Longitude);
+                CameraPosition = new MapSpan(position, 1, 1);
                 var pinImageList = await _pinImageService.GetAllPinImagesAsync(_pinViewModel.PinId);
                 PinImageList = new ObservableCollection<PinImageModel>(pinImageList);
             }
@@ -262,6 +266,7 @@ namespace GpsNotepad.ViewModels
                 if (!HasEmptyLatitude() && !HasEmptyLongitude())
                 {
                     var position = new Position(latitude, longitude);
+                    CameraPosition = new MapSpan(position, 1, 1);
                     await AddPinViewModelOnMapAsync(position);
                 }
             }
@@ -282,12 +287,11 @@ namespace GpsNotepad.ViewModels
             {
                 isEmpty = true;
                 LabelWrongText = Resource["Label is empty"];
-                IsLabelWrongVisible = true;
             }
             else
             {
                 isEmpty = false;
-                IsLabelWrongVisible = false;
+                LabelWrongText = string.Empty;
             }
 
             return isEmpty;
@@ -300,12 +304,11 @@ namespace GpsNotepad.ViewModels
             {
                 isEmpty = true;
                 LatitudeWrongText = Resource["Latitude is empty"];
-                IsLatitudeWrongVisible = true;
             }
             else
             {
                 isEmpty = false;
-                IsLatitudeWrongVisible = false;
+                LatitudeWrongText = string.Empty;
             }
 
             return isEmpty;
@@ -318,12 +321,11 @@ namespace GpsNotepad.ViewModels
             {
                 isEmpty = true;
                 LongitudeWrongText = Resource["Longitude is empty"];
-                IsLongitudeWrongVisible = true;
             }
             else
             {
                 isEmpty = false;
-                IsLongitudeWrongVisible = false;
+                LongitudeWrongText = string.Empty;
             }
 
             return isEmpty;
@@ -355,8 +357,8 @@ namespace GpsNotepad.ViewModels
             _pinViewModel = new PinViewModel()
             {
                 Label = !string.IsNullOrWhiteSpace(Label) ? Label : Resource["Untitled pin"],
-                Latitude = Math.Round(position.Latitude, 2),
-                Longitude = Math.Round(position.Longitude, 2),
+                Latitude = Math.Round(position.Latitude, 8),
+                Longitude = Math.Round(position.Longitude, 8),
                 Address = address,
                 IsVisible = true
             };
@@ -366,8 +368,8 @@ namespace GpsNotepad.ViewModels
         {
             var address = await _pinService.GetAddressAsync(position);
             _pinViewModel.Label = !string.IsNullOrWhiteSpace(Label) ? Label : Resource["Untitled pin"];
-            _pinViewModel.Latitude = Math.Round(position.Latitude, 2);
-            _pinViewModel.Longitude = Math.Round(position.Longitude, 2);
+            _pinViewModel.Latitude = Math.Round(position.Latitude, 8);
+            _pinViewModel.Longitude = Math.Round(position.Longitude, 8);
             _pinViewModel.Address = address;
 
         }
@@ -408,67 +410,14 @@ namespace GpsNotepad.ViewModels
             
         }
 
-        private async void OnMapTapAsync(object obj)
+        private async void OnGoBackTapAsync()
         {
-            var position = (Position)obj;
-            await AddPinViewModelOnMapAsync(position);
-            Latitude = _pinViewModel.Latitude.ToString();
-            Longitude = _pinViewModel.Longitude.ToString();
-        }
-
-        private void OnClearLabelTap()
-        {
-            Label = string.Empty;
-        }
-
-        private void OnClearDescriptionTap()
-        {
-            Description = string.Empty;
-        }
-
-        private void OnClearLatitudeTap()
-        {
-            Latitude = string.Empty;
-        }
-
-        private void OnClearLongitudeTap()
-        {
-            Longitude = string.Empty;
-        }
-
-        private void OnAddImageTap()
-        {
-            var config = new ActionSheetConfig
-            {
-                // TODO: To Resources
-                Title = "Alert"
-            };
-
-            config.Add("Gallery", new Action(async () =>
-            {
-                string imagePath = await _mediaService.TakePhotoFromGalleryAsync();
-                CreatePinImageModel(imagePath);
-            }), icon: "ic_collections_black.png");
-
-            config.Add("Camera", new Action(async () =>
-            {
-                string imagePath = await _mediaService.TakePhotoWithCameraAsync();
-                CreatePinImageModel(imagePath);
-            }), icon: "ic_camera_alt_black.png");
-
-            UserDialogs.Instance.ActionSheet(config);
-        }
-
-        private async void OnDeleteImageTapAsync(PinImageModel pinImageModel)
-        {
-            await _pinImageService.DeletePinImageAsync(pinImageModel);
-            PinImageList.Remove(pinImageModel);
-            ChangeImageListHeight();
+            await NavigationService.GoBackAsync();
         }
 
         private async void OnSavePinTapAsync()
         {
-            if (!HasEmptyLabel() && 
+            if (!HasEmptyLabel() &&
                 !HasEmptyLatitude() &&
                 !HasEmptyLongitude())
             {
@@ -508,9 +457,66 @@ namespace GpsNotepad.ViewModels
                         await SaveImagesAsync();
                         await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
                     }
-                    
+
                 }
             }
+        }
+
+        private async void OnMapTapAsync(object obj)
+        {
+            var position = (Position)obj;
+            await AddPinViewModelOnMapAsync(position);
+            Latitude = _pinViewModel.Latitude.ToString();
+            Longitude = _pinViewModel.Longitude.ToString();
+        }
+
+        private void OnClearLabelTap()
+        {
+            Label = string.Empty;
+        }
+
+        private void OnClearDescriptionTap()
+        {
+            Description = string.Empty;
+        }
+
+        private void OnClearLatitudeTap()
+        {
+            Latitude = string.Empty;
+        }
+
+        private void OnClearLongitudeTap()
+        {
+            Longitude = string.Empty;
+        }
+
+        private void OnAddImageTap()
+        {
+            var config = new ActionSheetConfig
+            {
+                Title = Resource["Alert"]
+            };
+
+            config.Add(Resource["Gallery"], new Action(async () =>
+            {
+                string imagePath = await _mediaService.TakePhotoFromGalleryAsync();
+                CreatePinImageModel(imagePath);
+            }), icon: "ic_collections_black.png");
+
+            config.Add(Resource["Camera"], new Action(async () =>
+            {
+                string imagePath = await _mediaService.TakePhotoWithCameraAsync();
+                CreatePinImageModel(imagePath);
+            }), icon: "ic_camera_alt_black.png");
+
+            UserDialogs.Instance.ActionSheet(config);
+        }
+
+        private async void OnDeleteImageTapAsync(PinImageModel pinImageModel)
+        {
+            await _pinImageService.DeletePinImageAsync(pinImageModel);
+            PinImageList.Remove(pinImageModel);
+            ChangeImageListHeight();
         }
 
         #endregion

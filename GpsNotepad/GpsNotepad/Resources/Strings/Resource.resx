@@ -124,7 +124,10 @@
     <value>Add photo</value>
   </data>
   <data name="Alert" xml:space="preserve">
-    <value>Alert</value>
+    <value>Choose an action</value>
+  </data>
+  <data name="Camera" xml:space="preserve">
+    <value>Camera</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
@@ -161,6 +164,9 @@
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>Gallery</value>
   </data>
   <data name="HasBusyEmail" xml:space="preserve">
     <value>This email used by another user</value>

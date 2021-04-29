@@ -21,13 +21,13 @@
            Padding="12, 2, 15, 0"
            BorderColor="{Binding EntryBorderColor}"
            BackgroundColor="{Binding EntryBackgoundColor}">
-        
-        <Grid ColumnDefinitions="0.9*, 0.1*">
-            
+
+        <StackLayout Orientation="Horizontal">
+
             <!--ENTRY-->
             <local:CustomEntry BindingContext="{x:Reference Name=CustomEntry}"
                                HeightRequest="50"
-                               Grid.Column="0"
+                               HorizontalOptions="FillAndExpand"
                                FontSize="{Binding EntryFontSize}"
                                FontFamily="{Binding EntryFont}"
                                PlaceholderColor="{Binding EntryPlaceholderColor}"
@@ -36,15 +36,21 @@
                                Keyboard="{Binding EntryKeyboard}"
                                Text="{Binding EntryText}"
                                IsPassword="{Binding IsEntryPassword}"/>
-            
+
             <!--ENTRY BUTTON-->
             <ImageButton BindingContext="{x:Reference Name=CustomEntry}"
+                         HorizontalOptions="End"
                          Source="{Binding ButtonImage}"
                          IsVisible="{Binding IsButtonVisible}"
                          Command="{Binding ClickCommand}"
-                         BackgroundColor="Transparent"
-                         Grid.Column="1"/>
-        </Grid>
+                         BackgroundColor="Transparent"/>
+
+        </StackLayout>
+        
+        <!--<Grid ColumnDefinitions="0.9*, 0.1*">
+            
+            
+        </Grid>-->
         
     </Frame>
     
@@ -54,8 +60,7 @@
            FontSize="{Binding WrongFontSize}"
            FontFamily="{Binding WrongFont}"
            TextColor="{Binding WrongColor}"
-           Text="{Binding WrongText}"
-           IsEnabled="{Binding IsWrongVisible}"/>
+           Text="{Binding WrongText}"/>
     
 
 </StackLayout>

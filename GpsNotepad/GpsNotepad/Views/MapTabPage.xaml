@@ -89,7 +89,7 @@
                                                      Orientation="Horizontal">
 
                                             <!--PIN ICON-->
-                                            <Image Style="{StaticResource PinIcon}"/>
+                                            <Image Style="{StaticResource PinIconStyle}"/>
 
                                             <StackLayout Padding="8, 0, 0, 0">
 
