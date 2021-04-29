@@ -11,7 +11,7 @@
 
     <ContentPage.Content>
 
-        <StackLayout VerticalOptions="FillAndExpand">
+        <StackLayout >
 
             <!--NAVBAR-->
             <controlViews:CustomSearchBarFrame Style="{StaticResource SearchBarStyle}"
@@ -26,7 +26,8 @@
                                                RightButtonImage="ic_exid.png"
                                                RightButtonClickCommand="{Binding LogOutTapCommand}"/>
 
-            <Grid RowDefinitions="*" VerticalOptions="FillAndExpand">
+            <Grid RowDefinitions="*" 
+                  VerticalOptions="FillAndExpand">
 
                 <!--GOOGLE MAP-->
                 <controls:CustomMap Grid.Row="0"
@@ -61,8 +62,7 @@
                           Grid.Row="0"
                           VerticalOptions="Start"
                           HeightRequest="{Binding ListHeight}"
-                          SelectedItem="{Binding SelectedPin}"
-                          IsVisible="{Binding IsPinListVisible}">
+                          IsVisible="True">
 
                     <ListView.Behaviors>
 
@@ -83,8 +83,8 @@
                                     <StackLayout>
 
                                         <StackLayout Padding="16, 10, 16, 12"
-                                                 VerticalOptions="Center"
-                                                 Orientation="Horizontal">
+                                                     VerticalOptions="Center"
+                                                     Orientation="Horizontal">
 
                                             <!--PIN ICON-->
                                             <Image Style="{StaticResource PinIcon}"/>

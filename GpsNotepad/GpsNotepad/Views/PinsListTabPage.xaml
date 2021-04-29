@@ -2,112 +2,107 @@
 <views:BaseContentPage  xmlns:views="clr-namespace:GpsNotepad.Views" 
                         xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:prism="http://prismlibrary.com"
+                        xmlns:prism="http://prismlibrary.com" 
+                        xmlns:controlViews="clr-namespace:GpsNotepad.Controls.Views"
                         prism:ViewModelLocator.AutowireViewModel="True"
                         x:Class="GpsNotepad.Views.PinsListTabPage"
                         x:Name="pin"
                         Style="{StaticResource PageBackgroundStyle}">
-    
+
     <ContentPage.Content>
 
-        <Grid RowDefinitions="*">
+        <StackLayout>
 
-            <StackLayout Grid.Row="0">
+            <!--NAVBAR-->
+            <controlViews:CustomSearchBarFrame Style="{StaticResource SearchBarStyle}"
+                                               EntryPlaceholder="Search"
+                                               LeftButtonImage="ic_settings.png"
+                                               LeftButtonClickCommand="{Binding OpenSettingsTapCommand}"
+                                               BackButtonImage="ic_left_blue.png"
+                                               BackButtonClickCommand="{Binding UnfocusedSearchBarTapCommand}"
+                                               EntryText="{Binding SearchText}"
+                                               IsSearchBarFocused="{Binding IsSearchBarFocused}"
+                                               ClearButtonImage="ic_clear.png"
+                                               RightButtonImage="ic_exid.png"
+                                               RightButtonClickCommand="{Binding LogOutTapCommand}"/>
 
-                <SearchBar Placeholder="Search"
-                           Text="{Binding SearchText}"/>
+            <Grid RowDefinitions="*"
+                  VerticalOptions='FillAndExpand'>
 
-                <ListView ItemsSource="{Binding PinList}"
-                          SelectedItem="{Binding SelectedPin}"
-                          SeparatorVisibility="None"
-                          HasUnevenRows="True"
-                          SelectionMode="Single">
+                <StackLayout  BindableLayout.ItemsSource="{Binding PinList}"
+                              Grid.Row="0">
 
-                    <ListView.Behaviors>
 
-                        <prism:EventToCommandBehavior EventName="ItemTapped" 
-                                                      Command="{Binding SelectPinCommand}"
-                                                      CommandParameter="{Binding .}" />
-
-                    </ListView.Behaviors>
-
-                    <ListView.ItemTemplate>
+                    <BindableLayout.ItemTemplate>
 
                         <DataTemplate>
 
-                            <ViewCell>
 
-                                <!--CONTEXT MENU-->
-                                <ViewCell.ContextActions>
 
-                                    <MenuItem IconImageSource="ic_edit.png"
-                                              Command="{Binding Path=BindingContext.EditPinTapCommand, 
-                                                                Source={x:Reference pin}}"
-                                              CommandParameter="{Binding .}"/>
+                            <StackLayout>
 
-                                    <MenuItem IconImageSource="ic_delete.png"
-                                              Command="{Binding Path=BindingContext.DeletePinTapCommand, 
-                                                                Source={x:Reference pin}}"
-                                              CommandParameter="{Binding .}" />
+                                <StackLayout Padding="16, 0, 16, 0">
 
-                                </ViewCell.ContextActions>
-
-                                <ViewCell.View>
-
-                                    <StackLayout Padding="16, 0, 16, 0">
-
-                                        <Grid ColumnDefinitions="0.9*, 0.1*"
+                                    <Grid ColumnDefinitions="0.9*, 0.1*"
                                               Padding="0, 16, 0, 16">
 
-                                            <StackLayout Orientation="Horizontal"
+                                        <StackLayout Orientation="Horizontal"
                                                          Grid.Column="0">
 
-                                                <!--IS FAVOURITE BUTTON-->
-                                                <ImageButton Style="{StaticResource IsFavouriteButtonStyle}"
+                                            <StackLayout.GestureRecognizers>
+
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectPinCommand,
+                                                                            Source={x:Reference pin}}"
+                                                          CommandParameter="{Binding .}" />
+
+                                            </StackLayout.GestureRecognizers>
+
+                                            <!--IS FAVOURITE BUTTON-->
+                                            <ImageButton Style="{StaticResource IsFavouriteButtonStyle}"
                                                              Source="{Binding Image}"
                                                              Padding="10, 10, 10, 10"
                                                              Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
                                                                                Source={x:Reference pin}}"
                                                              CommandParameter="{Binding .}" />
 
-                                                <!--PIN INFO-->
-                                                <StackLayout VerticalOptions="Center" 
-                                                             Padding="12, 0, 0, 0">
 
-                                                    <Label Style="{StaticResource PinListSubtitleStyle}"
+
+                                            <!--PIN INFO-->
+                                            <StackLayout Padding="12, 0, 0, 0">
+
+                                                <Label Style="{StaticResource PinListSubtitleStyle}"
                                                            Text="{Binding Label}" />
 
-                                                    <Label Style="{StaticResource PinListInfoStyle}"
+                                                <Label Style="{StaticResource PinListInfoStyle}"
                                                            Text="{Binding Coordinates}" />
-
-                                                </StackLayout>
 
                                             </StackLayout>
 
-                                            <!--RIGHT ARROW BUTTON-->
-                                            <Image Source="ic_left_gray.png"
+                                        </StackLayout>
+
+                                        <!--RIGHT ARROW BUTTON-->
+                                        <Image Source="ic_left_gray.png"
                                                    Grid.Column="1"/>
 
-                                        </Grid>
+                                    </Grid>
 
-                                        <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+                                    <!--SEPARATOR-->
+                                    <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
-                                    </StackLayout>
+                                </StackLayout>
 
-                                </ViewCell.View>
+                            </StackLayout>
 
-                            </ViewCell>
-                            
+
+
                         </DataTemplate>
-                        
-                    </ListView.ItemTemplate>
-                    
-                </ListView>
 
-            </StackLayout>
-            
-            <!--ADD BUTTON-->
-            <ImageButton Style="{StaticResource AddButtonStyle}"
+                    </BindableLayout.ItemTemplate>
+
+                </StackLayout>
+
+                <!--ADD BUTTON-->
+                <ImageButton Style="{StaticResource AddButtonStyle}"
                          Source="ic_plus.png"
                          Padding="11, 11, 11, 11"
                          Grid.Row="0" 
@@ -116,8 +111,10 @@
                          Margin="0, 0, 16, 16"
                          Command="{Binding AddPinTapCommand}"/>
 
-        </Grid>
-        
+            </Grid>
+
+        </StackLayout>
+
     </ContentPage.Content>
-    
+
 </views:BaseContentPage>

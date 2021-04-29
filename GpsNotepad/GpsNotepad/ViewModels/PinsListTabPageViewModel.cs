@@ -55,7 +55,7 @@ namespace GpsNotepad.ViewModels
 
         private ICommand _selectPinCommand;
         public ICommand SelectPinCommand =>
-            _selectPinCommand ??= new DelegateCommand(OnSelectPinTapAsync);
+            _selectPinCommand ??= new DelegateCommand<PinViewModel>(OnSelectPinTapAsync);
 
         private ICommand _addPinTapCommand;
         public ICommand AddPinTapCommand => 
@@ -142,10 +142,10 @@ namespace GpsNotepad.ViewModels
             await _pinService.UpdatePinAsync(pinModel);
         }
 
-        private async void OnSelectPinTapAsync()
+        private async void OnSelectPinTapAsync(PinViewModel pinViewModel)
         {
             var parameters = new NavigationParameters();
-            var pin = SelectedPin.ToPin();
+            var pin = pinViewModel.ToPin();
             parameters.Add(nameof(SelectedPin), pin);
             await NavigationService.SelectTabAsync($"{nameof(MapTabPage)}", parameters);
         }
