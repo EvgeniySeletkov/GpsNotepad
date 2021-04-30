@@ -23,7 +23,6 @@ namespace GpsNotepad.Services.MapCameraPosition
         {
             _settingsManager.Latitude = cameraPosition.Target.Latitude;
             _settingsManager.Longitude = cameraPosition.Target.Longitude;
-            //_settingsManager.Zoom = Math.Round(cameraPosition.Zoom);
         }
     }
 }

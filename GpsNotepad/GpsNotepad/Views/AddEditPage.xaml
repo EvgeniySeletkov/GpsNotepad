@@ -64,7 +64,7 @@
             <StackLayout Padding="16, 5, 16, 21">
 
                 <!--LABEL-->
-                <viewControls:CustomFrame Style="{StaticResource EntryStyle}"
+                <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
                                           SubtitleText="{Binding Resource[Label]}"
                                           EntryPlaceholder="{Binding Resource[LabelPlaceholder]}"
                                           ButtonImage="ic_clear.png"
@@ -74,7 +74,7 @@
                                           ClickCommand="{Binding ClearLabelTapCommand}"/>
 
                 <!--DESCRIPTION-->
-                <viewControls:CustomFrame Style="{StaticResource EntryStyle}"
+                <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
                                           SubtitleText="{Binding Resource[Description]}"
                                           EntryPlaceholder="{Binding Resource[DescriptionPlaceholder]}"
                                           ButtonImage="ic_clear.png"
@@ -89,7 +89,7 @@
                 <Grid ColumnDefinitions="*">
 
                     <!--LATITUDE-->
-                    <viewControls:CustomFrame Style="{StaticResource EntryStyle}"
+                    <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
                                               Padding="0, 0, 3, 0"
                                               IsSubtitleVisible="False"
                                               EntryPlaceholder="{Binding Resource[Latitude]}"
@@ -102,7 +102,7 @@
                                               ClickCommand="{Binding ClearLatitudeTapCommand}"/>
 
                     <!--LONGITUDE-->
-                    <viewControls:CustomFrame Style="{StaticResource EntryStyle}"
+                    <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
                                               Padding="3, 0, 0, 0"
                                               IsSubtitleVisible="False"
                                               EntryPlaceholder="{Binding Resource[Longitude]}"

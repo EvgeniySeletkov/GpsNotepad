@@ -98,7 +98,7 @@ namespace GpsNotepad.ViewModels
             {
                 var pinViewModel = pinModel.ToPinViewModel();
 
-                pinViewModel.Image = pinViewModel.IsVisible ? "ic_like_blue.png" : "ic_like_gray.png";
+                pinViewModel.Image = pinViewModel.IsFavorite ? "ic_like_blue.png" : "ic_like_gray.png";
                 pinViewModelList.Add(pinViewModel);
 
             }
@@ -153,14 +153,14 @@ namespace GpsNotepad.ViewModels
 
         private async void OnPinVisibleChangeTapAsync(PinViewModel pinViewModel)
         {
-            if (pinViewModel.IsVisible)
+            if (pinViewModel.IsFavorite)
             {
-                pinViewModel.IsVisible = false;
+                pinViewModel.IsFavorite = false;
                 pinViewModel.Image = "ic_like_gray.png";
             }
             else
             {
-                pinViewModel.IsVisible = true;
+                pinViewModel.IsFavorite = true;
                 pinViewModel.Image = "ic_like_blue.png";
             }
 

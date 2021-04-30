@@ -37,7 +37,7 @@
             <StackLayout Padding="16, 10, 16, 0">
 
                 <!--EMAIL-->
-                <customFrames:CustomFrame Style="{StaticResource EntryStyle}"
+                <customFrames:CustomEntryFrame Style="{StaticResource EntryStyle}"
                               SubtitleText="{Binding Resource[Email]}"
                               EntryPlaceholder="{Binding Resource[EmailPlaceholder]}"
                               ButtonImage="ic_clear.png"
@@ -46,7 +46,7 @@
                               ClickCommand="{Binding EmailClearTapCommand}"/>
 
                 <!--PASSWORD-->
-                <customFrames:CustomFrame Style="{StaticResource PasswordEntryStyle}"
+                <customFrames:CustomEntryFrame Style="{StaticResource PasswordEntryStyle}"
                               SubtitleText="{Binding Resource[Password]}"
                               EntryPlaceholder="{Binding Resource[PasswordPlaceholder]}"
                               IsEntryPassword="{Binding IsPassword}"

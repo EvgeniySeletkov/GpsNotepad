@@ -21,7 +21,6 @@ namespace GpsNotepad.Services.Pin
             _settingsManager = settingsManager;
         }
 
-        //remove async-await and return task
         public Task DeletePinAsync(PinModel pinModel)
         {
             return _repository.DeleteAsync(pinModel);
@@ -50,11 +49,7 @@ namespace GpsNotepad.Services.Pin
             var geocoder = new Geocoder();
             var addressList = await geocoder.GetAddressesForPositionAsync(position);
             var fullAddress = addressList != null ? addressList.FirstOrDefault() : string.Empty;
-            var address = !string.IsNullOrWhiteSpace(fullAddress) ?
-                (fullAddress.Substring(0,
-                             fullAddress.IndexOf(",") != -1 ?
-                             fullAddress.IndexOf(",") :
-                             fullAddress.Length)) : string.Empty;
+            var address = !string.IsNullOrWhiteSpace(fullAddress) ? fullAddress : string.Empty;
 
             return address;
         }

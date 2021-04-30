@@ -15,7 +15,6 @@ namespace GpsNotepad.Services.Authorization
         private readonly IRepository _repository;
         private readonly ISettingsManager _settingsManager;
         private readonly INavigationService _navigationService;
-        //register it in app.xaml.cs and get instance using DI
         private readonly IFacebookClient _facebookService;
         
         private string[] _fbPermisions = { Constants.FACEBOOK_EMAIL_KEY };

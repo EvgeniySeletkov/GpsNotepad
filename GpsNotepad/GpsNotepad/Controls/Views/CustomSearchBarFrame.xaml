@@ -63,11 +63,6 @@
 
                 </StackLayout>
 
-                <!--<Grid ColumnDefinitions="0.9*, 0.1*">
-
-                    
-                </Grid>-->
-
             </Frame>
 
             <!--RIGHT BUTTON-->

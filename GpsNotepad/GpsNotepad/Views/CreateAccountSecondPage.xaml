@@ -36,7 +36,7 @@
             <StackLayout Padding="16, 10, 16, 0">
 
                 <!--PASSWORD-->
-                <local:CustomFrame Style="{StaticResource PasswordEntryStyle}"
+                <local:CustomEntryFrame Style="{StaticResource PasswordEntryStyle}"
                                    SubtitleText="{Binding Resource[Password]}"
                                    EntryPlaceholder="{Binding Resource[CreatePasswordPlaceholder]}"
                                    IsEntryPassword="{Binding IsPassword}"
@@ -45,7 +45,7 @@
                                    ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
                 <!--CONFIRM PASSWORD-->
-                <local:CustomFrame Style="{StaticResource PasswordEntryStyle}"
+                <local:CustomEntryFrame Style="{StaticResource PasswordEntryStyle}"
                                    SubtitleText="{Binding Resource[ConfirmPassword]}"
                                    EntryPlaceholder="{Binding Resource[RepeatPasswordPlaceholder]}"
                                    IsEntryPassword="{Binding IsConfirmPassword}"

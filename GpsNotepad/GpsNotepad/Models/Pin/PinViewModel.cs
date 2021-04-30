@@ -7,7 +7,6 @@ namespace GpsNotepad.Models.Pin
 {
     class PinViewModel : BindableBase
     {
-        //_pinId
         private int _pinId;
         public int PinId
         {
@@ -15,7 +14,6 @@ namespace GpsNotepad.Models.Pin
             set => SetProperty(ref _pinId, value);
         }
 
-        //rename
         private string _label;
         public string Label
         {
@@ -50,12 +48,11 @@ namespace GpsNotepad.Models.Pin
             set => SetProperty(ref _address, value);
         }
 
-        //_isFavorite
-        private bool isVisible;
-        public bool IsVisible
+        private bool isFavorite;
+        public bool IsFavorite
         {
-            get => isVisible;
-            set => SetProperty(ref isVisible, value);
+            get => isFavorite;
+            set => SetProperty(ref isFavorite, value);
         }
 
         private string description;
@@ -81,6 +78,5 @@ namespace GpsNotepad.Models.Pin
             set => SetProperty(ref userId, value);
         }
 
-        //add command PinClickCommand
     }
 }

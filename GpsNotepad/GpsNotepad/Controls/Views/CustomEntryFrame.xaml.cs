@@ -1,14 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace GpsNotepad.Controls.Views
 {
-    public partial class CustomFrame : StackLayout
+    public partial class CustomEntryFrame : StackLayout
     {
-        public CustomFrame()
+        public CustomEntryFrame()
         {
             InitializeComponent();
         }
@@ -19,7 +17,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(SubtitleFontSize),
                 returnType: typeof(double),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -33,7 +31,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(SubtitleFont),
                 returnType: typeof(string),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -47,7 +45,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(SubtitleTextColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -61,7 +59,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(SubtitleText),
                 returnType: typeof(string),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -75,7 +73,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(IsSubtitleVisible),
                 returnType: typeof(bool),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: true,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -89,7 +87,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryBorderColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -103,7 +101,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryNormalBorderColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -117,7 +115,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryBackgoundColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -131,7 +129,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryFontSize),
                 returnType: typeof(double),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -145,7 +143,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryFont),
                 returnType: typeof(string),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -159,7 +157,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryPlaceholderColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -173,7 +171,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryPlaceholder),
                 returnType: typeof(string),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -187,7 +185,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryTextColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -201,7 +199,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryText),
                 returnType: typeof(string),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -215,7 +213,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(EntryKeyboard),
                 returnType: typeof(Keyboard),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -229,7 +227,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(IsEntryPassword),
                 returnType: typeof(bool),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -243,7 +241,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(WrongFontSize),
                 returnType: typeof(double),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -257,7 +255,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(WrongFont),
                 returnType: typeof(string),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -271,7 +269,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(WrongColor),
                 returnType: typeof(Color),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -285,7 +283,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(WrongText),
                 returnType: typeof(string),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -299,7 +297,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(IsWrongVisible),
                 returnType: typeof(bool),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -313,7 +311,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(ButtonImage),
                 returnType: typeof(ImageSource),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -327,7 +325,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(IsButtonVisible),
                 returnType: typeof(bool),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 
@@ -341,7 +339,7 @@ namespace GpsNotepad.Controls.Views
             BindableProperty.Create(
                 propertyName: nameof(ClickCommand),
                 returnType: typeof(ICommand),
-                declaringType: typeof(CustomFrame),
+                declaringType: typeof(CustomEntryFrame),
                 defaultValue: default,
                 defaultBindingMode: BindingMode.TwoWay);
 

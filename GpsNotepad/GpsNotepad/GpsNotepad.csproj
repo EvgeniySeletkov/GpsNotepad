@@ -68,8 +68,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\Views\CustomFrame.xaml.cs">
-      <DependentUpon>CustomFrame.xaml</DependentUpon>
+    <Compile Update="Controls\Views\CustomEntryFrame.xaml.cs">
+      <DependentUpon>CustomEntryFrame.xaml</DependentUpon>
     </Compile>
     <Compile Update="Resources\Strings\Resource - Копировать.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
@@ -105,7 +105,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Controls\Views\CustomFrame.xaml">
+    <EmbeddedResource Update="Controls\Views\CustomEntryFrame.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Controls\Views\CustomSearchBarFrame.xaml">

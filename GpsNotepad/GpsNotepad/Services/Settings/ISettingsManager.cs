@@ -7,7 +7,6 @@
         public string Theme { get; set; }
         double Latitude { get; set; }
         double Longitude { get; set; }
-        double Zoom { get; set; }
 
         void ClearSettings();
 

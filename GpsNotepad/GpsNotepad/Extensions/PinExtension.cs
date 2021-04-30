@@ -25,7 +25,7 @@ namespace GpsNotepad.Extensions
                 Label = pinViewModel.Label,
                 Position = new Position(pinViewModel.Latitude, pinViewModel.Longitude),
                 Address = pinViewModel.Address,
-                IsVisible = pinViewModel.IsVisible
+                IsVisible = pinViewModel.IsFavorite
             };
 
             return pin;
@@ -41,7 +41,7 @@ namespace GpsNotepad.Extensions
                 Longitude = pinModel.Longitude,
                 Address = pinModel.Address,
                 Description = pinModel.Description,
-                IsVisible = pinModel.IsFavorite,
+                IsFavorite = pinModel.IsFavorite,
                 UserId = pinModel.UserId
             };
 
@@ -58,7 +58,7 @@ namespace GpsNotepad.Extensions
                 Longitude = pinViewModel.Longitude,
                 Address = pinViewModel.Address,
                 Description = pinViewModel.Description,
-                IsFavorite = pinViewModel.IsVisible,
+                IsFavorite = pinViewModel.IsFavorite,
                 UserId = pinViewModel.UserId
             };
 

@@ -393,7 +393,7 @@
 
         <!--Entries styles-->
         <Style x:Key="EntryStyle" 
-               TargetType="local:CustomFrame">
+               TargetType="local:CustomEntryFrame">
 
             <Setter Property="SubtitleFont"
                     Value="Montserrat-Medium"/>
@@ -437,23 +437,23 @@
         </Style>
 
         <Style x:Key="PasswordEntryStyle" 
-               TargetType="local:CustomFrame" 
+               TargetType="local:CustomEntryFrame" 
                BasedOn="{StaticResource EntryStyle}">
 
             <Style.Triggers>
 
-                <Trigger Property="local:CustomFrame.IsEntryPassword" 
+                <Trigger Property="local:CustomEntryFrame.IsEntryPassword" 
                          Value="True" 
-                         TargetType="local:CustomFrame">
+                         TargetType="local:CustomEntryFrame">
                     
                     <Setter Property="ButtonImage" Value="ic_eye_off.png" />
 
 
                 </Trigger>
 
-                <Trigger Property="local:CustomFrame.IsEntryPassword" 
+                <Trigger Property="local:CustomEntryFrame.IsEntryPassword" 
                          Value="False" 
-                         TargetType="local:CustomFrame">
+                         TargetType="local:CustomEntryFrame">
                     
                     <Setter Property="ButtonImage" Value="ic_eye.png" />
 

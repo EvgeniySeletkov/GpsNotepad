@@ -9,10 +9,8 @@ namespace GpsNotepad.Controls
 {
     class CustomMap : Map
     {
-
         public CustomMap()
         {
-            //UiSettings.ZoomControlsEnabled = false;
         }
 
         public static readonly BindableProperty MapPinViewModelsProperty =
@@ -67,18 +65,10 @@ namespace GpsNotepad.Controls
             set => SetValue(IsZoomButtonsEnabledProperty, value);
         }
 
-        //private static void MoveToPositionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        //{
-        //    var control = (CustomMap)bindable;
-        //    control.MoveToRegion((MapSpan)newValue);
-
-        //}
-
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
-            //ask Alexey about this part
             switch (propertyName)
             {
                 case nameof(MapPinViewModels):

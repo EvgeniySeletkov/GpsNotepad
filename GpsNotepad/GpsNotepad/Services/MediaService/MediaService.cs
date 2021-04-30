@@ -1,9 +1,6 @@
-﻿using Acr.UserDialogs;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 

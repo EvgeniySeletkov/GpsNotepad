@@ -34,16 +34,11 @@ namespace GpsNotepad.Services.Settings
             set => Preferences.Set(nameof(Longitude), value);
         }
 
-        public double Zoom
-        {
-            get => Preferences.Get(nameof(Zoom), 10);
-            set => Preferences.Set(nameof(Zoom), value);
-        }
-
         public void ClearSettings()
         {
             UserId = 0;
             Culture = Constants.ENGLISH_LANGUAGE;
+            Theme = OSAppTheme.Light.ToString();
             Latitude = Constants.DEFAULT_LATITUDE;
             Longitude = Constants.DEFAULT_LONGITUDE;
         }

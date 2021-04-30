@@ -2,7 +2,7 @@
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GpsNotepad.Controls"
-             x:Class="GpsNotepad.Controls.Views.CustomFrame"
+             x:Class="GpsNotepad.Controls.Views.CustomEntryFrame"
              x:Name="CustomEntry">
 
     <!--SUBTITLE-->
@@ -46,12 +46,7 @@
                          BackgroundColor="Transparent"/>
 
         </StackLayout>
-        
-        <!--<Grid ColumnDefinitions="0.9*, 0.1*">
-            
-            
-        </Grid>-->
-        
+
     </Frame>
     
     <!--WRONG LABEL-->

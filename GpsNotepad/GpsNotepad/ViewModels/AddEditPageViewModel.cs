@@ -360,7 +360,7 @@ namespace GpsNotepad.ViewModels
                 Latitude = Math.Round(position.Latitude, 8),
                 Longitude = Math.Round(position.Longitude, 8),
                 Address = address,
-                IsVisible = true
+                IsFavorite = true
             };
         }
 
