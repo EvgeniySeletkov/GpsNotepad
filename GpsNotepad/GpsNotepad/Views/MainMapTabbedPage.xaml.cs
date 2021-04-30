@@ -2,7 +2,7 @@
 
 namespace GpsNotepad.Views
 {
-    public partial class MainMapTabbedPage : Xamarin.Forms.TabbedPage
+    public partial class MainMapTabbedPage : BaseTabbedPage
     {
         public MainMapTabbedPage()
         {

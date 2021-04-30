@@ -58,7 +58,7 @@ namespace GpsNotepad
             containerRegistry.RegisterForNavigation<PinListTabPage, PinListTabPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<AddEditPage, AddEditPageViewModel>();
-            containerRegistry.RegisterForNavigation<PinImagesPage, PinImagesPageViewModel>();
+            containerRegistry.RegisterForNavigation<PinImagePage, PinImagePageViewModel>();
             containerRegistry.RegisterForNavigation<WelcomePage, WelcomePageViewModel>();
             containerRegistry.RegisterForNavigation<PinInfoPopupPage, PinInfoPopupPageViewModel>();
             containerRegistry.RegisterForNavigation<LanguageSettingsPage, LanguageSettingsPageViewModel>();

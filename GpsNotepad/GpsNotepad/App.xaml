@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
-             xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
-             x:Class="GpsNotepad.App">
+<prism:PrismApplication xmlns:views="clr-namespace:GpsNotepad.Views"
+                        xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+                        xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
+                        x:Class="GpsNotepad.App">
     <prism:PrismApplication.Resources>
         
         <!--COLORS-->
@@ -40,17 +41,6 @@
         
 
         <!--STYLES-->
-        <Style TargetType="NavigationPage">
-
-            <Setter Property="BarBackgroundColor" 
-                    Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
-                                            Dark={StaticResource SystemBlack}}"/>
-
-            <Setter Property="BarTextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemBlack}, 
-                                            Dark={StaticResource SystemWhite}}"/>
-            
-        </Style>
 
         <Style x:Key="PicEnterPageLabelStyle" 
                TargetType="Label">
@@ -229,7 +219,11 @@
         </Style>
 
         <Style x:Key="TabbedPageStyle" 
-               TargetType="TabbedPage">
+               TargetType="views:BaseTabbedPage">
+
+            <Setter Property="SelectedTabFillColor"
+                    Value="{AppThemeBinding Light={StaticResource LightVariant},
+                                            Dark={StaticResource DarkVariant}}"/>
 
             <Setter Property="BarBackgroundColor"
                     Value="{AppThemeBinding Light={StaticResource SystemWhite},
@@ -369,7 +363,7 @@
                     Value="46"/>
 
             <Setter Property="CornerRadius"
-                    Value="56"/>
+                    Value="23"/>
 
             <Setter Property="BackgroundColor"
                     Value="{StaticResource LightPrimary}" />

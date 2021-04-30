@@ -231,6 +231,9 @@
   <data name="PasswordPlaceholder" xml:space="preserve">
     <value>Введите пароль</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Фото</value>
+  </data>
   <data name="Pins" xml:space="preserve">
     <value>Метки</value>
   </data>

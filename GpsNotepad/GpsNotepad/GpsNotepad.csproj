@@ -84,6 +84,9 @@
     <Compile Update="Views\CreateAccountSecondPage.xaml.cs">
       <DependentUpon>CreateAccountSecondPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\PinImagePage.xaml.cs">
+      <DependentUpon>PinImagePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
@@ -136,7 +139,7 @@
     <EmbeddedResource Update="Views\MapTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\PinImagesPage.xaml">
+    <EmbeddedResource Update="Views\PinImagePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PinListTabPage.xaml">

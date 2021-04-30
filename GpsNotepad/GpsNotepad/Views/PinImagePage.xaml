@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GpsNotepad.Views.PinImagePage"
+             x:Name="Image"
+             Style="{StaticResource PageBackgroundStyle}">
+
+    <ContentPage.Content>
+
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="54">
+
+                <Grid ColumnDefinitions="*" 
+                      HorizontalOptions="FillAndExpand">
+
+                    <ImageButton Source="ic_left_blue.png"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="0"
+                                 HorizontalOptions="Start"
+                                 Padding="10, 0, 10, 0"
+                                 Command="{Binding GoBackTapCommand}"/>
+
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Resource[Photo]}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                </Grid>
+
+            </StackLayout>
+
+            <StackLayout Padding="0, 20, 0, 0">
+                
+            <CarouselView ItemsSource="{Binding ImageList}"
+                          Loop="False"
+                          Position="{Binding ImagePosition}"
+                          VerticalOptions="CenterAndExpand">
+
+                <CarouselView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <StackLayout>
+
+                            <Image Source="{Binding ImagePath}"/>
+
+                            <Label Text="{Binding Path=BindingContext.ImagePositionLabel,
+                                                  Source={x:Reference Image}}"
+                                   Padding="20, 0, 0, 0"/>
+
+                        </StackLayout>
+
+
+                    </DataTemplate>
+
+                </CarouselView.ItemTemplate>
+
+            </CarouselView>
+                
+                
+            </StackLayout>
+
+
+        </StackLayout>
+        
+    </ContentPage.Content>
+    
+</ContentPage>

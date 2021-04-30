@@ -2,6 +2,7 @@
 using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.PinImage;
+using GpsNotepad.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
@@ -44,6 +45,14 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _areImagesVisible, value);
         }
 
+        private PinImageModel _selectedImage;
+        public PinImageModel SelectedImage
+        {
+            get => _selectedImage;
+            set => SetProperty(ref _selectedImage, value);
+        }
+
+
         private string _label;
         public string Label
         {
@@ -68,12 +77,7 @@ namespace GpsNotepad.ViewModels
         //TODO
         private ICommand _openImagePageTapCommand;
         public ICommand OpenImagePageTapCommand =>
-            _openImagePageTapCommand ??= new DelegateCommand<PinImageModel>(OnOpenImagePageTap);
-
-        private void OnOpenImagePageTap(PinImageModel im)
-        {
-            System.Console.WriteLine();
-        }
+            _openImagePageTapCommand ??= new DelegateCommand(OnOpenImagePageTapAsync);
 
         private ICommand _closePopupPageTapCommand;
         public ICommand ClosePopupPageTapCommand =>
@@ -105,6 +109,14 @@ namespace GpsNotepad.ViewModels
         #endregion
 
         #region --- Private helpers ---
+
+        private async void OnOpenImagePageTapAsync()
+        {
+            var parameters = new NavigationParameters();
+            parameters.Add(nameof(ImageList), ImageList);
+            parameters.Add(nameof(PinImageModel), SelectedImage);
+            await NavigationService.NavigateAsync(nameof(PinImagePage), parameters);
+        }
 
         private async void OnClosePopupPageTapAsync()
         {

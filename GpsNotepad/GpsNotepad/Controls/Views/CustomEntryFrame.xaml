@@ -35,7 +35,8 @@
                                TextColor="{Binding EntryTextColor}"
                                Keyboard="{Binding EntryKeyboard}"
                                Text="{Binding EntryText}"
-                               IsPassword="{Binding IsEntryPassword}"/>
+                               IsPassword="{Binding IsEntryPassword}"
+                               MaxLength="120"/>
 
             <!--ENTRY BUTTON-->
             <ImageButton BindingContext="{x:Reference Name=CustomEntry}"

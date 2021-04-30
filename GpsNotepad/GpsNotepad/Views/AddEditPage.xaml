@@ -65,21 +65,21 @@
 
                 <!--LABEL-->
                 <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
-                                          SubtitleText="{Binding Resource[Label]}"
-                                          EntryPlaceholder="{Binding Resource[LabelPlaceholder]}"
-                                          ButtonImage="ic_clear.png"
-                                          EntryText="{Binding Label}"
-                                          WrongText="{Binding LabelWrongText}"
-                                          IsWrongVisible="{Binding IsLabelWrongVisible}"
-                                          ClickCommand="{Binding ClearLabelTapCommand}"/>
+                                               SubtitleText="{Binding Resource[Label]}"
+                                               EntryPlaceholder="{Binding Resource[LabelPlaceholder]}"
+                                               ButtonImage="ic_clear.png"
+                                               EntryText="{Binding Label}"
+                                               WrongText="{Binding LabelWrongText}"
+                                               IsWrongVisible="{Binding IsLabelWrongVisible}"
+                                               ClickCommand="{Binding ClearLabelTapCommand}"/>
 
                 <!--DESCRIPTION-->
                 <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
-                                          SubtitleText="{Binding Resource[Description]}"
-                                          EntryPlaceholder="{Binding Resource[DescriptionPlaceholder]}"
-                                          ButtonImage="ic_clear.png"
-                                          EntryText="{Binding Description}"
-                                          ClickCommand="{Binding ClearDescriptionTapCommand}"/>
+                                               SubtitleText="{Binding Resource[Description]}"
+                                               EntryPlaceholder="{Binding Resource[DescriptionPlaceholder]}"
+                                               ButtonImage="ic_clear.png"
+                                               EntryText="{Binding Description}"
+                                               ClickCommand="{Binding ClearDescriptionTapCommand}"/>
 
                 <!--COORDINATES SUBTITLE-->
                 <Label Style="{StaticResource SubtitleStyle}"

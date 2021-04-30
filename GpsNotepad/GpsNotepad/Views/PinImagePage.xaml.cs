@@ -2,9 +2,9 @@
 
 namespace GpsNotepad.Views
 {
-    public partial class PinImagesPage : ContentPage
+    public partial class PinImagePage : ContentPage
     {
-        public PinImagesPage()
+        public PinImagePage()
         {
             InitializeComponent();
         }

@@ -17,58 +17,73 @@
 
     <popups:PopupPage.Content>
 
-        <StackLayout Style="{StaticResource PopupPageContentStyle}"
+        <StackLayout HorizontalOptions="Fill"
+                     VerticalOptions="Fill">
+
+            <StackLayout.GestureRecognizers>
+
+                <TapGestureRecognizer Command="{Binding ClosePopupPageTapCommand}"
+                                      CommandParameter="{Binding .}"/>
+
+            </StackLayout.GestureRecognizers>
+
+            <StackLayout Style="{StaticResource PopupPageContentStyle}"
                      VerticalOptions="EndAndExpand" 
                      HorizontalOptions="FillAndExpand">
 
-            <CollectionView ItemsSource="{Binding ImageList}"
-                            HeightRequest="80"
-                            IsVisible="{Binding AreImagesVisible}">
+                <CollectionView ItemsSource="{Binding ImageList}"
+                                HeightRequest="80"
+                                SelectionMode="Single"
+                                IsVisible="{Binding AreImagesVisible}"
+                                SelectionChangedCommand="{Binding OpenImagePageTapCommand}"
+                                SelectedItem="{Binding SelectedImage}">
 
-                <CollectionView.ItemsLayout>
+                    <CollectionView.ItemsLayout>
 
-                    <LinearItemsLayout Orientation="Horizontal"
+                        <LinearItemsLayout Orientation="Horizontal"
                                        ItemSpacing="2"/>
 
-                </CollectionView.ItemsLayout>
+                    </CollectionView.ItemsLayout>
 
-                <CollectionView.ItemTemplate>
+                    <CollectionView.ItemTemplate>
 
-                    <DataTemplate>
+                        <DataTemplate>
 
-                        <StackLayout Orientation="Horizontal"
+                            <StackLayout Orientation="Horizontal"
                                      WidthRequest="137">
 
-                            <Image Source="{Binding ImagePath}"
-                                   Aspect="Fill"/>
+                                <Image Source="{Binding ImagePath}"
+                                       Aspect="Fill"/>
 
-                        </StackLayout>
+                            </StackLayout>
 
-                    </DataTemplate>
+                        </DataTemplate>
 
-                </CollectionView.ItemTemplate>
+                    </CollectionView.ItemTemplate>
 
-            </CollectionView>
+                </CollectionView>
 
-            <StackLayout Padding="16, 16, 16, 0">
+                <StackLayout Padding="16, 16, 16, 0">
 
-                <!--PIN LABEL-->
-                <Label Style="{StaticResource TitleStyle}"
+                    <!--PIN LABEL-->
+                    <Label Style="{StaticResource TitleStyle}"
                        Text="{Binding Label}"/>
 
-                <!--COORDINATES-->
-                <Label Style="{StaticResource PinCoordinatesStyle}"
+                    <!--COORDINATES-->
+                    <Label Style="{StaticResource PinCoordinatesStyle}"
                        Text="{Binding Coordinates}"/>
 
-                <!--SEPARATOR-->
-                <BoxView Style="{StaticResource PinSeparatorStyle}"
+                    <!--SEPARATOR-->
+                    <BoxView Style="{StaticResource PinSeparatorStyle}"
                          HorizontalOptions="Fill"
                          Margin="0, 18, 0, 0"/>
 
-                <!--DESCRIPTION-->
-                <Label Style="{StaticResource PinDescriptionStyle}"
+                    <!--DESCRIPTION-->
+                    <Label Style="{StaticResource PinDescriptionStyle}"
                        Padding="0, 6, 0, 0"
                        Text="{Binding Description}"/>
+
+                </StackLayout>
 
             </StackLayout>
 
