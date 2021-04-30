@@ -68,21 +68,16 @@ namespace GpsNotepad
         {
             InitializeComponent();
 
-            //Application.Current.UserAppTheme = (OSAppTheme)Enum.Parse(typeof(OSAppTheme), ThemeService.GetTheme());
-            Application.Current.UserAppTheme = OSAppTheme.Dark;
+            Application.Current.UserAppTheme = (OSAppTheme)Enum.Parse(typeof(OSAppTheme), ThemeService.GetTheme());
 
             if (AuthorizationService.IsAuthorized)
             {
                 await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
-                //await NavigationService.NavigateAsync($"/{nameof(MainMapTabbedPage)}");
             }
             else
             {
                 await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}");
             }
-
-            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(LogInAndRegisterPage)}");
-            //await NavigationService.NavigateAsync($"{nameof(LogInAndRegisterPage)}");
 
         }
 

@@ -1,11 +1,8 @@
 ﻿using GpsNotepad.Services.Localization;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.Windows.Input;
 
 namespace GpsNotepad.ViewModels
 {
@@ -17,6 +14,8 @@ namespace GpsNotepad.ViewModels
         {
         }
 
+        #region --- Public properties ---
+
         private object _selectedLanguage;
 
         public object SelectedLanguage
@@ -24,6 +23,14 @@ namespace GpsNotepad.ViewModels
             get => _selectedLanguage;
             set => SetProperty(ref _selectedLanguage, value);
         }
+
+        private ICommand _goBackTapCommand;
+        public ICommand GoBackTapCommand =>
+            _goBackTapCommand ??= new DelegateCommand(OnGoBackTapAsync);
+
+        #endregion
+
+        #region --- Overrides ---
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -37,7 +44,6 @@ namespace GpsNotepad.ViewModels
                     SelectedLanguage = Constants.RUSSIAN_LANGUAGE;
                     break;
             }
-            //SelectedLanguage = Resource.Lang;
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -50,6 +56,17 @@ namespace GpsNotepad.ViewModels
                 Resource.SetCulture(SelectedLanguage.ToString());
             }
         }
+
+        #endregion
+
+        #region --- Private helpers ---
+
+        private async void OnGoBackTapAsync()
+        {
+            await NavigationService.GoBackAsync();
+        }
+
+        #endregion
 
     }
 }

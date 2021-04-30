@@ -49,6 +49,10 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref selectedLang, value);
         }
 
+        private ICommand _goBackTapCommand;
+        public ICommand GoBackTapCommand =>
+            _goBackTapCommand ??= new DelegateCommand(OnGoBackTapAsync);
+
         private ICommand _openLanguageSettingsTapCommand;
         public ICommand OpenLanguageSettingsTapCommand =>
             _openLanguageSettingsTapCommand ??= new DelegateCommand(OnOpenLanguageSettingsTapAsync);
@@ -77,6 +81,11 @@ namespace GpsNotepad.ViewModels
         #endregion
 
         #region --- Private helpers ---
+
+        private async void OnGoBackTapAsync()
+        {
+            await NavigationService.GoBackAsync();
+        }
 
         private async void OnOpenLanguageSettingsTapAsync()
         {

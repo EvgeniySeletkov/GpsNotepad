@@ -1,49 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GpsNotepad.Views.SettingsPage"
-             Style="{StaticResource PageBackground}"
-             Title="{Binding Resource[SettingsPageTitle]}">
+<views:BaseContentPage xmlns:views="clr-namespace:GpsNotepad.Views" 
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                       NavigationPage.HasNavigationBar="False"
+                       x:Class="GpsNotepad.Views.SettingsPage"
+                       Style="{StaticResource PageBackgroundStyle}">
 
     <ContentPage.Content>
 
-        <StackLayout Padding="16, 0, 16, 0">
+        <StackLayout>
+            
+            <!--NAVBAR-->
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="54">
 
-            <!--DARK THEME-->
-            <StackLayout Padding="0, 18, 0, 16" Orientation="Horizontal">
+                <Grid ColumnDefinitions="*" 
+                      HorizontalOptions="FillAndExpand">
 
-                <Label Style="{StaticResource SettingsSubtitle}"
-                       Text="{Binding Resource[DarkTheme]}"
-                       VerticalOptions="Center"/>
+                    <ImageButton Source="ic_left_blue.png"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="0"
+                                 HorizontalOptions="Start"
+                                 Padding="10, 0, 10, 0"
+                                 Command="{Binding GoBackTapCommand}"/>
 
-                <Switch ThumbColor="#FEFEFD"
-                        OnColor="#596EFB"
-                        HorizontalOptions="EndAndExpand"
-                        IsToggled="{Binding DarkTheme}"/>
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Resource[SettingsPageTitle]}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
 
-            </StackLayout>
-
-            <BoxView Style="{StaticResource PinSeparator}"/>
-
-            <!--LANGUAGE-->
-            <StackLayout Padding="0, 18, 0, 16" Orientation="Horizontal">
-
-                <Label Style="{StaticResource SettingsSubtitle}"
-                       Text="{Binding Resource[Language]}"
-                       VerticalOptions="Center"/>
-
-                <ImageButton BackgroundColor="Transparent"
-                             Source="ic_left_gray.png"
-                             HorizontalOptions="EndAndExpand"
-                             Padding="0, 0, 9, 0"
-                             Command="{Binding OpenLanguageSettingsTapCommand}"/>
+                </Grid>
 
             </StackLayout>
 
-            <BoxView Style="{StaticResource PinSeparator}"/>
+            <StackLayout>
+
+                <!--DARK THEME-->
+                <StackLayout Padding="16, 18, 16, 16" Orientation="Horizontal">
+
+                    <Label Style="{StaticResource SettingsSubtitleStyle}"
+                           Text="{Binding Resource[DarkTheme]}"
+                           VerticalOptions="Center"/>
+
+                    <Switch ThumbColor="#FEFEFD"
+                            OnColor="#596EFB"
+                            HorizontalOptions="EndAndExpand"
+                            IsToggled="{Binding DarkTheme}"/>
+
+                </StackLayout>
+
+                <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+                <!--LANGUAGE-->
+                <StackLayout Padding="16, 18, 16, 16" Orientation="Horizontal">
+
+                    <Label Style="{StaticResource SettingsSubtitleStyle}"
+                           Text="{Binding Resource[Language]}"
+                           VerticalOptions="Center"/>
+
+                    <ImageButton BackgroundColor="Transparent"
+                                 Source="ic_left_gray.png"
+                                 HorizontalOptions="EndAndExpand"
+                                 Padding="0, 0, 9, 0"
+                                 Command="{Binding OpenLanguageSettingsTapCommand}"/>
+
+                </StackLayout>
+
+                <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+            </StackLayout>
 
         </StackLayout>
-        
-        
+
     </ContentPage.Content>
-</ContentPage>
+
+</views:BaseContentPage>

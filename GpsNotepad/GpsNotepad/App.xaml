@@ -203,6 +203,21 @@
 
         </Style>
 
+        <Style x:Key="SettingsSubtitleStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
         <!--Page Styles-->
         <Style x:Key="PageBackgroundStyle" 
                TargetType="ContentPage">
@@ -361,6 +376,21 @@
 
         </Style>
 
+        <Style x:Key="RadioButtonStyle"
+               TargetType="RadioButton">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
         <!--Entries styles-->
         <Style x:Key="EntryStyle" 
                TargetType="local:CustomFrame">
@@ -500,7 +530,7 @@
 
         </Style>
         
-        <!--Labels style-->
+        
 
         <Style x:Key="RightArrowButton" 
                TargetType="ImageButton">
@@ -513,17 +543,7 @@
 
         </Style>
 
-        <Style x:Key="SettingsSubtitle"
-               TargetType="Label">
-
-            <Setter Property="FontSize"
-                    Value="14"/>
-
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
-                                            Dark={StaticResource SystemWhite}}"/>
-
-        </Style>
+        
 
     </prism:PrismApplication.Resources>
     

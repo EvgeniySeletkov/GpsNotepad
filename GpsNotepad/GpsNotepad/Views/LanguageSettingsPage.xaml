@@ -1,29 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             x:Class="GpsNotepad.Views.LanguageSettingsPage"
-             Title="{Binding Resource[Language]}">
+<views:BaseContentPage xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       NavigationPage.HasNavigationBar="False"
+                       Style="{StaticResource PageBackgroundStyle}"
+                       x:Class="GpsNotepad.Views.LanguageSettingsPage">
 
     <ContentPage.Content>
 
-        <StackLayout Padding="16, 0, 16, 0">
+        <StackLayout>
 
-            <!--DARK THEME-->
+            <!--NAVBAR-->
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="54">
+
+                <Grid ColumnDefinitions="*" 
+                      HorizontalOptions="FillAndExpand">
+
+                    <ImageButton Source="ic_left_blue.png"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="0"
+                                 HorizontalOptions="Start"
+                                 Padding="10, 0, 10, 0"
+                                 Command="{Binding GoBackTapCommand}"/>
+
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Resource[Language]}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                </Grid>
+
+            </StackLayout>
+
             <StackLayout RadioButtonGroup.GroupName="Language" 
-                         RadioButtonGroup.SelectedValue="{Binding SelectedLanguage}"
-                         Padding="0, 18, 0, 16" 
-                         Orientation="Vertical">
+                         RadioButtonGroup.SelectedValue="{Binding SelectedLanguage}">
 
-                <RadioButton Content="{Binding Resource[English]}" 
-                             Value="en"/>
+                <!--ENGLISH-->
+                <StackLayout Padding="16, 18, 16, 16">
 
-                <BoxView Style="{StaticResource PinSeparator}"/>
+                    <RadioButton Style="{StaticResource RadioButtonStyle}"
+                                 Content="{Binding Resource[English]}" 
+                                 Value="en"/>
 
-                <RadioButton Content="{Binding Resource[Russian]}" 
-                             Value="ru"/>
+                </StackLayout>
 
-                <BoxView Style="{StaticResource PinSeparator}"/>
+                <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+                <!--RUSSIAN-->
+                <StackLayout Orientation="Horizontal"
+                             Padding="16, 18, 16, 16">
+
+                    <RadioButton Style="{StaticResource RadioButtonStyle}"
+                                 Content="{Binding Resource[Russian]}" 
+                                 Value="ru"/>
+
+                </StackLayout>
+
+                <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
             </StackLayout>
 
@@ -31,4 +66,4 @@
 
     </ContentPage.Content>
     
-</ContentPage>
+</views:BaseContentPage>

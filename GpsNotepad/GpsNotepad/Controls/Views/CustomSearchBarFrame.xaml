@@ -17,7 +17,8 @@
                          BackgroundColor="Transparent"
                          Padding="3, 3, 3, 3"
                          Grid.Column="0"
-                         IsVisible="{Binding IsLeftButtonVisible}"/>
+                         IsVisible="{Binding IsLeftButtonVisible}"
+                         Command="{Binding LeftButtonClickCommand}"/>
 
             <!--BACK BUTTON-->
             <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"

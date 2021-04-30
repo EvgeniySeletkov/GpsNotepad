@@ -1,8 +1,6 @@
-﻿using Xamarin.Forms;
-
-namespace GpsNotepad.Views
+﻿namespace GpsNotepad.Views
 {
-    public partial class LanguageSettingsPage : ContentPage
+    public partial class LanguageSettingsPage : BaseContentPage
     {
         public LanguageSettingsPage()
         {

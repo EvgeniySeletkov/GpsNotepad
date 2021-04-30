@@ -25,6 +25,7 @@
                                                ClearButtonImage="ic_clear.png"
                                                RightButtonImage="ic_exid.png"
                                                RightButtonClickCommand="{Binding LogOutTapCommand}"/>
+            
             <Grid RowDefinitions="*" 
                   VerticalOptions="FillAndExpand">
 
