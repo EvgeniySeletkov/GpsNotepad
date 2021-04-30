@@ -338,7 +338,7 @@ namespace GpsNotepad.ViewModels
                 var imageList = new List<PinImageModel>(PinImageList);
                 var pinImageModel = new PinImageModel()
                 {
-                    Image = imagePath
+                    ImagePath = imagePath
                 };
                 imageList.Add(pinImageModel);
                 PinImageList = new ObservableCollection<PinImageModel>(imageList);
@@ -400,7 +400,7 @@ namespace GpsNotepad.ViewModels
                 var pinImageList = await _pinImageService.GetAllPinImagesAsync(pin.Id);
                 foreach (var pinImage in PinImageList)
                 {
-                    if (pinImageList.FirstOrDefault(image => image.Image == pinImage.Image) == null)
+                    if (pinImageList.FirstOrDefault(image => image.ImagePath == pinImage.ImagePath) == null)
                     {
                         pinImage.PinId = pin.Id;
                         await _pinImageService.SavePinImageAsync(pinImage);

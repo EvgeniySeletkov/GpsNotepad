@@ -6,7 +6,7 @@ namespace GpsNotepad.Models
     {
         [PrimaryKey, AutoIncrement, Unique]
         public int Id { get; set; }
-        public string Image { get; set; }
+        public string ImagePath { get; set; }
         public int PinId { get; set; }
     }
 }

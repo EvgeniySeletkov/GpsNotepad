@@ -6,6 +6,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace GpsNotepad.ViewModels
 {
@@ -22,6 +23,13 @@ namespace GpsNotepad.ViewModels
 
         #region --- Public properties ---
 
+        private double _imageWidth;
+        public double ImageWidth
+        {
+            get => _imageWidth;
+            set => SetProperty(ref _imageWidth, value);
+        }
+
         private ObservableCollection<PinImageModel> _imageList;
         public ObservableCollection<PinImageModel> ImageList
         {
@@ -29,7 +37,12 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _imageList, value);
         }
 
-
+        private bool _areImagesVisible;
+        public bool AreImagesVisible
+        {
+            get => _areImagesVisible;
+            set => SetProperty(ref _areImagesVisible, value);
+        }
 
         private string _label;
         public string Label
@@ -52,6 +65,16 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _description, value);
         }
 
+        //TODO
+        private ICommand _openImagePageTapCommand;
+        public ICommand OpenImagePageTapCommand =>
+            _openImagePageTapCommand ??= new DelegateCommand<PinImageModel>(OnOpenImagePageTap);
+
+        private void OnOpenImagePageTap(PinImageModel im)
+        {
+            System.Console.WriteLine();
+        }
+
         private ICommand _closePopupPageTapCommand;
         public ICommand ClosePopupPageTapCommand =>
             _closePopupPageTapCommand ??= new DelegateCommand(OnClosePopupPageTapAsync);
@@ -65,12 +88,17 @@ namespace GpsNotepad.ViewModels
             if (parameters.TryGetValue<PinViewModel>(nameof(PinViewModel), out var selectedPin))
             {
                 var imageList = await _pinImageService.GetAllPinImagesAsync(selectedPin.PinId);
-
+                AreImagesVisible = imageList.Count > 0;
                 ImageList = new ObservableCollection<PinImageModel>(imageList);
 
                 Label = selectedPin.Label;
                 Coordinates = selectedPin.Coordinates;
                 Description = selectedPin.Description;
+
+                // TODO
+                var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+                var width = mainDisplayInfo.Width / mainDisplayInfo.Density / 3;
+                ImageWidth = width;
             }
         }
 

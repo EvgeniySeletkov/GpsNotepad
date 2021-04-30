@@ -171,6 +171,35 @@
                     Value="{AppThemeBinding Light={StaticResource SystemBlack},
                                             Dark={StaticResource SystemWhite}}"/>
 
+        </Style>
+
+        <Style x:Key="PinCoordinatesStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Light"/>
+
+            <Setter Property="FontSize" 
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinDescriptionStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Light"/>
+
+            <Setter Property="FontSize" 
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
 
         </Style>
 
@@ -472,16 +501,6 @@
         </Style>
         
         <!--Labels style-->
-
-        <Style x:Key="PinCoordinates" 
-               TargetType="Label">
-
-            <Setter Property="TextColor"
-                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
-                                            Dark={StaticResource SystemLightGray}}"/>
-
-
-        </Style>
 
         <Style x:Key="RightArrowButton" 
                TargetType="ImageButton">

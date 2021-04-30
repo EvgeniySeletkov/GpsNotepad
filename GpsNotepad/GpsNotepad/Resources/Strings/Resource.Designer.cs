@@ -430,6 +430,15 @@ namespace GpsNotepad.Resources.Strings {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Search.
+        /// </summary>
+        internal static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Settings.
         /// </summary>
         internal static string SettingsPageTitle {

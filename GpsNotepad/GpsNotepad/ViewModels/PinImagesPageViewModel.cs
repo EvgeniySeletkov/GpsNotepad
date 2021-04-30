@@ -51,7 +51,7 @@ namespace GpsNotepad.ViewModels
         {
             var pinImagemodel = new PinImageModel()
             {
-                Image = image,
+                ImagePath = image,
                 PinId = _pinId
             };
 

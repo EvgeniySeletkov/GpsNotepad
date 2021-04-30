@@ -15,13 +15,13 @@ using Xamarin.Forms.GoogleMaps;
 
 namespace GpsNotepad.ViewModels
 {
-    class PinsListTabPageViewModel : BaseViewModel
+    class PinListTabPageViewModel : BaseViewModel
     {
         private readonly IPinService _pinService;
         private readonly IAuthorizationService _authorizationService;
         private List<PinViewModel> _pinSearchList;
 
-        public PinsListTabPageViewModel(INavigationService navigationService,
+        public PinListTabPageViewModel(INavigationService navigationService,
                                         ILocalizationService localizationService,
                                         IPinService pinService,
                                         IAuthorizationService authorizationService) : base(navigationService, localizationService)

@@ -15,7 +15,7 @@
 
             <!--NAVBAR-->
             <controlViews:CustomSearchBarFrame Style="{StaticResource SearchBarStyle}"
-                                               EntryPlaceholder="Search"
+                                               EntryPlaceholder="{Binding Resource[Search]}"
                                                LeftButtonImage="ic_settings.png"
                                                LeftButtonClickCommand="{Binding OpenSettingsTapCommand}"
                                                BackButtonImage="ic_left_blue.png"

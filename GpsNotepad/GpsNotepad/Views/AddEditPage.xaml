@@ -139,7 +139,7 @@
                                         <Label Style="{StaticResource PinInfoStyle}"
                                                VerticalOptions="Center"
                                                LineBreakMode="TailTruncation"
-                                               Text="{Binding Image, 
+                                               Text="{Binding ImagePath, 
                                                               Converter={StaticResource PathToName}}"
                                                Grid.Column="0"/>
 
