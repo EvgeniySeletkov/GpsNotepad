@@ -1,13 +1,9 @@
-﻿using Acr.UserDialogs;
-using GpsNotepad.Models;
+﻿using GpsNotepad.Models;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.PinImage;
-using Prism.Commands;
 using Prism.Navigation;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Input;
 
 namespace GpsNotepad.ViewModels
 {
@@ -52,6 +48,7 @@ namespace GpsNotepad.ViewModels
             if (parameters.TryGetValue<PinImageModel>(nameof(PinImageModel), out var selectedImage))
             {
                 ImagePosition = ImageList.IndexOf(selectedImage);
+                ImagePositionLabel = $"{ImagePosition + 1} - {ImageList.Count}";
             }
         }
 

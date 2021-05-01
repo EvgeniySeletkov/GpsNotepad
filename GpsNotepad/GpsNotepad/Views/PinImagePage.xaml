@@ -33,40 +33,49 @@
 
             </StackLayout>
 
-            <StackLayout Padding="0, 20, 0, 0">
-                
             <CarouselView ItemsSource="{Binding ImageList}"
-                          Loop="False"
-                          Position="{Binding ImagePosition}"
-                          VerticalOptions="CenterAndExpand">
+                              Loop="False"
+                              Position="{Binding ImagePosition}">
 
                 <CarouselView.ItemTemplate>
 
                     <DataTemplate>
 
-                        <StackLayout>
+                        <Grid RowDefinitions="0.2*, *, 0.2*">
 
-                            <Image Source="{Binding ImagePath}"/>
+                            <Frame HorizontalOptions="Fill"
+                                   Grid.Row="1"
+                                   VerticalOptions="CenterAndExpand"
+                                   BackgroundColor="Transparent"
+                                   Padding="0">
 
-                            <Label Text="{Binding Path=BindingContext.ImagePositionLabel,
-                                                  Source={x:Reference Image}}"
-                                   Padding="20, 0, 0, 0"/>
+                                <Grid RowDefinitions="*, Auto">
 
-                        </StackLayout>
+                                    <Image Source="{Binding ImagePath}"
+                                           VerticalOptions="Fill"
+                                           Aspect="Fill"
+                                           Grid.Row="0"/>
 
+                                    <Label Text="{Binding Path=BindingContext.ImagePositionLabel,
+                                                          Source={x:Reference Image}}"  
+                                           Padding="20, 0, 0, 0"
+                                           TextColor="Black"
+                                           Grid.Row="1"/>
+
+                                </Grid>
+
+                            </Frame>
+                            
+                        </Grid>
 
                     </DataTemplate>
 
                 </CarouselView.ItemTemplate>
 
             </CarouselView>
-                
-                
-            </StackLayout>
-
 
         </StackLayout>
-        
+
     </ContentPage.Content>
-    
+
 </ContentPage>
