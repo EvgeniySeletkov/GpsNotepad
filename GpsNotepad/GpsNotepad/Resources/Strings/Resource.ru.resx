@@ -225,6 +225,10 @@
   <data name="NextButton" xml:space="preserve">
     <value>Далее</value>
   </data>
+  <data name="Or" xml:space="preserve">
+    <value> или </value>
+    <comment> </comment>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
   </data>

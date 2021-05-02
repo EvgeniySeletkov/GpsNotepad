@@ -1,15 +1,9 @@
 ﻿using GpsNotepad.Services.Localization;
-using GpsNotepad.Services.Settings;
 using GpsNotepad.Services.ThemeService;
 using GpsNotepad.Views;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 

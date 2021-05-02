@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:BaseContentPage xmlns:views="clr-namespace:GpsNotepad.Views" 
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:controls="clr-namespace:GpsNotepad.Controls"
                        xmlns:converters="clr-namespace:GpsNotepad.Converter"
-                       xmlns:viewControls="clr-namespace:GpsNotepad.Controls.Views"
                        xmlns:prism="http://prismlibrary.com"
+                       xmlns:viewControls="clr-namespace:GpsNotepad.Controls.Views"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        NavigationPage.HasNavigationBar="False"
                        x:Class="GpsNotepad.Views.AddEditPage"
                        x:Name="image"
@@ -33,11 +33,11 @@
                       HorizontalOptions="FillAndExpand">
 
                     <ImageButton Source="ic_left_blue.png"
-                                 WidthRequest="50"
                                  BackgroundColor="Transparent"
+                                 WidthRequest="50"
                                  Grid.Column="0"
                                  HorizontalOptions="Start"
-                                 Padding="10, 0, 10, 0"
+                                 Padding="10, 0"
                                  Command="{Binding GoBackTapCommand}"/>
 
                     <Label Style="{StaticResource TitleStyle}"
@@ -47,11 +47,11 @@
                            VerticalOptions="Center"/>
 
                     <ImageButton Source="ic_save.png"
-                                 WidthRequest="50"
                                  BackgroundColor="Transparent"
+                                 WidthRequest="45"
                                  Grid.Column="0"
                                  HorizontalOptions="End"
-                                 Padding="10, 0, 10, 0"
+                                 Padding="10, 0"
                                  Command="{Binding SavePinTapCommand}"/>
 
                 </Grid>
@@ -61,7 +61,7 @@
             <!--SEPARATOR-->
             <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
-            <StackLayout Padding="16, 5, 16, 21">
+            <StackLayout Padding="16, 0, 16, 21">
 
                 <!--LABEL-->
                 <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
@@ -84,42 +84,40 @@
                 <!--COORDINATES SUBTITLE-->
                 <Label Style="{StaticResource SubtitleStyle}"
                        Text="{Binding Resource[Coordinates]}"
-                       Padding="16, 0, 0, 0"/>
+                       Padding="16, 0"/>
 
-                <Grid ColumnDefinitions="*">
+                <Grid ColumnDefinitions="*" ColumnSpacing="10">
 
                     <!--LATITUDE-->
                     <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
-                                              Padding="0, 0, 3, 0"
-                                              IsSubtitleVisible="False"
-                                              EntryPlaceholder="{Binding Resource[Latitude]}"
-                                              ButtonImage="ic_clear.png"
-                                              EntryKeyboard="Numeric"
-                                              WrongText="{Binding LatitudeWrongText}"
-                                              IsWrongVisible="{Binding IsLatitudeWrongVisible}"
-                                              EntryText="{Binding Latitude}"
-                                              Grid.Column="0"
-                                              ClickCommand="{Binding ClearLatitudeTapCommand}"/>
+                                                   IsSubtitleVisible="False"
+                                                   EntryPlaceholder="{Binding Resource[Latitude]}"
+                                                   ButtonImage="ic_clear.png"
+                                                   EntryKeyboard="Numeric"
+                                                   WrongText="{Binding LatitudeWrongText}"
+                                                   IsWrongVisible="{Binding IsLatitudeWrongVisible}"
+                                                   EntryText="{Binding Latitude}"
+                                                   Grid.Column="0"
+                                                   ClickCommand="{Binding ClearLatitudeTapCommand}"/>
 
                     <!--LONGITUDE-->
                     <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
-                                              Padding="3, 0, 0, 0"
-                                              IsSubtitleVisible="False"
-                                              EntryPlaceholder="{Binding Resource[Longitude]}"
-                                              ButtonImage="ic_clear.png"
-                                              EntryKeyboard="Numeric"
-                                              WrongText="{Binding LongitudeWrongText}"
-                                              IsWrongVisible="{Binding IsLongitudeWrongVisible}"
-                                              EntryText="{Binding Longitude}"
-                                              Grid.Column="1"
-                                              ClickCommand="{Binding ClearLongitudeTapCommand}"/>
+                                                   IsSubtitleVisible="False"
+                                                   EntryPlaceholder="{Binding Resource[Longitude]}"
+                                                   ButtonImage="ic_clear.png"
+                                                   EntryKeyboard="Numeric"
+                                                   WrongText="{Binding LongitudeWrongText}"
+                                                   IsWrongVisible="{Binding IsLongitudeWrongVisible}"
+                                                   EntryText="{Binding Longitude}"
+                                                   Grid.Column="1"
+                                                   ClickCommand="{Binding ClearLongitudeTapCommand}"/>
 
                 </Grid>
 
                 <!--ADD PHOTO SUBTITLE-->
                 <Label Style="{StaticResource SubtitleStyle}"
                        Text="{Binding Resource[AddPhoto]}"
-                       Padding="16, 0, 0, 0"/>
+                       Padding="16, 0"/>
 
                 <!--PHOTO LIST-->
                 <ListView HeightRequest="{Binding PinImageListHeight}"
@@ -134,8 +132,9 @@
                                 <ViewCell.View>
 
                                     <Grid ColumnDefinitions="0.5*, 0.1*, 0.4*"
-                                          Padding="16, 0, 0, 0">
+                                          Padding="16, 0">
 
+                                        <!--PHOTO NAME-->
                                         <Label Style="{StaticResource PinInfoStyle}"
                                                VerticalOptions="Center"
                                                LineBreakMode="TailTruncation"
@@ -143,6 +142,7 @@
                                                               Converter={StaticResource PathToName}}"
                                                Grid.Column="0"/>
 
+                                        <!--DELETE PHOTO BUTTON-->
                                         <ImageButton BackgroundColor="Transparent"
                                                      Source="ic_clear.png"
                                                      VerticalOptions="Center"

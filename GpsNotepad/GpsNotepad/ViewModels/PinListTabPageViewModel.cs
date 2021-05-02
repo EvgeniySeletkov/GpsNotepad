@@ -125,7 +125,6 @@ namespace GpsNotepad.ViewModels
                 }
                 else
                 {
-                    //add method to PinService
                     PinList = new ObservableCollection<PinViewModel>(_pinService.SearchPin(_pinSearchList, SearchText));
                 }
             }

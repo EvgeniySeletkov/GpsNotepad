@@ -7,7 +7,7 @@
 
     <!--SUBTITLE-->
     <Label BindingContext="{x:Reference Name=CustomEntry}"
-           Padding="16, 0, 0, 0"
+           Padding="16, 5, 0, 0"
            FontSize="{Binding SubtitleFontSize}"
            FontFamily="{Binding SubtitleFont}"
            TextColor="{Binding SubtitleTextColor}"
@@ -18,7 +18,7 @@
     <Frame BindingContext="{x:Reference Name=CustomEntry}"
            CornerRadius="3"
            HasShadow="False"
-           Padding="12, 2, 15, 0"
+           Padding="12, 0, 15, 0"
            BorderColor="{Binding EntryBorderColor}"
            BackgroundColor="{Binding EntryBackgoundColor}">
 
@@ -52,7 +52,7 @@
     
     <!--WRONG LABEL-->
     <Label BindingContext="{x:Reference Name=CustomEntry}"
-           Padding="16, 0, 0, 0"
+           Padding="16, 0"
            FontSize="{Binding WrongFontSize}"
            FontFamily="{Binding WrongFont}"
            TextColor="{Binding WrongColor}"

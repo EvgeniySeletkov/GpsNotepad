@@ -21,7 +21,6 @@
                                  BackgroundColor="Transparent"
                                  Grid.Column="0"
                                  HorizontalOptions="Start"
-                                 Padding="10, 0, 10, 0"
                                  Command="{Binding GoBackTapCommand}"/>
 
                     <Label Style="{StaticResource TitleStyle}"
@@ -34,23 +33,27 @@
 
             </StackLayout>
 
+            <!--SEPARATOR-->
+            <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
             <StackLayout RadioButtonGroup.GroupName="Language" 
                          RadioButtonGroup.SelectedValue="{Binding SelectedLanguage}">
 
                 <!--ENGLISH-->
-                <StackLayout Padding="16, 18, 16, 16">
+                <StackLayout Padding="16, 18">
 
                     <RadioButton Style="{StaticResource RadioButtonStyle}"
-                                 Content="{Binding Resource[English]}" 
+                                 Content="{Binding Resource[English]}"
                                  Value="en"/>
 
                 </StackLayout>
 
+                <!--SEPARATOR-->
                 <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
                 <!--RUSSIAN-->
                 <StackLayout Orientation="Horizontal"
-                             Padding="16, 18, 16, 16">
+                             Padding="16, 18">
 
                     <RadioButton Style="{StaticResource RadioButtonStyle}"
                                  Content="{Binding Resource[Russian]}" 
@@ -58,6 +61,7 @@
 
                 </StackLayout>
 
+                <!--SEPARATOR-->
                 <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
             </StackLayout>

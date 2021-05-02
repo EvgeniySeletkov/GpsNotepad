@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:BaseContentPage xmlns:views="clr-namespace:GpsNotepad.Views" 
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:controls="clr-namespace:GpsNotepad.Controls"
-                       xmlns:prism="http://prismlibrary.com" 
                        xmlns:controlViews="clr-namespace:GpsNotepad.Controls.Views"
+                       xmlns:prism="http://prismlibrary.com" 
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
                        prism:ViewModelLocator.AutowireViewModel="True"
                        x:Class="GpsNotepad.Views.MapTabPage"
                        Style="{StaticResource PageBackgroundStyle}">
@@ -38,16 +38,16 @@
                     <controls:CustomMap.Behaviors>
 
                         <prism:EventToCommandBehavior EventName="MapClicked" 
-                                                  Command="{Binding MapTapCommand}" 
-                                                  EventArgsParameterPath="Point"/>
+                                                      Command="{Binding MapTapCommand}" 
+                                                      EventArgsParameterPath="Point"/>
 
                         <prism:EventToCommandBehavior EventName="CameraMoving" 
-                                                  Command="{Binding CameraMoveCommand}" 
-                                                  EventArgsParameterPath="Position"/>
+                                                      Command="{Binding CameraMoveCommand}" 
+                                                      EventArgsParameterPath="Position"/>
 
                         <prism:EventToCommandBehavior EventName="PinClicked" 
-                                                  Command="{Binding PinSelectCommand}" 
-                                                  EventArgsParameterPath="Pin"/>
+                                                      Command="{Binding PinSelectCommand}" 
+                                                      EventArgsParameterPath="Pin"/>
 
                     </controls:CustomMap.Behaviors>
 
@@ -85,23 +85,26 @@
                                         <!--SEPARATOR-->
                                         <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
-                                        <StackLayout Padding="16, 10, 16, 12"
+                                        <StackLayout Orientation="Horizontal"
                                                      VerticalOptions="Center"
-                                                     Orientation="Horizontal">
+                                                     Padding="16, 10, 16, 16">
 
                                             <!--PIN ICON-->
-                                            <Image Style="{StaticResource PinIconStyle}"/>
+                                            <Image Style="{StaticResource PinIconStyle}"
+                                                   WidthRequest="28"
+                                                   HeightRequest="28"/>
 
-                                            <StackLayout Padding="8, 0, 0, 0">
+                                            <StackLayout Padding="8, 0"
+                                                         Spacing="2">
 
                                                 <!--LABEL-->
                                                 <Label Style="{StaticResource PinSearchListSubtitleStyle}"
-                                                   Text="{Binding Label}"/>
+                                                       Text="{Binding Label}"/>
 
                                                 <!--ADDRESS-->
                                                 <Label Style="{StaticResource PinListInfoStyle}"
-                                                   LineBreakMode="TailTruncation"
-                                                   Text="{Binding Address}"/>
+                                                       LineBreakMode="TailTruncation"
+                                                       Text="{Binding Address}"/>
 
                                             </StackLayout>
 

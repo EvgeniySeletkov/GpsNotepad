@@ -10,6 +10,7 @@
 
         <StackLayout>
 
+            <!--NAVBAR-->
             <StackLayout Orientation="Horizontal"
                          HeightRequest="54">
 
@@ -20,7 +21,8 @@
                                  BackgroundColor="Transparent"
                                  Grid.Column="0"
                                  HorizontalOptions="Start"
-                                 Padding="10, 0, 10, 0"
+                                 Padding="10, 0"
+                                 Scale="1.2"
                                  Command="{Binding GoBackTapCommand}"/>
 
                     <Label Style="{StaticResource TitleStyle}"
@@ -33,7 +35,7 @@
 
             </StackLayout>
 
-            <StackLayout Padding="16, 10, 16, 0">
+            <StackLayout Padding="16, 10">
 
                 <!--NAME-->
                 <local:CustomEntryFrame Style="{StaticResource EntryStyle}"
@@ -62,7 +64,7 @@
 
                 <!--SEPARATOR-->
                 <Grid ColumnDefinitions="*"
-                      Padding="0, 14, 0, 0">
+                      Padding="0, 14">
 
                     <BoxView Style="{StaticResource SeparatorStyle}"
                              Grid.Column="0"
@@ -76,8 +78,7 @@
                 </Grid>
 
                 <!--ALTERNATIVE LOG IN BUTTON-->
-                <Grid ColumnDefinitions="*"
-                      Margin="0, 14, 0, 0">
+                <Grid ColumnDefinitions="*">
 
                     <Button Style="{StaticResource AlternativeLogInButtonStyle}"
                             ImageSource="ic_google.png"
@@ -100,8 +101,6 @@
             </StackLayout>
 
         </StackLayout>
-
-        
 
     </ContentPage.Content>
 

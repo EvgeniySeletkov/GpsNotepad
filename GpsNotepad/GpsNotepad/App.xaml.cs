@@ -14,6 +14,7 @@ using Prism.Ioc;
 using Prism.Plugin.Popups;
 using Prism.Unity;
 using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace GpsNotepad
@@ -67,6 +68,11 @@ namespace GpsNotepad
         protected async override void OnInitialized()
         {
             InitializeComponent();
+
+            var displayInfo = DeviceDisplay.MainDisplayInfo;
+            var imageWidth = displayInfo.Width / displayInfo.Density / 3;
+
+            Resources.Add(nameof(imageWidth), imageWidth);
 
             Application.Current.UserAppTheme = (OSAppTheme)Enum.Parse(typeof(OSAppTheme), ThemeService.GetTheme());
 

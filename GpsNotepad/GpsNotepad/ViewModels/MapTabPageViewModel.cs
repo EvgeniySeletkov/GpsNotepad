@@ -40,6 +40,8 @@ namespace GpsNotepad.ViewModels
             _mapCameraPositionService = mapCameraPositionService;
             _permissionService = permissionService;
             _authorizationService = authorizationService;
+
+            _pinList = new ObservableCollection<PinViewModel>();
         }
 
         #region --- Public properties ---
@@ -58,7 +60,7 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _searchText, value);
         }
 
-        private ObservableCollection<PinViewModel> _pinList = new ObservableCollection<PinViewModel>();
+        private ObservableCollection<PinViewModel> _pinList;
         public ObservableCollection<PinViewModel> PinList
         {
             get => _pinList;

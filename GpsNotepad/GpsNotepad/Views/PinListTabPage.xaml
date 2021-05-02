@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:BaseContentPage xmlns:views="clr-namespace:GpsNotepad.Views" 
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:prism="http://prismlibrary.com" 
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:controlViews="clr-namespace:GpsNotepad.Controls.Views"
+                       xmlns:prism="http://prismlibrary.com" 
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        prism:ViewModelLocator.AutowireViewModel="True"
                        x:Class="GpsNotepad.Views.PinListTabPage"
                        x:Name="pinList"
@@ -33,113 +33,122 @@
             <Grid RowDefinitions="*"
                   VerticalOptions='FillAndExpand'>
 
-                <StackLayout BindableLayout.ItemsSource="{Binding PinList}"
-                             Grid.Row="0">
+                <ScrollView>
 
-                    <BindableLayout.ItemTemplate>
+                    <StackLayout BindableLayout.ItemsSource="{Binding PinList}"
+                                 Grid.Row="0">
 
-                        <DataTemplate>
+                        <BindableLayout.ItemTemplate>
 
-                            <StackLayout>
+                            <DataTemplate>
 
-                                <SwipeView>
+                                <StackLayout>
 
-                                    <SwipeView.RightItems>
+                                    <SwipeView>
 
-                                        <SwipeItems>
+                                        <SwipeView.RightItems>
 
-                                            <SwipeItemView Style="{StaticResource EditButtonStyle}"
-                                                           Padding="0, 30, 0, 30"
-                                                           Command="{Binding Path=BindingContext.EditPinTapCommand,
-                                                                             Source={x:Reference pinList}}"
-                                                           CommandParameter="{Binding .}">
+                                            <SwipeItems>
 
-                                                <Image Source="ic_edit.png"
-                                                       WidthRequest="10"
-                                                       HeightRequest="10"/>
+                                                <SwipeItemView Style="{StaticResource EditButtonStyle}"
+                                                               Padding="0, 30"
+                                                               Command="{Binding Path=BindingContext.EditPinTapCommand,
+                                                                                 Source={x:Reference pinList}}"
+                                                               CommandParameter="{Binding .}">
 
-                                            </SwipeItemView>
+                                                    <Image Source="ic_edit.png"
+                                                           WidthRequest="10"
+                                                           HeightRequest="10"/>
 
-                                            <SwipeItemView Style="{StaticResource DeleteButtonStyle}"
-                                                           Padding="0, 30, 0, 30"
-                                                           Command="{Binding Path=BindingContext.DeletePinTapCommand,
-                                                                             Source={x:Reference pinList}}"
-                                                           CommandParameter="{Binding .}">
+                                                </SwipeItemView>
 
-                                                <Image Source="ic_delete.png"
-                                                       WidthRequest="10"
-                                                       HeightRequest="10"/>
+                                                <SwipeItemView Style="{StaticResource DeleteButtonStyle}"
+                                                               Padding="0, 30"
+                                                               Command="{Binding Path=BindingContext.DeletePinTapCommand,
+                                                                                 Source={x:Reference pinList}}"
+                                                               CommandParameter="{Binding .}">
 
-                                            </SwipeItemView>
+                                                    <Image Source="ic_delete.png"
+                                                           WidthRequest="10"
+                                                           HeightRequest="10"/>
 
-                                        </SwipeItems>
+                                                </SwipeItemView>
 
-                                    </SwipeView.RightItems>
+                                            </SwipeItems>
 
-                                    <StackLayout Padding="16, 0, 16, 0">
+                                        </SwipeView.RightItems>
 
-                                        <Grid ColumnDefinitions="0.9*, 0.1*"
-                                              Padding="0, 16, 0, 16">
+                                        <StackLayout Padding="16, 0">
 
-                                            <StackLayout Orientation="Horizontal"
+                                            <Grid ColumnDefinitions="0.9*, 0.1*"
+                                                  Padding="0, 16">
+
+                                                <StackLayout Orientation="Horizontal"
                                                          Grid.Column="0">
 
-                                                <StackLayout.GestureRecognizers>
+                                                    <StackLayout.GestureRecognizers>
 
-                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectPinCommand,
-                                                                                            Source={x:Reference pinList}}"
-                                                                          CommandParameter="{Binding .}" />
+                                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectPinCommand,
+                                                                                                Source={x:Reference pinList}}"
+                                                                              CommandParameter="{Binding .}" />
 
-                                                </StackLayout.GestureRecognizers>
+                                                    </StackLayout.GestureRecognizers>
 
-                                                <!--IS FAVOURITE BUTTON-->
-                                                <ImageButton Style="{StaticResource IsFavouriteButtonStyle}"
-                                                             Source="{Binding Image}"
-                                                             Padding="10, 10, 10, 10"
-                                                             Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
-                                                                               Source={x:Reference pinList}}"
-                                                             CommandParameter="{Binding .}" />
+                                                    <!--IS FAVOURITE BUTTON-->
+                                                    <ImageButton Style="{StaticResource IsFavouriteButtonStyle}"
+                                                                 Source="{Binding Image}"
+                                                                 Padding="10"
+                                                                 Command="{Binding Path=BindingContext.PinVisibleChangeTapCommand, 
+                                                                                   Source={x:Reference pinList}}"
+                                                                 CommandParameter="{Binding .}" />
 
 
 
-                                                <!--PIN INFO-->
-                                                <StackLayout Padding="12, 0, 0, 0">
+                                                    <!--PIN INFO-->
+                                                    <StackLayout Padding="12, 0, 0, 0">
 
-                                                    <Label Style="{StaticResource PinListSubtitleStyle}"
-                                                           Text="{Binding Label}" />
+                                                        <Label Style="{StaticResource PinListSubtitleStyle}"
+                                                               Text="{Binding Label}" />
 
-                                                    <Label Style="{StaticResource PinListInfoStyle}"
-                                                           Text="{Binding Coordinates}" />
+                                                        <Label Style="{StaticResource PinListInfoStyle}"
+                                                               Text="{Binding Coordinates}" />
+
+                                                    </StackLayout>
 
                                                 </StackLayout>
 
-                                            </StackLayout>
+                                                <!--RIGHT ARROW BUTTON-->
+                                                <Image Source="ic_left_gray.png"
+                                                       Grid.Column="1"/>
 
-                                            <!--RIGHT ARROW BUTTON-->
-                                            <Image Source="ic_left_gray.png"
-                                                   Grid.Column="1"/>
+                                            </Grid>
 
-                                        </Grid>
+                                            <!--SEPARATOR-->
+                                            <BoxView Style="{StaticResource PinSeparatorStyle}"/>
 
-                                        <!--SEPARATOR-->
-                                        <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+                                        </StackLayout>
 
-                                    </StackLayout>
+                                    </SwipeView>
 
-                                </SwipeView>
+                                </StackLayout>
 
-                            </StackLayout>
+                            </DataTemplate>
 
-                        </DataTemplate>
+                        </BindableLayout.ItemTemplate>
 
-                    </BindableLayout.ItemTemplate>
+                    </StackLayout>
 
-                </StackLayout>
+                </ScrollView>
+
+                
 
                 <!--ADD BUTTON-->
                 <ImageButton Style="{StaticResource AddButtonStyle}"
+                             WidthRequest="58"
+                             HeightRequest="58"
+                             CornerRadius="29"
                              Source="ic_plus.png"
-                             Padding="11, 11, 11, 11"
+                             Padding="14"
                              Grid.Row="0" 
                              HorizontalOptions="End" 
                              VerticalOptions="End"

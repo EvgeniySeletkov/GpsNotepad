@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <tabs:BaseTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                     xmlns:tabs="clr-namespace:GpsNotepad.Views"
-                     xmlns:behaviors="clr-namespace:GpsNotepad.Behaviors"
                      xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+                     xmlns:behaviors="clr-namespace:GpsNotepad.Behaviors"
+                     xmlns:tabs="clr-namespace:GpsNotepad.Views"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                      x:Class="GpsNotepad.Views.MainMapTabbedPage"
                      NavigationPage.HasNavigationBar="False"
                      android:TabbedPage.ToolbarPlacement="Bottom"
@@ -16,9 +16,10 @@
     <TabbedPage.Children>
 
         <tabs:MapTabPage Title="{Binding Resource[Map]}"
-                          IconImageSource="ic_map.png"/>
+                         IconImageSource="ic_map.png"/>
+        
         <tabs:PinListTabPage Title="{Binding Resource[Pins]}" 
-                               IconImageSource="ic_pin.png"/>
+                             IconImageSource="ic_pin.png"/>
 
     </TabbedPage.Children>
 

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:BaseContentPage xmlns:views="clr-namespace:GpsNotepad.Views" 
-                       xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:customFrames="clr-namespace:GpsNotepad.Controls.Views"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        x:Class="GpsNotepad.Views.LogInPage"
                        NavigationPage.HasNavigationBar="False"
                        Style="{StaticResource PageBackgroundStyle}">
@@ -11,6 +11,7 @@
 
         <StackLayout>
 
+            <!--NAVBAR-->
             <StackLayout Orientation="Horizontal"
                          HeightRequest="54">
 
@@ -21,7 +22,8 @@
                                  BackgroundColor="Transparent"
                                  Grid.Column="0"
                                  HorizontalOptions="Start"
-                                 Padding="10, 0, 10, 0"
+                                 Padding="10, 0"
+                                 Scale="1.2"
                                  Command="{Binding GoBackTapCommand}"/>
 
                     <Label Style="{StaticResource TitleStyle}"
@@ -34,7 +36,7 @@
 
             </StackLayout>
 
-            <StackLayout Padding="16, 10, 16, 0">
+            <StackLayout Padding="16, 10">
 
                 <!--EMAIL-->
                 <customFrames:CustomEntryFrame Style="{StaticResource EntryStyle}"
@@ -51,7 +53,7 @@
                               EntryPlaceholder="{Binding Resource[PasswordPlaceholder]}"
                               IsEntryPassword="{Binding IsPassword}"
                               EntryText="{Binding Password}"
-                              WrongText="{Binding PasswordWrongText}"
+                              WrongText="{Binding PasswordWrongText}"    
                               ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
                 <!--LOG IN BUTTON-->
@@ -63,14 +65,14 @@
 
                 <!--SEPARATOR-->
                 <Grid ColumnDefinitions="*"
-                      Padding="0, 14, 0, 0">
+                      Padding="0, 14">
 
                     <BoxView Style="{StaticResource SeparatorStyle}"
                              Grid.Column="0"
                              VerticalOptions="Center"/>
 
                     <Label Style="{StaticResource SeparatorTextStyle}"
-                           Text=" or "
+                           Text="{Binding Resource[Or]}"
                            Grid.Column="0"
                            HorizontalOptions="Center"/>
 
@@ -78,7 +80,6 @@
 
                 <!--ALTERNATIVE LOG IN BUTTONS-->
                 <Grid ColumnDefinitions="*"
-                      Padding="0, 14, 0, 0"
                       ColumnSpacing="15">
 
                     <Button Style="{StaticResource AlternativeLogInButtonStyle}"

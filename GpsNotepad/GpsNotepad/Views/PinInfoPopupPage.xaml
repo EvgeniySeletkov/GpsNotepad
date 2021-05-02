@@ -50,7 +50,7 @@
                         <DataTemplate>
 
                             <StackLayout Orientation="Horizontal"
-                                     WidthRequest="137">
+                                     WidthRequest="{DynamicResource Key=imageWidth}">
 
                                 <Image Source="{Binding ImagePath}"
                                        Aspect="Fill"/>

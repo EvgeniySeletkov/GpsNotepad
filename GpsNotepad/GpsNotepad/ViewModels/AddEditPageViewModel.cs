@@ -490,6 +490,7 @@ namespace GpsNotepad.ViewModels
             Longitude = string.Empty;
         }
 
+        // TODO: Add frame.
         private void OnAddImageTap()
         {
             var config = new ActionSheetConfig
