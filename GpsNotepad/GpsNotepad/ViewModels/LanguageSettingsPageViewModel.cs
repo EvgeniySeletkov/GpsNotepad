@@ -28,6 +28,14 @@ namespace GpsNotepad.ViewModels
         public ICommand GoBackTapCommand =>
             _goBackTapCommand ??= new DelegateCommand(OnGoBackTapAsync);
 
+        private ICommand _englishLanguageTapCommand;
+        public ICommand EnglishLanguageTapCommand =>
+            _englishLanguageTapCommand ??= new DelegateCommand(OnEnglishLanguageTap);
+
+        private ICommand _russianLanguageTapCommand;
+        public ICommand RussianLanguageTapCommand =>
+            _russianLanguageTapCommand ??= new DelegateCommand(OnRussianLanguageTap);
+
         #endregion
 
         #region --- Overrides ---
@@ -35,15 +43,8 @@ namespace GpsNotepad.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            switch (Resource.Lang)
-            {
-                case Constants.ENGLISH_LANGUAGE:
-                    SelectedLanguage = Constants.ENGLISH_LANGUAGE;
-                    break;
-                case Constants.RUSSIAN_LANGUAGE:
-                    SelectedLanguage = Constants.RUSSIAN_LANGUAGE;
-                    break;
-            }
+
+            SelectedLanguage = Resource.Lang;
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -64,6 +65,16 @@ namespace GpsNotepad.ViewModels
         private async void OnGoBackTapAsync()
         {
             await NavigationService.GoBackAsync();
+        }
+
+        private void OnEnglishLanguageTap()
+        {
+            SelectedLanguage = Constants.ENGLISH_LANGUAGE;
+        }
+
+        private void OnRussianLanguageTap()
+        {
+            SelectedLanguage = Constants.RUSSIAN_LANGUAGE;
         }
 
         #endregion

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <prism:PrismApplication xmlns:views="clr-namespace:GpsNotepad.Views"
+                        xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
                         xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
@@ -295,12 +296,20 @@
         </Style>
 
         <Style x:Key="RadioButtonStyle"
-               TargetType="RadioButton">
+               TargetType="input:RadioButton">
+
+            <Setter Property="CircleColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemGray},
+                                            Dark={StaticResource SystemLightGray}}"/>
+
+            <Setter Property="Color"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
 
             <Setter Property="FontFamily"
-                    Value="Montserrat-Medium"/>
+                    Value="Montserrat-Regular"/>
 
-            <Setter Property="FontSize"
+            <Setter Property="TextFontSize"
                     Value="18"/>
 
             <Setter Property="TextColor"
