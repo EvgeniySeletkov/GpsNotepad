@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GpsNotepad.Views.PinImagePage"
-             x:Name="Image"
-             Style="{StaticResource PageBackgroundStyle}">
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="GpsNotepad.Views.PinImagePage"
+                       x:Name="Image"
+                       Style="{StaticResource PageBackgroundStyle}">
 
     <ContentPage.Content>
 
         <StackLayout HorizontalOptions="FillAndExpand"
                      VerticalOptions="FillAndExpand">
 
+            <!--NAVBAR-->
             <StackLayout Orientation="Horizontal"
                          HeightRequest="54">
 
@@ -20,7 +22,8 @@
                                  BackgroundColor="Transparent"
                                  Grid.Column="0"
                                  HorizontalOptions="Start"
-                                 Padding="10, 0, 10, 0"
+                                 Padding="10, 0"
+                                 Scale="1.2"
                                  Command="{Binding GoBackTapCommand}"/>
 
                     <Label Style="{StaticResource TitleStyle}"
@@ -33,9 +36,10 @@
 
             </StackLayout>
 
+            <!--PHOTOS-->
             <CarouselView ItemsSource="{Binding ImageList}"
-                              Loop="False"
-                              Position="{Binding ImagePosition}">
+                          Loop="False"
+                          Position="{Binding ImagePosition}">
 
                 <CarouselView.ItemTemplate>
 
@@ -56,10 +60,10 @@
                                            Aspect="Fill"
                                            Grid.Row="0"/>
 
-                                    <Label Text="{Binding Path=BindingContext.ImagePositionLabel,
-                                                          Source={x:Reference Image}}"  
-                                           Padding="20, 0, 0, 0"
-                                           TextColor="Black"
+                                    <Label Style="{StaticResource PhotoNumberLabelStyle}"
+                                           Text="{Binding Path=BindingContext.ImagePositionLabel,
+                                                          Source={x:Reference Image}}"
+                                           Padding="20, 0"
                                            Grid.Row="1"/>
 
                                 </Grid>
@@ -78,4 +82,4 @@
 
     </ContentPage.Content>
 
-</ContentPage>
+</views:BaseContentPage>

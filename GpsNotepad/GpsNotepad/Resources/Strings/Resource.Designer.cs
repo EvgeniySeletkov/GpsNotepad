@@ -385,6 +385,15 @@ namespace GpsNotepad.Resources.Strings {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Label must be unique.
+        /// </summary>
+        internal static string NotUniqueLabel {
+            get {
+                return ResourceManager.GetString("NotUniqueLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на  or .
         /// </summary>
         internal static string Or {

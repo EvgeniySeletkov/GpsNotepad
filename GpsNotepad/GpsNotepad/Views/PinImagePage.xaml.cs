@@ -1,8 +1,6 @@
-﻿using Xamarin.Forms;
-
-namespace GpsNotepad.Views
+﻿namespace GpsNotepad.Views
 {
-    public partial class PinImagePage : ContentPage
+    public partial class PinImagePage : BaseContentPage
     {
         public PinImagePage()
         {

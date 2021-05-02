@@ -117,7 +117,7 @@ namespace GpsNotepad.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            parameters.TryGetValue<UserModel>(nameof(UserModel), out _userModel);
+            parameters.TryGetValue(nameof(UserModel), out _userModel);
         }
 
         protected override void OnPropertyChanged(PropertyChangedEventArgs args)
@@ -151,6 +151,12 @@ namespace GpsNotepad.ViewModels
             {
                 PasswordWrongText = string.Empty;
             }
+            return isPasswordValid;
+        }
+
+        private bool HasValidConfirmPassword()
+        {
+            bool isPasswordValid = true;
             if (!Validator.HasEqualPasswords(Password, ConfirmPassword))
             {
                 ConfirmPasswordWrongText = Resource["HasMatchPasswords"];
@@ -197,7 +203,7 @@ namespace GpsNotepad.ViewModels
 
         private async void OnCreateAccountTapAsync()
         {
-            if (HasValidPassword())
+            if (HasValidPassword() & HasValidConfirmPassword())
             {
                 var user = CreateUser();
                 if (user != null)
@@ -213,21 +219,13 @@ namespace GpsNotepad.ViewModels
         private async void OnLogInWithFacebookTapAsync()
         {
             var response = await _authorizationService.LogInWithFacebookAsync();
-            switch (response.Status)
+            if (response.Status == FacebookActionStatus.Completed)
             {
-                case FacebookActionStatus.Completed:
-                    bool isAutorized = await _authorizationService.AuthorizeWithFacebookAsync();
-                    if (isAutorized)
-                    {
-                        await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
-                    }
-                    break;
-                case FacebookActionStatus.Canceled:
-                    break;
-                case FacebookActionStatus.Error:
-                    break;
-                case FacebookActionStatus.Unauthorized:
-                    break;
+                bool isAutorized = await _authorizationService.AuthorizeWithFacebookAsync();
+                if (isAutorized)
+                {
+                    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                }
             }
         }
 

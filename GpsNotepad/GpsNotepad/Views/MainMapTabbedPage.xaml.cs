@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+﻿using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace GpsNotepad.Views
 {
@@ -7,7 +8,7 @@ namespace GpsNotepad.Views
         public MainMapTabbedPage()
         {
             InitializeComponent();
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+            On<iOS>().SetUseSafeArea(true);
         }
     }
 }

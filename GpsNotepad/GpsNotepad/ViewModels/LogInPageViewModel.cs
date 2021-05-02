@@ -189,21 +189,13 @@ namespace GpsNotepad.ViewModels
         private async void OnLogInWithFacebookTapAsync()
         {
             var response = await _authorizationService.LogInWithFacebookAsync();
-            switch (response.Status)
+            if (response.Status == FacebookActionStatus.Completed)
             {
-                case FacebookActionStatus.Completed:
-                    bool isAutorized = await _authorizationService.AuthorizeWithFacebookAsync();
-                    if (isAutorized)
-                    {
-                        await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
-                    }
-                    break;
-                case FacebookActionStatus.Canceled:
-                    break;
-                case FacebookActionStatus.Error:
-                    break;
-                case FacebookActionStatus.Unauthorized:
-                    break;
+                bool isAutorized = await _authorizationService.AuthorizeWithFacebookAsync();
+                if (isAutorized)
+                {
+                    await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainMapTabbedPage)}");
+                }
             }
         }
 

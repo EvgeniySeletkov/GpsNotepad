@@ -447,7 +447,7 @@ namespace GpsNotepad.ViewModels
                 {
                     if (_pinViewModel.PinId != uniquePin.Id)
                     {
-                        LabelWrongText = "Label must be unique";
+                        LabelWrongText = Resource["NotUniqueLabel"];
                         IsLabelWrongVisible = true;
                     }
                     else
@@ -490,7 +490,7 @@ namespace GpsNotepad.ViewModels
             Longitude = string.Empty;
         }
 
-        // TODO: Add frame.
+        // TODO: Check without icons on IOS.
         private void OnAddImageTap()
         {
             var config = new ActionSheetConfig

@@ -5,6 +5,7 @@ namespace GpsNotepad.Services.MediaService
     interface IMediaService
     {
         Task<string> TakePhotoWithCameraAsync();
+
         Task<string> TakePhotoFromGalleryAsync();
     }
 }

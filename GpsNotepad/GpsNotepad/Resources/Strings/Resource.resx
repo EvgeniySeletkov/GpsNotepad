@@ -225,6 +225,9 @@
   <data name="NextButton" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="NotUniqueLabel" xml:space="preserve">
+    <value>Label must be unique</value>
+  </data>
   <data name="Or" xml:space="preserve">
     <value> or </value>
   </data>

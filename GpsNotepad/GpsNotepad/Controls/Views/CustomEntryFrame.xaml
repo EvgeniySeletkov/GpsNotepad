@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GpsNotepad.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GpsNotepad.Controls.Views.CustomEntryFrame"
              x:Name="CustomEntry">
 
@@ -36,7 +36,7 @@
                                Keyboard="{Binding EntryKeyboard}"
                                Text="{Binding EntryText}"
                                IsPassword="{Binding IsEntryPassword}"
-                               MaxLength="120"/>
+                               MaxLength="100"/>
 
             <!--ENTRY BUTTON-->
             <ImageButton BindingContext="{x:Reference Name=CustomEntry}"

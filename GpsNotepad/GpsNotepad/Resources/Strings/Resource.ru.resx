@@ -130,7 +130,7 @@
     <value>Камера</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>Подтвердить пароль</value>
   </data>
   <data name="Coordinates" xml:space="preserve">
     <value>Координты</value>
@@ -142,7 +142,7 @@
     <value>Создать аккаунт</value>
   </data>
   <data name="CreatePasswordPlaceholder" xml:space="preserve">
-    <value>Создать пароль</value>
+    <value>Создайте пароль</value>
   </data>
   <data name="DarkTheme" xml:space="preserve">
     <value>Темная тема</value>
@@ -151,7 +151,7 @@
     <value>Описание</value>
   </data>
   <data name="DescriptionPlaceholder" xml:space="preserve">
-    <value>Write a description</value>
+    <value>Напишите описание</value>
   </data>
   <data name="Edit pin" xml:space="preserve">
     <value>Редактировать метку</value>
@@ -169,31 +169,31 @@
     <value>Галерея</value>
   </data>
   <data name="HasBusyEmail" xml:space="preserve">
-    <value>This email used by another user</value>
+    <value>Этот email уже используется</value>
   </data>
   <data name="HasConsidePasswordWithName" xml:space="preserve">
-    <value>Password is conside with name</value>
+    <value>Пароль совпадает с именем</value>
   </data>
   <data name="HasMatchPasswords" xml:space="preserve">
-    <value>Password missmatch</value>
+    <value>Пароль не соответствует</value>
   </data>
   <data name="HasValidEmail" xml:space="preserve">
-    <value>Wrong Email</value>
+    <value>Неправильный email</value>
   </data>
   <data name="HasValidName" xml:space="preserve">
-    <value>Name must contain at least 4 characters. First symbol should not be digit</value>
+    <value>Неправильное имя</value>
   </data>
   <data name="HasValidPassword" xml:space="preserve">
-    <value>Password must contain at least 6 characters, including one uppercase, one lowercase and one number. First symbol should not be digit. </value>
+    <value>Неправильный пароль</value>
   </data>
   <data name="Label" xml:space="preserve">
-    <value>Label</value>
+    <value>Ярлык</value>
   </data>
   <data name="Label is empty" xml:space="preserve">
-    <value>Label is empty</value>
+    <value>Ярлык пустой</value>
   </data>
   <data name="LabelPlaceholder" xml:space="preserve">
-    <value>Enter the label</value>
+    <value>Введите ярлык</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Язык</value>
@@ -202,7 +202,7 @@
     <value>Широта</value>
   </data>
   <data name="Latitude is empty" xml:space="preserve">
-    <value>Latitude is empty</value>
+    <value>Поле широты пустое</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Вход</value>
@@ -211,7 +211,7 @@
     <value>Долгота</value>
   </data>
   <data name="Longitude is empty" xml:space="preserve">
-    <value>Longitude is empty</value>
+    <value>Поле долготы пустое</value>
   </data>
   <data name="Map" xml:space="preserve">
     <value>Карта</value>
@@ -225,9 +225,11 @@
   <data name="NextButton" xml:space="preserve">
     <value>Далее</value>
   </data>
+  <data name="NotUniqueLabel" xml:space="preserve">
+    <value>Ярлык должен быть уникальным</value>
+  </data>
   <data name="Or" xml:space="preserve">
     <value> или </value>
-    <comment> </comment>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>

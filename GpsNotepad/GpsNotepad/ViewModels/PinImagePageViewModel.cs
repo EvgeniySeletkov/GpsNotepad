@@ -1,9 +1,11 @@
 ﻿using GpsNotepad.Models;
 using GpsNotepad.Services.Localization;
 using GpsNotepad.Services.PinImage;
+using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace GpsNotepad.ViewModels
 {
@@ -17,6 +19,8 @@ namespace GpsNotepad.ViewModels
         {
             _pinImageService = pinImageService;
         }
+
+        #region --- Public properties ---
 
         private ObservableCollection<PinImageModel> _imageList;
         public ObservableCollection<PinImageModel> ImageList
@@ -38,6 +42,14 @@ namespace GpsNotepad.ViewModels
             get => _imagePositionLabel;
             set => SetProperty(ref _imagePositionLabel, value);
         }
+
+        private ICommand _goBackTapCommand;
+        public ICommand GoBackTapCommand =>
+            _goBackTapCommand ??= new DelegateCommand(OnGoBackTapAsync);
+
+        #endregion
+
+        #region --- Overrides ---
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -61,6 +73,17 @@ namespace GpsNotepad.ViewModels
                 ImagePositionLabel = $"{ImagePosition + 1} - {ImageList.Count}";
             }
         }
+
+        #endregion
+
+        #region --- Private helpers ---
+
+        private async void OnGoBackTapAsync()
+        {
+            await NavigationService.GoBackAsync();
+        }
+
+        #endregion
 
     }
 }

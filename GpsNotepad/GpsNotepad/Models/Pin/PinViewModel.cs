@@ -1,7 +1,4 @@
 ﻿using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GpsNotepad.Models.Pin
 {
@@ -38,7 +35,7 @@ namespace GpsNotepad.Models.Pin
 
         public string Coordinates
         {
-            get => $"{Latitude}; {Longitude}";
+            get => $"{Latitude}, {Longitude}";
         }
 
         private string _address;

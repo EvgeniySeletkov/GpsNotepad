@@ -73,9 +73,6 @@
         <Style x:Key="PopupPageContentStyle" 
                TargetType="StackLayout">
 
-            <Setter Property="HeightRequest"
-                    Value="290"/>
-
             <Setter Property="BackgroundColor" 
                     Value="{AppThemeBinding Light={StaticResource SystemWhite},
                                             Dark={StaticResource SystemBlack}}"/>
@@ -141,7 +138,7 @@
                TargetType="Label">
 
             <Setter Property="FontFamily"
-                    Value="Montserrat-Light"/>
+                    Value="Montserrat-Regular"/>
 
             <Setter Property="FontSize" 
                     Value="18"/>
@@ -156,7 +153,7 @@
                TargetType="Label">
 
             <Setter Property="FontFamily"
-                    Value="Montserrat-Light"/>
+                    Value="Montserrat-Regular"/>
 
             <Setter Property="FontSize" 
                     Value="18"/>
@@ -175,6 +172,21 @@
 
             <Setter Property="FontSize"
                     Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PhotoNumberLabelStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="15"/>
 
             <Setter Property="TextColor"
                     Value="{AppThemeBinding Light={StaticResource SystemBlack},

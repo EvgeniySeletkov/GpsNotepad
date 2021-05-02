@@ -7,7 +7,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Xamarin.Essentials;
 
 namespace GpsNotepad.ViewModels
 {
@@ -24,13 +23,6 @@ namespace GpsNotepad.ViewModels
 
         #region --- Public properties ---
 
-        private double _imageWidth;
-        public double ImageWidth
-        {
-            get => _imageWidth;
-            set => SetProperty(ref _imageWidth, value);
-        }
-
         private ObservableCollection<PinImageModel> _imageList;
         public ObservableCollection<PinImageModel> ImageList
         {
@@ -43,6 +35,13 @@ namespace GpsNotepad.ViewModels
         {
             get => _areImagesVisible;
             set => SetProperty(ref _areImagesVisible, value);
+        }
+
+        private double _pinInfoHeight;
+        public double PinInfoHeight
+        {
+            get => _pinInfoHeight;
+            set => SetProperty(ref _pinInfoHeight, value);
         }
 
         private PinImageModel _selectedImage;
@@ -74,7 +73,6 @@ namespace GpsNotepad.ViewModels
             set => SetProperty(ref _description, value);
         }
 
-        //TODO
         private ICommand _openImagePageTapCommand;
         public ICommand OpenImagePageTapCommand =>
             _openImagePageTapCommand ??= new DelegateCommand(OnOpenImagePageTapAsync);
@@ -98,11 +96,6 @@ namespace GpsNotepad.ViewModels
                 Label = selectedPin.Label;
                 Coordinates = selectedPin.Coordinates;
                 Description = selectedPin.Description;
-
-                // TODO
-                var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-                var width = mainDisplayInfo.Width / mainDisplayInfo.Density / 3;
-                ImageWidth = width;
             }
         }
 

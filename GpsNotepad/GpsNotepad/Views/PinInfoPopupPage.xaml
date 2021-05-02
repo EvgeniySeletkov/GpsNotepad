@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <popups:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                   xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-                  BackgroundColor="Transparent"
+                  xmlns:popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   x:Class="GpsNotepad.Views.PinInfoPopupPage"
-                  BackgroundClickedCommand="{Binding ClosePopupPageTapCommand}">
+                  BackgroundColor="Transparent">
 
     <popups:PopupPage.Animation>
 
@@ -28,9 +27,11 @@
             </StackLayout.GestureRecognizers>
 
             <StackLayout Style="{StaticResource PopupPageContentStyle}"
-                     VerticalOptions="EndAndExpand" 
-                     HorizontalOptions="FillAndExpand">
+                         
+                         VerticalOptions="EndAndExpand" 
+                         HorizontalOptions="FillAndExpand">
 
+                <!--PHOTO LIST-->
                 <CollectionView ItemsSource="{Binding ImageList}"
                                 HeightRequest="80"
                                 SelectionMode="Single"
@@ -41,7 +42,7 @@
                     <CollectionView.ItemsLayout>
 
                         <LinearItemsLayout Orientation="Horizontal"
-                                       ItemSpacing="2"/>
+                                           ItemSpacing="2"/>
 
                     </CollectionView.ItemsLayout>
 
@@ -62,26 +63,28 @@
                     </CollectionView.ItemTemplate>
 
                 </CollectionView>
-
-                <StackLayout Padding="16, 16, 16, 0">
+                
+                <!--PIN INFO-->
+                <StackLayout Padding="16, 14">
 
                     <!--PIN LABEL-->
                     <Label Style="{StaticResource TitleStyle}"
-                       Text="{Binding Label}"/>
+                           Text="{Binding Label}"/>
 
                     <!--COORDINATES-->
                     <Label Style="{StaticResource PinCoordinatesStyle}"
-                       Text="{Binding Coordinates}"/>
+                           Text="{Binding Coordinates}"/>
 
                     <!--SEPARATOR-->
                     <BoxView Style="{StaticResource PinSeparatorStyle}"
-                         HorizontalOptions="Fill"
-                         Margin="0, 18, 0, 0"/>
+                             HorizontalOptions="Fill"
+                             Margin="0, 18, 0, 0"/>
 
                     <!--DESCRIPTION-->
                     <Label Style="{StaticResource PinDescriptionStyle}"
-                       Padding="0, 6, 0, 0"
-                       Text="{Binding Description}"/>
+                           Padding="0, 6, 0, 10"
+                           LineHeight="1.2"
+                           Text="{Binding Description}"/>
 
                 </StackLayout>
 
