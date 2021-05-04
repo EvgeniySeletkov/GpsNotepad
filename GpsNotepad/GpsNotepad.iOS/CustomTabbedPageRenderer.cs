@@ -11,7 +11,7 @@ namespace GpsNotepad.IOS
 {
     class CustomTabbedPageRenderer : TabbedRenderer
     {
-        private bool _isEnable;
+        private bool _isThemeChanged;
 
         public UIImage ImageWithColor(CGSize size)
         {
@@ -39,26 +39,17 @@ namespace GpsNotepad.IOS
 
             nfloat bottom = 0; ;
 
-            if (!_isEnable)
+            if (!_isThemeChanged)
             {
                 bottom = UIApplication.SharedApplication.KeyWindow.SafeAreaInsets.Bottom;
-                _isEnable = !_isEnable;
+                _isThemeChanged = !_isThemeChanged;
             }
             
             CGSize selectedTabSize = new CGSize(TabBar.Frame.Width / TabBar.Items.Length, TabBar.Frame.Height + bottom);
             CGSize tabbarBackgroundSize = new CGSize(TabBar.Frame.Width, TabBar.Frame.Height + bottom);
 
-
-            //Background Color
-            //UITabBar.Appearance.BackgroundColor = UIColor.Red;
             UITabBar.Appearance.SelectionIndicatorImage = ImageWithColor(selectedTabSize);
-            
 
-
-            ////Normal title Color
-            //UITabBarItem.Appearance.SetTitleTextAttributes(new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
-            ////Selected title Color
-            //UITabBarItem.Appearance.SetTitleTextAttributes(new UITextAttributes { TextColor = UIColor.Black }, UIControlState.Selected);
         }
     }
 }

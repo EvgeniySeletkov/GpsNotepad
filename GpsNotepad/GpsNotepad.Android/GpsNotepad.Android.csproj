@@ -888,9 +888,6 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_apple_dark.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_apple_dark.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_apple_dark.png" />
-    <AndroidResource Include="Resources\drawable\tab_background.xml" />
-    <AndroidResource Include="Resources\drawable\tab_background_selected.xml" />
-    <AndroidResource Include="Resources\drawable\tab_background_unselected.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

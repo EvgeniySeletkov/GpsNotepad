@@ -4,6 +4,7 @@ namespace GpsNotepad.Views
 {
     public class BaseTabbedPage : TabbedPage
     {
+        
         public static readonly BindableProperty SelectedTabFillColorProperty =
             BindableProperty.Create(
                 propertyName: nameof(SelectedTabFillColor),

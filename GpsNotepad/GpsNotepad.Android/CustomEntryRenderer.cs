@@ -24,4 +24,6 @@ namespace GpsNotepad.Droid
             }
         }
     }
+
+
 }

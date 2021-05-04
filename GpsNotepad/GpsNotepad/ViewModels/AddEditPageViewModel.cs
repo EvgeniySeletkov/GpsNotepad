@@ -490,7 +490,6 @@ namespace GpsNotepad.ViewModels
             Longitude = string.Empty;
         }
 
-        // TODO: Check without icons on IOS.
         private void OnAddImageTap()
         {
             var config = new ActionSheetConfig
@@ -502,13 +501,13 @@ namespace GpsNotepad.ViewModels
             {
                 string imagePath = await _mediaService.TakePhotoFromGalleryAsync();
                 CreatePinImageModel(imagePath);
-            }), icon: "ic_collections_black.png");
+            }));
 
             config.Add(Resource["Camera"], new Action(async () =>
             {
                 string imagePath = await _mediaService.TakePhotoWithCameraAsync();
                 CreatePinImageModel(imagePath);
-            }), icon: "ic_camera_alt_black.png");
+            }));
 
             UserDialogs.Instance.ActionSheet(config);
         }
