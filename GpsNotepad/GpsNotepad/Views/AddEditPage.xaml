@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:controls="clr-namespace:GpsNotepad.Controls"
+                       xmlns:converters="clr-namespace:GpsNotepad.Converter"
+                       xmlns:prism="http://prismlibrary.com"
+                       xmlns:viewControls="clr-namespace:GpsNotepad.Controls.Views"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="GpsNotepad.Views.AddEditPage"
+                       NavigationPage.HasNavigationBar="False"
+                       x:Name="image"
+                       Style="{StaticResource PageBackgroundStyle}">
+
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+
+            <converters:FilePathToFileNameConverter x:Key="PathToName" />
+
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <!--NAVBAR-->
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="54">
+
+                <Grid ColumnDefinitions="*" 
+                      HorizontalOptions="FillAndExpand">
+
+                    <ImageButton Source="ic_left_blue.png"
+                                 BackgroundColor="Transparent"
+                                 WidthRequest="50"
+                                 Grid.Column="0"
+                                 HorizontalOptions="Start"
+                                 Padding="10, 0"
+                                 Command="{Binding GoBackTapCommand}"/>
+
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Title}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                    <ImageButton Source="ic_save.png"
+                                 BackgroundColor="Transparent"
+                                 WidthRequest="45"
+                                 Grid.Column="0"
+                                 HorizontalOptions="End"
+                                 Padding="10, 0"
+                                 Command="{Binding SavePinTapCommand}"/>
+
+                </Grid>
+
+            </StackLayout>
+
+            <!--SEPARATOR-->
+            <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+            <StackLayout Padding="16, 0, 16, 21">
+
+                <!--LABEL-->
+                <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
+                                               SubtitleText="{Binding Resource[Label]}"
+                                               EntryPlaceholder="{Binding Resource[LabelPlaceholder]}"
+                                               ButtonImage="ic_clear.png"
+                                               EntryText="{Binding Label}"
+                                               WrongText="{Binding LabelWrongText}"
+                                               IsWrongVisible="{Binding IsLabelWrongVisible}"
+                                               ClickCommand="{Binding ClearLabelTapCommand}"/>
+
+                <!--DESCRIPTION-->
+                <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
+                                               SubtitleText="{Binding Resource[Description]}"
+                                               EntryPlaceholder="{Binding Resource[DescriptionPlaceholder]}"
+                                               ButtonImage="ic_clear.png"
+                                               EntryText="{Binding Description}"
+                                               ClickCommand="{Binding ClearDescriptionTapCommand}"/>
+
+                <!--COORDINATES SUBTITLE-->
+                <Label Style="{StaticResource SubtitleStyle}"
+                       Text="{Binding Resource[Coordinates]}"
+                       Padding="16, 0"/>
+
+                <Grid ColumnDefinitions="*" ColumnSpacing="10">
+
+                    <!--LATITUDE-->
+                    <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
+                                                   IsSubtitleVisible="False"
+                                                   EntryPlaceholder="{Binding Resource[Latitude]}"
+                                                   ButtonImage="ic_clear.png"
+                                                   EntryKeyboard="Numeric"
+                                                   WrongText="{Binding LatitudeWrongText}"
+                                                   IsWrongVisible="{Binding IsLatitudeWrongVisible}"
+                                                   EntryText="{Binding Latitude}"
+                                                   Grid.Column="0"
+                                                   ClickCommand="{Binding ClearLatitudeTapCommand}"/>
+
+                    <!--LONGITUDE-->
+                    <viewControls:CustomEntryFrame Style="{StaticResource EntryStyle}"
+                                                   IsSubtitleVisible="False"
+                                                   EntryPlaceholder="{Binding Resource[Longitude]}"
+                                                   ButtonImage="ic_clear.png"
+                                                   EntryKeyboard="Numeric"
+                                                   WrongText="{Binding LongitudeWrongText}"
+                                                   IsWrongVisible="{Binding IsLongitudeWrongVisible}"
+                                                   EntryText="{Binding Longitude}"
+                                                   Grid.Column="1"
+                                                   ClickCommand="{Binding ClearLongitudeTapCommand}"/>
+
+                </Grid>
+
+                <!--ADD PHOTO SUBTITLE-->
+                <Label Style="{StaticResource SubtitleStyle}"
+                       Text="{Binding Resource[AddPhoto]}"
+                       Padding="16, 0"/>
+
+                <!--PHOTO LIST-->
+                <ListView HeightRequest="{Binding PinImageListHeight}"
+                          ItemsSource="{Binding PinImageList}">
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <ViewCell>
+
+                                <ViewCell.View>
+
+                                    <Grid ColumnDefinitions="0.5*, 0.1*, 0.4*"
+                                          Padding="16, 0">
+
+                                        <!--PHOTO NAME-->
+                                        <Label Style="{StaticResource PinInfoStyle}"
+                                               VerticalOptions="Center"
+                                               LineBreakMode="TailTruncation"
+                                               Text="{Binding ImagePath, 
+                                                              Converter={StaticResource PathToName}}"
+                                               Grid.Column="0"/>
+
+                                        <!--DELETE PHOTO BUTTON-->
+                                        <ImageButton BackgroundColor="Transparent"
+                                                     Source="ic_clear.png"
+                                                     VerticalOptions="Center"
+                                                     Grid.Column="1"
+                                                     Command="{Binding Path=BindingContext.DeleteImageTapCommand, 
+                                                                       Source={x:Reference image}}"
+                                                     CommandParameter="{Binding .}"/>
+
+                                    </Grid>
+
+                                </ViewCell.View>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+                <!--ADD PHOTO BUTTON-->
+                <Button Style="{StaticResource ButtonWithBorderStyle}"
+                        Text="{Binding Resource[AddPhoto]}"
+                        Command="{Binding AddImageTapCommand}"/>
+
+            </StackLayout>
+
+            <!--MAP-->
+            <controls:CustomMap MoveToPosition="{Binding CameraPosition}"
+                                MapPinViewModels="{Binding PinList}"
+                                IsZoomButtonsEnabled="False"
+                                IsMyLocationButtonVisible="{Binding IsMyLocation}">
+                
+                <controls:CustomMap.Behaviors>
+
+                    <prism:EventToCommandBehavior EventName="MapClicked" 
+                                                  Command="{Binding MapTapCommand}" 
+                                                  EventArgsParameterPath="Point"/>
+
+                </controls:CustomMap.Behaviors>
+                
+            </controls:CustomMap>
+
+        </StackLayout>
+        
+    </ContentPage.Content>
+  
+</views:BaseContentPage>

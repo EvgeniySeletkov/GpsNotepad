@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:controls="clr-namespace:GpsNotepad.Controls"
+                       xmlns:controlViews="clr-namespace:GpsNotepad.Controls.Views"
+                       xmlns:prism="http://prismlibrary.com" 
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       prism:ViewModelLocator.AutowireViewModel="True"
+                       x:Class="GpsNotepad.Views.MapTabPage"
+                       Style="{StaticResource PageBackgroundStyle}">
+
+    <ContentPage.Content>
+
+        <StackLayout >
+
+            <!--NAVBAR-->
+            <controlViews:CustomSearchBarFrame Style="{StaticResource SearchBarStyle}"
+                                               EntryPlaceholder="{Binding Resource[Search]}"
+                                               LeftButtonImage="ic_settings.png"
+                                               LeftButtonClickCommand="{Binding OpenSettingsTapCommand}"
+                                               BackButtonImage="ic_left_blue.png"
+                                               BackButtonClickCommand="{Binding UnfocusedSearchBarTapCommand}"
+                                               EntryText="{Binding SearchText}"
+                                               IsSearchBarFocused="{Binding IsSearchBarFocused}"
+                                               ClearButtonImage="ic_clear.png"
+                                               RightButtonImage="ic_exid.png"
+                                               RightButtonClickCommand="{Binding LogOutTapCommand}"/>
+            
+            <Grid RowDefinitions="*" 
+                  VerticalOptions="FillAndExpand">
+
+                <!--GOOGLE MAP-->
+                <controls:CustomMap Grid.Row="0"
+                                    MapPinViewModels="{Binding PinList}"
+                                    MoveToPosition="{Binding CameraPosition}"
+                                    IsMyLocationButtonVisible="{Binding IsMyLocation}">
+
+                    <controls:CustomMap.Behaviors>
+
+                        <prism:EventToCommandBehavior EventName="MapClicked" 
+                                                      Command="{Binding MapTapCommand}" 
+                                                      EventArgsParameterPath="Point"/>
+
+                        <prism:EventToCommandBehavior EventName="CameraMoving" 
+                                                      Command="{Binding CameraMoveCommand}" 
+                                                      EventArgsParameterPath="Position"/>
+
+                        <prism:EventToCommandBehavior EventName="PinClicked" 
+                                                      Command="{Binding PinSelectCommand}" 
+                                                      EventArgsParameterPath="Pin"/>
+
+                    </controls:CustomMap.Behaviors>
+
+                </controls:CustomMap>
+
+                <!--SEARCHABLE PIN LIST-->
+                <ListView Style="{StaticResource PageBackgroundStyle}"
+                          SeparatorVisibility="None"
+                          HasUnevenRows="True" 
+                          SelectionMode="None"
+                          ItemsSource="{Binding PinList}"
+                          Grid.Row="0"
+                          VerticalOptions="Start"
+                          HeightRequest="{Binding ListHeight}"
+                          IsVisible="{Binding IsPinListVisible}">
+
+                    <ListView.Behaviors>
+
+                        <prism:EventToCommandBehavior EventName="ItemTapped" 
+                                                      Command="{Binding FoundedPinSelectCommand}"
+                                                      EventArgsParameterPath="Item"/>
+
+                    </ListView.Behaviors>
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <ViewCell>
+
+                                <ViewCell.View>
+
+                                    <StackLayout>
+
+                                        <!--SEPARATOR-->
+                                        <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+                                        <StackLayout Orientation="Horizontal"
+                                                     VerticalOptions="Center"
+                                                     Padding="16, 10, 16, 16">
+
+                                            <!--PIN ICON-->
+                                            <Image Style="{StaticResource PinIconStyle}"
+                                                   WidthRequest="28"
+                                                   HeightRequest="28"/>
+
+                                            <StackLayout Padding="8, 0"
+                                                         Spacing="2">
+
+                                                <!--LABEL-->
+                                                <Label Style="{StaticResource PinSearchListSubtitleStyle}"
+                                                       Text="{Binding Label}"/>
+
+                                                <!--ADDRESS-->
+                                                <Label Style="{StaticResource PinListInfoStyle}"
+                                                       LineBreakMode="TailTruncation"
+                                                       Text="{Binding Address}"/>
+
+                                            </StackLayout>
+
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell.View>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+            </Grid>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+    
+</views:BaseContentPage>

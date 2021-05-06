@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="GpsNotepad.Views.PinImagePage"
+                       x:Name="Image"
+                       Style="{StaticResource PageBackgroundStyle}">
+
+    <ContentPage.Content>
+
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+
+            <!--NAVBAR-->
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="54">
+
+                <Grid ColumnDefinitions="*" 
+                      HorizontalOptions="FillAndExpand">
+
+                    <ImageButton Source="ic_left_blue.png"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="0"
+                                 HorizontalOptions="Start"
+                                 Padding="10, 0"
+                                 Scale="1.2"
+                                 Command="{Binding GoBackTapCommand}"/>
+
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Resource[Photo]}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                </Grid>
+
+            </StackLayout>
+
+            <!--PHOTOS-->
+            <CarouselView ItemsSource="{Binding ImageList}"
+                          Loop="False"
+                          Position="{Binding ImagePosition}">
+
+                <CarouselView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Grid RowDefinitions="0.2*, *, 0.2*">
+
+                            <Frame HorizontalOptions="Fill"
+                                   Grid.Row="1"
+                                   VerticalOptions="CenterAndExpand"
+                                   BackgroundColor="Transparent"
+                                   Padding="0">
+
+                                <Grid RowDefinitions="*, Auto">
+
+                                    <Image Source="{Binding ImagePath}"
+                                           VerticalOptions="Fill"
+                                           Aspect="Fill"
+                                           Grid.Row="0"/>
+
+                                    <Label Style="{StaticResource PhotoNumberLabelStyle}"
+                                           Text="{Binding Path=BindingContext.ImagePositionLabel,
+                                                          Source={x:Reference Image}}"
+                                           Padding="20, 0"
+                                           Grid.Row="1"/>
+
+                                </Grid>
+
+                            </Frame>
+                            
+                        </Grid>
+
+                    </DataTemplate>
+
+                </CarouselView.ItemTemplate>
+
+            </CarouselView>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</views:BaseContentPage>

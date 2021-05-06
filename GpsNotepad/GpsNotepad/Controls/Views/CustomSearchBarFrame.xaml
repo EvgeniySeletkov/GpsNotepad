@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:controls="clr-namespace:GpsNotepad.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GpsNotepad.Controls.Views.CustomSearchBarFrame"
+             x:Name="CustomSearchBar">
+
+    <Frame BackgroundColor="Transparent"
+           HasShadow="False"
+           Padding="18, 5, 18, 0">
+
+        <Grid ColumnDefinitions="0.1*, 0.8*, 0.1*">
+
+            <!--LEFT BUTTON-->
+            <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                         Source="{Binding LeftButtonImage}"
+                         BackgroundColor="Transparent"
+                         Padding="3"
+                         Grid.Column="0"
+                         IsVisible="{Binding IsLeftButtonVisible}"
+                         Command="{Binding LeftButtonClickCommand}"/>
+
+            <!--BACK BUTTON-->
+            <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                         Source="{Binding BackButtonImage}"
+                         BackgroundColor="Transparent"
+                         Padding="3"
+                         Grid.Column="0"
+                         IsVisible="{Binding IsBackButtonVisible}"
+                         Command="{Binding BackButtonClickCommand}"/>
+
+            <!--CUSTOM ENTRY BackgroundColor="#F1F3FD"-->
+            <Frame BindingContext="{x:Reference Name=CustomSearchBar}"
+                   HasShadow="False"
+                   CornerRadius="4"
+                   BackgroundColor="{Binding EntryBackgroundColor}"
+                   Padding="12, 0, 15, 0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="{Binding EntryColumnSpan}">
+
+                <StackLayout Orientation="Horizontal">
+
+                    <!--ENTRY-->
+                    <controls:CustomEntry BindingContext="{x:Reference Name=CustomSearchBar}"
+                                          HorizontalOptions="FillAndExpand"
+                                          FontFamily="{Binding EntryFont}"
+                                          FontSize="{Binding EntryFontSize}"
+                                          TextColor="{Binding EntryTextColor}"
+                                          Placeholder="{Binding EntryPlaceholder}"
+                                          PlaceholderColor="{Binding EntryPlaceholderColor}"
+                                          Text="{Binding EntryText}"
+                                          Grid.Column="0"
+                                          Focused="CustomEntry_Focused"/>
+
+                    <!--ENTRY BUTTON-->
+                    <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                                 HorizontalOptions="End"
+                                 Source="{Binding ClearButtonImage}"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="1"
+                                 IsVisible="{Binding IsClearButtonVisible}"
+                                 Clicked="ClearButton_Clicked"/>
+
+                </StackLayout>
+
+            </Frame>
+
+            <!--RIGHT BUTTON-->
+            <ImageButton BindingContext="{x:Reference Name=CustomSearchBar}"
+                         Source="{Binding RightButtonImage}"
+                         Padding="3"
+                         BackgroundColor="Transparent"
+                         Grid.Column="2"
+                         IsVisible="{Binding IsRightButtonVisible}"
+                         Command="{Binding RightButtonClickCommand}"/>
+
+        </Grid>
+        
+    </Frame>
+    
+</StackLayout>

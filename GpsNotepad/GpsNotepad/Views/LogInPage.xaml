@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:customFrames="clr-namespace:GpsNotepad.Controls.Views"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="GpsNotepad.Views.LogInPage"
+                       NavigationPage.HasNavigationBar="False"
+                       Style="{StaticResource PageBackgroundStyle}">
+
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <!--NAVBAR-->
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="54">
+
+                <Grid ColumnDefinitions="*" 
+                      HorizontalOptions="FillAndExpand">
+
+                    <ImageButton Source="ic_left_blue.png"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="0"
+                                 HorizontalOptions="Start"
+                                 Padding="10, 0"
+                                 Scale="1.2"
+                                 Command="{Binding GoBackTapCommand}"/>
+
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Resource[LogIn]}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                </Grid>
+
+            </StackLayout>
+
+            <StackLayout Padding="16, 10">
+
+                <!--EMAIL-->
+                <customFrames:CustomEntryFrame Style="{StaticResource EntryStyle}"
+                              SubtitleText="{Binding Resource[Email]}"
+                              EntryPlaceholder="{Binding Resource[EmailPlaceholder]}"
+                              ButtonImage="ic_clear.png"
+                              EntryText="{Binding Email}"
+                              WrongText="{Binding EmailWrongText}"
+                              ClickCommand="{Binding EmailClearTapCommand}"/>
+
+                <!--PASSWORD-->
+                <customFrames:CustomEntryFrame Style="{StaticResource PasswordEntryStyle}"
+                              SubtitleText="{Binding Resource[Password]}"
+                              EntryPlaceholder="{Binding Resource[PasswordPlaceholder]}"
+                              IsEntryPassword="{Binding IsPassword}"
+                              EntryText="{Binding Password}"
+                              WrongText="{Binding PasswordWrongText}"    
+                              ClickCommand="{Binding PasswordVisibleTapCommand}"/>
+
+                <!--LOG IN BUTTON-->
+                <Button Style="{StaticResource ButtonStyle}"
+                        Text="{Binding Resource[LogIn]}"
+                        Margin="0, 18, 0, 0"
+                        Command="{Binding LogInTapCommand}"
+                        IsEnabled="{Binding IsButtonEnable}"/>
+
+                <!--SEPARATOR-->
+                <Grid ColumnDefinitions="*"
+                      Padding="0, 14">
+
+                    <BoxView Style="{StaticResource SeparatorStyle}"
+                             Grid.Column="0"
+                             VerticalOptions="Center"/>
+
+                    <Label Style="{StaticResource SeparatorTextStyle}"
+                           Text="{Binding Resource[Or]}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"/>
+
+                </Grid>
+
+                <!--ALTERNATIVE LOG IN BUTTONS-->
+                <Grid ColumnDefinitions="*"
+                      ColumnSpacing="15">
+
+                    <Button Style="{StaticResource AlternativeLogInButtonStyle}"
+                            ImageSource="ic_google.png"
+                            Grid.Column="0"
+                            IsEnabled="False"/>
+
+                    <Button Style="{StaticResource AlternativeLogInButtonStyle}"
+                            ImageSource="ic_facebook.png"
+                            Grid.Column="1"
+                            Command="{Binding LogInWithFacebookTapCommand}"/>
+
+                    <Button Style="{StaticResource AlternativeLogInButtonStyle}"
+                            ImageSource="{AppThemeBinding Light=ic_apple.png,
+                                                      Dark=ic_apple_dark.png}"
+                            Grid.Column="2"
+                            IsEnabled="False"/>
+
+                </Grid>
+
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</views:BaseContentPage>
