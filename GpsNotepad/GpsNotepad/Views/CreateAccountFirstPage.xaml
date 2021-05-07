@@ -39,21 +39,21 @@
 
                 <!--NAME-->
                 <local:CustomEntryFrame Style="{StaticResource EntryStyle}"
-                                   SubtitleText="{Binding Resource[Name]}"
-                                   EntryPlaceholder="{Binding Resource[NamePlaceholder]}"
-                                   ButtonImage="ic_clear.png"
-                                   EntryText="{Binding Name}"
-                                   WrongText="{Binding NameWrongText}"
-                                   ClickCommand="{Binding NameClearTapCommand}"/>
+                                        SubtitleText="{Binding Resource[Name]}"
+                                        EntryPlaceholder="{Binding Resource[NamePlaceholder]}"
+                                        ButtonImage="ic_clear.png"
+                                        EntryText="{Binding Name}"
+                                        WrongText="{Binding NameWrongText}"
+                                        ClickCommand="{Binding NameClearTapCommand}"/>
 
                 <!--EMAIL-->
                 <local:CustomEntryFrame Style="{StaticResource EntryStyle}"
-                                   SubtitleText="{Binding Resource[Email]}"
-                                   EntryPlaceholder="{Binding Resource[EmailPlaceholder]}"
-                                   ButtonImage="ic_clear.png"
-                                   EntryText="{Binding Email}"
-                                   WrongText="{Binding EmailWrongText}"
-                                   ClickCommand="{Binding EmailClearTapCommand}"/>
+                                        SubtitleText="{Binding Resource[Email]}"
+                                        EntryPlaceholder="{Binding Resource[EmailPlaceholder]}"
+                                        ButtonImage="ic_clear.png"
+                                        EntryText="{Binding Email}"
+                                        WrongText="{Binding EmailWrongText}"
+                                        ClickCommand="{Binding EmailClearTapCommand}"/>
 
                 <!--NEXT BUTTON-->
                 <Button Style="{StaticResource ButtonStyle}"

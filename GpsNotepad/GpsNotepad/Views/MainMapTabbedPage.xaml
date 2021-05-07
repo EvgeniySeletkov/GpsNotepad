@@ -8,11 +8,12 @@
                      NavigationPage.HasNavigationBar="False"
                      android:TabbedPage.ToolbarPlacement="Bottom"
                      android:TabbedPage.IsSwipePagingEnabled="False"
-                     
                      Style="{StaticResource TabbedPageStyle}">
 
     <TabbedPage.Behaviors>
+        
         <behaviors:TabbedPageNavigationBehavior />
+        
     </TabbedPage.Behaviors>
 
     <TabbedPage.Children>

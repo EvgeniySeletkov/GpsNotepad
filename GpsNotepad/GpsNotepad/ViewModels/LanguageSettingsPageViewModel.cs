@@ -17,7 +17,6 @@ namespace GpsNotepad.ViewModels
         #region --- Public properties ---
 
         private object _selectedLanguage;
-
         public object SelectedLanguage
         {
             get => _selectedLanguage;

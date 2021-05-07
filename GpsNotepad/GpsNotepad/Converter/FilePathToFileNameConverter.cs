@@ -6,6 +6,7 @@ namespace GpsNotepad.Converter
 {
     class FilePathToFileNameConverter : IValueConverter
     {
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return System.IO.Path.GetFileName((string)value);
@@ -15,5 +16,6 @@ namespace GpsNotepad.Converter
         {
             return value;
         }
+
     }
 }

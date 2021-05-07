@@ -14,7 +14,6 @@ namespace GpsNotepad.Services.Permission
                 status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
             }
 
-
             return status;
         }
     }

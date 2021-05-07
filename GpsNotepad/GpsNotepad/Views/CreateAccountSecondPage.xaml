@@ -39,21 +39,21 @@
 
                 <!--PASSWORD-->
                 <local:CustomEntryFrame Style="{StaticResource PasswordEntryStyle}"
-                                   SubtitleText="{Binding Resource[Password]}"
-                                   EntryPlaceholder="{Binding Resource[CreatePasswordPlaceholder]}"
-                                   IsEntryPassword="{Binding IsPassword}"
-                                   EntryText="{Binding Password}"
-                                   WrongText="{Binding PasswordWrongText}"
-                                   ClickCommand="{Binding PasswordVisibleTapCommand}"/>
+                                        SubtitleText="{Binding Resource[Password]}"
+                                        EntryPlaceholder="{Binding Resource[CreatePasswordPlaceholder]}"
+                                        IsEntryPassword="{Binding IsPassword}"
+                                        EntryText="{Binding Password}"
+                                        WrongText="{Binding PasswordWrongText}"
+                                        ClickCommand="{Binding PasswordVisibleTapCommand}"/>
 
                 <!--CONFIRM PASSWORD-->
                 <local:CustomEntryFrame Style="{StaticResource PasswordEntryStyle}"
-                                   SubtitleText="{Binding Resource[ConfirmPassword]}"
-                                   EntryPlaceholder="{Binding Resource[RepeatPasswordPlaceholder]}"
-                                   IsEntryPassword="{Binding IsConfirmPassword}"
-                                   EntryText="{Binding ConfirmPassword}"
-                                   WrongText="{Binding ConfirmPasswordWrongText}"
-                                   ClickCommand="{Binding ConfirmPasswordVisibleTapCommand}"/>
+                                        SubtitleText="{Binding Resource[ConfirmPassword]}"
+                                        EntryPlaceholder="{Binding Resource[RepeatPasswordPlaceholder]}"
+                                        IsEntryPassword="{Binding IsConfirmPassword}"
+                                        EntryText="{Binding ConfirmPassword}"
+                                        WrongText="{Binding ConfirmPasswordWrongText}"
+                                        ClickCommand="{Binding ConfirmPasswordVisibleTapCommand}"/>
 
                 <!--CREATE ACCOUNT BUTTON-->
                 <Button Style="{StaticResource ButtonStyle}"
@@ -81,20 +81,20 @@
                 <Grid ColumnDefinitions="*">
 
                     <Button Style="{StaticResource AlternativeLogInButtonStyle}"
-                        ImageSource="ic_google.png"
-                        Grid.Column="0"
-                        IsEnabled="False"/>
+                            ImageSource="ic_google.png"
+                            Grid.Column="0"
+                            IsEnabled="False"/>
 
                     <Button Style="{StaticResource AlternativeLogInButtonStyle}"
-                        ImageSource="ic_facebook.png"
-                        Grid.Column="1"
-                        Command="{Binding LogInWithFacebookTapCommand}"/>
+                            ImageSource="ic_facebook.png"
+                            Grid.Column="1"
+                            Command="{Binding LogInWithFacebookTapCommand}"/>
 
                     <Button Style="{StaticResource AlternativeLogInButtonStyle}"
-                        ImageSource="{AppThemeBinding Light=ic_apple.png,
-                                                      Dark=ic_apple_dark.png}"
-                        Grid.Column="2"
-                        IsEnabled="False"/>
+                            ImageSource="{AppThemeBinding Light=ic_apple.png,
+                                                          Dark=ic_apple_dark.png}"
+                            Grid.Column="2"
+                            IsEnabled="False"/>
 
                 </Grid>
 

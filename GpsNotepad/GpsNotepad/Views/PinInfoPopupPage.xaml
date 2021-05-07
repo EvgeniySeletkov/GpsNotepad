@@ -27,7 +27,6 @@
             </StackLayout.GestureRecognizers>
 
             <StackLayout Style="{StaticResource PopupPageContentStyle}"
-                         
                          VerticalOptions="EndAndExpand" 
                          HorizontalOptions="FillAndExpand">
 
