@@ -121,7 +121,8 @@
 
                 <!--PHOTO LIST-->
                 <ListView HeightRequest="{Binding PinImageListHeight}"
-                          ItemsSource="{Binding PinImageList}">
+                          ItemsSource="{Binding PinImageList}"
+                          SeparatorVisibility="None">
 
                     <ListView.ItemTemplate>
 
