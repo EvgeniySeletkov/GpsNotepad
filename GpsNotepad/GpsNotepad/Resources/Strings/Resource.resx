@@ -207,6 +207,9 @@
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
   </data>
+  <data name="LogOutAlert" xml:space="preserve">
+    <value>Do you want to log out?</value>
+  </data>
   <data name="Longitude" xml:space="preserve">
     <value>Longitude</value>
   </data>
@@ -224,6 +227,9 @@
   </data>
   <data name="NextButton" xml:space="preserve">
     <value>Next</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
   </data>
   <data name="NotUniqueLabel" xml:space="preserve">
     <value>Label must be unique</value>
@@ -260,5 +266,8 @@
   </data>
   <data name="Untitled pin" xml:space="preserve">
     <value>Untitled pin</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

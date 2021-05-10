@@ -207,6 +207,9 @@
   <data name="LogIn" xml:space="preserve">
     <value>Вход</value>
   </data>
+  <data name="LogOutAlert" xml:space="preserve">
+    <value>Вы хотите выйти?</value>
+  </data>
   <data name="Longitude" xml:space="preserve">
     <value>Долгота</value>
   </data>
@@ -224,6 +227,9 @@
   </data>
   <data name="NextButton" xml:space="preserve">
     <value>Далее</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
   </data>
   <data name="NotUniqueLabel" xml:space="preserve">
     <value>Ярлык должен быть уникальным</value>
@@ -257,5 +263,8 @@
   </data>
   <data name="Untitled pin" xml:space="preserve">
     <value>Безымянная метка</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
   </data>
 </root>

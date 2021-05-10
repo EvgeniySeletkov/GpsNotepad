@@ -1,4 +1,5 @@
-﻿using GpsNotepad.Extensions;
+﻿using Acr.UserDialogs;
+using GpsNotepad.Extensions;
 using GpsNotepad.Models.Pin;
 using GpsNotepad.Services.Authorization;
 using GpsNotepad.Services.Localization;
@@ -146,8 +147,17 @@ namespace GpsNotepad.ViewModels
 
         private async void OnLogOutTapAsync()
         {
-            _authorizationService.LogOut();
-            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}");
+            var isLogOut = await UserDialogs.Instance.ConfirmAsync(
+                message: Resource["LogOutAlert"],
+                title: Resource["Alert"],
+                okText: Resource["Yes"],
+                cancelText: Resource["No"]);
+
+            if (isLogOut)
+            {
+                _authorizationService.LogOut();
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(WelcomePage)}");
+            }
         }
 
         private async void OnPinVisibleChangeTapAsync(PinViewModel pinViewModel)

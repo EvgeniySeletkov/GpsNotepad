@@ -53,6 +53,8 @@
 	<string>Can we use your location when your application is being used?</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Can we use your location at all times?</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access to the camera.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
