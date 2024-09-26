@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:local="clr-namespace:GpsNotepad.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GpsNotepad.Controls.Views.CustomEntryFrame"
+             x:Name="CustomEntry">
+
+    <!--SUBTITLE-->
+    <Label BindingContext="{x:Reference Name=CustomEntry}"
+           Padding="16, 5, 0, 0"
+           FontSize="{Binding SubtitleFontSize}"
+           FontFamily="{Binding SubtitleFont}"
+           TextColor="{Binding SubtitleTextColor}"
+           Text="{Binding SubtitleText}"
+           IsVisible="{Binding IsSubtitleVisible}"/>
+    
+    <!--FRAME-->
+    <Frame BindingContext="{x:Reference Name=CustomEntry}"
+           CornerRadius="3"
+           HasShadow="False"
+           Padding="12, 0, 15, 0"
+           BorderColor="{Binding EntryBorderColor}"
+           BackgroundColor="{Binding EntryBackgoundColor}">
+
+        <StackLayout Orientation="Horizontal">
+
+            <!--ENTRY-->
+            <local:CustomEntry BindingContext="{x:Reference Name=CustomEntry}"
+                               HeightRequest="50"
+                               HorizontalOptions="FillAndExpand"
+                               FontSize="{Binding EntryFontSize}"
+                               FontFamily="{Binding EntryFont}"
+                               PlaceholderColor="{Binding EntryPlaceholderColor}"
+                               Placeholder="{Binding EntryPlaceholder}"
+                               TextColor="{Binding EntryTextColor}"
+                               Keyboard="{Binding EntryKeyboard}"
+                               Text="{Binding EntryText}"
+                               IsPassword="{Binding IsEntryPassword}"
+                               MaxLength="100"/>
+
+            <!--ENTRY BUTTON-->
+            <ImageButton BindingContext="{x:Reference Name=CustomEntry}"
+                         HorizontalOptions="End"
+                         Source="{Binding ButtonImage}"
+                         IsVisible="{Binding IsButtonVisible}"
+                         Command="{Binding ClickCommand}"
+                         BackgroundColor="Transparent"/>
+
+        </StackLayout>
+
+    </Frame>
+    
+    <!--WRONG LABEL-->
+    <Label BindingContext="{x:Reference Name=CustomEntry}"
+           Padding="16, 0"
+           FontSize="{Binding WrongFontSize}"
+           FontFamily="{Binding WrongFont}"
+           TextColor="{Binding WrongColor}"
+           Text="{Binding WrongText}"/>
+    
+
+</StackLayout>

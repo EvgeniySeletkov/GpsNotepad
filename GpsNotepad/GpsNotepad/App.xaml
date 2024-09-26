@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns:views="clr-namespace:GpsNotepad.Views"
+                        xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+                        xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+                        xmlns:local="clr-namespace:GpsNotepad.Controls.Views"
+                        x:Class="GpsNotepad.App">
+    <prism:PrismApplication.Resources>
+        
+        <!--COLORS-->
+        
+        <!--Light/Primary-->
+        <Color x:Key="LightPrimary">#596EFB</Color>
+        <Color x:Key="LightDisabled">#C7CDF5</Color>
+        <Color x:Key="LightHoveredAndFocused">#273BC6</Color>
+        <Color x:Key="LightPressed">#192680</Color>
+        <Color x:Key="LightVariant">#F1F3FD</Color>
+        
+        <!--Dark/Primary-->
+        <Color x:Key="DarkPrimary">#7485FB</Color>
+        <Color x:Key="DarkDisabled">#3D4475</Color>
+        <Color x:Key="DarkHoveredAndFocused">#5F73FA</Color>
+        <Color x:Key="DarkPressed">#3953FE</Color>
+        <Color x:Key="DarkVariant">#33374E</Color>
+
+        <!--Text&Background-->
+        <Color x:Key="SystemWhite">#FEFEFD</Color>
+        <Color x:Key="SystemLightGray">#D7DDE8</Color>
+        <Color x:Key="SystemGray">#858E9E</Color>
+        <Color x:Key="SystemDarkGray">#3D4E61</Color>
+        <Color x:Key="SystemBlack">#1E242B</Color>
+        
+        <!--Indications-->
+        <Color x:Key="LightError">#F24545</Color>
+        <Color x:Key="DarkError">#FA545F</Color>
+        <Color x:Key="LightConfirm">#F6EA62</Color>
+        <Color x:Key="DarkConfirm">#F8FD4D</Color>
+        <Color x:Key="LightSuccess">#32D27F</Color>
+        <Color x:Key="DarkSuccess">#00FFB1</Color>
+        
+        
+
+        <!--STYLES-->
+
+        <!--Page Styles-->
+        <Style x:Key="PageBackgroundStyle" 
+               TargetType="ContentPage">
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
+                                            Dark={StaticResource SystemBlack}}"/>
+
+        </Style>
+
+        <Style x:Key="TabbedPageStyle" 
+               TargetType="views:BaseTabbedPage">
+
+            <Setter Property="SelectedTabFillColor"
+                    Value="{AppThemeBinding Light={StaticResource LightVariant},
+                                            Dark={StaticResource DarkVariant}}"/>
+
+            <Setter Property="BarBackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite},
+                                            Dark={StaticResource SystemBlack}}"/>
+
+            <Setter Property="UnselectedTabColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+        </Style>
+
+        <Style x:Key="PopupPageContentStyle" 
+               TargetType="StackLayout">
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite},
+                                            Dark={StaticResource SystemBlack}}"/>
+
+        </Style>
+
+        <!--Labels styles-->
+        <Style x:Key="PicEnterPageLabelStyle" 
+               TargetType="Label">
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+        </Style>
+        
+        <Style x:Key="TitleStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-SemiBold"/>
+
+            <Setter Property="FontSize"
+                    Value="20"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="SubtitleStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="15"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinInfoStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Regular"/>
+
+            <Setter Property="FontSize"
+                    Value="16"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinCoordinatesStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Regular"/>
+
+            <Setter Property="FontSize" 
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinDescriptionStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Regular"/>
+
+            <Setter Property="FontSize" 
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="SettingsSubtitleStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Regular"/>
+
+            <Setter Property="FontSize"
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PhotoNumberLabelStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="15"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <!--Buttons styles-->
+        <Style x:Key="ButtonStyle" 
+               TargetType="Button">
+
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+            <Setter Property="CornerRadius"
+                    Value="1"/>
+
+            <Setter Property="TextTransform"
+                    Value="None"/>
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-SemiBold"/>
+
+            <Setter Property="FontSize"
+                    Value="16"/>
+
+            <Setter Property="TextColor"
+                    Value="{StaticResource SystemWhite}" />
+
+        </Style>
+
+        <Style x:Key="ButtonWithBorderStyle" 
+               TargetType="Button"
+               BasedOn="{StaticResource ButtonStyle}">
+
+            <Setter Property="BorderWidth"
+                    Value="1"/>
+
+            <Setter Property="BorderColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="Transparent"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+        </Style>
+
+        <Style x:Key="AlternativeLogInButtonStyle" 
+               TargetType="Button">
+
+            <Setter Property="CornerRadius"
+                    Value="2"/>
+
+            <Setter Property="BorderWidth"
+                    Value="1"/>
+
+            <Setter Property="BorderColor"
+                    Value="{StaticResource SystemLightGray}"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="Transparent"/>
+
+        </Style>
+
+        <Style x:Key="IsFavouriteButtonStyle" 
+               TargetType="ImageButton">
+
+            <Setter Property="HeightRequest"
+                    Value="50"/>
+
+            <Setter Property="WidthRequest"
+                    Value="50"/>
+
+            <Setter Property="CornerRadius"
+                    Value="6"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource LightVariant},
+                                            Dark={StaticResource DarkVariant}}"/>
+
+        </Style>
+
+        <Style x:Key="DeleteButtonStyle"
+               TargetType="SwipeItemView">
+
+            <Setter Property="WidthRequest"
+                    Value="65"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource LightError},
+                                            Dark={StaticResource DarkError}}"/>
+
+        </Style>
+
+        <Style x:Key="EditButtonStyle"
+               TargetType="SwipeItemView">
+
+            <Setter Property="WidthRequest"
+                    Value="65"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+        </Style>
+
+        <Style x:Key="AddButtonStyle" 
+               TargetType="ImageButton">
+
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}" />
+
+        </Style>
+
+        <Style x:Key="RadioButtonStyle"
+               TargetType="input:RadioButton">
+
+            <Setter Property="CircleColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemGray},
+                                            Dark={StaticResource SystemLightGray}}"/>
+
+            <Setter Property="Color"
+                    Value="{AppThemeBinding Light={StaticResource LightPrimary},
+                                            Dark={StaticResource DarkPrimary}}"/>
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Regular"/>
+
+            <Setter Property="TextFontSize"
+                    Value="18"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <!--Entries styles-->
+        <Style x:Key="EntryStyle" 
+               TargetType="local:CustomEntryFrame">
+
+            <Setter Property="SubtitleFont"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="SubtitleFontSize"
+                    Value="14"/>
+
+            <Setter Property="SubtitleTextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+            <Setter Property="EntryNormalBorderColor"
+                    Value="{StaticResource SystemLightGray}"/>
+
+            <Setter Property="EntryBackgoundColor"
+                    Value="Transparent"/>
+
+            <Setter Property="EntryFont"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="EntryFontSize"
+                    Value="16"/>
+
+            <Setter Property="EntryPlaceholderColor"
+                    Value="{StaticResource SystemGray}"/>
+
+            <Setter Property="EntryTextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+            <Setter Property="WrongFont"
+                    Value="Montserrat-SemiBold"/>
+
+            <Setter Property="WrongFontSize"
+                    Value="12"/>
+
+            <Setter Property="WrongColor"
+                    Value="{AppThemeBinding Light={StaticResource LightError},
+                                            Dark={StaticResource DarkError}}"/>
+
+        </Style>
+
+        <Style x:Key="PasswordEntryStyle" 
+               TargetType="local:CustomEntryFrame" 
+               BasedOn="{StaticResource EntryStyle}">
+
+            <Style.Triggers>
+
+                <Trigger Property="local:CustomEntryFrame.IsEntryPassword" 
+                         Value="True" 
+                         TargetType="local:CustomEntryFrame">
+                    
+                    <Setter Property="ButtonImage" Value="ic_eye_off.png" />
+
+
+                </Trigger>
+
+                <Trigger Property="local:CustomEntryFrame.IsEntryPassword" 
+                         Value="False" 
+                         TargetType="local:CustomEntryFrame">
+                    
+                    <Setter Property="ButtonImage" Value="ic_eye.png" />
+
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+        <Style x:Key="SearchBarStyle" TargetType="local:CustomSearchBarFrame">
+
+            <Setter Property="EntryBackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource LightVariant},
+                                            Dark={StaticResource DarkVariant}}"/>
+
+            <Setter Property="EntryFont"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="EntryFontSize"
+                    Value="16"/>
+
+            <Setter Property="EntryPlaceholderColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemGray},
+                                            Dark={StaticResource SystemLightGray}}"/>
+
+            <Setter Property="EntryTextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <!--Separator styles-->
+        <Style x:Key="SeparatorStyle" 
+               TargetType="BoxView">
+
+            <Setter Property="HeightRequest"
+                    Value="1"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemLightGray}, 
+                                            Dark={StaticResource SystemGray}}"/>
+
+        </Style>
+
+        <Style x:Key="SeparatorTextStyle" 
+               TargetType="Label">
+
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemWhite}, 
+                                            Dark={StaticResource SystemBlack}}"/>
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="16"/>
+
+            <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Light={StaticResource SystemLightGray}, 
+                                            Dark={StaticResource SystemGray}}"/>
+
+        </Style>
+
+        <Style x:Key="PinSeparatorStyle" 
+               TargetType="BoxView">
+
+            <Setter Property="HeightRequest"
+                    Value="1"/>
+
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource LightVariant}, 
+                                            Dark={StaticResource DarkVariant}}"/>
+
+        </Style>
+        
+        <!--Pin List Styles-->
+        <Style x:Key="PinSearchListSubtitleStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinListSubtitleStyle"
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Medium"/>
+
+            <Setter Property="FontSize" 
+                    Value="16"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemBlack},
+                                            Dark={StaticResource SystemWhite}}"/>
+
+        </Style>
+
+        <Style x:Key="PinListInfoStyle" 
+               TargetType="Label">
+
+            <Setter Property="FontFamily"
+                    Value="Montserrat-Regular"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource SystemDarkGray},
+                                            Dark={StaticResource SystemLightGray}}"/>
+
+        </Style>
+
+        <!--Icons styles-->
+        <Style x:Key="PinIconStyle"
+               TargetType="Image">
+
+            <Setter Property="Source"
+                    Value="{AppThemeBinding Light=ic_pin_gray.png,
+                                            Dark=ic_pin.png}"/>
+
+        </Style>
+
+    </prism:PrismApplication.Resources>
+    
+</prism:PrismApplication>

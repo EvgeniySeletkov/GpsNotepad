@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="GpsNotepad.Views.LanguageSettingsPage"
+                       NavigationPage.HasNavigationBar="False"
+                       Style="{StaticResource PageBackgroundStyle}">
+
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <!--NAVBAR-->
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="54">
+
+                <Grid ColumnDefinitions="*" 
+                      HorizontalOptions="FillAndExpand">
+
+                    <ImageButton Source="ic_left_blue.png"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="0"
+                                 HorizontalOptions="Start"
+                                 Command="{Binding GoBackTapCommand}"/>
+
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Resource[Language]}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                </Grid>
+
+            </StackLayout>
+
+            <!--SEPARATOR-->
+            <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+            <input:RadioButtonGroupView SelectedItem="{Binding SelectedLanguage}">
+
+                <!--ENGLISH-->
+                <input:RadioButton Style="{StaticResource RadioButtonStyle}"
+                                   Text="{Binding Resource[English]}"
+                                   Value="en"
+                                   Padding="16, 18"
+                                   ClickCommand="{Binding EnglishLanguageTapCommand}"/>
+
+                <!--SEPARATOR-->
+                <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+                <!--RUSSIAN-->
+                <input:RadioButton Style="{StaticResource RadioButtonStyle}"
+                                   Text="{Binding Resource[Russian]}" 
+                                   Value="ru"
+                                   Padding="16, 18"
+                                   ClickCommand="{Binding RussianLanguageTapCommand}"/>
+
+                <!--SEPARATOR-->
+                <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+            </input:RadioButtonGroupView>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</views:BaseContentPage>

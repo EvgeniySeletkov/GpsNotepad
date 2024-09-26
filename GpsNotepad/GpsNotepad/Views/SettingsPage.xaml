@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:views="clr-namespace:GpsNotepad.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="GpsNotepad.Views.SettingsPage"
+                       NavigationPage.HasNavigationBar="False"
+                       Style="{StaticResource PageBackgroundStyle}">
+
+    <ContentPage.Content>
+
+        <StackLayout>
+            
+            <!--NAVBAR-->
+            <StackLayout Orientation="Horizontal"
+                         HeightRequest="54">
+
+                <Grid ColumnDefinitions="*" 
+                      HorizontalOptions="FillAndExpand">
+
+                    <ImageButton Source="ic_left_blue.png"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="0"
+                                 HorizontalOptions="Start"
+                                 Padding="10, 0"
+                                 Scale="1.2"
+                                 Command="{Binding GoBackTapCommand}"/>
+
+                    <Label Style="{StaticResource TitleStyle}"
+                           Text="{Binding Resource[SettingsPageTitle]}"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                </Grid>
+
+            </StackLayout>
+
+            <!--SEPARATOR-->
+            <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+            <StackLayout>
+
+                <!--DARK THEME-->
+                <StackLayout Padding="16, 18" Orientation="Horizontal">
+
+                    <Label Style="{StaticResource SettingsSubtitleStyle}"
+                           Text="{Binding Resource[DarkTheme]}"
+                           VerticalOptions="Center"/>
+
+                    <Switch ThumbColor="{DynamicResource SystemWhite}"
+                            OnColor="{DynamicResource LightPrimary}"
+                            HorizontalOptions="EndAndExpand"
+                            IsToggled="{Binding DarkTheme}"/>
+
+                </StackLayout>
+
+                <!--SEPARATOR-->
+                <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+                <!--LANGUAGE-->
+                <StackLayout Padding="16, 18" Orientation="Horizontal">
+
+                    <Label Style="{StaticResource SettingsSubtitleStyle}"
+                           Text="{Binding Resource[Language]}"
+                           VerticalOptions="Center"/>
+
+                    <ImageButton BackgroundColor="Transparent"
+                                 Source="ic_left_gray.png"
+                                 HorizontalOptions="EndAndExpand"
+                                 Scale="1.2"
+                                 Command="{Binding OpenLanguageSettingsTapCommand}"/>
+
+                </StackLayout>
+
+                <!--SEPARATOR-->
+                <BoxView Style="{StaticResource PinSeparatorStyle}"/>
+
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</views:BaseContentPage>
